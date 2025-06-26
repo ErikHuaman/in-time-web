@@ -1,0 +1,493 @@
+<div class="flex flex-col h-full">
+  <div class="flex flex-col justify-center gap-4 px-6 py-4">
+    <div class="flex justify-between items-center gap-4">
+      <title-card [title]="title" [icon]="icon" />
+      <!-- <p-button
+        severity="danger"
+        size="small"
+        [routerLink]="'/ajustes/configuracion'"
+      >
+        <div class="flex justify-center items-center font-medium gap-1">
+          <i
+            class="iconify icon text-lg"
+            data-icon="uil:left-arrow-from-left"
+            data-inline="false"
+          ></i>
+          <span>Configuración</span>
+        </div>
+      </p-button> -->
+    </div>
+  </div>
+  <div class="flex flex-col px-6">
+    <p-tabs value="0">
+      <p-tablist>
+        <p-tab value="0">Trabajadores Oficiales</p-tab>
+        <p-tab value="1">Descanseros</p-tab>
+      </p-tablist>
+      <p-tabpanels>
+        <p-tabpanel value="0">
+          <div class="flex flex-col gap-6">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <p-multiselect
+                  [options]="listaSedes"
+                  [(ngModel)]="selectedSedes"
+                  optionLabel="nombre"
+                  optionValue="id"
+                  placeholder="Edificios"
+                  [maxSelectedLabels]="2"
+                  (onChange)="filtrar($event.value)"
+                  styleClass="w-42"
+                  pTooltip="Edificios"
+                  tooltipPosition="top"
+                  tooltipStyleClass="text-sm"
+                />
+                <p-multiselect
+                  [options]="listaCargos"
+                  [(ngModel)]="selectedCargos"
+                  optionLabel="nombre"
+                  optionValue="id"
+                  placeholder="Cargos"
+                  [maxSelectedLabels]="2"
+                  (onChange)="filtrar($event.value)"
+                  styleClass="w-42"
+                  pTooltip="Cargos"
+                  tooltipPosition="top"
+                  tooltipStyleClass="text-sm"
+                />
+                <p-iconfield>
+                  <p-inputicon styleClass="pi pi-search" />
+                  <input
+                    type="text"
+                    pInputText
+                    placeholder="Buscar"
+                    (input)="filterGlobal(dt1, $event.target)"
+                  />
+                </p-iconfield>
+              </div>
+              <div class="flex items-center gap-3">
+                <!-- <p-button severity="info" size="small">
+                  <div
+                    class="flex justify-center items-center font-medium gap-1"
+                  >
+                    <i
+                      class="iconify icon text-lg"
+                      data-icon="material-symbols:download-rounded"
+                      data-inline="false"
+                    ></i>
+                    <div>XLS</div>
+                  </div>
+                </p-button> -->
+                <p-button severity="info" size="small" (click)="addNew()">
+                  <div
+                    class="flex justify-center items-center font-medium gap-1"
+                  >
+                    <i
+                      class="iconify icon text-lg"
+                      data-icon="material-symbols:add-rounded"
+                      data-inline="false"
+                    ></i>
+                    <div>AGREGAR</div>
+                  </div>
+                </p-button>
+              </div>
+            </div>
+            <div class="flex flex-col h-[calc(100% - 8.5rem)]">
+              <p-table
+                #dt1
+                dataKey="id"
+                [value]="dataTable"
+                [columns]="cols"
+                [exportHeader]="'customExportHeader'"
+                stripedRows
+                [scrollable]="true"
+                scrollHeight="720px"
+                styleClass="w-full"
+                [globalFilterFields]="['nombre', 'apellido']"
+              >
+                <ng-template #header let-columns>
+                  <tr>
+                    <th
+                      *ngFor="let col of columns"
+                      [ngClass]="[col.widthClass ? col.widthClass : '']"
+                    >
+                      <div
+                        [ngClass]="[
+                          'text-xs uppercase',
+                          col.align ? 'text-' + col.align : 'text-start'
+                        ]"
+                      >
+                        {{ col.header }}
+                      </div>
+                    </th>
+                  </tr>
+                </ng-template>
+                <ng-template #body let-item let-i="rowIndex">
+                  <tr>
+                    <!-- <td>
+                    <div class="text-center text-sm">{{ i + 1 }}</div>
+                  </td> -->
+                    <td>
+                      <div class="text-start text-sm">
+                        {{ item.trabajador.nombre }}
+                      </div>
+                    </td>
+                    <td>
+                      <div class="text-start text-sm">
+                        {{ item.trabajador.apellido }}
+                      </div>
+                    </td>
+                    <td>
+                      <div class="text-center text-sm">
+                        {{ item.trabajador.contratos[0]?.cargo?.nombre }}
+                      </div>
+                    </td>
+                    @for (dia of getDias(item.items); track $index) {
+                    <td class="!text-center !text-sm">
+                      <div
+                        class="flex flex-col justify-center items-center gap-2"
+                      >
+                        @for (turno of getTurnos(item.items); track $index) {
+                        <div
+                          [ngClass]="[
+                            'w-24 h-12 rounded-xl border flex flex-col items-center justify-center text-sm py-1.5',
+                            !item.items.bloque
+                              ? getHorario(item.items, dia, turno)?.diaLibre
+                                ? 'bg-slate-50 border-slate-500 text-slate-700'
+                                : 'bg-orange-50 border-orange-500 text-orange-700'
+                              : ''
+                          ]"
+                          [style.background]="
+                            getHorario(item.items, dia, turno)?.bloque?.bgColor
+                          "
+                          [style.borderColor]="
+                            getHorario(item.items, dia, turno)?.bloque
+                              ?.borderColor
+                          "
+                          [style.color]="
+                            getHorario(item.items, dia, turno)?.bloque
+                              ?.textColor
+                          "
+                        >
+                          <ng-container
+                            *ngIf="
+                              getHorario(item.items, dia, turno)?.bloque;
+                              else elseTemplate
+                            "
+                          >
+                            <div
+                              class="h-4 flex items-center justify-center gap-1"
+                            >
+                              <span>
+                                {{
+                                  getHorario(item.items, dia, turno)?.bloque
+                                    ?.horaEntrada | number : "2.0-0"
+                                }}:{{
+                                  getHorario(item.items, dia, turno)?.bloque
+                                    ?.minutoEntrada | number : "2.0-0"
+                                }}
+                              </span>
+                              <span
+                                class="w-[1px] h-full"
+                                [style.background]="
+                                  getHorario(item.items, dia, turno)?.bloque
+                                    ?.textColor
+                                "
+                              ></span>
+                              <span>
+                                {{
+                                  getHorario(item.items, dia, turno)?.bloque
+                                    ?.horaSalida | number : "2.0-0"
+                                }}:{{
+                                  getHorario(item.items, dia, turno)?.bloque
+                                    ?.minutoSalida | number : "2.0-0"
+                                }}
+                              </span>
+                            </div>
+                            <p
+                              *ngIf="getHorario(item.items, dia, turno)?.id"
+                              class="h-4 w-18 truncate text-xs"
+                            >
+                              {{
+                                getHorario(item.items, dia, turno)?.sede?.nombre
+                              }}
+                            </p>
+                          </ng-container>
+                          <ng-template #elseTemplate>
+                            {{
+                              getHorario(item.items, dia, turno)?.diaLibre
+                                ? "Libre"
+                                : getHorario(item.items, dia, turno)
+                                    ?.diaDescanso
+                                ? "Descanso"
+                                : "Indefinido"
+                            }}
+                          </ng-template>
+                        </div>
+                        }
+                      </div>
+                    </td>
+                    }
+                  </tr>
+                </ng-template>
+                <ng-template #emptymessage>
+                  <ng-container *ngIf="loadingTable; else elseTemplate">
+                    @for (item of [].constructor(4); track $index) {
+                    <tr class="h-12">
+                      <td *ngFor="let col of cols; let even = even">
+                        <p-skeleton />
+                      </td>
+                    </tr>
+                    }
+                  </ng-container>
+                  <ng-template #elseTemplate>
+                    <tr>
+                      <td colspan="100">
+                        <div class="text-center text-sm font-extralight">
+                          No se encontraron registros.
+                        </div>
+                      </td>
+                    </tr>
+                  </ng-template>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+        </p-tabpanel>
+        <p-tabpanel value="1">
+          <div class="flex flex-col gap-6">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <p-multiselect
+                  [options]="listaSedes"
+                  [(ngModel)]="selectedSedes"
+                  optionLabel="nombre"
+                  optionValue="id"
+                  placeholder="Edificios"
+                  [maxSelectedLabels]="2"
+                  (onChange)="filtrar($event.value)"
+                  styleClass="w-42"
+                  pTooltip="Edificios"
+                  tooltipPosition="top"
+                  tooltipStyleClass="text-sm"
+                />
+                <p-multiselect
+                  [options]="listaCargos"
+                  [(ngModel)]="selectedCargos"
+                  optionLabel="nombre"
+                  optionValue="id"
+                  placeholder="Cargos"
+                  [maxSelectedLabels]="2"
+                  (onChange)="filtrar($event.value)"
+                  styleClass="w-42"
+                  pTooltip="Cargos"
+                  tooltipPosition="top"
+                  tooltipStyleClass="text-sm"
+                />
+                <p-iconfield>
+                  <p-inputicon styleClass="pi pi-search" />
+                  <input
+                    type="text"
+                    pInputText
+                    placeholder="Buscar"
+                    (input)="filterGlobal(dt1, $event.target)"
+                  />
+                </p-iconfield>
+              </div>
+              <div class="flex items-center gap-3">
+                <!-- <p-button severity="info" size="small">
+                  <div
+                    class="flex justify-center items-center font-medium gap-1"
+                  >
+                    <i
+                      class="iconify icon text-lg"
+                      data-icon="material-symbols:download-rounded"
+                      data-inline="false"
+                    ></i>
+                    <div>XLS</div>
+                  </div>
+                </p-button> -->
+                <p-button
+                  severity="info"
+                  size="small"
+                  (click)="addNewDescansero()"
+                >
+                  <div
+                    class="flex justify-center items-center font-medium gap-1"
+                  >
+                    <i
+                      class="iconify icon text-lg"
+                      data-icon="material-symbols:add-rounded"
+                      data-inline="false"
+                    ></i>
+                    <div>AGREGAR</div>
+                  </div>
+                </p-button>
+              </div>
+            </div>
+            <div class="flex flex-col h-[calc(100% - 8.5rem)]">
+              <p-table
+                #dt1
+                dataKey="id"
+                [value]="dataTableDescansero"
+                [columns]="cols"
+                [exportHeader]="'customExportHeader'"
+                stripedRows
+                [scrollable]="true"
+                scrollHeight="720px"
+                styleClass="w-full"
+                [globalFilterFields]="['nombre', 'apellido']"
+              >
+                <ng-template #header let-columns>
+                  <tr>
+                    <th
+                      *ngFor="let col of columns"
+                      [ngClass]="[col.widthClass ? col.widthClass : '']"
+                    >
+                      <div
+                        [ngClass]="[
+                          'text-xs uppercase',
+                          col.align ? 'text-' + col.align : 'text-start'
+                        ]"
+                      >
+                        {{ col.header }}
+                      </div>
+                    </th>
+                  </tr>
+                </ng-template>
+                <ng-template #body let-item let-i="rowIndex">
+                  <tr>
+                    <td>
+                      <div class="text-center text-sm">{{ i + 1 }}</div>
+                    </td>
+                    <td>
+                      <div class="text-start text-sm">
+                        {{ item.trabajador.nombre }}
+                      </div>
+                    </td>
+                    <td>
+                      <div class="text-start text-sm">
+                        {{ item.trabajador.apellido }}
+                      </div>
+                    </td>
+                    <td>
+                      <div class="text-center text-sm">
+                        {{ item.trabajador.contratos[0]?.cargo?.nombre }}
+                      </div>
+                    </td>
+                    @for (dia of getDias(item.items); track $index) {
+                    <td class="!text-center !text-sm">
+                      <div
+                        class="flex flex-col justify-center items-center gap-2"
+                      >
+                        @for (turno of getTurnos(item.items); track $index) {
+                        <div
+                          [ngClass]="[
+                            'w-24 h-12 rounded-xl border flex flex-col items-center justify-center text-sm py-1.5',
+                            !item.items.bloque
+                              ? getHorario(item.items, dia, turno)?.diaLibre
+                                ? 'bg-slate-50 border-slate-500 text-slate-700'
+                                : 'bg-orange-50 border-orange-500 text-orange-700'
+                              : ''
+                          ]"
+                          [style.background]="
+                            getHorario(item.items, dia, turno)?.bloque?.bgColor
+                          "
+                          [style.borderColor]="
+                            getHorario(item.items, dia, turno)?.bloque
+                              ?.borderColor
+                          "
+                          [style.color]="
+                            getHorario(item.items, dia, turno)?.bloque
+                              ?.textColor
+                          "
+                        >
+                          <ng-container
+                            *ngIf="
+                              getHorario(item.items, dia, turno)?.bloque;
+                              else elseTemplate
+                            "
+                          >
+                            <div
+                              class="h-4 flex items-center justify-center gap-1"
+                            >
+                              <span>
+                                {{
+                                  getHorario(item.items, dia, turno)?.bloque
+                                    ?.horaEntrada | number : "2.0-0"
+                                }}:{{
+                                  getHorario(item.items, dia, turno)?.bloque
+                                    ?.minutoEntrada | number : "2.0-0"
+                                }}
+                              </span>
+                              <span
+                                class="w-[1px] h-full"
+                                [style.background]="
+                                  getHorario(item.items, dia, turno)?.bloque
+                                    ?.textColor
+                                "
+                              ></span>
+                              <span>
+                                {{
+                                  getHorario(item.items, dia, turno)?.bloque
+                                    ?.horaSalida | number : "2.0-0"
+                                }}:{{
+                                  getHorario(item.items, dia, turno)?.bloque
+                                    ?.minutoSalida | number : "2.0-0"
+                                }}
+                              </span>
+                            </div>
+                            <p
+                              *ngIf="getHorario(item.items, dia, turno)?.id"
+                              class="h-4 w-18 truncate text-xs"
+                            >
+                              {{
+                                getHorario(item.items, dia, turno)?.sede?.nombre
+                              }}
+                            </p>
+                          </ng-container>
+                          <ng-template #elseTemplate>
+                            {{
+                              getHorario(item.items, dia, turno)?.diaLibre
+                                ? "Libre"
+                                : getHorario(item.items, dia, turno)
+                                    ?.diaDescanso
+                                ? "Descanso"
+                                : "Indefinido"
+                            }}
+                          </ng-template>
+                        </div>
+                        }
+                      </div>
+                    </td>
+                    }
+                  </tr>
+                </ng-template>
+                <ng-template #emptymessage>
+                  <ng-container *ngIf="loadingTable; else elseTemplate">
+                    @for (item of [].constructor(4); track $index) {
+                    <tr class="h-12">
+                      <td *ngFor="let col of cols; let even = even">
+                        <p-skeleton />
+                      </td>
+                    </tr>
+                    }
+                  </ng-container>
+                  <ng-template #elseTemplate>
+                    <tr>
+                      <td colspan="100">
+                        <div class="text-center text-sm font-extralight">
+                          No se encontraron registros.
+                        </div>
+                      </td>
+                    </tr>
+                  </ng-template>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+        </p-tabpanel>
+      </p-tabpanels>
+    </p-tabs>
+  </div>
+</div>

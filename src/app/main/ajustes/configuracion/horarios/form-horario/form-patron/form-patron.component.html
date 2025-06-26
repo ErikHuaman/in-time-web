@@ -1,0 +1,43 @@
+<div class="flex flex-col gap-4">
+  <ng-container *ngIf="viewForm; else elseTemplate">
+    <div *ngIf="patron" class="flex flex-col gap-2">
+      <label class="text-sm font-medium" for="nombrePatron">
+        Nombre del patrón <span class="text-xs">*</span>
+      </label>
+      <input
+        id="nombrePatron"
+        type="text"
+        pInputText
+        [(ngModel)]="patron.nombre"
+      />
+    </div>
+  </ng-container>
+  <ng-template #elseTemplate>
+    <p class="text-sm font-light text-center">
+      ¿Desea guardar el horario como un patrón de horario?
+    </p>
+  </ng-template>
+  <div class="flex justify-end gap-2">
+    <p-button
+      severity="danger"
+      size="small"
+      label="Continuar sin guardar"
+      (click)="cancelar()"
+    />
+    <p-button
+      *ngIf="!viewForm"
+      severity="info"
+      size="small"
+      label="Siguiente"
+      (click)="viewForm = true"
+    />
+    <p-button
+      *ngIf="viewForm"
+      severity="info"
+      size="small"
+      label="Guardar"
+      [disabled]="!patron.nombre"
+      (click)="guardar()"
+    />
+  </div>
+</div>

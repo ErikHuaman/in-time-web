@@ -1,0 +1,367 @@
+<div class="flex flex-col gap-8 py-6">
+  <table class="w-full border !py-2 bg-sky-600/25">
+    <tbody>
+      <tr>
+        <td class="text-start text-sm font-medium px-2 py-0.5">
+          RUC: {{ datos.ruc }}
+        </td>
+      </tr>
+      <tr>
+        <td class="text-start text-sm font-medium px-2 py-0.5">
+          Empleador:
+          {{ datos.razonSocial }}
+        </td>
+      </tr>
+      <tr>
+        <td class="text-start text-sm font-medium px-2 py-0.5">
+          Periodo: {{ periodo | date : "MM/yyyy" }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="w-full">
+    <tbody>
+      <tr>
+        <td
+          colspan="2"
+          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+        >
+          Documento de Identidad
+        </td>
+        <td
+          colspan="4"
+          rowspan="2"
+          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+        >
+          Nombres y Apellidos
+        </td>
+        <td
+          colspan="2"
+          rowspan="2"
+          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+        >
+          Situación
+        </td>
+      </tr>
+      <tr>
+        <td
+          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+        >
+          Tipo
+        </td>
+        <td
+          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+        >
+          Número
+        </td>
+      </tr>
+      <tr>
+        <td class="border py-0.5 text-center text-sm uppercase">
+          {{ datos.tipoDoc }}
+        </td>
+        <td class="border py-0.5 text-center text-sm">
+          {{ datos.identificacion }}
+        </td>
+        <td colspan="4" class="border py-0.5 text-center text-sm uppercase">
+          {{ datos.nombre }} {{ datos.apellido }}
+        </td>
+        <td colspan="2" class="border py-0.5 text-center text-sm uppercase">
+          {{ datos.situacion }}
+        </td>
+      </tr>
+      <tr>
+        <td
+          colspan="2"
+          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+        >
+          Fecha de Ingreso
+        </td>
+        <td
+          colspan="2"
+          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+        >
+          Tipo de Trabajador
+        </td>
+        <td
+          colspan="2"
+          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+        >
+          Régimen Pensionario
+        </td>
+        <td
+          colspan="2"
+          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+        >
+          CUSPP
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" class="border py-0.5 text-center text-sm">
+          {{ fechaActual | date : "dd/MM/yyyy" }}
+        </td>
+        <td colspan="2" class="border py-0.5 text-center text-sm uppercase">
+          {{ datos.tipoTrabajador }}
+        </td>
+        <td colspan="2" class="border py-0.5 text-center text-sm uppercase">
+          {{ datos.regimenPensionario }}
+        </td>
+        <td colspan="2" class="border py-0.5 text-center text-sm">
+          {{ datos.cuspp }}
+        </td>
+      </tr>
+      <tr>
+        <td
+          rowspan="2"
+          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+        >
+          Días Laborados
+        </td>
+        <td
+          rowspan="2"
+          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+        >
+          Días No Laborados
+        </td>
+        <td
+          rowspan="2"
+          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+        >
+          Días Subsidiados
+        </td>
+        <td
+          rowspan="2"
+          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+        >
+          Condición
+        </td>
+        <td
+          colspan="2"
+          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+        >
+          Jornada Ordinaria
+        </td>
+        <td
+          colspan="2"
+          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+        >
+          Sobretiempo
+        </td>
+      </tr>
+      <tr>
+        <td
+          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+        >
+          Total Horas
+        </td>
+        <td
+          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+        >
+          Minutos
+        </td>
+        <td
+          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+        >
+          Total Horas
+        </td>
+        <td
+          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+        >
+          Minutos
+        </td>
+      </tr>
+      <tr>
+        <td class="border py-0.5 text-center text-sm">
+          {{ datos.diasLaborados }}
+        </td>
+        <td class="border py-0.5 text-center text-sm">
+          {{ datos.diasNoLaborados }}
+        </td>
+        <td class="border py-0.5 text-center text-sm">
+          {{ datos.diasSubcidiados }}
+        </td>
+        <td class="border py-0.5 text-center text-sm">
+          {{ datos.condicion }}
+        </td>
+        <td class="border py-0.5 text-center text-sm">
+          {{ datos.totalHoras }}
+        </td>
+        <td class="border py-0.5 text-center text-sm">
+          {{ datos.minutos }}
+        </td>
+        <td class="border py-0.5 text-center text-sm">
+          {{ datos.totalHorasExtra }}
+        </td>
+        <td class="border py-0.5 text-center text-sm">
+          {{ datos.minutosExtra }}
+        </td>
+      </tr>
+      <tr>
+        <td
+          colspan="6"
+          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+        >
+          Motivo de Suspención de Labores
+        </td>
+        <td
+          colspan="2"
+          rowspan="2"
+          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+        >
+          Otros empleados por Renta de 5ta categoría
+        </td>
+      </tr>
+      <tr>
+        <td
+          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+        >
+          Tipo
+        </td>
+        <td
+          colspan="4"
+          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+        >
+          Motivo
+        </td>
+        <td
+          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+        >
+          N° Días
+        </td>
+      </tr>
+      <tr>
+        <td class="border py-0.5 text-center text-sm">
+          {{ datos.suspencionTipo }}
+        </td>
+        <td colspan="4" class="border py-0.5 text-center text-sm">
+          {{ datos.suspencionMotivo }}
+        </td>
+        <td class="border py-0.5 text-center text-sm">
+          {{ datos.suspencionDias }}
+        </td>
+        <td colspan="2" class="border py-0.5 text-center text-sm">
+          {{ datos.quintaCategoria }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="w-full">
+    <tbody>
+      <tr>
+        <td
+          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+        >
+          Código
+        </td>
+        <td
+          colspan="4"
+          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+        >
+          Conceptos
+        </td>
+        <td
+          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+        >
+          Ingresos S/
+        </td>
+        <td
+          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+        >
+          Descuentos S/
+        </td>
+        <td
+          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+        >
+          Neto S/
+        </td>
+      </tr>
+      <ng-container *ngFor="let grupo of grupoDetalle">
+        <tr>
+          <td colspan="8" class="border-x py-0.5 text-sm">
+            <div class="bg-sky-600/25 text-slate-700 px-2">
+              {{ grupo.nombre }}
+            </div>
+          </td>
+        </tr>
+        <tr *ngFor="let item of grupo.items; let i = index">
+          <td class="border-s py-0.5 px-2 text-start text-sm">
+            {{ item.codigo }}
+          </td>
+          <td colspan="4" class="py-0.5 px-2 text-start text-sm">
+            {{ item.nombre }}
+          </td>
+          <td class="py-0.5 px-2 text-end text-sm">
+            {{ item.ingreso }}
+          </td>
+          <td class="py-0.5 px-2 text-end text-sm">
+            {{ item.descuento }}
+          </td>
+          <td class="border-e py-0.5 px-2 text-end text-sm">
+            {{ item.neto }}
+          </td>
+        </tr>
+      </ng-container>
+      <tr>
+        <td colspan="8" class="border-x border-b py-0.5 text-sm">
+          <div class="bg-sky-600/25 text-slate-700 px-2 flex justify-between">
+            <span>Neto a Pagar</span> <span>{{ pagoNeto }}</span>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="w-full">
+    <tbody>
+      <tr>
+        <td
+          colspan="8"
+          class="border bg-sky-600/25 text-slate-700 py-0.5 px-2 font-medium text-start text-sm"
+        >
+          Aporte de Empleador
+        </td>
+      </tr>
+      <tr *ngFor="let item of aportes; let i = index">
+        <td
+          [ngClass]="[
+            'border-s py-0.5 px-2 text-start text-sm',
+            aportes.length == i + 1 ? 'border-b' : ''
+          ]"
+        >
+          {{ item.codigo }}
+        </td>
+        <td
+          colspan="4"
+          [ngClass]="[
+            'py-0.5 px-2 text-start text-sm',
+            aportes.length == i + 1 ? 'border-b' : ''
+          ]"
+        >
+          {{ item.nombre }}
+        </td>
+        <td
+          [ngClass]="[
+            'py-0.5 px-2 text-end text-sm',
+            aportes.length == i + 1 ? 'border-b' : ''
+          ]"
+        >
+          {{ item.ingreso }}
+        </td>
+        <td
+          [ngClass]="[
+            'py-0.5 px-2 text-end text-sm',
+            aportes.length == i + 1 ? 'border-b' : ''
+          ]"
+        >
+          {{ item.descuento }}
+        </td>
+        <td
+          [ngClass]="[
+            'border-e py-0.5 px-2 text-end text-sm',
+            aportes.length == i + 1 ? 'border-b' : ''
+          ]"
+        >
+          {{ item.neto }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

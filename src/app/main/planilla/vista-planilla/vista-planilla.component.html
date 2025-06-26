@@ -1,0 +1,262 @@
+<p-toast />
+<p-confirmdialog />
+<div class="flex flex-col h-full">
+  <div class="flex flex-col justify-center gap-4 px-6 py-4">
+    <div class="flex justify-between items-center gap-4">
+      <title-card [title]="title" [icon]="icon" />
+    </div>
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <p-datepicker
+          id="fechaInicio"
+          view="month"
+          dateFormat="MM yy"
+          placeholder="Seleccionar mes"
+          [(ngModel)]="fechaSelected"
+          [readonlyInput]="true"
+          showIcon
+          iconDisplay="input"
+          styleClass="w-44"
+          appendTo="body"
+          pTooltip="Mes"
+          tooltipPosition="top"
+          tooltipStyleClass="text-sm"
+          (ngModelChange)="cambiarFecha($event)"
+        />
+        <p-multiselect
+          [options]="listaSedes"
+          [(ngModel)]="selectedSedes"
+          optionLabel="nombre"
+          optionValue="id"
+          placeholder="Edificios"
+          [maxSelectedLabels]="2"
+          (onChange)="filtrar($event.value)"
+          styleClass="w-42"
+          pTooltip="Edificios"
+          tooltipPosition="top"
+          tooltipStyleClass="text-sm"
+        />
+        <p-multiselect
+          [options]="listaCargos"
+          [(ngModel)]="selectedCargos"
+          optionLabel="nombre"
+          optionValue="id"
+          placeholder="Cargos"
+          [maxSelectedLabels]="2"
+          (onChange)="filtrar($event.value)"
+          styleClass="w-42"
+          pTooltip="Cargos"
+          tooltipPosition="top"
+          tooltipStyleClass="text-sm"
+        />
+        <p-iconfield>
+          <p-inputicon styleClass="pi pi-search" />
+          <input
+            type="text"
+            pInputText
+            placeholder="Buscar"
+            (input)="filterGlobal(dt, $event.target)"
+          />
+        </p-iconfield>
+      </div>
+      <div class="flex items-center gap-2">
+        <p-button
+          severity="info"
+          size="small"
+          styleClass="!px-3 !py-1"
+          (click)="confirm($event)"
+        >
+          <div class="flex justify-center items-center font-medium gap-1">
+            <i
+              class="iconify icon text-lg"
+              data-icon="material-symbols:share-windows-rounded"
+              data-inline="false"
+            ></i>
+            <div>EMITIR COMPROBANTE</div>
+          </div>
+        </p-button>
+        <p-button severity="info" size="small" (click)="dt.exportCSV()">
+          <div class="flex justify-center items-center font-medium gap-1">
+            <i
+              class="iconify icon text-lg"
+              data-icon="uil:file-export"
+              data-inline="false"
+            ></i>
+            <span>Exportar</span>
+          </div>
+        </p-button>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-col h-[calc(100% - 8.5rem)] px-6">
+    <p-table
+      #dt
+      dataKey="id"
+      [columns]="cols"
+      [value]="dataTable"
+      stripedRows
+      [scrollable]="true"
+      [exportHeader]="'customExportHeader'"
+      scrollHeight="720px"
+      styleClass="w-full"
+      [globalFilterFields]="['nombre', 'apellido']"
+      exportFilename="planillas"
+    >
+      <ng-template #header let-columns>
+        <tr *ngFor="let levels of columns">
+          <th
+            *ngFor="let col of levels"
+            [ngClass]="[col.widthClass ? col.widthClass : '']"
+            [attr.colspan]="col.colSpan"
+            [attr.rowspan]="col.rowSpan"
+          >
+            <div
+              [ngClass]="[
+                'text-xs uppercase',
+                col.align ? 'text-' + col.align : 'text-start'
+              ]"
+            >
+              {{ col.header }}
+            </div>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-item>
+        <tr>
+          <td>
+            <div class="text-center text-sm">{{ item.identificacion }}</div>
+          </td>
+          <td>
+            <div class="text-start text-sm">{{ item.nombre }}</div>
+          </td>
+          <td>
+            <div class="text-start text-sm">{{ item.apellido }}</div>
+          </td>
+          <td>
+            <div class="text-center text-sm">{{ item.sede.nombre }}</div>
+          </td>
+          <td>
+            <div class="text-center text-sm">{{ item.cargo.nombre }}</div>
+          </td>
+          <td>
+            <div class="text-center text-sm">
+              {{ item.salarioMensual | currency }}
+            </div>
+          </td>
+          <td>
+            <div class="text-center text-sm">
+              {{ item.salarioMesExtra25 | currency }}
+            </div>
+          </td>
+          <td>
+            <div class="text-center text-sm">
+              {{ item.salarioMesExtra35 | currency }}
+            </div>
+          </td>
+          <td>
+            <div class="text-center text-sm">
+              {{ item.salarioFeriado | currency }}
+            </div>
+          </td>
+          <td>
+            <div class="text-center text-sm">
+              {{ item.salarioVacaciones | currency }}
+            </div>
+          </td>
+          <td>
+            <div class="text-center text-sm text-red-500 min-w-20">
+              {{ -item.descuentoFaltas | currency }}
+            </div>
+          </td>
+          <td>
+            <div class="text-center text-sm">
+              {{ item.sueldoBruto | currency }}
+            </div>
+          </td>
+          <td>
+            <div class="text-center text-sm">
+              {{ item.montoONP | currency }}
+            </div>
+          </td>
+          <td>
+            <div class="text-center text-sm">
+              {{ item.montoAFP | currency }}
+            </div>
+          </td>
+          <td>
+            <div class="text-center text-sm">
+              {{ item.sis | currency }}
+            </div>
+          </td>
+          <td>
+            <div class="text-center text-sm">
+              {{ item.sctr | currency }}
+            </div>
+          </td>
+          <td>
+            <div class="text-center text-sm">
+              {{ item.essalud | currency }}
+            </div>
+          </td>
+          <td>
+            <div class="text-center text-sm min-w-20">
+              {{ item.pagoNeto | currency }}
+            </div>
+          </td>
+          <td>
+            <div class="flex justify-center items-center gap-2">
+              <p-button
+                text
+                (click)="getCalculoPago(item)"
+                severity="warn"
+                size="small"
+                rounded
+                styleClass="!w-10 !p-2"
+              >
+                <i
+                  class="iconify icon font-bold text-xl"
+                  [attr.data-icon]="'solar:calculator-broken'"
+                  data-inline="false"
+                ></i>
+              </p-button>
+              <p-button
+                text
+                (click)="getComprobante(item)"
+                severity="info"
+                size="small"
+                rounded
+                styleClass="!w-10 !p-2"
+              >
+                <i
+                  class="iconify icon font-bold text-xl"
+                  [attr.data-icon]="'material-symbols:docs-outline-rounded'"
+                  data-inline="false"
+                ></i>
+              </p-button>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template #emptymessage>
+        <ng-container *ngIf="loadingTable; else elseTemplate">
+          @for (item of [].constructor(4); track $index) {
+          <tr class="h-12">
+            <td *ngFor="let col of this.skeletons; let even = even">
+              <p-skeleton />
+            </td>
+          </tr>
+          }
+        </ng-container>
+        <ng-template #elseTemplate>
+          <tr>
+            <td colspan="100">
+              <div class="text-center text-sm font-extralight">
+                No se encontraron registros.
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

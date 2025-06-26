@@ -1,0 +1,114 @@
+<form [formGroup]="formData" class="grid grid-cols-1 gap-2">
+  <div class="flex flex-col gap-2">
+    <label class="text-sm font-medium" for="idTrabajador">
+      Trabajador a reemplazar <span class="text-xs">*</span>
+    </label>
+    <p-select
+      id="idTrabajador"
+      [options]="listaTrabajadores"
+      optionLabel="labelName"
+      optionValue="id"
+      formControlName="idTrabajador"
+      placeholder="Seleccione..."
+      [filter]="true"
+    />
+  </div>
+  <div class="flex flex-col gap-2">
+    <label class="text-sm font-medium" for="idReemplazo">
+      Reemplazero <span class="text-xs">*</span>
+    </label>
+    <p-select
+        id="idReemplazo"
+        [options]="listaReemplaceros"
+        placeholder="Seleccione..."
+        [(ngModel)]="selectedReemplazo"
+        [ngModelOptions]="{ standalone: true }"
+        (ngModelChange)="selectReemplacero($event)"
+        [filter]="true"
+        emptyMessage="No se encontraron registros"
+        emptyFilterMessage="No se encontraron registros"
+        appendTo="body"
+      >
+        <ng-template #selectedItem let-selected>
+          <p class="text-sm">{{ selected.dni }} | {{ selected.nombres }}</p>
+        </ng-template>
+        <ng-template #item let-option>
+          <p class="text-sm">{{ option.dni }} | {{ option.nombres }}</p>
+        </ng-template>
+        <ng-template #footer>
+          <div class="p-0">
+            <p-button
+              label="Añadir nuevo"
+              fluid
+              severity="info"
+              size="small"
+              icon="pi pi-plus"
+              styleClass="!rounded-tl-none !rounded-tr-none"
+              (click)="nuevoReemplazo()"
+            />
+          </div>
+        </ng-template>
+      </p-select>
+  </div>
+  <div class="grid grid-cols-2 gap-4">
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium" for="fechaInicio">
+        Fecha de inicio <span class="text-xs">*</span>
+      </label>
+      <p-datepicker
+        id="fechaInicio"
+        styleClass="w-full uppercase"
+        dateFormat="dd M yy"
+        placeholder="DD MMM YYYY"
+        formControlName="fechaInicio"
+        [showIcon]="true"
+        appendTo="body"
+      />
+    </div>
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium" for="fechaFin">
+        Fecha de fin <span class="text-xs">*</span>
+      </label>
+      <p-datepicker
+        id="fechaFin"
+        styleClass="w-full uppercase"
+        dateFormat="dd M yy"
+        placeholder="DD MMM YYYY"
+        formControlName="fechaFin"
+        [showIcon]="true"
+        appendTo="body"
+      />
+    </div>
+  </div>
+  <div class="flex flex-col gap-2">
+    <label class="text-sm font-medium" for="pagoDiario">
+      Pago diario <span class="text-xs">*</span>
+    </label>
+    <p-inputnumber
+      inputId="pagoDiario"
+      formControlName="pago"
+      mode="currency"
+      currency="PEN"
+      locale="es-PE"
+    />
+  </div>
+  <div class="flex flex-col gap-2">
+    <label class="text-sm font-medium" for="nota">Nota</label>
+    <textarea
+      id="nota"
+      rows="3"
+      cols="30"
+      pTextarea
+      formControlName="nota"
+    ></textarea>
+  </div>
+  <div class="flex justify-end gap-2 mt-4">
+    <p-button
+      severity="info"
+      size="small"
+      [label]="id ? 'Actualizar' : 'Guardar'"
+      [disabled]="formData.invalid"
+      (onClick)="guardar()"
+    />
+  </div>
+</form>

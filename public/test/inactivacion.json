@@ -1,0 +1,9 @@
+[
+  {
+    "id": 1,
+    "trabajadorId": 3,
+    "motivoSuspencionId": 1,
+    "fechaInasistencia": "2025-04-01T05:00:00.000Z",
+    "nota": "Ausencias frecuentes"
+  }
+]

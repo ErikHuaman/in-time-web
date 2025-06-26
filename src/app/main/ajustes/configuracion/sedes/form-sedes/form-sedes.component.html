@@ -1,0 +1,155 @@
+<form [formGroup]="formData" class="grid grid-cols-1 gap-6">
+  <div class="grid grid-cols-3 gap-6">
+    <div class="flex flex-col gap-2">
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-medium" for="nombreSede">
+          Nombre <span class="text-xs">*</span>
+        </label>
+        <input id="nombreSede" pInputText formControlName="nombre" />
+      </div>
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-medium" for="rucSede">
+          RUC <span class="text-xs">*</span>
+        </label>
+        <input id="rucSede" pInputText formControlName="ruc" />
+      </div>
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-medium" for="razonSocialSede">
+          Razón social <span class="text-xs">*</span>
+        </label>
+        <input id="razonSocialSede" pInputText formControlName="razonSocial" />
+      </div>
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-medium" for="idRegionSede">
+          Departamento <span class="text-xs">*</span>
+        </label>
+        <p-select
+          id="idRegionSede"
+          [options]="listaRegiones"
+          optionLabel="name"
+          optionValue="id"
+          formControlName="idRegion"
+          placeholder="Seleccione..."
+          (onChange)="cargarProvincias($event.value)"
+          emptyFilterMessage="No se encontró ningún resultado"
+          emptyMessage="No se encontró ningún resultado"
+          [filter]="true"
+          appendTo="body"
+        />
+      </div>
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-medium" for="idProvinciaSede">
+          Provincia <span class="text-xs">*</span>
+        </label>
+        <p-select
+          id="idProvinciaSede"
+          [options]="listaProvincias"
+          optionLabel="name"
+          optionValue="id"
+          formControlName="idProvincia"
+          placeholder="Seleccione..."
+          (ngModelChange)="cargarCiudades($event)"
+          emptyFilterMessage="No se encontró ningún resultado"
+          emptyMessage="No se encontró ningún resultado"
+          [filter]="true"
+          appendTo="body"
+        />
+      </div>
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-medium" for="idCiudadSede">
+          Cuidad <span class="text-xs">*</span>
+        </label>
+        <p-select
+          id="idCiudadSede"
+          [options]="listaCiudades"
+          optionLabel="name"
+          optionValue="id"
+          formControlName="idCiudad"
+          placeholder="Seleccione..."
+          emptyFilterMessage="No se encontró ningún resultado"
+          emptyMessage="No se encontró ningún resultado"
+          [filter]="true"
+          appendTo="body"
+        />
+      </div>
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-medium" for="direccionSede">
+          Dirección <span class="text-xs">*</span>
+        </label>
+        <textarea
+          id="direccionSede"
+          rows="3"
+          cols="30"
+          pTextarea
+          formControlName="direccion"
+        ></textarea>
+      </div>
+    </div>
+    <div class="col-span-2">
+      <div class="flex flex-col gap-3 mt-7">
+        <div class="flex justify-end">
+          <div class="w-2/3">
+            <p-autocomplete
+              [(ngModel)]="querySearch"
+              [suggestions]="direccionItems"
+              (completeMethod)="buscarDireccion($event)"
+              appendTo="body"
+              class="w-full"
+              styleClass="w-full"
+              inputStyleClass="w-full"
+              panelStyleClass="w-full"
+              placeholder="Buscar dirección"
+              optionLabel="label"
+              [dropdown]="true"
+              (onSelect)="onSelect($event)"
+              [ngModelOptions]="{ standalone: true }"
+            />
+          </div>
+        </div>
+        <div class="w-full border border-slate-300 rounded-md overflow-hidden">
+          <div id="map" class="h-105 min-h-105"></div>
+        </div>
+        <div class="flex items-end">
+          <div class="flex flex-col gap-2">
+            <label class="text-sm font-medium" for="coordenadaSede">
+              Coordenadas <span class="text-xs">*</span>
+            </label>
+            <div class="grid grid-cols-2 gap-6">
+              <p-inputgroup>
+                <p-inputgroup-addon styleClass="text-xs"
+                  >Lat</p-inputgroup-addon
+                >
+                <input id="latitudSede" pInputText formControlName="latitud" />
+              </p-inputgroup>
+              <p-inputgroup>
+                <p-inputgroup-addon styleClass="text-xs"
+                  >Lon</p-inputgroup-addon
+                >
+                <input
+                  id="longitudSede"
+                  pInputText
+                  formControlName="longitud"
+                />
+              </p-inputgroup>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex justify-between gap-4">
+    <div class="flex items-center gap-2 py-1">
+      <p-toggleswitch formControlName="isActive" inputId="isActiveSede" />
+      <label class="text-sm font-medium pb-1.5" for="isActiveSede">{{
+        isActive ? "Activo" : "Inactivo"
+      }}</label>
+    </div>
+    <p-button
+      severity="info"
+      size="small"
+      [label]="id ? 'Actualizar' : 'Guardar'"
+      [disabled]="formData.invalid"
+      (onClick)="guardar()"
+    />
+  </div>
+</form>

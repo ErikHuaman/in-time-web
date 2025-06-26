@@ -1,0 +1,982 @@
+[
+  {
+    "id": 1,
+    "name": "Luya",
+    "regionId": 1
+  },
+  {
+    "id": 2,
+    "name": "Utcubamba",
+    "regionId": 1
+  },
+  {
+    "id": 3,
+    "name": "Bagua",
+    "regionId": 1
+  },
+  {
+    "id": 4,
+    "name": "Rodríguez de Mendoza",
+    "regionId": 1
+  },
+  {
+    "id": 5,
+    "name": "Condorcanqui",
+    "regionId": 1
+  },
+  {
+    "id": 6,
+    "name": "Chachapoyas",
+    "regionId": 1
+  },
+  {
+    "id": 7,
+    "name": "Bongará",
+    "regionId": 1
+  },
+  {
+    "id": 8,
+    "name": "Carlos Fermin Fitzcarrald",
+    "regionId": 2
+  },
+  {
+    "id": 9,
+    "name": "Carhuaz",
+    "regionId": 2
+  },
+  {
+    "id": 10,
+    "name": "Mariscal Luzuriaga",
+    "regionId": 2
+  },
+  {
+    "id": 11,
+    "name": "Casma",
+    "regionId": 2
+  },
+  {
+    "id": 12,
+    "name": "Santa",
+    "regionId": 2
+  },
+  {
+    "id": 13,
+    "name": "Huaraz",
+    "regionId": 2
+  },
+  {
+    "id": 14,
+    "name": "Asunción",
+    "regionId": 2
+  },
+  {
+    "id": 15,
+    "name": "Antonio Raymondi",
+    "regionId": 2
+  },
+  {
+    "id": 16,
+    "name": "Aija",
+    "regionId": 2
+  },
+  {
+    "id": 17,
+    "name": "Corongo",
+    "regionId": 2
+  },
+  {
+    "id": 18,
+    "name": "Yungay",
+    "regionId": 2
+  },
+  {
+    "id": 19,
+    "name": "Sihuas",
+    "regionId": 2
+  },
+  {
+    "id": 20,
+    "name": "Huarmey",
+    "regionId": 2
+  },
+  {
+    "id": 21,
+    "name": "Bolognesi",
+    "regionId": 2
+  },
+  {
+    "id": 22,
+    "name": "Huari",
+    "regionId": 2
+  },
+  {
+    "id": 23,
+    "name": "Huaylas",
+    "regionId": 2
+  },
+  {
+    "id": 24,
+    "name": "Pallasca",
+    "regionId": 2
+  },
+  {
+    "id": 25,
+    "name": "Ocros",
+    "regionId": 2
+  },
+  {
+    "id": 26,
+    "name": "Recuay",
+    "regionId": 2
+  },
+  {
+    "id": 27,
+    "name": "Pomabamba",
+    "regionId": 2
+  },
+  {
+    "id": 28,
+    "name": "Antabamba",
+    "regionId": 3
+  },
+  {
+    "id": 29,
+    "name": "Grau",
+    "regionId": 3
+  },
+  {
+    "id": 30,
+    "name": "Andahuaylas",
+    "regionId": 3
+  },
+  {
+    "id": 31,
+    "name": "Cotabambas",
+    "regionId": 3
+  },
+  {
+    "id": 32,
+    "name": "Abancay",
+    "regionId": 3
+  },
+  {
+    "id": 33,
+    "name": "Chincheros",
+    "regionId": 3
+  },
+  {
+    "id": 34,
+    "name": "Aymaraes",
+    "regionId": 3
+  },
+  {
+    "id": 35,
+    "name": "Caylloma",
+    "regionId": 4
+  },
+  {
+    "id": 36,
+    "name": "Castilla",
+    "regionId": 4
+  },
+  {
+    "id": 37,
+    "name": "Caraveli",
+    "regionId": 4
+  },
+  {
+    "id": 38,
+    "name": "Islay",
+    "regionId": 4
+  },
+  {
+    "id": 39,
+    "name": "Camana",
+    "regionId": 4
+  },
+  {
+    "id": 40,
+    "name": "Condesuyos",
+    "regionId": 4
+  },
+  {
+    "id": 41,
+    "name": "La Unión",
+    "regionId": 4
+  },
+  {
+    "id": 42,
+    "name": "Arequipa",
+    "regionId": 4
+  },
+  {
+    "id": 43,
+    "name": "Sucre",
+    "regionId": 5
+  },
+  {
+    "id": 44,
+    "name": "Huamanga",
+    "regionId": 5
+  },
+  {
+    "id": 45,
+    "name": "Lucanas",
+    "regionId": 5
+  },
+  {
+    "id": 46,
+    "name": "Cangallo",
+    "regionId": 5
+  },
+  {
+    "id": 47,
+    "name": "Huanta",
+    "regionId": 5
+  },
+  {
+    "id": 48,
+    "name": "Parinacochas",
+    "regionId": 5
+  },
+  {
+    "id": 49,
+    "name": "Huanca Sancos",
+    "regionId": 5
+  },
+  {
+    "id": 50,
+    "name": "Víctor Fajardo",
+    "regionId": 5
+  },
+  {
+    "id": 51,
+    "name": "Vilcas Huaman",
+    "regionId": 5
+  },
+  {
+    "id": 52,
+    "name": "La Mar",
+    "regionId": 5
+  },
+  {
+    "id": 53,
+    "name": "Páucar del Sara Sara",
+    "regionId": 5
+  },
+  {
+    "id": 54,
+    "name": "Contumazá",
+    "regionId": 6
+  },
+  {
+    "id": 55,
+    "name": "Jaén",
+    "regionId": 6
+  },
+  {
+    "id": 56,
+    "name": "San Ignacio",
+    "regionId": 6
+  },
+  {
+    "id": 57,
+    "name": "Chota",
+    "regionId": 6
+  },
+  {
+    "id": 58,
+    "name": "San Pablo",
+    "regionId": 6
+  },
+  {
+    "id": 59,
+    "name": "Cajabamba",
+    "regionId": 6
+  },
+  {
+    "id": 60,
+    "name": "Celendín",
+    "regionId": 6
+  },
+  {
+    "id": 61,
+    "name": "San Miguel",
+    "regionId": 6
+  },
+  {
+    "id": 62,
+    "name": "Santa Cruz",
+    "regionId": 6
+  },
+  {
+    "id": 63,
+    "name": "Cajamarca",
+    "regionId": 6
+  },
+  {
+    "id": 64,
+    "name": "Hualgayoc",
+    "regionId": 6
+  },
+  {
+    "id": 65,
+    "name": "San Marcos",
+    "regionId": 6
+  },
+  {
+    "id": 66,
+    "name": "Cutervo",
+    "regionId": 6
+  },
+  {
+    "id": 67,
+    "name": "Callao",
+    "regionId": 7
+  },
+  {
+    "id": 68,
+    "name": "Urubamba",
+    "regionId": 8
+  },
+  {
+    "id": 69,
+    "name": "Acomayo",
+    "regionId": 8
+  },
+  {
+    "id": 70,
+    "name": "Quispicanchi",
+    "regionId": 8
+  },
+  {
+    "id": 71,
+    "name": "Chumbivilcas",
+    "regionId": 8
+  },
+  {
+    "id": 72,
+    "name": "Paucartambo",
+    "regionId": 8
+  },
+  {
+    "id": 73,
+    "name": "Calca",
+    "regionId": 8
+  },
+  {
+    "id": 74,
+    "name": "Canas",
+    "regionId": 8
+  },
+  {
+    "id": 75,
+    "name": "Anta",
+    "regionId": 8
+  },
+  {
+    "id": 76,
+    "name": "Espinar",
+    "regionId": 8
+  },
+  {
+    "id": 77,
+    "name": "Cusco",
+    "regionId": 8
+  },
+  {
+    "id": 78,
+    "name": "Paruro",
+    "regionId": 8
+  },
+  {
+    "id": 79,
+    "name": "Canchis",
+    "regionId": 8
+  },
+  {
+    "id": 80,
+    "name": "La Convención",
+    "regionId": 8
+  },
+  {
+    "id": 81,
+    "name": "Castrovirreyna",
+    "regionId": 9
+  },
+  {
+    "id": 82,
+    "name": "Huancavelica",
+    "regionId": 9
+  },
+  {
+    "id": 83,
+    "name": "Huaytara",
+    "regionId": 9
+  },
+  {
+    "id": 84,
+    "name": "Tayacaja",
+    "regionId": 9
+  },
+  {
+    "id": 85,
+    "name": "Churcampa",
+    "regionId": 9
+  },
+  {
+    "id": 86,
+    "name": "Angaraes",
+    "regionId": 9
+  },
+  {
+    "id": 87,
+    "name": "Acobamba",
+    "regionId": 9
+  },
+  {
+    "id": 88,
+    "name": "Puerto Inca",
+    "regionId": 10
+  },
+  {
+    "id": 89,
+    "name": "Huacaybamba",
+    "regionId": 10
+  },
+  {
+    "id": 90,
+    "name": "Dos de Mayo",
+    "regionId": 10
+  },
+  {
+    "id": 91,
+    "name": "Leoncio Prado",
+    "regionId": 10
+  },
+  {
+    "id": 92,
+    "name": "Marañón",
+    "regionId": 10
+  },
+  {
+    "id": 93,
+    "name": "Huánuco",
+    "regionId": 10
+  },
+  {
+    "id": 94,
+    "name": "Ambo",
+    "regionId": 10
+  },
+  {
+    "id": 95,
+    "name": "Huamalíes",
+    "regionId": 10
+  },
+  {
+    "id": 96,
+    "name": "Yarowilca",
+    "regionId": 10
+  },
+  {
+    "id": 97,
+    "name": "Lauricocha",
+    "regionId": 10
+  },
+  {
+    "id": 98,
+    "name": "Pachitea",
+    "regionId": 10
+  },
+  {
+    "id": 99,
+    "name": "Nazca",
+    "regionId": 11
+  },
+  {
+    "id": 100,
+    "name": "Ica",
+    "regionId": 11
+  },
+  {
+    "id": 101,
+    "name": "Pisco",
+    "regionId": 11
+  },
+  {
+    "id": 102,
+    "name": "Chincha",
+    "regionId": 11
+  },
+  {
+    "id": 103,
+    "name": "Palpa",
+    "regionId": 11
+  },
+  {
+    "id": 104,
+    "name": "Chanchamayo",
+    "regionId": 12
+  },
+  {
+    "id": 105,
+    "name": "Tarma",
+    "regionId": 12
+  },
+  {
+    "id": 106,
+    "name": "Huancayo",
+    "regionId": 12
+  },
+  {
+    "id": 107,
+    "name": "Chupaca",
+    "regionId": 12
+  },
+  {
+    "id": 108,
+    "name": "Yauli",
+    "regionId": 12
+  },
+  {
+    "id": 109,
+    "name": "Jauja",
+    "regionId": 12
+  },
+  {
+    "id": 110,
+    "name": "Concepción",
+    "regionId": 12
+  },
+  {
+    "id": 111,
+    "name": "Junín",
+    "regionId": 12
+  },
+  {
+    "id": 112,
+    "name": "Satipo",
+    "regionId": 12
+  },
+  {
+    "id": 113,
+    "name": "Trujillo",
+    "regionId": 13
+  },
+  {
+    "id": 114,
+    "name": "Otuzco",
+    "regionId": 13
+  },
+  {
+    "id": 115,
+    "name": "Sánchez Carrión",
+    "regionId": 13
+  },
+  {
+    "id": 116,
+    "name": "Virú",
+    "regionId": 13
+  },
+  {
+    "id": 117,
+    "name": "Julcán",
+    "regionId": 13
+  },
+  {
+    "id": 118,
+    "name": "Pataz",
+    "regionId": 13
+  },
+  {
+    "id": 119,
+    "name": "Bolívar",
+    "regionId": 13
+  },
+  {
+    "id": 120,
+    "name": "Pacasmayo",
+    "regionId": 13
+  },
+  {
+    "id": 121,
+    "name": "Santiago de Chuco",
+    "regionId": 13
+  },
+  {
+    "id": 122,
+    "name": "Gran Chimú",
+    "regionId": 13
+  },
+  {
+    "id": 123,
+    "name": "Chepén",
+    "regionId": 13
+  },
+  {
+    "id": 124,
+    "name": "Ascope",
+    "regionId": 13
+  },
+  {
+    "id": 125,
+    "name": "Chiclayo",
+    "regionId": 14
+  },
+  {
+    "id": 126,
+    "name": "Ferreñafe",
+    "regionId": 14
+  },
+  {
+    "id": 127,
+    "name": "Lambayeque",
+    "regionId": 14
+  },
+  {
+    "id": 128,
+    "name": "Canta",
+    "regionId": 15
+  },
+  {
+    "id": 129,
+    "name": "Huaral",
+    "regionId": 15
+  },
+  {
+    "id": 130,
+    "name": "Barranca",
+    "regionId": 15
+  },
+  {
+    "id": 131,
+    "name": "Huaura",
+    "regionId": 15
+  },
+  {
+    "id": 132,
+    "name": "Oyón",
+    "regionId": 15
+  },
+  {
+    "id": 133,
+    "name": "Lima",
+    "regionId": 15
+  },
+  {
+    "id": 134,
+    "name": "Cañete",
+    "regionId": 15
+  },
+  {
+    "id": 135,
+    "name": "Huarochirí",
+    "regionId": 15
+  },
+  {
+    "id": 136,
+    "name": "Yauyos",
+    "regionId": 15
+  },
+  {
+    "id": 137,
+    "name": "Cajatambo",
+    "regionId": 15
+  },
+  {
+    "id": 138,
+    "name": "Maynas",
+    "regionId": 16
+  },
+  {
+    "id": 139,
+    "name": "Requena",
+    "regionId": 16
+  },
+  {
+    "id": 140,
+    "name": "Ucayali",
+    "regionId": 16
+  },
+  {
+    "id": 141,
+    "name": "Putumayo",
+    "regionId": 16
+  },
+  {
+    "id": 142,
+    "name": "Datem Del Marañón",
+    "regionId": 16
+  },
+  {
+    "id": 143,
+    "name": "Mariscal Ramón Castilla",
+    "regionId": 16
+  },
+  {
+    "id": 144,
+    "name": "Alto Amazonas",
+    "regionId": 16
+  },
+  {
+    "id": 145,
+    "name": "Loreto",
+    "regionId": 16
+  },
+  {
+    "id": 146,
+    "name": "Tahuamanu",
+    "regionId": 17
+  },
+  {
+    "id": 147,
+    "name": "Manu",
+    "regionId": 17
+  },
+  {
+    "id": 148,
+    "name": "Tambopata",
+    "regionId": 17
+  },
+  {
+    "id": 149,
+    "name": "General Sánchez Cerro",
+    "regionId": 18
+  },
+  {
+    "id": 150,
+    "name": "Ilo",
+    "regionId": 18
+  },
+  {
+    "id": 151,
+    "name": "Mariscal Nieto",
+    "regionId": 18
+  },
+  {
+    "id": 152,
+    "name": "Oxapampa",
+    "regionId": 19
+  },
+  {
+    "id": 153,
+    "name": "Pasco",
+    "regionId": 19
+  },
+  {
+    "id": 154,
+    "name": "Daniel Alcides Carrión",
+    "regionId": 19
+  },
+  {
+    "id": 155,
+    "name": "Piura",
+    "regionId": 20
+  },
+  {
+    "id": 156,
+    "name": "Sullana",
+    "regionId": 20
+  },
+  {
+    "id": 157,
+    "name": "Ayabaca",
+    "regionId": 20
+  },
+  {
+    "id": 158,
+    "name": "Huancabamba",
+    "regionId": 20
+  },
+  {
+    "id": 159,
+    "name": "Morropón",
+    "regionId": 20
+  },
+  {
+    "id": 160,
+    "name": "Talara",
+    "regionId": 20
+  },
+  {
+    "id": 161,
+    "name": "Paita",
+    "regionId": 20
+  },
+  {
+    "id": 162,
+    "name": "Sechura",
+    "regionId": 20
+  },
+  {
+    "id": 163,
+    "name": "San Román",
+    "regionId": 21
+  },
+  {
+    "id": 164,
+    "name": "Melgar",
+    "regionId": 21
+  },
+  {
+    "id": 165,
+    "name": "Carabaya",
+    "regionId": 21
+  },
+  {
+    "id": 166,
+    "name": "Huancané",
+    "regionId": 21
+  },
+  {
+    "id": 167,
+    "name": "Moho",
+    "regionId": 21
+  },
+  {
+    "id": 168,
+    "name": "Chucuito",
+    "regionId": 21
+  },
+  {
+    "id": 169,
+    "name": "San Antonio de Putina",
+    "regionId": 21
+  },
+  {
+    "id": 170,
+    "name": "Sandia",
+    "regionId": 21
+  },
+  {
+    "id": 171,
+    "name": "Lampa",
+    "regionId": 21
+  },
+  {
+    "id": 172,
+    "name": "Azángaro",
+    "regionId": 21
+  },
+  {
+    "id": 173,
+    "name": "Puno",
+    "regionId": 21
+  },
+  {
+    "id": 174,
+    "name": "El Collao",
+    "regionId": 21
+  },
+  {
+    "id": 175,
+    "name": "Yunguyo",
+    "regionId": 21
+  },
+  {
+    "id": 176,
+    "name": "Bellavista",
+    "regionId": 22
+  },
+  {
+    "id": 177,
+    "name": "Mariscal Cáceres",
+    "regionId": 22
+  },
+  {
+    "id": 178,
+    "name": "San Martín",
+    "regionId": 22
+  },
+  {
+    "id": 179,
+    "name": "Moyobamba",
+    "regionId": 22
+  },
+  {
+    "id": 180,
+    "name": "Picota",
+    "regionId": 22
+  },
+  {
+    "id": 181,
+    "name": "Lamas",
+    "regionId": 22
+  },
+  {
+    "id": 182,
+    "name": "El Dorado",
+    "regionId": 22
+  },
+  {
+    "id": 183,
+    "name": "Huallaga",
+    "regionId": 22
+  },
+  {
+    "id": 184,
+    "name": "Rioja",
+    "regionId": 22
+  },
+  {
+    "id": 185,
+    "name": "Tocache",
+    "regionId": 22
+  },
+  {
+    "id": 186,
+    "name": "Candarave",
+    "regionId": 23
+  },
+  {
+    "id": 187,
+    "name": "Tarata",
+    "regionId": 23
+  },
+  {
+    "id": 188,
+    "name": "Tacna",
+    "regionId": 23
+  },
+  {
+    "id": 189,
+    "name": "Jorge Basadre",
+    "regionId": 23
+  },
+  {
+    "id": 190,
+    "name": "Tumbes",
+    "regionId": 24
+  },
+  {
+    "id": 191,
+    "name": "Zarumilla",
+    "regionId": 24
+  },
+  {
+    "id": 192,
+    "name": "Contralmirante Villar",
+    "regionId": 24
+  },
+  {
+    "id": 193,
+    "name": "Padre Abad",
+    "regionId": 25
+  },
+  {
+    "id": 194,
+    "name": "Púrus",
+    "regionId": 25
+  },
+  {
+    "id": 195,
+    "name": "Coronel Portillo",
+    "regionId": 25
+  },
+  {
+    "id": 196,
+    "name": "Atalaya",
+    "regionId": 25
+  }
+]

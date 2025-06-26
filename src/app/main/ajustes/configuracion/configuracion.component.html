@@ -1,0 +1,44 @@
+<div class="flex flex-col h-full">
+  <div class="flex flex-col justify-center gap-4 px-6 py-4 h-[4.875rem]">
+    <div class="flex justify-between items-center gap-4">
+      <title-card [title]="title" [icon]="icon" />
+    </div>
+  </div>
+
+  <div class="px-10 py-8">
+    <div class="grid grid-cols-4 gap-8">
+      @for (item of listaOpciones; track $index) {
+      <div
+        class="flex flex-col gap-6 shadow-2xl rounded-2xl p-6 border border-slate-100"
+      >
+        <div class="grow">
+          <div class="flex flex-col gap-2">
+            <div class="flex items-center gap-4">
+              <i
+                class="iconify icon font-bold text-2xl"
+                [attr.data-icon]="item.icon"
+                data-inline="false"
+              ></i>
+              <h3 class="font-semibold text-xl">{{ item.title }}</h3>
+            </div>
+            <p class="text-base text-slate-500">
+              {{ item.description }}
+            </p>
+          </div>
+        </div>
+
+        <div class="flex justify-center">
+          <p-button
+            pRipple
+            size="small"
+            severity="info"
+            [routerLink]="item.routerLink"
+            label="Ver"
+            styleClass="!px-6"
+          />
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+</div>

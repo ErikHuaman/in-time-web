@@ -1,0 +1,95 @@
+<div class="flex flex-col gap-2">
+  <form [formGroup]="formData" class="grid grid-cols-1 gap-2">
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium" for="idSede">Edificio</label>
+      <p-select
+        id="idSede"
+        [options]="listaSedes"
+        optionLabel="nombre"
+        optionValue="id"
+        formControlName="idSede"
+        (onChange)="filtrar($event)"
+        placeholder="Seleccione..."
+      />
+    </div>
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium" for="idCargo">Cargo</label>
+      <p-select
+        id="idCargo"
+        [options]="listaCargos"
+        optionLabel="nombre"
+        optionValue="id"
+        formControlName="idCargo"
+        (onChange)="filtrar($event)"
+        placeholder="Seleccione..."
+      />
+    </div>
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium" for="idTrabajador">Trabajador</label>
+      <p-select
+        id="idTrabajador"
+        [options]="listaTrabajadoresFiltrados"
+        optionLabel="labelName"
+        optionValue="id"
+        formControlName="idTrabajador"
+        placeholder="Seleccione..."
+      />
+    </div>
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium" for="montoAdelanto"
+        >Monto de adelanto</label
+      >
+      <p-inputnumber
+        id="montoAdelanto"
+        formControlName="montoAdelanto"
+        mode="currency"
+        currency="PEN"
+        locale="es-PE"
+      />
+    </div>
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium" for="cuotasDescuento"
+        >Cuotas de descuento</label
+      >
+      <p-inputnumber id="cuotasDescuento" formControlName="cuotasDescuento" />
+    </div>
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium" for="fechaAdelanto"
+        >Fecha de adelanto</label
+      >
+      <p-datepicker
+        id="fechaAdelanto"
+        styleClass="w-full uppercase"
+        dateFormat="dd M yy"
+        placeholder="DD MMM YYYY"
+        formControlName="fechaAdelanto"
+        [showIcon]="true"
+        appendTo="body"
+      />
+    </div>
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium" for="fechaDescuento"
+        >Fecha de inicio de descuento</label
+      >
+      <p-datepicker
+        id="fechaDescuento"
+        styleClass="w-full uppercase"
+        dateFormat="dd M yy"
+        placeholder="DD MMM YYYY"
+        formControlName="fechaDescuento"
+        [showIcon]="true"
+        appendTo="body"
+      />
+    </div>
+  </form>
+
+  <div class="flex justify-end gap-2 mt-4">
+    <p-button
+      severity="info"
+      size="small"
+      [label]="id ? 'Actualizar' : 'Guardar'"
+      [disabled]="formData.invalid"
+      (onClick)="guardar()"
+    />
+  </div>
+</div>

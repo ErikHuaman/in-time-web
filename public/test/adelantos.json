@@ -1,0 +1,10 @@
+[
+  {
+    "id": 1,
+    "trabajadorId": 1,
+    "montoAdelanto": 1200,
+    "cuotasDescuento": 3,
+    "fechaAdelanto": "2025-04-01T05:00:00.000Z",
+    "fechaDescuento": "2025-04-01T05:00:00.000Z"
+  }
+]

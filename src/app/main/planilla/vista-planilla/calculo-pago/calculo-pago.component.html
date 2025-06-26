@@ -1,0 +1,244 @@
+<div class="flex flex-col gap-4">
+  <div class="flex">
+    <div class="flex items-center font-bold w-full justify-center text-2xl">
+      {{ mesSelected | date : "MMMM yyyy" | uppercase }}
+    </div>
+    <table>
+      <tbody>
+        <tr>
+          <td
+            class="border border-slate-300 text-start text-sm px-3 py-1 min-w-48"
+          >
+            {{ "DÍAS DEL MES" }}
+          </td>
+          <td
+            class="border border-slate-300 font-bold text-center text-sm px-3 py-1 min-w-24"
+          >
+            {{ formData?.totalDiasMes }}
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="border border-slate-300 text-start text-sm px-3 py-1 min-w-48"
+          >
+            {{ "TOTAL DE DÍAS" }}
+          </td>
+          <td
+            class="border border-slate-300 font-bold text-center text-sm px-3 py-1 min-w-24"
+          >
+            {{ formData?.totalDias }}
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="border border-slate-300 text-start text-sm px-3 py-1 min-w-48"
+          >
+            {{ "DÍAS TRABAJADOS" }}
+          </td>
+          <td
+            class="border border-slate-300 font-bold text-center text-sm px-3 py-1 min-w-24"
+          >
+            {{ formData?.diasLaborados }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <table class="w-full">
+    <tbody>
+      <tr>
+        <td
+          rowspan="2"
+          class="border border-slate-300 text-center text-sm px-3 py-1"
+        >
+          {{ "*" }}
+        </td>
+        <td
+          rowspan="2"
+          class="w-24 border border-slate-300 text-center text-sm px-3 py-1"
+        >
+          {{ "DIARIAS" }}
+        </td>
+        <td
+          colspan="2"
+          class="w-48 border border-slate-300 text-center text-sm px-3 py-1"
+        >
+          {{ "EXTRA" }}
+        </td>
+        <td
+          rowspan="2"
+          class="w-24 border border-slate-300 text-center text-sm px-3 py-1"
+        >
+          {{ "TOTAL" }}
+        </td>
+        <td
+          rowspan="7"
+          class="w-24 border border-slate-300 text-center text-sm px-3 py-1"
+        >
+          {{ "AFP" }}
+        </td>
+        <td
+          rowspan="7"
+          class="w-24 border border-slate-300 text-center text-sm px-3 py-1"
+        >
+          {{ "SIS" }}
+        </td>
+        <td
+          rowspan="9"
+          class="w-24 border border-slate-300 bg-sky-700 text-slate-50 font-bold text-center text-sm px-3 py-1"
+        >
+          {{ "PAGO NETO" }}
+        </td>
+      </tr>
+      <tr>
+        <td class="w-24 border border-slate-300 text-center text-sm px-3 py-1">
+          {{ "+25%" }}
+        </td>
+        <td class="w-24 border border-slate-300 text-center text-sm px-3 py-1">
+          {{ "+35%" }}
+        </td>
+      </tr>
+      <tr>
+        <td class="border border-slate-300 text-start text-sm px-3 py-2">
+          {{ "HORAS" }}
+        </td>
+        <td class="border border-slate-300 text-center text-sm px-3 py-2">
+          {{ formData?.horasOrdinarias | number : "1.2-2" }}
+        </td>
+        <td class="border border-slate-300 text-center text-sm px-3 py-2">
+          {{ formData?.horasExtra25 | number : "1.2-2" }}
+        </td>
+        <td class="border border-slate-300 text-center text-sm px-3 py-2">
+          {{ formData?.horasExtra35 | number : "1.2-2" }}
+        </td>
+        <td class="border border-slate-300 text-center text-sm px-3 py-2">
+          {{ formData?.horasDiarias | number : "1.2-2" }}
+        </td>
+      </tr>
+      <tr>
+        <td class="border border-slate-300 text-start text-sm px-3 py-2">
+          {{ "CALCULO" }}
+        </td>
+        <td class="border border-slate-300 text-center text-sm px-3 py-2">
+          {{ formData?.salarioHora | number : "1.2-2" }}
+        </td>
+        <td class="border border-slate-300 text-center text-sm px-3 py-2">
+          {{ formData?.salarioHoraExtra25 | number : "1.2-2" }}
+        </td>
+        <td class="border border-slate-300 text-center text-sm px-3 py-2">
+          {{ formData?.salarioHoraExtra35 | number : "1.2-2" }}
+        </td>
+        <td class="border border-slate-300 text-center text-sm px-3 py-2">
+          {{ formData?.salarioHoraTotal | number : "1.2-2" }}
+        </td>
+      </tr>
+      <tr>
+        <td class="border border-slate-300 text-start text-sm px-3 py-2">
+          {{ "SUELDO DIARIO" }}
+        </td>
+        <td class="border border-slate-300 text-center text-sm px-3 py-2">
+          {{ formData?.salarioDiario | number : "1.2-2" }}
+        </td>
+        <td class="border border-slate-300 text-center text-sm px-3 py-2">
+          {{ formData?.salarioDiarioExtra25 | number : "1.2-2" }}
+        </td>
+        <td class="border border-slate-300 text-center text-sm px-3 py-2">
+          {{ formData?.salarioDiarioExtra35 | number : "1.2-2" }}
+        </td>
+        <td class="border border-slate-300 text-center text-sm px-3 py-2">
+          {{ formData?.salarioDiarioTotal | number : "1.2-2" }}
+        </td>
+      </tr>
+      <tr>
+        <td class="border border-slate-300 text-start text-sm px-3 py-2">
+          {{ "SUELDO DEL MES" }}
+        </td>
+        <td class="border border-slate-300 text-center text-sm px-3 py-2">
+          {{ formData?.salarioMensual | number : "1.2-2" }}
+        </td>
+        <td class="border border-slate-300 text-center text-sm px-3 py-2">
+          {{ formData?.salarioMesExtra25 | number : "1.2-2" }}
+        </td>
+        <td class="border border-slate-300 text-center text-sm px-3 py-2">
+          {{ formData?.salarioMesExtra35 | number : "1.2-2" }}
+        </td>
+        <td class="border border-slate-300 text-center text-sm px-3 py-2">
+          {{ formData?.salarioMensualTotal | number : "1.2-2" }}
+        </td>
+      </tr>
+      <tr>
+        <td
+          colspan="4"
+          class="border border-slate-300 text-start text-sm px-3 py-2"
+        >
+          {{ "DESCUENTO POR FALTAS" }} ( {{ formData?.faltas }} DÍAS )
+        </td>
+        <td class="border border-slate-300 text-center text-sm px-3 py-2">
+          {{ formData?.descuentoFaltas | number : "1.2-2" }}
+        </td>
+      </tr>
+      <tr>
+        <td
+          colspan="4"
+          class="border border-slate-300 text-start text-sm px-3 py-2"
+        >
+          {{ "FERIADOS TRABAJADOS" }} ( {{ formData?.feriados }} DÍAS )
+        </td>
+        <td class="border border-slate-300 text-center text-sm px-3 py-2">
+          {{ formData?.salarioFeriado | number : "1.2-2" }}
+        </td>
+        <td
+          rowspan="2"
+          class="border border-slate-300 text-center text-sm px-3 py-1"
+        >
+          {{ "11.37%" }}
+        </td>
+        <td
+          rowspan="2"
+          class="border border-slate-300 text-center text-sm px-3 py-1"
+        >
+          {{ "S/ 15.00" }}
+        </td>
+      </tr>
+      <tr>
+        <td
+          colspan="4"
+          class="border border-slate-300 text-start text-sm px-3 py-2"
+        >
+          {{ "VACACIONES" }} ( {{ formData?.totalDiasVacaciones }} DÍAS )
+        </td>
+        <td class="border border-slate-300 text-center text-sm px-3 py-2">
+          {{ formData?.salarioVacaciones | number : "1.2-2" }}
+        </td>
+      </tr>
+      <tr>
+        <td
+          colspan="4"
+          class="border border-slate-300 bg-sky-700 text-slate-50 font-bold text-center text-sm px-3 py-2"
+        >
+          {{ "SUELDO BRUTO" }}
+        </td>
+        <td
+          class="border border-slate-300 bg-sky-700 text-slate-50 font-bold text-center text-sm px-3 py-2"
+        >
+          {{ formData?.sueldoBruto | number : "1.2-2" }}
+        </td>
+        <td
+          class="border border-slate-300 bg-sky-700 text-slate-50 font-bold text-center text-sm px-3 py-2"
+        >
+          {{ formData?.montoAFP | number : "1.2-2" }}
+        </td>
+        <td
+          class="border border-slate-300 bg-sky-700 text-slate-50 font-bold text-center text-sm px-3 py-2"
+        >
+          {{ formData?.sis | number : "1.2-2" }}
+        </td>
+        <td
+          class="border border-slate-300 bg-sky-700 text-slate-50 font-bold text-center text-sm px-3 py-2"
+        >
+          {{ formData?.pagoNeto | number : "1.2-2" }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,58 @@
+<div class="flex flex-col gap-2">
+  <form [formGroup]="formData" class="grid grid-cols-1 gap-3">
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium" for="title"> Título </label>
+      <textarea
+        id="title"
+        rows="2"
+        cols="30"
+        pTextarea
+        formControlName="title"
+      ></textarea>
+    </div>
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium" for="fechaStart"
+        >Fecha de inicio</label
+      >
+      <p-datepicker
+        id="fechaStart"
+        styleClass="w-full uppercase"
+        dateFormat="dd M yy"
+        placeholder="DD MMM YYYY"
+        formControlName="start"
+        [showIcon]="true"
+        appendTo="body"
+      />
+    </div>
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium" for="fechaEnd">Fecha de fin</label>
+      <p-datepicker
+        id="fechaEnd"
+        styleClass="w-full uppercase"
+        dateFormat="dd M yy"
+        placeholder="DD MMM YYYY"
+        formControlName="end"
+        [showIcon]="true"
+        appendTo="body"
+      />
+    </div>
+    <div class="flex gap-2">
+      <p-checkbox
+        formControlName="recurrente"
+        [binary]="true"
+        inputId="recurrente"
+      />
+      <label for="recurrente">Aplicar la misma fecha todos los años</label>
+    </div>
+  </form>
+
+  <div class="flex justify-end gap-2 mt-4">
+    <p-button
+      severity="info"
+      size="small"
+      [label]="id ? 'Actualizar' : 'Guardar'"
+      [disabled]="formData.invalid"
+      (onClick)="guardar()"
+    />
+  </div>
+</div>

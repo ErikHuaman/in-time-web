@@ -1,0 +1,135 @@
+import { CommonModule } from '@angular/common';
+import { Component, inject, OnInit } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+import { DatePickerModule } from 'primeng/datepicker';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { IconField } from 'primeng/iconfield';
+import { InputIcon } from 'primeng/inputicon';
+import { InputTextModule } from 'primeng/inputtext';
+import { SelectModule } from 'primeng/select';
+import { TableModule } from 'primeng/table';
+import { TagModule } from 'primeng/tag';
+import { TooltipModule } from 'primeng/tooltip';
+import { FormCorreccionMarcacionComponent } from './form-correccion-marcacion/form-correccion-marcacion.component';
+import { FormsModule } from '@angular/forms';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { SedeService } from '@services/sede.service';
+import { CargoService } from '@services/cargo.service';
+import { AsistenciaService } from '@services/asistencia.service';
+import { Sede } from '@models/sede.model';
+import { Cargo } from '@models/cargo.model';
+import { forkJoin, mergeMap } from 'rxjs';
+import { TitleCardComponent } from '@components/title-card/title-card.component';
+
+@Component({
+  selector: 'app-correccion-marcacion',
+  imports: [
+    CommonModule,
+    FormsModule,
+    MultiSelectModule,
+    SelectModule,
+    ButtonModule,
+    TableModule,
+    InputTextModule,
+    InputIcon,
+    IconField,
+    SelectModule,
+    TagModule,
+    DatePickerModule,
+    TooltipModule,
+    TitleCardComponent
+  ],
+  templateUrl: './correccion-marcacion.component.html',
+  styles: ``,
+  providers: [DialogService],
+})
+export class CorreccionMarcacionComponent implements OnInit {
+  title: string = 'Trabajadores con marcación incorrecta';
+
+  icon: string = 'material-symbols:person-pin-outline-rounded';
+  ref!: DynamicDialogRef;
+
+  private readonly dialogService = inject(DialogService);
+
+  private readonly sedeService = inject(SedeService);
+
+  private readonly cargoService = inject(CargoService);
+
+  private readonly asistenciaService = inject(AsistenciaService);
+
+  fechaSelected!: Date;
+
+  listaSedes: Sede[] = [];
+
+  selectedSedes: string[] = [];
+
+  listaCargos: Cargo[] = [];
+
+  selectedCargos: string[] = [];
+
+  dataTable: any[] = [];
+
+  listaAsistenciaMensual: any[] = [];
+
+  ngOnInit(): void {
+    this.fechaSelected = new Date('2025/04/01');
+    this.cargarAsistenciaObservada();
+  }
+
+  cargarAsistenciaObservada() {
+    forkJoin([/* this.sedeService.findAll(), this.cargoService.findAll() */])
+      .pipe(
+        mergeMap((arr) => {
+          /* this.listaSedes = arr[0];
+          this.selectedSedes = this.listaSedes.map((item) => item.id); */
+          // this.listaCargos = arr[1];
+          // this.selectedCargos = this.listaCargos.map((item) => item.id);
+          return this.asistenciaService.findAllObservadoByMonth(
+            this.fechaSelected
+          );
+        })
+      )
+      .subscribe({
+        next: (data) => {
+          this.listaAsistenciaMensual = data;
+          this.filtrar();
+        },
+      });
+  }
+
+  filtrar(event?: number) {
+    this.dataTable = this.listaAsistenciaMensual.filter(
+      (t) =>
+        this.selectedSedes.includes(t.sede.id) &&
+        this.selectedCargos.includes(t.cargo.id)
+    );
+  }
+
+  cambiarFecha(event: Date) {
+    this.cargarAsistenciaObservada();
+  }
+
+  editar(item: any) {
+    const ref = this.dialogService.open(FormCorreccionMarcacionComponent, {
+      header: item.corrected
+        ? 'Detalle de la corrección'
+        : 'Corregir marcación',
+      data: item,
+      styleClass: 'modal-md',
+      focusOnShow: false,
+      modal: true,
+      dismissableMask: true,
+      closable: true,
+    });
+
+    ref.onClose.subscribe((res) => {
+      if (res) {
+        this.cargarAsistenciaObservada();
+      }
+    });
+  }
+
+  filterGlobal(dt: any, target: EventTarget | null) {
+    dt.filterGlobal((target as HTMLInputElement).value, 'contains');
+  }
+}

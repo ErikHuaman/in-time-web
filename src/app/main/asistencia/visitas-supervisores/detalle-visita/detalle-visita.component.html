@@ -1,0 +1,119 @@
+<div class="flex flex-col gap-4">
+  <tr>
+    <td class="font-semibold text-xs uppercase px-2 py-0">USUARIO :</td>
+    <td class="font-bold text-sm ps-2 pe-6 py-0 uppercase border-e">
+      {{ visita.usuario?.labelName }}
+    </td>
+    <td class="font-semibold text-xs uppercase ps-6 pe-2 py-0">ROL :</td>
+    <td class="font-bold text-sm ps-2 pe-6 py-0 uppercase border-e">
+      {{ visita.usuario?.rol?.nombre }}
+    </td>
+    <td class="font-semibold text-xs uppercase ps-6 pe-2 py-0">EDIFICIO :</td>
+    <td class="font-bold text-sm px-2 py-0 uppercase">
+      {{ visita.dispositivo?.sede?.nombre }}
+    </td>
+  </tr>
+  <div class="flex justify-center gap-4">
+    <td class="!text-center !text-sm px-2">
+      <div class="flex flex-col items-center justify-center h-full gap-1">
+        <div class="flex items-center">
+          <div class="uppercase">Visita registrada</div>
+        </div>
+        <div class="flex justify-center text-sm font-bold">
+          {{ visita.fecha | date : "dd MMM yyyy" | uppercase }}
+        </div>
+      </div>
+    </td>
+    <td class="!text-center !text-sm px-2">
+      <div class="flex gap-2">
+        <div class="flex justify-center">
+          <div class="flex flex-col gap-0.5">
+            <div>Entrada</div>
+            <div
+              [ngClass]="[
+                'w-24 h-10 rounded-lg flex items-center justify-center text-sm gap-1 py-1',
+                'bg-slate-300'
+              ]"
+            >
+              {{
+                visita?.marcacionEntrada
+                  ? (visita?.marcacionEntrada | date : "HH:mm")
+                  : "--:--"
+              }}
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-center">
+          <div class="flex flex-col gap-0.5">
+            <div>Salida</div>
+            <div
+              [ngClass]="[
+                'w-24 h-10 rounded-lg flex items-center justify-center text-sm gap-1 py-1',
+                'bg-slate-300'
+              ]"
+            >
+              {{
+                visita?.marcacionSalida
+                  ? (visita?.marcacionSalida | date : "HH:mm")
+                  : "--:--"
+              }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </td>
+  </div>
+  <div class="flex justify-end">
+    <tr>
+      <td>
+        <div class="flex gap-1">
+          <div
+            class="flex items-center font-semibold text-xs uppercase px-2 py-0"
+          >
+            Edificio :
+          </div>
+          <div
+            class="flex items-center hover:ring-2 p-1"
+            (click)="centrarEdificio()"
+          >
+            <img width="20" height="20" src="/house.png" alt="" />
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="flex gap-1">
+          <div
+            class="flex items-center font-semibold text-xs uppercase px-2 py-0"
+          >
+            Entrada :
+          </div>
+          <div
+            class="flex items-center hover:ring-2 p-1"
+            (click)="centrarEntrada()"
+          >
+            <img width="20" height="20" src="/gps-green.png" alt="" />
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="flex gap-1">
+          <div
+            class="flex items-center font-semibold text-xs uppercase px-2 py-0"
+          >
+            Salida :
+          </div>
+          <div
+            class="flex items-center hover:ring-2 p-1"
+            (click)="centrarSalida()"
+          >
+            <img width="20" height="20" src="/gps-red.png" alt="" />
+          </div>
+        </div>
+      </td>
+    </tr>
+  </div>
+  <div class="w-full border border-slate-300 rounded-md overflow-hidden">
+    <div id="map" class="h-105 min-h-105"></div>
+  </div>
+</div>

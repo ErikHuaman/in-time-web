@@ -1,0 +1,81 @@
+<div class="flex flex-col h-full">
+  <div class="flex flex-col justify-center gap-4 px-6 py-4">
+    <div class="flex justify-between items-center gap-4">
+      <title-card [title]="title" [icon]="icon" />
+    </div>
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <!--          <p-iconfield>
+            <p-inputicon styleClass="pi pi-search" />
+            <input
+              type="text"
+              pInputText
+              placeholder="Buscar"
+              (input)="filterGlobal(dt, $event.target)"
+            />
+          </p-iconfield> -->
+      </div>
+      <div class="flex items-center gap-3">
+        <p-button severity="info" size="small" (click)="addNew()">
+          <div class="flex justify-center items-center font-medium gap-1">
+            <i
+              class="iconify icon text-lg"
+              data-icon="uil:plus"
+              data-inline="false"
+            ></i>
+            <span>Agregar</span>
+          </div>
+        </p-button>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-col h-[calc(100% - 8.5rem)] px-6">
+    <div class="px-10">
+      <div class="flex flex-wrap gap-10">
+        @for (item of listaDispositivos; track $index) {
+        <div
+          class="w-64 h-56 flex flex-col gap-4 shadow-2xl rounded-xl px-4 py-4 ring-2 ring-slate-700 bg-slate-200 hover:bg-slate-300 cursor-pointer"
+          (click)="edit(item.id)"
+        >
+          <div class="flex justify-end">
+            <span
+              class="w-4 h-4 rounded-full ring-2"
+              [ngClass]="[
+                item.isActive
+                  ? 'bg-green-500 ring-green-700'
+                  : 'bg-red-500 ring-red-700'
+              ]"
+            ></span>
+          </div>
+          <div
+            class="rounded-md text-center p-2 ring-2 ring-slate-700 font-mono bg-green-100"
+          >
+            {{ item.codigo }}
+          </div>
+          <div class="grow">
+            <div class="flex flex-col items-center gap-2">
+              <div class="flex flex-col items-center gap-1">
+                <h3 class="font-semibold text-md uppercase">
+                  {{ item.nombre }}
+                </h3>
+              </div>
+              <div class="flex flex-col items-center gap-1">
+                <small>Edificio:</small>
+                <span class="font-sans text-md uppercase">{{
+                  item.sede?.nombre
+                }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        }
+      </div>
+      <div
+        *ngIf="listaDispositivos.length === 0"
+        class="text-center text-sm font-extralight"
+      >
+        No se encontraron dispositivos registrados.
+      </div>
+    </div>
+  </div>
+</div>

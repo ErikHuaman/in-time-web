@@ -1,0 +1,155 @@
+<form [formGroup]="formData" class="grid grid-cols-1 gap-6">
+  <div class="grid grid-cols-2 gap-6">
+    <div class="grid grid-cols-1 gap-2">
+      <div class="grid grid-cols-1 gap-2" formGroupName="usuario">
+        <div class="flex flex-col gap-2">
+          <label class="text-sm font-medium" for="nombreUsuario">
+            Nombre <span class="text-xs">*</span>
+          </label>
+          <input id="nombreCargo" pInputText formControlName="nombre" />
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label class="text-sm font-medium" for="apellidoUsuario">
+            Apellidos <span class="text-xs">*</span>
+          </label>
+          <input id="apellidoUsuario" pInputText formControlName="apellido" />
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label class="text-sm font-medium" for="usernameUsuario">
+            Usuario <span class="text-xs">*</span>
+          </label>
+          <input id="usernameUsuario" pInputText formControlName="username" />
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label class="text-sm font-medium" for="usernameUsuario">
+            Contraseña <span class="text-xs">*</span>
+          </label>
+          <p-password
+            [toggleMask]="true"
+            [feedback]="false"
+            class="w-full"
+            styleClass="w-full"
+            inputStyleClass="w-full"
+            formControlName="password"
+          />
+        </div>
+        <div class="flex flex-col gap-2">
+          <label class="text-sm font-medium" for="idRolUsuario">
+            Rol <span class="text-xs">*</span>
+          </label>
+          <p-select
+            [options]="listaRoles"
+            optionLabel="nombre"
+            optionValue="id"
+            formControlName="idRol"
+            placeholder="Seleccione..."
+            appendTo="body"
+          />
+        </div>
+      </div>
+      <div formGroupName="sedes">
+        <div class="flex flex-col gap-2">
+          <label class="text-sm font-medium" for="usernameUsuario">
+            Edificios <span class="text-xs">*</span>
+          </label>
+          <p-multiselect
+            [options]="listaSedes"
+            optionLabel="nombre"
+            optionValue="id"
+            placeholder="Edificios"
+            [maxSelectedLabels]="2"
+            pTooltip="Edificios"
+            tooltipPosition="top"
+            tooltipStyleClass="text-sm"
+            formControlName="idSedes"
+            appendTo="body"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-col gap-2">
+      <div class="flex flex-col gap-2" formGroupName="usuario">
+        <div class="flex flex-col gap-2">
+          <label class="text-sm font-medium" for="tipoDocumentoTrabajador">
+            Documento de Identificación <span class="text-xs">*</span>
+          </label>
+          <p-select
+            inputId="tipoDocumentoTrabajador"
+            [options]="listaTipoDocId"
+            optionLabel="nombre"
+            optionValue="id"
+            formControlName="idTipoDocID"
+            placeholder="Seleccione..."
+            (onChange)="selectTipoDocId($event.value)"
+            appendTo="body"
+          />
+        </div>
+        <div class="flex flex-col gap-2">
+          <label class="text-sm font-medium" for="identificacionTrabajador">
+            Identificación <span class="text-xs">*</span>
+          </label>
+          <input
+            pInputText
+            id="identificacionTrabajador"
+            formControlName="identificacion"
+            (keypress)="allowOnlyNumbers($event)"
+          />
+        </div>
+      </div>
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-medium">
+          Foto <span class="text-xs">*</span>
+        </label>
+        <div class="flex justify-center">
+          <div
+            class="border border-slate-300 rounded-lg h-72 w-full flex justify-center items-center"
+          >
+            <img
+              *ngIf="previewUrl"
+              [src]="previewUrl"
+              alt="Imagen seleccionada"
+              class="w-full h-full object-cover rounded-lg overflow-hidden"
+            />
+            <p *ngIf="!previewUrl" class="text-sm italic">Sin foto</p>
+          </div>
+        </div>
+        <div class="relative w-full">
+          <div class="absolute bottom-2.5 left-0 right-0 flex justify-end p-1">
+            <input
+              #fileImage
+              class="hidden"
+              type="file"
+              (change)="onFileSelected($event)"
+              accept="image/*"
+            />
+            <button-custom
+              severity="secondary"
+              icon="material-symbols:android-camera"
+              (click)="fileImage.click()"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex justify-between gap-4" formGroupName="usuario">
+    <div class="flex items-center gap-2 py-1">
+      <p-toggleswitch formControlName="isActive" />
+      <label class="text-sm font-medium pb-1.5" for="nombreCargo">{{
+        isActive ? "Activo" : "Inactivo"
+      }}</label>
+    </div>
+    <p-button
+      severity="info"
+      size="small"
+      [label]="id ? 'Actualizar' : 'Guardar'"
+      [loading]="loading"
+      [disabled]="formData.invalid"
+      (onClick)="guardar()"
+    />
+  </div>
+</form>

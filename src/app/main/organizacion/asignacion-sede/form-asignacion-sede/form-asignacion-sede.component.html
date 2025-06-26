@@ -1,0 +1,63 @@
+<div class="flex flex-col gap-2">
+  <form [formGroup]="formData" class="grid grid-cols-1 gap-2">
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium" for="idTrabajadorAsignacion">
+        Trabajador <span class="text-xs">*</span>
+      </label>
+      <p-select
+        id="idTrabajadorAsignacion"
+        [options]="listaTrabajadores"
+        optionLabel="labelName"
+        optionValue="id"
+        formControlName="idTrabajador"
+        placeholder="Seleccione..."
+        appendTo="body"
+        (onChange)="selectTrabajador($event.value)"
+      />
+    </div>
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium" for="idSedeAsignacion">
+        Edificios <span class="text-xs">*</span>
+      </label>
+      <p-multiselect
+        [options]="listaSedes"
+        optionLabel="nombre"
+        optionValue="id"
+        (onChange)="selectSedes($event.value)"
+        [maxSelectedLabels]="2"
+        formControlName="idSedes"
+        placeholder="Seleccione..."
+        appendTo="body"
+      />
+    </div>
+    <div formArrayName="asignaciones" class="grid grid-cols-1 gap-2">
+      <div
+        *ngFor="let item of asignaciones.controls; let i = index"
+        [formGroupName]="i"
+        class="flex flex-col gap-2"
+      >
+        <label class="text-sm font-medium" for="fechaAsignacion">
+          Fecha de asignación | {{ item?.value?.nombreSede }}
+        </label>
+        <p-datepicker
+          id="fechaAsignacion"
+          styleClass="w-full uppercase"
+          dateFormat="dd M yy"
+          placeholder="DD MMM YYYY"
+          formControlName="fechaAsignacion"
+          [showIcon]="true"
+          appendTo="body"
+        />
+      </div>
+    </div>
+  </form>
+  <div class="flex justify-end gap-2 mt-4">
+    <p-button
+      severity="info"
+      size="small"
+      [label]="'Asignar'"
+      [disabled]="formData.invalid"
+      (onClick)="guardar()"
+    />
+  </div>
+</div>

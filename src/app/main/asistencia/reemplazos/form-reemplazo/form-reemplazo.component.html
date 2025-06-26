@@ -1,0 +1,107 @@
+<form [formGroup]="formData" class="grid grid-cols-1 gap-2">
+  <div class="flex flex-col gap-2">
+    <label class="text-sm font-medium" for="nombresReemplazo">
+      Nombres y Apellidos <span class="text-xs">*</span>
+    </label>
+    <input id="nombresReemplazo" pInputText formControlName="nombres" />
+  </div>
+  <div class="flex flex-col gap-2">
+    <label class="text-sm font-medium" for="dniReemplazo">
+      DNI <span class="text-xs">*</span>
+    </label>
+    <input id="dniReemplazo" pInputText formControlName="dni" />
+  </div>
+  <div class="flex flex-col gap-2">
+    <label class="text-sm font-medium" for="tipoVerificacion">
+      Tipo de verificación <span class="text-xs">*</span>
+    </label>
+    <div class="flex justify-center gap-4">
+      <div class="flex items-center gap-1">
+        <p-radiobutton
+          value="codigo"
+          inputId="tipoVerificacion1"
+          [(ngModel)]="tipoVerificacion"
+          [ngModelOptions]="{ standalone: true }"
+          (ngModelChange)="changeTipo($event)"
+        />
+        <label for="tipoVerificacion1">Código</label>
+      </div>
+
+      <div class="flex items-center gap-1">
+        <p-radiobutton
+          value="foto"
+          inputId="tipoVerificacion2"
+          [(ngModel)]="tipoVerificacion"
+          [ngModelOptions]="{ standalone: true }"
+          (ngModelChange)="changeTipo($event)"
+        />
+        <label for="tipoVerificacion2">Foto</label>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="tipoVerificacion === 'codigo'" class="flex flex-col gap-2">
+    <label class="text-sm font-medium" for="dniReemplazo">
+      Código <span class="text-xs">*</span>
+    </label>
+    <div class="flex justify-center items-center gap-3">
+      <p-inputotp
+        [readonly]="true"
+        [length]="6"
+        size="small"
+        formControlName="codigo"
+        styleClass="!text-base font-medium"
+      />
+      <p-button severity="contrast" size="small" (click)="generarCodigo()">
+        <div class="flex justify-center items-center gap-2">
+          <div>Generar</div>
+        </div>
+      </p-button>
+    </div>
+  </div>
+  <div *ngIf="tipoVerificacion === 'foto'" class="flex flex-col gap-2">
+    <label class="text-sm font-medium">
+      Foto <span class="text-xs">*</span>
+    </label>
+    <div class="flex justify-center">
+      <div
+        class="border border-slate-300 rounded-lg h-80 w-full flex justify-center items-center"
+      >
+        <img
+          *ngIf="previewUrl"
+          [src]="previewUrl"
+          alt="Imagen seleccionada"
+          class="w-full h-full object-cover rounded-lg overflow-hidden"
+        />
+        <p *ngIf="!previewUrl" class="text-sm italic">Sin foto</p>
+      </div>
+    </div>
+    <div class="flex justify-end">
+      <input
+        #fileImage
+        class="hidden"
+        type="file"
+        (change)="onFileSelected($event)"
+        accept="image/*"
+      />
+      <p-button severity="contrast" size="small" (click)="fileImage.click()">
+        <div class="flex justify-center items-center gap-2">
+          <div>Cargar foto</div>
+          <i
+            class="iconify icon text-lg"
+            data-icon="bx:upload"
+            data-inline="false"
+          ></i>
+        </div>
+      </p-button>
+    </div>
+  </div>
+  <div class="flex justify-end gap-2 mt-4">
+    <p-button
+      severity="info"
+      size="small"
+      [label]="id ? 'Actualizar' : 'Guardar'"
+      [disabled]="invalid"
+      (onClick)="guardar()"
+    />
+  </div>
+</form>

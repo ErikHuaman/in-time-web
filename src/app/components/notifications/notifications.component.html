@@ -1,0 +1,83 @@
+<div class="relative">
+  <span
+    *ngIf="pendientes"
+    class="w-4 h-4 z-1 flex items-center justify-center text-xs font-medium text-slate-50 bg-green-500 border border-slate-50 rounded-full absolute right-0 top-0"
+  >
+    <small>{{ pendientes }}</small>
+  </span>
+  <p-button
+    severity="secondary"
+    rounded
+    size="small"
+    styleClass="!p-0"
+    (click)="op.toggle($event)"
+  >
+    <div class="w-8 h-8 flex justify-center items-center">
+      <iconify-icon [icon]="'material-symbols:notifications-rounded'" class="text-xl" />
+    </div>
+  </p-button>
+</div>
+<p-popover #op styleClass="!p-0">
+  <div class="flex flex-col gap-4 w-[25rem]">
+    <div>
+      <span class="font-medium text-surface-900 dark:text-surface-0 block p-2">
+        Notificaciones
+      </span>
+      <ul *ngIf="notificaciones.length" class="list-none flex flex-col gap-2">
+        @for(item of notificaciones; track item) {
+        <li
+          [ngClass]="[
+            'flex items-center gap-2 shadow py-1 px-2',
+            !item.leido ? 'bg-green-50' : ''
+          ]"
+        >
+          <div class="flex gap-2">
+            <div class="w-3 h-8 flex justify-center items-start py-2">
+              <div
+                [pTooltip]="!item.leido ? 'Marcar como leído' : 'leido'"
+                tooltipPosition="top"
+                tooltipStyleClass="text-xs"
+              >
+                <div
+                  [ngClass]="[
+                    'w-2 h-2 rounded-full',
+                    !item.leido ? 'bg-green-500 cursor-pointer' : 'bg-slate-300'
+                  ]"
+                  (click)="changeLeido(item.id)"
+                ></div>
+              </div>
+            </div>
+            <div class="w-full flex flex-col gap-1">
+              <div class="flex justify-between">
+                <p class="text-xs font-medium">{{ item.titulo }}</p>
+                <p class="text-xs font-light">
+                  {{ item.createdAt | date : "dd MMM hh:mm a" }}
+                </p>
+              </div>
+              <p class="text-xs font-light">{{ item.descripcion }}</p>
+            </div>
+            <div class="w-6 flex items-center">
+              <div
+                class="w-6 h-6 rounded-full flex justify-center items-center cursor-pointer hover:bg-slate-200"
+                [pTooltip]="'borrar'"
+                tooltipPosition="top"
+                tooltipStyleClass="text-xs"
+                (click)="eliminar(item.id)"
+              >
+                <i
+                  class="iconify icon text-red-500"
+                  data-icon="material-symbols:delete-outline-rounded"
+                  data-inline="false"
+                ></i>
+              </div>
+            </div>
+          </div>
+        </li>
+        }
+      </ul>
+      <div *ngIf="!notificaciones.length" class="text-center pb-4">
+        <p class="text-sm text-slate-500 italic">No tienes notificaciones</p>
+      </div>
+    </div>
+  </div>
+</p-popover>

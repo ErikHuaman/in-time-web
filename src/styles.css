@@ -1,1 +1,129 @@
-/* You can add global styles to this file, and also import other style files */
+@import "primeicons/primeicons.css";
+@import "tailwindcss";
+@import "tailwindcss-primeui";
+
+@custom-variant dark (&:where(.app-dark, .app-dark *));
+
+.p-dialog-header {
+  @apply !px-6 !py-3;
+}
+
+.p-datatable-thead > tr > th,
+.p-datatable-tbody > tr > td {
+  @apply !px-4 !py-2;
+}
+
+.p-popover-content {
+  @apply !p-0;
+}
+
+.modal-xs,
+.modal-sm,
+.modal-md,
+.modal-lg,
+.modal-xl,
+.modal-2xl,
+.modal-3xl,
+.modal-4xl,
+.modal-5xl,
+.modal-6xl,
+.modal-7xl,
+.modal-8xl {
+  @apply w-[95%];
+}
+
+@media (min-width: 20rem;) {
+  .modal-xs {
+    @apply w-[18rem];
+  }
+}
+
+@media (min-width: 24rem) {
+  .modal-sm {
+    max-width: 22rem;
+  }
+}
+
+@media (min-width: 38rem) {
+  .modal-md {
+    max-width: 26rem;
+  }
+}
+
+@media (min-width: 32rem) {
+  .modal-lg {
+    width: 30rem;
+  }
+}
+
+@media (min-width: 36rem) {
+  .modal-xl {
+    max-width: 34rem;
+  }
+}
+
+@media (min-width: 42rem) {
+  .modal-2xl {
+    max-width: 40rem;
+  }
+}
+
+@media (min-width: 48rem) {
+  .modal-3xl {
+    max-width: 46rem;
+  }
+}
+
+@media (min-width: 56rem) {
+  .modal-4xl {
+    max-width: 54rem;
+  }
+}
+
+@media (min-width: 64rem) {
+  .modal-5xl {
+    max-width: 62rem;
+  }
+}
+
+@media (min-width: 72rem) {
+  .modal-6xl {
+    max-width: 70rem;
+  }
+}
+
+@media (min-width: 80rem) {
+  .modal-7xl {
+    max-width: 78rem;
+  }
+}
+
+@media (min-width: 88rem) {
+  .modal-8xl {
+    max-width: 86rem;
+  }
+}
+
+.p-datatable-thead > tr > th {
+  @apply !bg-slate-100 !border !border-slate-50 !py-2;
+}
+
+.cal-cell-row.cal-header {
+  @apply capitalize font-medium border-s border-slate-200;
+}
+
+.cal-header .cal-cell {
+  @apply capitalize font-medium !border-t border-e border-slate-200 bg-slate-50;
+}
+
+.p-dialog-header-actions .p-button {
+  @apply !w-8 !h-8;
+}
+
+.p-tab{
+  @apply !py-1;
+}
+
+.p-tab-active{
+  @apply !bg-sky-700 !text-slate-50 !rounded-t-md;
+}

@@ -1,0 +1,178 @@
+<div class="flex flex-col h-full">
+  <div class="flex flex-col justify-center gap-4 px-6 py-4">
+    <div class="flex justify-between items-center gap-4">
+      <title-card [title]="title" [icon]="icon" />
+      <!-- <p-button
+        severity="danger"
+        size="small"
+        [routerLink]="'/ajustes/configuracion'"
+      >
+        <div class="flex justify-center items-center font-medium gap-1">
+          <i
+            class="iconify icon text-lg"
+            data-icon="uil:left-arrow-from-left"
+            data-inline="false"
+          ></i>
+          <span>Configuración</span>
+        </div>
+      </p-button> -->
+    </div>
+  </div>
+  <div class="flex flex-col h-[calc(100% - 8.5rem)] px-6">
+    <form [formGroup]="formData" class="grid grid-cols-4 gap-x-6 gap-y-2">
+      <p-fieldset
+        legend="Información de la empresa"
+        class="col-span-3"
+        formGroupName="parametro"
+      >
+        <div class="grid grid-cols-6 gap-x-6 gap-y-2">
+          <div class="col-span-2 flex flex-col gap-2">
+            <label class="text-sm font-medium">RUC</label>
+            <input pInputText formControlName="ruc" />
+          </div>
+          <div class="col-span-4 flex flex-col gap-2">
+            <label class="text-sm font-medium"> Razón social </label>
+            <input pInputText formControlName="razonSocial" />
+          </div>
+          <div class="col-span-3 flex flex-col gap-2">
+            <label class="text-sm font-medium"> Rubro de la Empresa </label>
+            <input pInputText formControlName="rubro" />
+          </div>
+          <div class="col-span-3 flex flex-col gap-2">
+            <label class="text-sm font-medium"> Dirección </label>
+            <input pInputText formControlName="direccion" />
+          </div>
+        </div>
+      </p-fieldset>
+      <p-fieldset legend="Pago por horas extra" formGroupName="parametro">
+        <div class="grid grid-cols-1 gap-2">
+          <div class="flex flex-col gap-2">
+            <label class="text-sm font-medium">
+              Porcentaje por 1 - 2 horas extra
+            </label>
+
+            <p-inputgroup>
+              <input
+                pInputText
+                formControlName="porcentaje25"
+                (keydown)="preventOverflow($event)"
+                [max]="100"
+                [min]="0.01"
+              />
+              <p-inputgroup-addon>%</p-inputgroup-addon>
+            </p-inputgroup>
+          </div>
+          <div class="flex flex-col gap-2">
+            <label class="text-sm font-medium">
+              Porcentaje por 3 a más horas extra
+            </label>
+            <p-inputgroup>
+              <input
+                pInputText
+                formControlName="porcentaje35"
+                (keydown)="preventOverflow($event)"
+                [max]="100"
+                [min]="0.01"
+              />
+              <p-inputgroup-addon>%</p-inputgroup-addon>
+            </p-inputgroup>
+          </div>
+        </div>
+      </p-fieldset>
+      <p-fieldset legend="Fondo de pensiones" class="col-span-4">
+        <div
+          class="grid grid-cols-5 gap-x-6 gap-y-2"
+          formArrayName="fondoPensiones"
+        >
+          <p-fieldset
+            *ngFor="let item of fondoPensiones.controls; let i = index"
+            [formGroupName]="i"
+            [legend]="item?.value?.nombre"
+          >
+            <div class="grid grid-cols-1 gap-2">
+              <div class="flex flex-col gap-2" *ngIf="!item?.value?.esFijo">
+                <label class="text-sm font-medium">
+                  Aporte fondo de pensiones
+                </label>
+                <p-inputgroup>
+                  <input
+                    pInputText
+                    formControlName="pension"
+                    (keydown)="preventOverflow($event)"
+                    [max]="100"
+                    [min]="0.01"
+                  />
+                  <p-inputgroup-addon>%</p-inputgroup-addon>
+                </p-inputgroup>
+              </div>
+              <div class="flex flex-col gap-2">
+                <label class="text-sm font-medium"> Prima de seguro </label>
+                <p-inputgroup>
+                  <input
+                    pInputText
+                    formControlName="seguro"
+                    (keydown)="preventOverflow($event)"
+                    [max]="100"
+                    [min]="0.01"
+                  />
+                  <p-inputgroup-addon>%</p-inputgroup-addon>
+                </p-inputgroup>
+              </div>
+              <div class="flex flex-col gap-2" *ngIf="!item?.value?.esFijo">
+                <label class="text-sm font-medium"> Comisión de flujo </label>
+                <p-inputgroup>
+                  <input
+                    pInputText
+                    formControlName="comision"
+                    (keydown)="preventOverflow($event)"
+                    [max]="100"
+                    [min]="0.01"
+                  />
+                  <p-inputgroup-addon>%</p-inputgroup-addon>
+                </p-inputgroup>
+              </div>
+            </div>
+          </p-fieldset>
+        </div>
+      </p-fieldset>
+      <p-fieldset legend="Seguro de salud" class="col-span-4">
+        <div
+          class="grid grid-cols-5 gap-x-6 gap-y-2"
+          formArrayName="seguroSalud"
+        >
+          <p-fieldset
+            *ngFor="let item of seguroSalud.controls; let i = index"
+            [formGroupName]="i"
+            [legend]="item?.value?.nombre"
+          >
+            <div class="grid grid-cols-1 gap-2">
+              <div class="flex flex-col gap-2">
+                <p-inputgroup>
+                  <input
+                    pInputText
+                    formControlName="valor"
+                    (keydown)="preventOverflow($event)"
+                    [max]="100"
+                    [min]="0.01"
+                  />
+                  <p-inputgroup-addon>{{
+                    item?.value.esFijo ? "S/" : "%"
+                  }}</p-inputgroup-addon>
+                </p-inputgroup>
+              </div>
+            </div>
+          </p-fieldset>
+        </div>
+      </p-fieldset>
+      <div class="col-span-4 flex justify-end mt-2">
+        <p-button
+          severity="info"
+          size="small"
+          [label]="'Guardar cambios'"
+          [disabled]="formData.invalid"
+          (onClick)="guardar()"
+        />
+      </div>
+    </form>
+  </div>
+</div>

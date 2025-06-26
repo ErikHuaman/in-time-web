@@ -1,0 +1,9382 @@
+[
+  {
+    "id": 1,
+    "name": "Lamud",
+    "provinceId": 1
+  },
+  {
+    "id": 2,
+    "name": "Cocabamba",
+    "provinceId": 1
+  },
+  {
+    "id": 3,
+    "name": "Conila",
+    "provinceId": 1
+  },
+  {
+    "id": 4,
+    "name": "Inguilpata",
+    "provinceId": 1
+  },
+  {
+    "id": 5,
+    "name": "Camporredon Do",
+    "provinceId": 1
+  },
+  {
+    "id": 6,
+    "name": "Colcamar",
+    "provinceId": 1
+  },
+  {
+    "id": 7,
+    "name": "Longuita",
+    "provinceId": 1
+  },
+  {
+    "id": 8,
+    "name": "Lonya Chico",
+    "provinceId": 1
+  },
+  {
+    "id": 9,
+    "name": "Luya Viejo",
+    "provinceId": 1
+  },
+  {
+    "id": 10,
+    "name": "Luya",
+    "provinceId": 1
+  },
+  {
+    "id": 11,
+    "name": "Ocalli",
+    "provinceId": 1
+  },
+  {
+    "id": 12,
+    "name": "Ocumal",
+    "provinceId": 1
+  },
+  {
+    "id": 13,
+    "name": "Pisuquia",
+    "provinceId": 1
+  },
+  {
+    "id": 14,
+    "name": "Providencia",
+    "provinceId": 1
+  },
+  {
+    "id": 15,
+    "name": "San Jeronimo",
+    "provinceId": 1
+  },
+  {
+    "id": 16,
+    "name": "San Juan De Lopecancha",
+    "provinceId": 1
+  },
+  {
+    "id": 17,
+    "name": "Maria",
+    "provinceId": 1
+  },
+  {
+    "id": 18,
+    "name": "San Cristobal",
+    "provinceId": 1
+  },
+  {
+    "id": 19,
+    "name": "San Francisco Del Yeso",
+    "provinceId": 1
+  },
+  {
+    "id": 20,
+    "name": "Santa Catalina",
+    "provinceId": 1
+  },
+  {
+    "id": 21,
+    "name": "Tingo",
+    "provinceId": 1
+  },
+  {
+    "id": 22,
+    "name": "Santo Tomas",
+    "provinceId": 1
+  },
+  {
+    "id": 23,
+    "name": "Trita",
+    "provinceId": 1
+  },
+  {
+    "id": 24,
+    "name": "Bagua Grande",
+    "provinceId": 2
+  },
+  {
+    "id": 25,
+    "name": "Cajaruro",
+    "provinceId": 2
+  },
+  {
+    "id": 26,
+    "name": "Lonya Grande",
+    "provinceId": 2
+  },
+  {
+    "id": 27,
+    "name": "Jamalca",
+    "provinceId": 2
+  },
+  {
+    "id": 28,
+    "name": "Cumba",
+    "provinceId": 2
+  },
+  {
+    "id": 29,
+    "name": "Yamon",
+    "provinceId": 2
+  },
+  {
+    "id": 30,
+    "name": "El Milagro",
+    "provinceId": 2
+  },
+  {
+    "id": 31,
+    "name": "Aramango",
+    "provinceId": 3
+  },
+  {
+    "id": 32,
+    "name": "Copallin",
+    "provinceId": 3
+  },
+  {
+    "id": 33,
+    "name": "Imaza",
+    "provinceId": 3
+  },
+  {
+    "id": 34,
+    "name": "La Peca",
+    "provinceId": 3
+  },
+  {
+    "id": 35,
+    "name": "El Parco",
+    "provinceId": 3
+  },
+  {
+    "id": 36,
+    "name": "Bagua",
+    "provinceId": 3
+  },
+  {
+    "id": 37,
+    "name": "San Nicolas",
+    "provinceId": 4
+  },
+  {
+    "id": 38,
+    "name": "Cochamal",
+    "provinceId": 4
+  },
+  {
+    "id": 39,
+    "name": "Chirimoto",
+    "provinceId": 4
+  },
+  {
+    "id": 40,
+    "name": "Huambo",
+    "provinceId": 4
+  },
+  {
+    "id": 41,
+    "name": "Limabamba",
+    "provinceId": 4
+  },
+  {
+    "id": 42,
+    "name": "Longar",
+    "provinceId": 4
+  },
+  {
+    "id": 43,
+    "name": "Mariscal Benavides",
+    "provinceId": 4
+  },
+  {
+    "id": 44,
+    "name": "Santa Rosa",
+    "provinceId": 4
+  },
+  {
+    "id": 45,
+    "name": "Milpuc",
+    "provinceId": 4
+  },
+  {
+    "id": 46,
+    "name": "Totora",
+    "provinceId": 4
+  },
+  {
+    "id": 47,
+    "name": "Vista Alegre",
+    "provinceId": 4
+  },
+  {
+    "id": 48,
+    "name": "Omia",
+    "provinceId": 4
+  },
+  {
+    "id": 49,
+    "name": "Nieva",
+    "provinceId": 5
+  },
+  {
+    "id": 50,
+    "name": "El Cenepa",
+    "provinceId": 5
+  },
+  {
+    "id": 51,
+    "name": "Rio Santiago",
+    "provinceId": 5
+  },
+  {
+    "id": 52,
+    "name": "Chachapoyas",
+    "provinceId": 6
+  },
+  {
+    "id": 53,
+    "name": "Cheto",
+    "provinceId": 6
+  },
+  {
+    "id": 54,
+    "name": "Asuncion",
+    "provinceId": 6
+  },
+  {
+    "id": 55,
+    "name": "Chiliquin",
+    "provinceId": 6
+  },
+  {
+    "id": 56,
+    "name": "Chuquibamba",
+    "provinceId": 6
+  },
+  {
+    "id": 57,
+    "name": "Balsas",
+    "provinceId": 6
+  },
+  {
+    "id": 58,
+    "name": "Huancas",
+    "provinceId": 6
+  },
+  {
+    "id": 59,
+    "name": "Leimebamba",
+    "provinceId": 6
+  },
+  {
+    "id": 60,
+    "name": "Granada",
+    "provinceId": 6
+  },
+  {
+    "id": 61,
+    "name": "Levanto",
+    "provinceId": 6
+  },
+  {
+    "id": 62,
+    "name": "Magdalena",
+    "provinceId": 6
+  },
+  {
+    "id": 63,
+    "name": "La Jalca",
+    "provinceId": 6
+  },
+  {
+    "id": 64,
+    "name": "Mariscal Castilla",
+    "provinceId": 6
+  },
+  {
+    "id": 65,
+    "name": "Molinopampa",
+    "provinceId": 6
+  },
+  {
+    "id": 66,
+    "name": "Montevideo",
+    "provinceId": 6
+  },
+  {
+    "id": 67,
+    "name": "San Francisco De Daguas",
+    "provinceId": 6
+  },
+  {
+    "id": 68,
+    "name": "San Isidro De Maino",
+    "provinceId": 6
+  },
+  {
+    "id": 69,
+    "name": "Olleros",
+    "provinceId": 6
+  },
+  {
+    "id": 70,
+    "name": "Sonche",
+    "provinceId": 6
+  },
+  {
+    "id": 71,
+    "name": "Soloco",
+    "provinceId": 6
+  },
+  {
+    "id": 72,
+    "name": "Quinjalca",
+    "provinceId": 6
+  },
+  {
+    "id": 73,
+    "name": "Chisquilla",
+    "provinceId": 7
+  },
+  {
+    "id": 74,
+    "name": "Cuispes",
+    "provinceId": 7
+  },
+  {
+    "id": 75,
+    "name": "Florida",
+    "provinceId": 7
+  },
+  {
+    "id": 76,
+    "name": "Jazan",
+    "provinceId": 7
+  },
+  {
+    "id": 77,
+    "name": "Churuja",
+    "provinceId": 7
+  },
+  {
+    "id": 78,
+    "name": "Recta",
+    "provinceId": 7
+  },
+  {
+    "id": 79,
+    "name": "Jumbilla",
+    "provinceId": 7
+  },
+  {
+    "id": 80,
+    "name": "Corosha",
+    "provinceId": 7
+  },
+  {
+    "id": 81,
+    "name": "San Carlos",
+    "provinceId": 7
+  },
+  {
+    "id": 82,
+    "name": "Valera",
+    "provinceId": 7
+  },
+  {
+    "id": 83,
+    "name": "Yambrasbamba",
+    "provinceId": 7
+  },
+  {
+    "id": 84,
+    "name": "Shipasbamba",
+    "provinceId": 7
+  },
+  {
+    "id": 85,
+    "name": "San Luis",
+    "provinceId": 8
+  },
+  {
+    "id": 86,
+    "name": "San Nicolas",
+    "provinceId": 8
+  },
+  {
+    "id": 87,
+    "name": "Yauya",
+    "provinceId": 8
+  },
+  {
+    "id": 88,
+    "name": "Carhuaz",
+    "provinceId": 9
+  },
+  {
+    "id": 89,
+    "name": "Acopampa",
+    "provinceId": 9
+  },
+  {
+    "id": 90,
+    "name": "Ataquero",
+    "provinceId": 9
+  },
+  {
+    "id": 91,
+    "name": "San Miguel De Aco",
+    "provinceId": 9
+  },
+  {
+    "id": 92,
+    "name": "Shilla",
+    "provinceId": 9
+  },
+  {
+    "id": 93,
+    "name": "Anta",
+    "provinceId": 9
+  },
+  {
+    "id": 94,
+    "name": "Yungar",
+    "provinceId": 9
+  },
+  {
+    "id": 95,
+    "name": "Marcara",
+    "provinceId": 9
+  },
+  {
+    "id": 96,
+    "name": "Amashca",
+    "provinceId": 9
+  },
+  {
+    "id": 97,
+    "name": "Tinco",
+    "provinceId": 9
+  },
+  {
+    "id": 98,
+    "name": "Pariahuanca",
+    "provinceId": 9
+  },
+  {
+    "id": 99,
+    "name": "Piscobamba",
+    "provinceId": 10
+  },
+  {
+    "id": 100,
+    "name": "Casca",
+    "provinceId": 10
+  },
+  {
+    "id": 101,
+    "name": "Eleazar Guzman Barron",
+    "provinceId": 10
+  },
+  {
+    "id": 102,
+    "name": "Fidel Olivas Escudero",
+    "provinceId": 10
+  },
+  {
+    "id": 103,
+    "name": "Llama",
+    "provinceId": 10
+  },
+  {
+    "id": 104,
+    "name": "Llumpa",
+    "provinceId": 10
+  },
+  {
+    "id": 105,
+    "name": "Lucma",
+    "provinceId": 10
+  },
+  {
+    "id": 106,
+    "name": "Musga",
+    "provinceId": 10
+  },
+  {
+    "id": 107,
+    "name": "Buena Vista Alta",
+    "provinceId": 11
+  },
+  {
+    "id": 108,
+    "name": "Comandante Noel",
+    "provinceId": 11
+  },
+  {
+    "id": 109,
+    "name": "Casma",
+    "provinceId": 11
+  },
+  {
+    "id": 110,
+    "name": "Yautan",
+    "provinceId": 11
+  },
+  {
+    "id": 111,
+    "name": "Caceres Del Peru",
+    "provinceId": 12
+  },
+  {
+    "id": 112,
+    "name": "Chimbote",
+    "provinceId": 12
+  },
+  {
+    "id": 113,
+    "name": "Macate",
+    "provinceId": 12
+  },
+  {
+    "id": 114,
+    "name": "Moro",
+    "provinceId": 12
+  },
+  {
+    "id": 115,
+    "name": "Nepeña",
+    "provinceId": 12
+  },
+  {
+    "id": 116,
+    "name": "Coishco",
+    "provinceId": 12
+  },
+  {
+    "id": 117,
+    "name": "Samanco",
+    "provinceId": 12
+  },
+  {
+    "id": 118,
+    "name": "Santa",
+    "provinceId": 12
+  },
+  {
+    "id": 119,
+    "name": "Nuevo Chimbote",
+    "provinceId": 12
+  },
+  {
+    "id": 120,
+    "name": "Huaraz",
+    "provinceId": 13
+  },
+  {
+    "id": 121,
+    "name": "Huanchay",
+    "provinceId": 13
+  },
+  {
+    "id": 122,
+    "name": "Cochabamba",
+    "provinceId": 13
+  },
+  {
+    "id": 123,
+    "name": "Independencia",
+    "provinceId": 13
+  },
+  {
+    "id": 124,
+    "name": "Jangas",
+    "provinceId": 13
+  },
+  {
+    "id": 125,
+    "name": "La Libertad",
+    "provinceId": 13
+  },
+  {
+    "id": 126,
+    "name": "Olleros",
+    "provinceId": 13
+  },
+  {
+    "id": 127,
+    "name": "Pariacoto",
+    "provinceId": 13
+  },
+  {
+    "id": 128,
+    "name": "Pira",
+    "provinceId": 13
+  },
+  {
+    "id": 129,
+    "name": "Pampas",
+    "provinceId": 13
+  },
+  {
+    "id": 130,
+    "name": "Tarica",
+    "provinceId": 13
+  },
+  {
+    "id": 131,
+    "name": "Colcabamba",
+    "provinceId": 13
+  },
+  {
+    "id": 132,
+    "name": "Chacas",
+    "provinceId": 14
+  },
+  {
+    "id": 133,
+    "name": "Acochaca",
+    "provinceId": 14
+  },
+  {
+    "id": 134,
+    "name": "Llamellin",
+    "provinceId": 15
+  },
+  {
+    "id": 135,
+    "name": "Aczo",
+    "provinceId": 15
+  },
+  {
+    "id": 136,
+    "name": "Chaccho",
+    "provinceId": 15
+  },
+  {
+    "id": 137,
+    "name": "Chingas",
+    "provinceId": 15
+  },
+  {
+    "id": 138,
+    "name": "San Juan De Rontoy",
+    "provinceId": 15
+  },
+  {
+    "id": 139,
+    "name": "Mirgas",
+    "provinceId": 15
+  },
+  {
+    "id": 140,
+    "name": "Huacllan",
+    "provinceId": 16
+  },
+  {
+    "id": 141,
+    "name": "Coris",
+    "provinceId": 16
+  },
+  {
+    "id": 142,
+    "name": "La Merced",
+    "provinceId": 16
+  },
+  {
+    "id": 143,
+    "name": "Aija",
+    "provinceId": 16
+  },
+  {
+    "id": 144,
+    "name": "Succha",
+    "provinceId": 16
+  },
+  {
+    "id": 145,
+    "name": "Aco",
+    "provinceId": 17
+  },
+  {
+    "id": 146,
+    "name": "La Pampa",
+    "provinceId": 17
+  },
+  {
+    "id": 147,
+    "name": "Corongo",
+    "provinceId": 17
+  },
+  {
+    "id": 148,
+    "name": "Yanac",
+    "provinceId": 17
+  },
+  {
+    "id": 149,
+    "name": "Cusca",
+    "provinceId": 17
+  },
+  {
+    "id": 150,
+    "name": "Bambas",
+    "provinceId": 17
+  },
+  {
+    "id": 151,
+    "name": "Yupan",
+    "provinceId": 17
+  },
+  {
+    "id": 152,
+    "name": "Yungay",
+    "provinceId": 18
+  },
+  {
+    "id": 153,
+    "name": "Cascapara",
+    "provinceId": 18
+  },
+  {
+    "id": 154,
+    "name": "Mancos",
+    "provinceId": 18
+  },
+  {
+    "id": 155,
+    "name": "Ranrahirca",
+    "provinceId": 18
+  },
+  {
+    "id": 156,
+    "name": "Shupluy",
+    "provinceId": 18
+  },
+  {
+    "id": 157,
+    "name": "Yanama",
+    "provinceId": 18
+  },
+  {
+    "id": 158,
+    "name": "Matacoto",
+    "provinceId": 18
+  },
+  {
+    "id": 159,
+    "name": "Quillo",
+    "provinceId": 18
+  },
+  {
+    "id": 160,
+    "name": "Alfonso Ugarte",
+    "provinceId": 19
+  },
+  {
+    "id": 161,
+    "name": "Cashapampa",
+    "provinceId": 19
+  },
+  {
+    "id": 162,
+    "name": "Acobamba",
+    "provinceId": 19
+  },
+  {
+    "id": 163,
+    "name": "Huayllabamba",
+    "provinceId": 19
+  },
+  {
+    "id": 164,
+    "name": "Quiches",
+    "provinceId": 19
+  },
+  {
+    "id": 165,
+    "name": "Chingalpo",
+    "provinceId": 19
+  },
+  {
+    "id": 166,
+    "name": "San Juan",
+    "provinceId": 19
+  },
+  {
+    "id": 167,
+    "name": "Ragash",
+    "provinceId": 19
+  },
+  {
+    "id": 168,
+    "name": "Sihuas",
+    "provinceId": 19
+  },
+  {
+    "id": 169,
+    "name": "Sicsibamba",
+    "provinceId": 19
+  },
+  {
+    "id": 170,
+    "name": "Huarmey",
+    "provinceId": 20
+  },
+  {
+    "id": 171,
+    "name": "Cochapeti",
+    "provinceId": 20
+  },
+  {
+    "id": 172,
+    "name": "Culebras",
+    "provinceId": 20
+  },
+  {
+    "id": 173,
+    "name": "Huayan",
+    "provinceId": 20
+  },
+  {
+    "id": 174,
+    "name": "Malvas",
+    "provinceId": 20
+  },
+  {
+    "id": 175,
+    "name": "Chiquián",
+    "provinceId": 21
+  },
+  {
+    "id": 176,
+    "name": "Antonio Raymondi",
+    "provinceId": 21
+  },
+  {
+    "id": 177,
+    "name": "Aquia",
+    "provinceId": 21
+  },
+  {
+    "id": 178,
+    "name": "Cajacay",
+    "provinceId": 21
+  },
+  {
+    "id": 179,
+    "name": "Canis",
+    "provinceId": 21
+  },
+  {
+    "id": 180,
+    "name": "Colquioc",
+    "provinceId": 21
+  },
+  {
+    "id": 181,
+    "name": "Abelardo Pardo Lezameta",
+    "provinceId": 21
+  },
+  {
+    "id": 182,
+    "name": "Huallanca",
+    "provinceId": 21
+  },
+  {
+    "id": 183,
+    "name": "Huayllacayan",
+    "provinceId": 21
+  },
+  {
+    "id": 184,
+    "name": "Pacllon",
+    "provinceId": 21
+  },
+  {
+    "id": 185,
+    "name": "San Miguel De Corpanqui",
+    "provinceId": 21
+  },
+  {
+    "id": 186,
+    "name": "La Primavera",
+    "provinceId": 21
+  },
+  {
+    "id": 187,
+    "name": "Huasta",
+    "provinceId": 21
+  },
+  {
+    "id": 188,
+    "name": "Mangas",
+    "provinceId": 21
+  },
+  {
+    "id": 189,
+    "name": "Ticllos",
+    "provinceId": 21
+  },
+  {
+    "id": 190,
+    "name": "Chavin De Huantar",
+    "provinceId": 22
+  },
+  {
+    "id": 191,
+    "name": "Huacachi",
+    "provinceId": 22
+  },
+  {
+    "id": 192,
+    "name": "Huacchis",
+    "provinceId": 22
+  },
+  {
+    "id": 193,
+    "name": "Huantar",
+    "provinceId": 22
+  },
+  {
+    "id": 194,
+    "name": "Huachis",
+    "provinceId": 22
+  },
+  {
+    "id": 195,
+    "name": "Masin",
+    "provinceId": 22
+  },
+  {
+    "id": 196,
+    "name": "Ponto",
+    "provinceId": 22
+  },
+  {
+    "id": 197,
+    "name": "San Pedro De Chana",
+    "provinceId": 22
+  },
+  {
+    "id": 198,
+    "name": "Paucas",
+    "provinceId": 22
+  },
+  {
+    "id": 199,
+    "name": "Rahuapampa",
+    "provinceId": 22
+  },
+  {
+    "id": 200,
+    "name": "San Marcos",
+    "provinceId": 22
+  },
+  {
+    "id": 201,
+    "name": "Uco",
+    "provinceId": 22
+  },
+  {
+    "id": 202,
+    "name": "Rapayan",
+    "provinceId": 22
+  },
+  {
+    "id": 203,
+    "name": "Huari",
+    "provinceId": 22
+  },
+  {
+    "id": 204,
+    "name": "Anra",
+    "provinceId": 22
+  },
+  {
+    "id": 205,
+    "name": "Cajay",
+    "provinceId": 22
+  },
+  {
+    "id": 206,
+    "name": "Caraz",
+    "provinceId": 23
+  },
+  {
+    "id": 207,
+    "name": "Huallanca",
+    "provinceId": 23
+  },
+  {
+    "id": 208,
+    "name": "Huata",
+    "provinceId": 23
+  },
+  {
+    "id": 209,
+    "name": "Huaylas",
+    "provinceId": 23
+  },
+  {
+    "id": 210,
+    "name": "Mato",
+    "provinceId": 23
+  },
+  {
+    "id": 211,
+    "name": "Pamparomas",
+    "provinceId": 23
+  },
+  {
+    "id": 212,
+    "name": "Pueblo Libre",
+    "provinceId": 23
+  },
+  {
+    "id": 213,
+    "name": "Yuracmarca",
+    "provinceId": 23
+  },
+  {
+    "id": 214,
+    "name": "Santa Cruz",
+    "provinceId": 23
+  },
+  {
+    "id": 215,
+    "name": "Santo Toribio",
+    "provinceId": 23
+  },
+  {
+    "id": 216,
+    "name": "Bolognesi",
+    "provinceId": 24
+  },
+  {
+    "id": 217,
+    "name": "Cabana",
+    "provinceId": 24
+  },
+  {
+    "id": 218,
+    "name": "Conchucos",
+    "provinceId": 24
+  },
+  {
+    "id": 219,
+    "name": "Huandoval",
+    "provinceId": 24
+  },
+  {
+    "id": 220,
+    "name": "Lacabamba",
+    "provinceId": 24
+  },
+  {
+    "id": 221,
+    "name": "Pampas",
+    "provinceId": 24
+  },
+  {
+    "id": 222,
+    "name": "Llapo",
+    "provinceId": 24
+  },
+  {
+    "id": 223,
+    "name": "Tauca",
+    "provinceId": 24
+  },
+  {
+    "id": 224,
+    "name": "Pallasca",
+    "provinceId": 24
+  },
+  {
+    "id": 225,
+    "name": "Huacaschuque",
+    "provinceId": 24
+  },
+  {
+    "id": 226,
+    "name": "Santa Rosa",
+    "provinceId": 24
+  },
+  {
+    "id": 227,
+    "name": "Ocros",
+    "provinceId": 25
+  },
+  {
+    "id": 228,
+    "name": "Acas",
+    "provinceId": 25
+  },
+  {
+    "id": 229,
+    "name": "Cajamarquilla",
+    "provinceId": 25
+  },
+  {
+    "id": 230,
+    "name": "Carhuapampa",
+    "provinceId": 25
+  },
+  {
+    "id": 231,
+    "name": "Congas",
+    "provinceId": 25
+  },
+  {
+    "id": 232,
+    "name": "Cochas",
+    "provinceId": 25
+  },
+  {
+    "id": 233,
+    "name": "San Cristobal De Rajan",
+    "provinceId": 25
+  },
+  {
+    "id": 234,
+    "name": "Llipa",
+    "provinceId": 25
+  },
+  {
+    "id": 235,
+    "name": "Santiago De Chilcas",
+    "provinceId": 25
+  },
+  {
+    "id": 236,
+    "name": "San Pedro",
+    "provinceId": 25
+  },
+  {
+    "id": 237,
+    "name": "Recuay",
+    "provinceId": 26
+  },
+  {
+    "id": 238,
+    "name": "Huayllapampa",
+    "provinceId": 26
+  },
+  {
+    "id": 239,
+    "name": "Cotaparaco",
+    "provinceId": 26
+  },
+  {
+    "id": 240,
+    "name": "Catac",
+    "provinceId": 26
+  },
+  {
+    "id": 241,
+    "name": "Llacllin",
+    "provinceId": 26
+  },
+  {
+    "id": 242,
+    "name": "Marca",
+    "provinceId": 26
+  },
+  {
+    "id": 243,
+    "name": "Ticapampa",
+    "provinceId": 26
+  },
+  {
+    "id": 244,
+    "name": "Pararin",
+    "provinceId": 26
+  },
+  {
+    "id": 245,
+    "name": "Tapacocha",
+    "provinceId": 26
+  },
+  {
+    "id": 246,
+    "name": "Pampas Chico",
+    "provinceId": 26
+  },
+  {
+    "id": 247,
+    "name": "Pomabamba",
+    "provinceId": 27
+  },
+  {
+    "id": 248,
+    "name": "Huayllan",
+    "provinceId": 27
+  },
+  {
+    "id": 249,
+    "name": "Parobamba",
+    "provinceId": 27
+  },
+  {
+    "id": 250,
+    "name": "Quinuabamba",
+    "provinceId": 27
+  },
+  {
+    "id": 251,
+    "name": "Antabamba",
+    "provinceId": 28
+  },
+  {
+    "id": 252,
+    "name": "Huaquirca",
+    "provinceId": 28
+  },
+  {
+    "id": 253,
+    "name": "El Oro",
+    "provinceId": 28
+  },
+  {
+    "id": 254,
+    "name": "Juan Espinoza Medrano",
+    "provinceId": 28
+  },
+  {
+    "id": 255,
+    "name": "Oropesa",
+    "provinceId": 28
+  },
+  {
+    "id": 256,
+    "name": "Pachaconas",
+    "provinceId": 28
+  },
+  {
+    "id": 257,
+    "name": "Sabaino",
+    "provinceId": 28
+  },
+  {
+    "id": 258,
+    "name": "Curpahuasi",
+    "provinceId": 29
+  },
+  {
+    "id": 259,
+    "name": "Gamarra",
+    "provinceId": 29
+  },
+  {
+    "id": 260,
+    "name": "Huayllati",
+    "provinceId": 29
+  },
+  {
+    "id": 261,
+    "name": "Micaela Bastidas",
+    "provinceId": 29
+  },
+  {
+    "id": 262,
+    "name": "Mamara",
+    "provinceId": 29
+  },
+  {
+    "id": 263,
+    "name": "Pataypampa",
+    "provinceId": 29
+  },
+  {
+    "id": 264,
+    "name": "Progreso",
+    "provinceId": 29
+  },
+  {
+    "id": 265,
+    "name": "San Antonio",
+    "provinceId": 29
+  },
+  {
+    "id": 266,
+    "name": "Vilcabamba",
+    "provinceId": 29
+  },
+  {
+    "id": 267,
+    "name": "Turpay",
+    "provinceId": 29
+  },
+  {
+    "id": 268,
+    "name": "Virundo",
+    "provinceId": 29
+  },
+  {
+    "id": 269,
+    "name": "Curasco",
+    "provinceId": 29
+  },
+  {
+    "id": 270,
+    "name": "Santa Rosa",
+    "provinceId": 29
+  },
+  {
+    "id": 271,
+    "name": "Chuquibambilla",
+    "provinceId": 29
+  },
+  {
+    "id": 272,
+    "name": "Andahuaylas",
+    "provinceId": 30
+  },
+  {
+    "id": 273,
+    "name": "Andarapa",
+    "provinceId": 30
+  },
+  {
+    "id": 274,
+    "name": "Chiara",
+    "provinceId": 30
+  },
+  {
+    "id": 275,
+    "name": "Huancaray",
+    "provinceId": 30
+  },
+  {
+    "id": 276,
+    "name": "Huayana",
+    "provinceId": 30
+  },
+  {
+    "id": 277,
+    "name": "Kishuara",
+    "provinceId": 30
+  },
+  {
+    "id": 278,
+    "name": "Pacobamba",
+    "provinceId": 30
+  },
+  {
+    "id": 279,
+    "name": "Huancarama",
+    "provinceId": 30
+  },
+  {
+    "id": 280,
+    "name": "Pacucha",
+    "provinceId": 30
+  },
+  {
+    "id": 281,
+    "name": "Pampachiri",
+    "provinceId": 30
+  },
+  {
+    "id": 282,
+    "name": "Pomacocha",
+    "provinceId": 30
+  },
+  {
+    "id": 283,
+    "name": "San Antonio de Cachi",
+    "provinceId": 30
+  },
+  {
+    "id": 284,
+    "name": "San Jeronimo",
+    "provinceId": 30
+  },
+  {
+    "id": 285,
+    "name": "San Miguel de Chaccrampa",
+    "provinceId": 30
+  },
+  {
+    "id": 286,
+    "name": "Santa Maria de Chicmo",
+    "provinceId": 30
+  },
+  {
+    "id": 287,
+    "name": "Talavera",
+    "provinceId": 30
+  },
+  {
+    "id": 288,
+    "name": "Turpo",
+    "provinceId": 30
+  },
+  {
+    "id": 289,
+    "name": "Tumay Huaraca",
+    "provinceId": 30
+  },
+  {
+    "id": 290,
+    "name": "Kaquiabamba",
+    "provinceId": 30
+  },
+  {
+    "id": 291,
+    "name": "Jose Maria Arguedas",
+    "provinceId": 30
+  },
+  {
+    "id": 292,
+    "name": "Tambobamba",
+    "provinceId": 31
+  },
+  {
+    "id": 293,
+    "name": "Coyllurqui",
+    "provinceId": 31
+  },
+  {
+    "id": 294,
+    "name": "Cotabambas",
+    "provinceId": 31
+  },
+  {
+    "id": 295,
+    "name": "Haquira",
+    "provinceId": 31
+  },
+  {
+    "id": 296,
+    "name": "Mara",
+    "provinceId": 31
+  },
+  {
+    "id": 297,
+    "name": "Challhuahuacho",
+    "provinceId": 31
+  },
+  {
+    "id": 298,
+    "name": "Chacoche",
+    "provinceId": 32
+  },
+  {
+    "id": 299,
+    "name": "Circa",
+    "provinceId": 32
+  },
+  {
+    "id": 300,
+    "name": "Curahuasi",
+    "provinceId": 32
+  },
+  {
+    "id": 301,
+    "name": "Huanipaca",
+    "provinceId": 32
+  },
+  {
+    "id": 302,
+    "name": "Lambrama",
+    "provinceId": 32
+  },
+  {
+    "id": 303,
+    "name": "Abancay",
+    "provinceId": 32
+  },
+  {
+    "id": 304,
+    "name": "San Pedro de Cachora",
+    "provinceId": 32
+  },
+  {
+    "id": 305,
+    "name": "Tamburco",
+    "provinceId": 32
+  },
+  {
+    "id": 306,
+    "name": "Pichirhua",
+    "provinceId": 32
+  },
+  {
+    "id": 307,
+    "name": "Chincheros",
+    "provinceId": 33
+  },
+  {
+    "id": 308,
+    "name": "Anco-Huallo",
+    "provinceId": 33
+  },
+  {
+    "id": 309,
+    "name": "Huaccana",
+    "provinceId": 33
+  },
+  {
+    "id": 310,
+    "name": "Ocobamba",
+    "provinceId": 33
+  },
+  {
+    "id": 311,
+    "name": "Cocharcas",
+    "provinceId": 33
+  },
+  {
+    "id": 312,
+    "name": "Ongoy",
+    "provinceId": 33
+  },
+  {
+    "id": 313,
+    "name": "Rocchacc",
+    "provinceId": 33
+  },
+  {
+    "id": 314,
+    "name": "Uranmarca",
+    "provinceId": 33
+  },
+  {
+    "id": 315,
+    "name": "Ranracancha",
+    "provinceId": 33
+  },
+  {
+    "id": 316,
+    "name": "El Porvenir",
+    "provinceId": 33
+  },
+  {
+    "id": 317,
+    "name": "Chalhuanca",
+    "provinceId": 34
+  },
+  {
+    "id": 318,
+    "name": "Capaya",
+    "provinceId": 34
+  },
+  {
+    "id": 319,
+    "name": "Caraybamba",
+    "provinceId": 34
+  },
+  {
+    "id": 320,
+    "name": "Chapimarca",
+    "provinceId": 34
+  },
+  {
+    "id": 321,
+    "name": "Cotaruse",
+    "provinceId": 34
+  },
+  {
+    "id": 322,
+    "name": "Lucre",
+    "provinceId": 34
+  },
+  {
+    "id": 323,
+    "name": "San Juan de Chacña",
+    "provinceId": 34
+  },
+  {
+    "id": 324,
+    "name": "Sañayca",
+    "provinceId": 34
+  },
+  {
+    "id": 325,
+    "name": "Pocohuanca",
+    "provinceId": 34
+  },
+  {
+    "id": 326,
+    "name": "Soraya",
+    "provinceId": 34
+  },
+  {
+    "id": 327,
+    "name": "Huayllo",
+    "provinceId": 34
+  },
+  {
+    "id": 328,
+    "name": "Tapairihua",
+    "provinceId": 34
+  },
+  {
+    "id": 329,
+    "name": "Justo Apu Sahuaraura",
+    "provinceId": 34
+  },
+  {
+    "id": 330,
+    "name": "Colcabamba",
+    "provinceId": 34
+  },
+  {
+    "id": 331,
+    "name": "Tintay",
+    "provinceId": 34
+  },
+  {
+    "id": 332,
+    "name": "Toraya",
+    "provinceId": 34
+  },
+  {
+    "id": 333,
+    "name": "Yanaca",
+    "provinceId": 34
+  },
+  {
+    "id": 334,
+    "name": "Chivay",
+    "provinceId": 35
+  },
+  {
+    "id": 335,
+    "name": "Achoma",
+    "provinceId": 35
+  },
+  {
+    "id": 336,
+    "name": "Cabanaconde",
+    "provinceId": 35
+  },
+  {
+    "id": 337,
+    "name": "Callalli",
+    "provinceId": 35
+  },
+  {
+    "id": 338,
+    "name": "Coporaque",
+    "provinceId": 35
+  },
+  {
+    "id": 339,
+    "name": "Caylloma",
+    "provinceId": 35
+  },
+  {
+    "id": 340,
+    "name": "Huambo",
+    "provinceId": 35
+  },
+  {
+    "id": 341,
+    "name": "Huanca",
+    "provinceId": 35
+  },
+  {
+    "id": 342,
+    "name": "Lari",
+    "provinceId": 35
+  },
+  {
+    "id": 343,
+    "name": "Maca",
+    "provinceId": 35
+  },
+  {
+    "id": 344,
+    "name": "Madrigal",
+    "provinceId": 35
+  },
+  {
+    "id": 345,
+    "name": "Ichupampa",
+    "provinceId": 35
+  },
+  {
+    "id": 346,
+    "name": "Lluta",
+    "provinceId": 35
+  },
+  {
+    "id": 347,
+    "name": "Sibayo",
+    "provinceId": 35
+  },
+  {
+    "id": 348,
+    "name": "San Antonio de Chuca",
+    "provinceId": 35
+  },
+  {
+    "id": 349,
+    "name": "Tapay",
+    "provinceId": 35
+  },
+  {
+    "id": 350,
+    "name": "Tisco",
+    "provinceId": 35
+  },
+  {
+    "id": 351,
+    "name": "Tuti",
+    "provinceId": 35
+  },
+  {
+    "id": 352,
+    "name": "Yanque",
+    "provinceId": 35
+  },
+  {
+    "id": 353,
+    "name": "Majes",
+    "provinceId": 35
+  },
+  {
+    "id": 354,
+    "name": "Aplao",
+    "provinceId": 36
+  },
+  {
+    "id": 355,
+    "name": "Andagua",
+    "provinceId": 36
+  },
+  {
+    "id": 356,
+    "name": "Ayo",
+    "provinceId": 36
+  },
+  {
+    "id": 357,
+    "name": "Chilcaymarca",
+    "provinceId": 36
+  },
+  {
+    "id": 358,
+    "name": "Choco",
+    "provinceId": 36
+  },
+  {
+    "id": 359,
+    "name": "Chachas",
+    "provinceId": 36
+  },
+  {
+    "id": 360,
+    "name": "Huancarqui",
+    "provinceId": 36
+  },
+  {
+    "id": 361,
+    "name": "Pampacolca",
+    "provinceId": 36
+  },
+  {
+    "id": 362,
+    "name": "Tipan",
+    "provinceId": 36
+  },
+  {
+    "id": 363,
+    "name": "Machaguay",
+    "provinceId": 36
+  },
+  {
+    "id": 364,
+    "name": "Uñon",
+    "provinceId": 36
+  },
+  {
+    "id": 365,
+    "name": "Uraca",
+    "provinceId": 36
+  },
+  {
+    "id": 366,
+    "name": "Viraco",
+    "provinceId": 36
+  },
+  {
+    "id": 367,
+    "name": "Orcopampa",
+    "provinceId": 36
+  },
+  {
+    "id": 368,
+    "name": "Acari",
+    "provinceId": 37
+  },
+  {
+    "id": 369,
+    "name": "Atico",
+    "provinceId": 37
+  },
+  {
+    "id": 370,
+    "name": "Bella Union",
+    "provinceId": 37
+  },
+  {
+    "id": 371,
+    "name": "Caraveli",
+    "provinceId": 37
+  },
+  {
+    "id": 372,
+    "name": "Atiquipa",
+    "provinceId": 37
+  },
+  {
+    "id": 373,
+    "name": "Chaparra",
+    "provinceId": 37
+  },
+  {
+    "id": 374,
+    "name": "Chala",
+    "provinceId": 37
+  },
+  {
+    "id": 375,
+    "name": "Huanuhuanu",
+    "provinceId": 37
+  },
+  {
+    "id": 376,
+    "name": "Jaqui",
+    "provinceId": 37
+  },
+  {
+    "id": 377,
+    "name": "Quicacha",
+    "provinceId": 37
+  },
+  {
+    "id": 378,
+    "name": "Lomas",
+    "provinceId": 37
+  },
+  {
+    "id": 379,
+    "name": "Yauca",
+    "provinceId": 37
+  },
+  {
+    "id": 380,
+    "name": "Cahuacho",
+    "provinceId": 37
+  },
+  {
+    "id": 381,
+    "name": "Mollendo",
+    "provinceId": 38
+  },
+  {
+    "id": 382,
+    "name": "Cocachacra",
+    "provinceId": 38
+  },
+  {
+    "id": 383,
+    "name": "Islay",
+    "provinceId": 38
+  },
+  {
+    "id": 384,
+    "name": "Mejia",
+    "provinceId": 38
+  },
+  {
+    "id": 385,
+    "name": "Punta de Bombon",
+    "provinceId": 38
+  },
+  {
+    "id": 386,
+    "name": "Dean Valdivia",
+    "provinceId": 38
+  },
+  {
+    "id": 387,
+    "name": "Camana",
+    "provinceId": 39
+  },
+  {
+    "id": 388,
+    "name": "Jose Maria Quimper",
+    "provinceId": 39
+  },
+  {
+    "id": 389,
+    "name": "Mariano Nicolás Valcarcel",
+    "provinceId": 39
+  },
+  {
+    "id": 390,
+    "name": "Mariscal Caceres",
+    "provinceId": 39
+  },
+  {
+    "id": 391,
+    "name": "Nicolás de Pierola",
+    "provinceId": 39
+  },
+  {
+    "id": 392,
+    "name": "Ocoña",
+    "provinceId": 39
+  },
+  {
+    "id": 393,
+    "name": "Quilca",
+    "provinceId": 39
+  },
+  {
+    "id": 394,
+    "name": "Samuel Pastor",
+    "provinceId": 39
+  },
+  {
+    "id": 395,
+    "name": "Chuquibamba",
+    "provinceId": 40
+  },
+  {
+    "id": 396,
+    "name": "Andaray",
+    "provinceId": 40
+  },
+  {
+    "id": 397,
+    "name": "Cayarani",
+    "provinceId": 40
+  },
+  {
+    "id": 398,
+    "name": "Rio Grande",
+    "provinceId": 40
+  },
+  {
+    "id": 399,
+    "name": "Salamanca",
+    "provinceId": 40
+  },
+  {
+    "id": 400,
+    "name": "Yanaquihua",
+    "provinceId": 40
+  },
+  {
+    "id": 401,
+    "name": "Chichas",
+    "provinceId": 40
+  },
+  {
+    "id": 402,
+    "name": "Iray",
+    "provinceId": 40
+  },
+  {
+    "id": 403,
+    "name": "Cotahuasi",
+    "provinceId": 41
+  },
+  {
+    "id": 404,
+    "name": "Alca",
+    "provinceId": 41
+  },
+  {
+    "id": 405,
+    "name": "Pampamarca",
+    "provinceId": 41
+  },
+  {
+    "id": 406,
+    "name": "Puyca",
+    "provinceId": 41
+  },
+  {
+    "id": 407,
+    "name": "Quechualla",
+    "provinceId": 41
+  },
+  {
+    "id": 408,
+    "name": "Sayla",
+    "provinceId": 41
+  },
+  {
+    "id": 409,
+    "name": "Tauria",
+    "provinceId": 41
+  },
+  {
+    "id": 410,
+    "name": "Tomepampa",
+    "provinceId": 41
+  },
+  {
+    "id": 411,
+    "name": "Toro",
+    "provinceId": 41
+  },
+  {
+    "id": 412,
+    "name": "Huaynacotas",
+    "provinceId": 41
+  },
+  {
+    "id": 413,
+    "name": "Charcana",
+    "provinceId": 41
+  },
+  {
+    "id": 414,
+    "name": "Alto Selva Alegre",
+    "provinceId": 42
+  },
+  {
+    "id": 415,
+    "name": "Cayma",
+    "provinceId": 42
+  },
+  {
+    "id": 416,
+    "name": "Cerro Colorado",
+    "provinceId": 42
+  },
+  {
+    "id": 417,
+    "name": "Characato",
+    "provinceId": 42
+  },
+  {
+    "id": 418,
+    "name": "Arequipa",
+    "provinceId": 42
+  },
+  {
+    "id": 419,
+    "name": "Chiguata",
+    "provinceId": 42
+  },
+  {
+    "id": 420,
+    "name": "Mariano Melgar",
+    "provinceId": 42
+  },
+  {
+    "id": 421,
+    "name": "Jacobo Hunter",
+    "provinceId": 42
+  },
+  {
+    "id": 422,
+    "name": "Miraflores",
+    "provinceId": 42
+  },
+  {
+    "id": 423,
+    "name": "La Joya",
+    "provinceId": 42
+  },
+  {
+    "id": 424,
+    "name": "Mollebaya",
+    "provinceId": 42
+  },
+  {
+    "id": 425,
+    "name": "Paucarpata",
+    "provinceId": 42
+  },
+  {
+    "id": 426,
+    "name": "Polobaya",
+    "provinceId": 42
+  },
+  {
+    "id": 427,
+    "name": "Pocsi",
+    "provinceId": 42
+  },
+  {
+    "id": 428,
+    "name": "Sabandia",
+    "provinceId": 42
+  },
+  {
+    "id": 429,
+    "name": "Sachaca",
+    "provinceId": 42
+  },
+  {
+    "id": 430,
+    "name": "San Juan de Siguas",
+    "provinceId": 42
+  },
+  {
+    "id": 431,
+    "name": "Quequeña",
+    "provinceId": 42
+  },
+  {
+    "id": 432,
+    "name": "San Juan de Tarucani",
+    "provinceId": 42
+  },
+  {
+    "id": 433,
+    "name": "Santa Isabel de Siguas",
+    "provinceId": 42
+  },
+  {
+    "id": 434,
+    "name": "Santa Rita de Siguas",
+    "provinceId": 42
+  },
+  {
+    "id": 435,
+    "name": "Socabaya",
+    "provinceId": 42
+  },
+  {
+    "id": 436,
+    "name": "Uchumayo",
+    "provinceId": 42
+  },
+  {
+    "id": 437,
+    "name": "Yanahuara",
+    "provinceId": 42
+  },
+  {
+    "id": 438,
+    "name": "Yarabamba",
+    "provinceId": 42
+  },
+  {
+    "id": 439,
+    "name": "Yura",
+    "provinceId": 42
+  },
+  {
+    "id": 440,
+    "name": "Jose Luis Bustamante y Rivero",
+    "provinceId": 42
+  },
+  {
+    "id": 441,
+    "name": "Vitor",
+    "provinceId": 42
+  },
+  {
+    "id": 442,
+    "name": "Tiabaya",
+    "provinceId": 42
+  },
+  {
+    "id": 443,
+    "name": "Querobamba",
+    "provinceId": 43
+  },
+  {
+    "id": 444,
+    "name": "Chalcos",
+    "provinceId": 43
+  },
+  {
+    "id": 445,
+    "name": "Belen",
+    "provinceId": 43
+  },
+  {
+    "id": 446,
+    "name": "Chilcayoc",
+    "provinceId": 43
+  },
+  {
+    "id": 447,
+    "name": "Morcolla",
+    "provinceId": 43
+  },
+  {
+    "id": 448,
+    "name": "San Salvador de Quije",
+    "provinceId": 43
+  },
+  {
+    "id": 449,
+    "name": "Huacaña",
+    "provinceId": 43
+  },
+  {
+    "id": 450,
+    "name": "Paico",
+    "provinceId": 43
+  },
+  {
+    "id": 451,
+    "name": "Santiago de Paucaray",
+    "provinceId": 43
+  },
+  {
+    "id": 452,
+    "name": "San Pedro de Larcay",
+    "provinceId": 43
+  },
+  {
+    "id": 453,
+    "name": "Soras",
+    "provinceId": 43
+  },
+  {
+    "id": 454,
+    "name": "Ayacucho",
+    "provinceId": 44
+  },
+  {
+    "id": 455,
+    "name": "Acocro",
+    "provinceId": 44
+  },
+  {
+    "id": 456,
+    "name": "Acos Vinchos",
+    "provinceId": 44
+  },
+  {
+    "id": 457,
+    "name": "Chiara",
+    "provinceId": 44
+  },
+  {
+    "id": 458,
+    "name": "Ocros",
+    "provinceId": 44
+  },
+  {
+    "id": 459,
+    "name": "Carmen Alto",
+    "provinceId": 44
+  },
+  {
+    "id": 460,
+    "name": "Pacaycasa",
+    "provinceId": 44
+  },
+  {
+    "id": 461,
+    "name": "Quinua",
+    "provinceId": 44
+  },
+  {
+    "id": 462,
+    "name": "San Jose de Ticllas",
+    "provinceId": 44
+  },
+  {
+    "id": 463,
+    "name": "San Juan Bautista",
+    "provinceId": 44
+  },
+  {
+    "id": 464,
+    "name": "Santiago de Pischa",
+    "provinceId": 44
+  },
+  {
+    "id": 465,
+    "name": "Socos",
+    "provinceId": 44
+  },
+  {
+    "id": 466,
+    "name": "Vinchos",
+    "provinceId": 44
+  },
+  {
+    "id": 467,
+    "name": "Jesus Nazareno",
+    "provinceId": 44
+  },
+  {
+    "id": 468,
+    "name": "Tambillo",
+    "provinceId": 44
+  },
+  {
+    "id": 469,
+    "name": "Andres Avelino Caceres",
+    "provinceId": 44
+  },
+  {
+    "id": 470,
+    "name": "Puquio",
+    "provinceId": 45
+  },
+  {
+    "id": 471,
+    "name": "Aucara",
+    "provinceId": 45
+  },
+  {
+    "id": 472,
+    "name": "Cabana",
+    "provinceId": 45
+  },
+  {
+    "id": 473,
+    "name": "Carmen Salcedo",
+    "provinceId": 45
+  },
+  {
+    "id": 474,
+    "name": "Chaviña",
+    "provinceId": 45
+  },
+  {
+    "id": 475,
+    "name": "Chipao",
+    "provinceId": 45
+  },
+  {
+    "id": 476,
+    "name": "Laramate",
+    "provinceId": 45
+  },
+  {
+    "id": 477,
+    "name": "Huac-Huas",
+    "provinceId": 45
+  },
+  {
+    "id": 478,
+    "name": "Leoncio Prado",
+    "provinceId": 45
+  },
+  {
+    "id": 479,
+    "name": "Llauta",
+    "provinceId": 45
+  },
+  {
+    "id": 480,
+    "name": "Ocaña",
+    "provinceId": 45
+  },
+  {
+    "id": 481,
+    "name": "Lucanas",
+    "provinceId": 45
+  },
+  {
+    "id": 482,
+    "name": "Otoca",
+    "provinceId": 45
+  },
+  {
+    "id": 483,
+    "name": "Saisa",
+    "provinceId": 45
+  },
+  {
+    "id": 484,
+    "name": "San Cristobal",
+    "provinceId": 45
+  },
+  {
+    "id": 485,
+    "name": "San Pedro",
+    "provinceId": 45
+  },
+  {
+    "id": 486,
+    "name": "San Pedro de Palco",
+    "provinceId": 45
+  },
+  {
+    "id": 487,
+    "name": "Santa Ana de Huaycahuacho",
+    "provinceId": 45
+  },
+  {
+    "id": 488,
+    "name": "Santa Lucia",
+    "provinceId": 45
+  },
+  {
+    "id": 489,
+    "name": "Sancos",
+    "provinceId": 45
+  },
+  {
+    "id": 490,
+    "name": "San Juan",
+    "provinceId": 45
+  },
+  {
+    "id": 491,
+    "name": "Chuschi",
+    "provinceId": 46
+  },
+  {
+    "id": 492,
+    "name": "Los Morochucos",
+    "provinceId": 46
+  },
+  {
+    "id": 493,
+    "name": "Cangallo",
+    "provinceId": 46
+  },
+  {
+    "id": 494,
+    "name": "Maria Parado de Bellido",
+    "provinceId": 46
+  },
+  {
+    "id": 495,
+    "name": "Totos",
+    "provinceId": 46
+  },
+  {
+    "id": 496,
+    "name": "Paras",
+    "provinceId": 46
+  },
+  {
+    "id": 497,
+    "name": "Huanta",
+    "provinceId": 47
+  },
+  {
+    "id": 498,
+    "name": "Ayahuanco",
+    "provinceId": 47
+  },
+  {
+    "id": 499,
+    "name": "Huamanguilla",
+    "provinceId": 47
+  },
+  {
+    "id": 500,
+    "name": "Iguain",
+    "provinceId": 47
+  },
+  {
+    "id": 501,
+    "name": "Luricocha",
+    "provinceId": 47
+  },
+  {
+    "id": 502,
+    "name": "Llochegua",
+    "provinceId": 47
+  },
+  {
+    "id": 503,
+    "name": "Santillana",
+    "provinceId": 47
+  },
+  {
+    "id": 504,
+    "name": "Canayre",
+    "provinceId": 47
+  },
+  {
+    "id": 505,
+    "name": "Uchuraccay",
+    "provinceId": 47
+  },
+  {
+    "id": 506,
+    "name": "Pucacolpa",
+    "provinceId": 47
+  },
+  {
+    "id": 507,
+    "name": "Chaca",
+    "provinceId": 47
+  },
+  {
+    "id": 508,
+    "name": "Sivia",
+    "provinceId": 47
+  },
+  {
+    "id": 509,
+    "name": "Chumpi",
+    "provinceId": 48
+  },
+  {
+    "id": 510,
+    "name": "Coronel Castañeda",
+    "provinceId": 48
+  },
+  {
+    "id": 511,
+    "name": "Coracora",
+    "provinceId": 48
+  },
+  {
+    "id": 512,
+    "name": "Pacapausa",
+    "provinceId": 48
+  },
+  {
+    "id": 513,
+    "name": "Puyusca",
+    "provinceId": 48
+  },
+  {
+    "id": 514,
+    "name": "Pullo",
+    "provinceId": 48
+  },
+  {
+    "id": 515,
+    "name": "San Francisco de Ravacayco",
+    "provinceId": 48
+  },
+  {
+    "id": 516,
+    "name": "Upahuacho",
+    "provinceId": 48
+  },
+  {
+    "id": 517,
+    "name": "Sancos",
+    "provinceId": 49
+  },
+  {
+    "id": 518,
+    "name": "Carapo",
+    "provinceId": 49
+  },
+  {
+    "id": 519,
+    "name": "Santiago de Lucanamarca",
+    "provinceId": 49
+  },
+  {
+    "id": 520,
+    "name": "Sacsamarca",
+    "provinceId": 49
+  },
+  {
+    "id": 521,
+    "name": "Alcamenca",
+    "provinceId": 50
+  },
+  {
+    "id": 522,
+    "name": "Asquipata",
+    "provinceId": 50
+  },
+  {
+    "id": 523,
+    "name": "Canaria",
+    "provinceId": 50
+  },
+  {
+    "id": 524,
+    "name": "Cayara",
+    "provinceId": 50
+  },
+  {
+    "id": 525,
+    "name": "Apongo",
+    "provinceId": 50
+  },
+  {
+    "id": 526,
+    "name": "Huamanquiquia",
+    "provinceId": 50
+  },
+  {
+    "id": 527,
+    "name": "Colca",
+    "provinceId": 50
+  },
+  {
+    "id": 528,
+    "name": "Huaya",
+    "provinceId": 50
+  },
+  {
+    "id": 529,
+    "name": "Huancapi",
+    "provinceId": 50
+  },
+  {
+    "id": 530,
+    "name": "Huancaraylla",
+    "provinceId": 50
+  },
+  {
+    "id": 531,
+    "name": "Vilcanchos",
+    "provinceId": 50
+  },
+  {
+    "id": 532,
+    "name": "Sarhua",
+    "provinceId": 50
+  },
+  {
+    "id": 533,
+    "name": "Vilcas Huaman",
+    "provinceId": 51
+  },
+  {
+    "id": 534,
+    "name": "Accomarca",
+    "provinceId": 51
+  },
+  {
+    "id": 535,
+    "name": "Carhuanca",
+    "provinceId": 51
+  },
+  {
+    "id": 536,
+    "name": "Concepcion",
+    "provinceId": 51
+  },
+  {
+    "id": 537,
+    "name": "Independencia",
+    "provinceId": 51
+  },
+  {
+    "id": 538,
+    "name": "Vischongo",
+    "provinceId": 51
+  },
+  {
+    "id": 539,
+    "name": "Saurama",
+    "provinceId": 51
+  },
+  {
+    "id": 540,
+    "name": "Huambalpa",
+    "provinceId": 51
+  },
+  {
+    "id": 541,
+    "name": "Anco",
+    "provinceId": 52
+  },
+  {
+    "id": 542,
+    "name": "San Miguel",
+    "provinceId": 52
+  },
+  {
+    "id": 543,
+    "name": "Chilcas",
+    "provinceId": 52
+  },
+  {
+    "id": 544,
+    "name": "Chungui",
+    "provinceId": 52
+  },
+  {
+    "id": 545,
+    "name": "Ayna",
+    "provinceId": 52
+  },
+  {
+    "id": 546,
+    "name": "Luis Carranza",
+    "provinceId": 52
+  },
+  {
+    "id": 547,
+    "name": "Tambo",
+    "provinceId": 52
+  },
+  {
+    "id": 548,
+    "name": "Samugari",
+    "provinceId": 52
+  },
+  {
+    "id": 549,
+    "name": "Anchihuay",
+    "provinceId": 52
+  },
+  {
+    "id": 550,
+    "name": "Oronccoy",
+    "provinceId": 52
+  },
+  {
+    "id": 551,
+    "name": "Santa Rosa",
+    "provinceId": 52
+  },
+  {
+    "id": 552,
+    "name": "Corculla",
+    "provinceId": 53
+  },
+  {
+    "id": 553,
+    "name": "Pausa",
+    "provinceId": 53
+  },
+  {
+    "id": 554,
+    "name": "Marcabamba",
+    "provinceId": 53
+  },
+  {
+    "id": 555,
+    "name": "Lampa",
+    "provinceId": 53
+  },
+  {
+    "id": 556,
+    "name": "Oyolo",
+    "provinceId": 53
+  },
+  {
+    "id": 557,
+    "name": "Pararca",
+    "provinceId": 53
+  },
+  {
+    "id": 558,
+    "name": "San Javier de Alpabamba",
+    "provinceId": 53
+  },
+  {
+    "id": 559,
+    "name": "San Jose de Ushua",
+    "provinceId": 53
+  },
+  {
+    "id": 560,
+    "name": "Sara Sara",
+    "provinceId": 53
+  },
+  {
+    "id": 561,
+    "name": "Colta",
+    "provinceId": 53
+  },
+  {
+    "id": 562,
+    "name": "Chilete",
+    "provinceId": 54
+  },
+  {
+    "id": 563,
+    "name": "Guzmango",
+    "provinceId": 54
+  },
+  {
+    "id": 564,
+    "name": "San Benito",
+    "provinceId": 54
+  },
+  {
+    "id": 565,
+    "name": "Santa Cruz de Toled",
+    "provinceId": 54
+  },
+  {
+    "id": 566,
+    "name": "Contumaza",
+    "provinceId": 54
+  },
+  {
+    "id": 567,
+    "name": "Tantarica",
+    "provinceId": 54
+  },
+  {
+    "id": 568,
+    "name": "Cupisnique",
+    "provinceId": 54
+  },
+  {
+    "id": 569,
+    "name": "Yonan",
+    "provinceId": 54
+  },
+  {
+    "id": 570,
+    "name": "Bellavista",
+    "provinceId": 55
+  },
+  {
+    "id": 571,
+    "name": "Chontali",
+    "provinceId": 55
+  },
+  {
+    "id": 572,
+    "name": "Colasay",
+    "provinceId": 55
+  },
+  {
+    "id": 573,
+    "name": "Jaen",
+    "provinceId": 55
+  },
+  {
+    "id": 574,
+    "name": "Huabal",
+    "provinceId": 55
+  },
+  {
+    "id": 575,
+    "name": "Pomahuaca",
+    "provinceId": 55
+  },
+  {
+    "id": 576,
+    "name": "Las Pirias",
+    "provinceId": 55
+  },
+  {
+    "id": 577,
+    "name": "Pucara",
+    "provinceId": 55
+  },
+  {
+    "id": 578,
+    "name": "San Jose del Alto",
+    "provinceId": 55
+  },
+  {
+    "id": 579,
+    "name": "Sallique",
+    "provinceId": 55
+  },
+  {
+    "id": 580,
+    "name": "San Felipe",
+    "provinceId": 55
+  },
+  {
+    "id": 581,
+    "name": "Santa Rosa",
+    "provinceId": 55
+  },
+  {
+    "id": 582,
+    "name": "San Ignacio",
+    "provinceId": 56
+  },
+  {
+    "id": 583,
+    "name": "Huarango",
+    "provinceId": 56
+  },
+  {
+    "id": 584,
+    "name": "La Coipa",
+    "provinceId": 56
+  },
+  {
+    "id": 585,
+    "name": "Chirinos",
+    "provinceId": 56
+  },
+  {
+    "id": 586,
+    "name": "Tabaconas",
+    "provinceId": 56
+  },
+  {
+    "id": 587,
+    "name": "San Jose de Lourdes",
+    "provinceId": 56
+  },
+  {
+    "id": 588,
+    "name": "Namballe",
+    "provinceId": 56
+  },
+  {
+    "id": 589,
+    "name": "Chota",
+    "provinceId": 57
+  },
+  {
+    "id": 590,
+    "name": "Chimban",
+    "provinceId": 57
+  },
+  {
+    "id": 591,
+    "name": "Anguia",
+    "provinceId": 57
+  },
+  {
+    "id": 592,
+    "name": "Chadin",
+    "provinceId": 57
+  },
+  {
+    "id": 593,
+    "name": "Choropampa",
+    "provinceId": 57
+  },
+  {
+    "id": 594,
+    "name": "Conchan",
+    "provinceId": 57
+  },
+  {
+    "id": 595,
+    "name": "Cochabamba",
+    "provinceId": 57
+  },
+  {
+    "id": 596,
+    "name": "Huambos",
+    "provinceId": 57
+  },
+  {
+    "id": 597,
+    "name": "Llama",
+    "provinceId": 57
+  },
+  {
+    "id": 598,
+    "name": "Chiguirip",
+    "provinceId": 57
+  },
+  {
+    "id": 599,
+    "name": "Lajas",
+    "provinceId": 57
+  },
+  {
+    "id": 600,
+    "name": "Pion",
+    "provinceId": 57
+  },
+  {
+    "id": 601,
+    "name": "Querocoto",
+    "provinceId": 57
+  },
+  {
+    "id": 602,
+    "name": "Paccha",
+    "provinceId": 57
+  },
+  {
+    "id": 603,
+    "name": "Miracosta",
+    "provinceId": 57
+  },
+  {
+    "id": 604,
+    "name": "San Juan de Licupis",
+    "provinceId": 57
+  },
+  {
+    "id": 605,
+    "name": "Tacabamba",
+    "provinceId": 57
+  },
+  {
+    "id": 606,
+    "name": "Chalamarca",
+    "provinceId": 57
+  },
+  {
+    "id": 607,
+    "name": "Tocmoche",
+    "provinceId": 57
+  },
+  {
+    "id": 608,
+    "name": "San Pablo",
+    "provinceId": 58
+  },
+  {
+    "id": 609,
+    "name": "San Bernardino",
+    "provinceId": 58
+  },
+  {
+    "id": 610,
+    "name": "San Luis",
+    "provinceId": 58
+  },
+  {
+    "id": 611,
+    "name": "Tumbaden",
+    "provinceId": 58
+  },
+  {
+    "id": 612,
+    "name": "Cajabamba",
+    "provinceId": 59
+  },
+  {
+    "id": 613,
+    "name": "Sitacocha",
+    "provinceId": 59
+  },
+  {
+    "id": 614,
+    "name": "Condebamba",
+    "provinceId": 59
+  },
+  {
+    "id": 615,
+    "name": "Cachachi",
+    "provinceId": 59
+  },
+  {
+    "id": 616,
+    "name": "Chumuch",
+    "provinceId": 60
+  },
+  {
+    "id": 617,
+    "name": "Cortegana",
+    "provinceId": 60
+  },
+  {
+    "id": 618,
+    "name": "Huasmin",
+    "provinceId": 60
+  },
+  {
+    "id": 619,
+    "name": "Jose Galvez",
+    "provinceId": 60
+  },
+  {
+    "id": 620,
+    "name": "Celendin",
+    "provinceId": 60
+  },
+  {
+    "id": 621,
+    "name": "Jorge Chavez",
+    "provinceId": 60
+  },
+  {
+    "id": 622,
+    "name": "Miguel Iglesias",
+    "provinceId": 60
+  },
+  {
+    "id": 623,
+    "name": "Oxamarca",
+    "provinceId": 60
+  },
+  {
+    "id": 624,
+    "name": "Sucre",
+    "provinceId": 60
+  },
+  {
+    "id": 625,
+    "name": "Sorochuco",
+    "provinceId": 60
+  },
+  {
+    "id": 626,
+    "name": "La Libertad de Pallan",
+    "provinceId": 60
+  },
+  {
+    "id": 627,
+    "name": "Utco",
+    "provinceId": 60
+  },
+  {
+    "id": 628,
+    "name": "San Miguel",
+    "provinceId": 61
+  },
+  {
+    "id": 629,
+    "name": "Bolivar",
+    "provinceId": 61
+  },
+  {
+    "id": 630,
+    "name": "Calquis",
+    "provinceId": 61
+  },
+  {
+    "id": 631,
+    "name": "El Prado",
+    "provinceId": 61
+  },
+  {
+    "id": 632,
+    "name": "La Florida",
+    "provinceId": 61
+  },
+  {
+    "id": 633,
+    "name": "Llapa",
+    "provinceId": 61
+  },
+  {
+    "id": 634,
+    "name": "Nanchoc",
+    "provinceId": 61
+  },
+  {
+    "id": 635,
+    "name": "Niepos",
+    "provinceId": 61
+  },
+  {
+    "id": 636,
+    "name": "San Gregorio",
+    "provinceId": 61
+  },
+  {
+    "id": 637,
+    "name": "Catilluc",
+    "provinceId": 61
+  },
+  {
+    "id": 638,
+    "name": "San Silvestre de Cochan",
+    "provinceId": 61
+  },
+  {
+    "id": 639,
+    "name": "Tongod",
+    "provinceId": 61
+  },
+  {
+    "id": 640,
+    "name": "Union Agua Blanca",
+    "provinceId": 61
+  },
+  {
+    "id": 641,
+    "name": "Santa Cruz",
+    "provinceId": 62
+  },
+  {
+    "id": 642,
+    "name": "Andabamba",
+    "provinceId": 62
+  },
+  {
+    "id": 643,
+    "name": "Catache",
+    "provinceId": 62
+  },
+  {
+    "id": 644,
+    "name": "Chancaybaños",
+    "provinceId": 62
+  },
+  {
+    "id": 645,
+    "name": "La Esperanza",
+    "provinceId": 62
+  },
+  {
+    "id": 646,
+    "name": "Ninabamba",
+    "provinceId": 62
+  },
+  {
+    "id": 647,
+    "name": "Pulan",
+    "provinceId": 62
+  },
+  {
+    "id": 648,
+    "name": "Saucepampa",
+    "provinceId": 62
+  },
+  {
+    "id": 649,
+    "name": "Sexi",
+    "provinceId": 62
+  },
+  {
+    "id": 650,
+    "name": "Uticyacu",
+    "provinceId": 62
+  },
+  {
+    "id": 651,
+    "name": "Yauyucan",
+    "provinceId": 62
+  },
+  {
+    "id": 652,
+    "name": "Cajamarca",
+    "provinceId": 63
+  },
+  {
+    "id": 653,
+    "name": "Cospan",
+    "provinceId": 63
+  },
+  {
+    "id": 654,
+    "name": "Jesus",
+    "provinceId": 63
+  },
+  {
+    "id": 655,
+    "name": "Asuncion",
+    "provinceId": 63
+  },
+  {
+    "id": 656,
+    "name": "Chetilla",
+    "provinceId": 63
+  },
+  {
+    "id": 657,
+    "name": "Encañada",
+    "provinceId": 63
+  },
+  {
+    "id": 658,
+    "name": "Los Baños del Inca",
+    "provinceId": 63
+  },
+  {
+    "id": 659,
+    "name": "Llacanora",
+    "provinceId": 63
+  },
+  {
+    "id": 660,
+    "name": "Magdalena",
+    "provinceId": 63
+  },
+  {
+    "id": 661,
+    "name": "Namora",
+    "provinceId": 63
+  },
+  {
+    "id": 662,
+    "name": "Matara",
+    "provinceId": 63
+  },
+  {
+    "id": 663,
+    "name": "San Juan",
+    "provinceId": 63
+  },
+  {
+    "id": 664,
+    "name": "Bambamarca",
+    "provinceId": 64
+  },
+  {
+    "id": 665,
+    "name": "Chugur",
+    "provinceId": 64
+  },
+  {
+    "id": 666,
+    "name": "Hualgayoc",
+    "provinceId": 64
+  },
+  {
+    "id": 667,
+    "name": "Chancay",
+    "provinceId": 65
+  },
+  {
+    "id": 668,
+    "name": "Gregorio Pita",
+    "provinceId": 65
+  },
+  {
+    "id": 669,
+    "name": "Eduardo Villanueva",
+    "provinceId": 65
+  },
+  {
+    "id": 670,
+    "name": "Jose Manuel Quiroz",
+    "provinceId": 65
+  },
+  {
+    "id": 671,
+    "name": "Jose Sabogal",
+    "provinceId": 65
+  },
+  {
+    "id": 672,
+    "name": "Ichocan",
+    "provinceId": 65
+  },
+  {
+    "id": 673,
+    "name": "Pedro Galvez",
+    "provinceId": 65
+  },
+  {
+    "id": 674,
+    "name": "Cutervo",
+    "provinceId": 66
+  },
+  {
+    "id": 675,
+    "name": "Cujillo",
+    "provinceId": 66
+  },
+  {
+    "id": 676,
+    "name": "La Ramada",
+    "provinceId": 66
+  },
+  {
+    "id": 677,
+    "name": "Pimpingos",
+    "provinceId": 66
+  },
+  {
+    "id": 678,
+    "name": "San Andres de Cutervo",
+    "provinceId": 66
+  },
+  {
+    "id": 679,
+    "name": "Callayuc",
+    "provinceId": 66
+  },
+  {
+    "id": 680,
+    "name": "Choros",
+    "provinceId": 66
+  },
+  {
+    "id": 681,
+    "name": "San Juan de Cutervo",
+    "provinceId": 66
+  },
+  {
+    "id": 682,
+    "name": "Santo Domingo de la Capilla",
+    "provinceId": 66
+  },
+  {
+    "id": 683,
+    "name": "Santo Tomas",
+    "provinceId": 66
+  },
+  {
+    "id": 684,
+    "name": "Socota",
+    "provinceId": 66
+  },
+  {
+    "id": 685,
+    "name": "Querocotillo",
+    "provinceId": 66
+  },
+  {
+    "id": 686,
+    "name": "Santa Cruz",
+    "provinceId": 66
+  },
+  {
+    "id": 687,
+    "name": "Toribio Casanova",
+    "provinceId": 66
+  },
+  {
+    "id": 688,
+    "name": "San Luis de Lucma",
+    "provinceId": 66
+  },
+  {
+    "id": 689,
+    "name": "Callao",
+    "provinceId": 67
+  },
+  {
+    "id": 690,
+    "name": "Bellavista",
+    "provinceId": 67
+  },
+  {
+    "id": 691,
+    "name": "Mi Peru",
+    "provinceId": 67
+  },
+  {
+    "id": 692,
+    "name": "Carmen de la Legua Reynoso",
+    "provinceId": 67
+  },
+  {
+    "id": 693,
+    "name": "La Perla",
+    "provinceId": 67
+  },
+  {
+    "id": 694,
+    "name": "La Punta",
+    "provinceId": 67
+  },
+  {
+    "id": 695,
+    "name": "Ventanilla",
+    "provinceId": 67
+  },
+  {
+    "id": 696,
+    "name": "Machupicchu",
+    "provinceId": 68
+  },
+  {
+    "id": 697,
+    "name": "Urubamba",
+    "provinceId": 68
+  },
+  {
+    "id": 698,
+    "name": "Maras",
+    "provinceId": 68
+  },
+  {
+    "id": 699,
+    "name": "Chinchero",
+    "provinceId": 68
+  },
+  {
+    "id": 700,
+    "name": "Ollantaytambo",
+    "provinceId": 68
+  },
+  {
+    "id": 701,
+    "name": "Huayllabamba",
+    "provinceId": 68
+  },
+  {
+    "id": 702,
+    "name": "Yucay",
+    "provinceId": 68
+  },
+  {
+    "id": 703,
+    "name": "Acomayo",
+    "provinceId": 69
+  },
+  {
+    "id": 704,
+    "name": "Mosoc Llacta",
+    "provinceId": 69
+  },
+  {
+    "id": 705,
+    "name": "Rondocan",
+    "provinceId": 69
+  },
+  {
+    "id": 706,
+    "name": "Acos",
+    "provinceId": 69
+  },
+  {
+    "id": 707,
+    "name": "Sangarara",
+    "provinceId": 69
+  },
+  {
+    "id": 708,
+    "name": "Acopia",
+    "provinceId": 69
+  },
+  {
+    "id": 709,
+    "name": "Pomacanchi",
+    "provinceId": 69
+  },
+  {
+    "id": 710,
+    "name": "Urcos",
+    "provinceId": 70
+  },
+  {
+    "id": 711,
+    "name": "Andahuaylillas",
+    "provinceId": 70
+  },
+  {
+    "id": 712,
+    "name": "Camanti",
+    "provinceId": 70
+  },
+  {
+    "id": 713,
+    "name": "Ccarhuayo",
+    "provinceId": 70
+  },
+  {
+    "id": 714,
+    "name": "Ccatca",
+    "provinceId": 70
+  },
+  {
+    "id": 715,
+    "name": "Cusipata",
+    "provinceId": 70
+  },
+  {
+    "id": 716,
+    "name": "Huaro",
+    "provinceId": 70
+  },
+  {
+    "id": 717,
+    "name": "Lucre",
+    "provinceId": 70
+  },
+  {
+    "id": 718,
+    "name": "Marcapata",
+    "provinceId": 70
+  },
+  {
+    "id": 719,
+    "name": "Ocongate",
+    "provinceId": 70
+  },
+  {
+    "id": 720,
+    "name": "Oropesa",
+    "provinceId": 70
+  },
+  {
+    "id": 721,
+    "name": "Quiquijana",
+    "provinceId": 70
+  },
+  {
+    "id": 722,
+    "name": "Santo Tomas",
+    "provinceId": 71
+  },
+  {
+    "id": 723,
+    "name": "Capacmarca",
+    "provinceId": 71
+  },
+  {
+    "id": 724,
+    "name": "Chamaca",
+    "provinceId": 71
+  },
+  {
+    "id": 725,
+    "name": "Colquemarca",
+    "provinceId": 71
+  },
+  {
+    "id": 726,
+    "name": "Livitaca",
+    "provinceId": 71
+  },
+  {
+    "id": 727,
+    "name": "Llusco",
+    "provinceId": 71
+  },
+  {
+    "id": 728,
+    "name": "Quiñota",
+    "provinceId": 71
+  },
+  {
+    "id": 729,
+    "name": "Velille",
+    "provinceId": 71
+  },
+  {
+    "id": 730,
+    "name": "Paucartambo",
+    "provinceId": 72
+  },
+  {
+    "id": 731,
+    "name": "Caicay",
+    "provinceId": 72
+  },
+  {
+    "id": 732,
+    "name": "Challabamba",
+    "provinceId": 72
+  },
+  {
+    "id": 733,
+    "name": "Colquepata",
+    "provinceId": 72
+  },
+  {
+    "id": 734,
+    "name": "Huancarani",
+    "provinceId": 72
+  },
+  {
+    "id": 735,
+    "name": "Kosñipata",
+    "provinceId": 72
+  },
+  {
+    "id": 736,
+    "name": "Calca",
+    "provinceId": 73
+  },
+  {
+    "id": 737,
+    "name": "Coya",
+    "provinceId": 73
+  },
+  {
+    "id": 738,
+    "name": "Lamay",
+    "provinceId": 73
+  },
+  {
+    "id": 739,
+    "name": "Lares",
+    "provinceId": 73
+  },
+  {
+    "id": 740,
+    "name": "Pisac",
+    "provinceId": 73
+  },
+  {
+    "id": 741,
+    "name": "San Salvador",
+    "provinceId": 73
+  },
+  {
+    "id": 742,
+    "name": "Taray",
+    "provinceId": 73
+  },
+  {
+    "id": 743,
+    "name": "Yanatile",
+    "provinceId": 73
+  },
+  {
+    "id": 744,
+    "name": "Yanaoca",
+    "provinceId": 74
+  },
+  {
+    "id": 745,
+    "name": "Checca",
+    "provinceId": 74
+  },
+  {
+    "id": 746,
+    "name": "Kunturkanki",
+    "provinceId": 74
+  },
+  {
+    "id": 747,
+    "name": "Langui",
+    "provinceId": 74
+  },
+  {
+    "id": 748,
+    "name": "Layo",
+    "provinceId": 74
+  },
+  {
+    "id": 749,
+    "name": "Pampamarca",
+    "provinceId": 74
+  },
+  {
+    "id": 750,
+    "name": "Quehue",
+    "provinceId": 74
+  },
+  {
+    "id": 751,
+    "name": "Tupac Amaru",
+    "provinceId": 74
+  },
+  {
+    "id": 752,
+    "name": "Anta",
+    "provinceId": 75
+  },
+  {
+    "id": 753,
+    "name": "Ancahuasi",
+    "provinceId": 75
+  },
+  {
+    "id": 754,
+    "name": "Cachimayo",
+    "provinceId": 75
+  },
+  {
+    "id": 755,
+    "name": "Chinchaypujio",
+    "provinceId": 75
+  },
+  {
+    "id": 756,
+    "name": "Huarocondo",
+    "provinceId": 75
+  },
+  {
+    "id": 757,
+    "name": "Limatambo",
+    "provinceId": 75
+  },
+  {
+    "id": 758,
+    "name": "Mollepata",
+    "provinceId": 75
+  },
+  {
+    "id": 759,
+    "name": "Pucyura",
+    "provinceId": 75
+  },
+  {
+    "id": 760,
+    "name": "Zurite",
+    "provinceId": 75
+  },
+  {
+    "id": 761,
+    "name": "Espinar",
+    "provinceId": 76
+  },
+  {
+    "id": 762,
+    "name": "Condoroma",
+    "provinceId": 76
+  },
+  {
+    "id": 763,
+    "name": "Coporaque",
+    "provinceId": 76
+  },
+  {
+    "id": 764,
+    "name": "Ocoruro",
+    "provinceId": 76
+  },
+  {
+    "id": 765,
+    "name": "Pallpata",
+    "provinceId": 76
+  },
+  {
+    "id": 766,
+    "name": "Pichigua",
+    "provinceId": 76
+  },
+  {
+    "id": 767,
+    "name": "Suyckutambo",
+    "provinceId": 76
+  },
+  {
+    "id": 768,
+    "name": "Alto Pichigua",
+    "provinceId": 76
+  },
+  {
+    "id": 769,
+    "name": "Cusco",
+    "provinceId": 77
+  },
+  {
+    "id": 770,
+    "name": "Ccorca",
+    "provinceId": 77
+  },
+  {
+    "id": 771,
+    "name": "Poroy",
+    "provinceId": 77
+  },
+  {
+    "id": 772,
+    "name": "San Jeronimo",
+    "provinceId": 77
+  },
+  {
+    "id": 773,
+    "name": "San Sebastian",
+    "provinceId": 77
+  },
+  {
+    "id": 774,
+    "name": "Santiago",
+    "provinceId": 77
+  },
+  {
+    "id": 775,
+    "name": "Saylla",
+    "provinceId": 77
+  },
+  {
+    "id": 776,
+    "name": "Wanchaq",
+    "provinceId": 77
+  },
+  {
+    "id": 777,
+    "name": "Paruro",
+    "provinceId": 78
+  },
+  {
+    "id": 778,
+    "name": "Accha",
+    "provinceId": 78
+  },
+  {
+    "id": 779,
+    "name": "Ccapi",
+    "provinceId": 78
+  },
+  {
+    "id": 780,
+    "name": "Colcha",
+    "provinceId": 78
+  },
+  {
+    "id": 781,
+    "name": "Huanoquite",
+    "provinceId": 78
+  },
+  {
+    "id": 782,
+    "name": "Omacha",
+    "provinceId": 78
+  },
+  {
+    "id": 783,
+    "name": "Paccaritambo",
+    "provinceId": 78
+  },
+  {
+    "id": 784,
+    "name": "Pillpinto",
+    "provinceId": 78
+  },
+  {
+    "id": 785,
+    "name": "Yaurisque",
+    "provinceId": 78
+  },
+  {
+    "id": 786,
+    "name": "Sicuani",
+    "provinceId": 79
+  },
+  {
+    "id": 787,
+    "name": "Checacupe",
+    "provinceId": 79
+  },
+  {
+    "id": 788,
+    "name": "Combapata",
+    "provinceId": 79
+  },
+  {
+    "id": 789,
+    "name": "Marangani",
+    "provinceId": 79
+  },
+  {
+    "id": 790,
+    "name": "Pitumarca",
+    "provinceId": 79
+  },
+  {
+    "id": 791,
+    "name": "San Pablo",
+    "provinceId": 79
+  },
+  {
+    "id": 792,
+    "name": "San Pedro",
+    "provinceId": 79
+  },
+  {
+    "id": 793,
+    "name": "Tinta",
+    "provinceId": 79
+  },
+  {
+    "id": 794,
+    "name": "Megantoni",
+    "provinceId": 80
+  },
+  {
+    "id": 795,
+    "name": "Santa Ana",
+    "provinceId": 80
+  },
+  {
+    "id": 796,
+    "name": "Echarate",
+    "provinceId": 80
+  },
+  {
+    "id": 797,
+    "name": "Huayopata",
+    "provinceId": 80
+  },
+  {
+    "id": 798,
+    "name": "Maranura",
+    "provinceId": 80
+  },
+  {
+    "id": 799,
+    "name": "Ocobamba",
+    "provinceId": 80
+  },
+  {
+    "id": 800,
+    "name": "Quellouno",
+    "provinceId": 80
+  },
+  {
+    "id": 801,
+    "name": "Kimbiri",
+    "provinceId": 80
+  },
+  {
+    "id": 802,
+    "name": "Santa Teresa",
+    "provinceId": 80
+  },
+  {
+    "id": 803,
+    "name": "Vilcabamba",
+    "provinceId": 80
+  },
+  {
+    "id": 804,
+    "name": "Pichari",
+    "provinceId": 80
+  },
+  {
+    "id": 805,
+    "name": "Inkawasi",
+    "provinceId": 80
+  },
+  {
+    "id": 806,
+    "name": "Villa Virgen",
+    "provinceId": 80
+  },
+  {
+    "id": 807,
+    "name": "Villa Kintiarina",
+    "provinceId": 80
+  },
+  {
+    "id": 808,
+    "name": "Castrovirreyna",
+    "provinceId": 81
+  },
+  {
+    "id": 809,
+    "name": "Arma",
+    "provinceId": 81
+  },
+  {
+    "id": 810,
+    "name": "Aurahua",
+    "provinceId": 81
+  },
+  {
+    "id": 811,
+    "name": "Capillas",
+    "provinceId": 81
+  },
+  {
+    "id": 812,
+    "name": "Chupamarca",
+    "provinceId": 81
+  },
+  {
+    "id": 813,
+    "name": "Cocas",
+    "provinceId": 81
+  },
+  {
+    "id": 814,
+    "name": "Huachos",
+    "provinceId": 81
+  },
+  {
+    "id": 815,
+    "name": "Huamatambo",
+    "provinceId": 81
+  },
+  {
+    "id": 816,
+    "name": "San Juan",
+    "provinceId": 81
+  },
+  {
+    "id": 817,
+    "name": "Santa Ana",
+    "provinceId": 81
+  },
+  {
+    "id": 818,
+    "name": "Tantara",
+    "provinceId": 81
+  },
+  {
+    "id": 819,
+    "name": "Mollepampa",
+    "provinceId": 81
+  },
+  {
+    "id": 820,
+    "name": "Ticrapo",
+    "provinceId": 81
+  },
+  {
+    "id": 821,
+    "name": "Acobambilla",
+    "provinceId": 82
+  },
+  {
+    "id": 822,
+    "name": "Acoria",
+    "provinceId": 82
+  },
+  {
+    "id": 823,
+    "name": "Huancavelica",
+    "provinceId": 82
+  },
+  {
+    "id": 824,
+    "name": "Cuenca",
+    "provinceId": 82
+  },
+  {
+    "id": 825,
+    "name": "Conayca",
+    "provinceId": 82
+  },
+  {
+    "id": 826,
+    "name": "Huachocolpa",
+    "provinceId": 82
+  },
+  {
+    "id": 827,
+    "name": "Huayllahuara",
+    "provinceId": 82
+  },
+  {
+    "id": 828,
+    "name": "Izcuchaca",
+    "provinceId": 82
+  },
+  {
+    "id": 829,
+    "name": "Manta",
+    "provinceId": 82
+  },
+  {
+    "id": 830,
+    "name": "Mariscal Caceres",
+    "provinceId": 82
+  },
+  {
+    "id": 831,
+    "name": "Moya",
+    "provinceId": 82
+  },
+  {
+    "id": 832,
+    "name": "Nuevo Occoro",
+    "provinceId": 82
+  },
+  {
+    "id": 833,
+    "name": "Laria",
+    "provinceId": 82
+  },
+  {
+    "id": 834,
+    "name": "Palca",
+    "provinceId": 82
+  },
+  {
+    "id": 835,
+    "name": "Huando",
+    "provinceId": 82
+  },
+  {
+    "id": 836,
+    "name": "Pilchaca",
+    "provinceId": 82
+  },
+  {
+    "id": 837,
+    "name": "Vilca",
+    "provinceId": 82
+  },
+  {
+    "id": 838,
+    "name": "Yauli",
+    "provinceId": 82
+  },
+  {
+    "id": 839,
+    "name": "Ascension",
+    "provinceId": 82
+  },
+  {
+    "id": 840,
+    "name": "Ayavi",
+    "provinceId": 83
+  },
+  {
+    "id": 841,
+    "name": "Cordova",
+    "provinceId": 83
+  },
+  {
+    "id": 842,
+    "name": "Huayacundo Arma",
+    "provinceId": 83
+  },
+  {
+    "id": 843,
+    "name": "Laramarca",
+    "provinceId": 83
+  },
+  {
+    "id": 844,
+    "name": "Huaytara",
+    "provinceId": 83
+  },
+  {
+    "id": 845,
+    "name": "Ocoyo",
+    "provinceId": 83
+  },
+  {
+    "id": 846,
+    "name": "San Antonio de Cusicancha",
+    "provinceId": 83
+  },
+  {
+    "id": 847,
+    "name": "Pilpichaca",
+    "provinceId": 83
+  },
+  {
+    "id": 848,
+    "name": "Quito-Arma",
+    "provinceId": 83
+  },
+  {
+    "id": 849,
+    "name": "San Isidro",
+    "provinceId": 83
+  },
+  {
+    "id": 850,
+    "name": "Santiago de Quirahuara",
+    "provinceId": 83
+  },
+  {
+    "id": 851,
+    "name": "Santiago de Chocorvos",
+    "provinceId": 83
+  },
+  {
+    "id": 852,
+    "name": "Santo Domingo de Capillas",
+    "provinceId": 83
+  },
+  {
+    "id": 853,
+    "name": "Tambo",
+    "provinceId": 83
+  },
+  {
+    "id": 854,
+    "name": "Querco",
+    "provinceId": 83
+  },
+  {
+    "id": 855,
+    "name": "San Francisco de Sangayaico",
+    "provinceId": 83
+  },
+  {
+    "id": 856,
+    "name": "Acraquia",
+    "provinceId": 84
+  },
+  {
+    "id": 857,
+    "name": "Acostambo",
+    "provinceId": 84
+  },
+  {
+    "id": 858,
+    "name": "Ahuaycha",
+    "provinceId": 84
+  },
+  {
+    "id": 859,
+    "name": "Huachocolpa",
+    "provinceId": 84
+  },
+  {
+    "id": 860,
+    "name": "Tayacaja",
+    "provinceId": 84
+  },
+  {
+    "id": 861,
+    "name": "Huaribamba",
+    "provinceId": 84
+  },
+  {
+    "id": 862,
+    "name": "Pazos",
+    "provinceId": 84
+  },
+  {
+    "id": 863,
+    "name": "Quishuar",
+    "provinceId": 84
+  },
+  {
+    "id": 864,
+    "name": "Colcabamba",
+    "provinceId": 84
+  },
+  {
+    "id": 865,
+    "name": "Salcabamba",
+    "provinceId": 84
+  },
+  {
+    "id": 866,
+    "name": "Salcahuasi",
+    "provinceId": 84
+  },
+  {
+    "id": 867,
+    "name": "San Marcos de Rocchac",
+    "provinceId": 84
+  },
+  {
+    "id": 868,
+    "name": "Daniel Hernandez",
+    "provinceId": 84
+  },
+  {
+    "id": 869,
+    "name": "Ñahuimpuquio",
+    "provinceId": 84
+  },
+  {
+    "id": 870,
+    "name": "Surcubamba",
+    "provinceId": 84
+  },
+  {
+    "id": 871,
+    "name": "Quichuas",
+    "provinceId": 84
+  },
+  {
+    "id": 872,
+    "name": "Andaymarca",
+    "provinceId": 84
+  },
+  {
+    "id": 873,
+    "name": "Roble",
+    "provinceId": 84
+  },
+  {
+    "id": 874,
+    "name": "Pichos",
+    "provinceId": 84
+  },
+  {
+    "id": 875,
+    "name": "Tintay Puncu",
+    "provinceId": 84
+  },
+  {
+    "id": 876,
+    "name": "Churcampa",
+    "provinceId": 85
+  },
+  {
+    "id": 877,
+    "name": "Anco",
+    "provinceId": 85
+  },
+  {
+    "id": 878,
+    "name": "Chinchihuasi",
+    "provinceId": 85
+  },
+  {
+    "id": 879,
+    "name": "El Carmen",
+    "provinceId": 85
+  },
+  {
+    "id": 880,
+    "name": "La Merced",
+    "provinceId": 85
+  },
+  {
+    "id": 881,
+    "name": "Locroja",
+    "provinceId": 85
+  },
+  {
+    "id": 882,
+    "name": "Pachamarca",
+    "provinceId": 85
+  },
+  {
+    "id": 883,
+    "name": "Paucarbamba",
+    "provinceId": 85
+  },
+  {
+    "id": 884,
+    "name": "San Miguel de Mayocc",
+    "provinceId": 85
+  },
+  {
+    "id": 885,
+    "name": "San Pedro de Coris",
+    "provinceId": 85
+  },
+  {
+    "id": 886,
+    "name": "Cosme",
+    "provinceId": 85
+  },
+  {
+    "id": 887,
+    "name": "Anchonga",
+    "provinceId": 86
+  },
+  {
+    "id": 888,
+    "name": "Ccochaccasa",
+    "provinceId": 86
+  },
+  {
+    "id": 889,
+    "name": "Chincho",
+    "provinceId": 86
+  },
+  {
+    "id": 890,
+    "name": "Lircay",
+    "provinceId": 86
+  },
+  {
+    "id": 891,
+    "name": "Huanca- Huanca",
+    "provinceId": 86
+  },
+  {
+    "id": 892,
+    "name": "Congalla",
+    "provinceId": 86
+  },
+  {
+    "id": 893,
+    "name": "Callanmarca",
+    "provinceId": 86
+  },
+  {
+    "id": 894,
+    "name": "Julcamarca",
+    "provinceId": 86
+  },
+  {
+    "id": 895,
+    "name": "San Antonio de Antaparco",
+    "provinceId": 86
+  },
+  {
+    "id": 896,
+    "name": "Huayllay Grande",
+    "provinceId": 86
+  },
+  {
+    "id": 897,
+    "name": "Secclla",
+    "provinceId": 86
+  },
+  {
+    "id": 898,
+    "name": "Santo Tomas de Pata",
+    "provinceId": 86
+  },
+  {
+    "id": 899,
+    "name": "Acobamba",
+    "provinceId": 87
+  },
+  {
+    "id": 900,
+    "name": "Andabamba",
+    "provinceId": 87
+  },
+  {
+    "id": 901,
+    "name": "Anta",
+    "provinceId": 87
+  },
+  {
+    "id": 902,
+    "name": "Caja",
+    "provinceId": 87
+  },
+  {
+    "id": 903,
+    "name": "Paucara",
+    "provinceId": 87
+  },
+  {
+    "id": 904,
+    "name": "Marcas",
+    "provinceId": 87
+  },
+  {
+    "id": 905,
+    "name": "Pomacocha",
+    "provinceId": 87
+  },
+  {
+    "id": 906,
+    "name": "Rosario",
+    "provinceId": 87
+  },
+  {
+    "id": 907,
+    "name": "Puerto Inca",
+    "provinceId": 88
+  },
+  {
+    "id": 908,
+    "name": "Codo del Pozuzo",
+    "provinceId": 88
+  },
+  {
+    "id": 909,
+    "name": "Honoria",
+    "provinceId": 88
+  },
+  {
+    "id": 910,
+    "name": "Tournavista",
+    "provinceId": 88
+  },
+  {
+    "id": 911,
+    "name": "Yuyapichis",
+    "provinceId": 88
+  },
+  {
+    "id": 912,
+    "name": "Huacaybamba",
+    "provinceId": 89
+  },
+  {
+    "id": 913,
+    "name": "Canchabamba",
+    "provinceId": 89
+  },
+  {
+    "id": 914,
+    "name": "Cochabamba",
+    "provinceId": 89
+  },
+  {
+    "id": 915,
+    "name": "Pinra",
+    "provinceId": 89
+  },
+  {
+    "id": 916,
+    "name": "La Union",
+    "provinceId": 90
+  },
+  {
+    "id": 917,
+    "name": "Chuquis",
+    "provinceId": 90
+  },
+  {
+    "id": 918,
+    "name": "Marias",
+    "provinceId": 90
+  },
+  {
+    "id": 919,
+    "name": "Pachas",
+    "provinceId": 90
+  },
+  {
+    "id": 920,
+    "name": "Quivilla",
+    "provinceId": 90
+  },
+  {
+    "id": 921,
+    "name": "Ripan",
+    "provinceId": 90
+  },
+  {
+    "id": 922,
+    "name": "Shunqui",
+    "provinceId": 90
+  },
+  {
+    "id": 923,
+    "name": "Sillapata",
+    "provinceId": 90
+  },
+  {
+    "id": 924,
+    "name": "Yanas",
+    "provinceId": 90
+  },
+  {
+    "id": 925,
+    "name": "Tingo María",
+    "provinceId": 91
+  },
+  {
+    "id": 926,
+    "name": "Daniel Alomias Robles",
+    "provinceId": 91
+  },
+  {
+    "id": 927,
+    "name": "Hermilio Valdizan",
+    "provinceId": 91
+  },
+  {
+    "id": 928,
+    "name": "Aucayacu",
+    "provinceId": 91
+  },
+  {
+    "id": 929,
+    "name": "Luyando",
+    "provinceId": 91
+  },
+  {
+    "id": 930,
+    "name": "Mariano Damaso Beraun",
+    "provinceId": 91
+  },
+  {
+    "id": 931,
+    "name": "Pucayacu",
+    "provinceId": 91
+  },
+  {
+    "id": 932,
+    "name": "Castillo Grande",
+    "provinceId": 91
+  },
+  {
+    "id": 933,
+    "name": "Santo Domingo de Anda",
+    "provinceId": 91
+  },
+  {
+    "id": 934,
+    "name": "Pueblo Nuevo",
+    "provinceId": 91
+  },
+  {
+    "id": 935,
+    "name": "Huacrachuco",
+    "provinceId": 92
+  },
+  {
+    "id": 936,
+    "name": "Cholon",
+    "provinceId": 92
+  },
+  {
+    "id": 937,
+    "name": "La Morada",
+    "provinceId": 92
+  },
+  {
+    "id": 938,
+    "name": "San Buenaventura",
+    "provinceId": 92
+  },
+  {
+    "id": 939,
+    "name": "Santa Rosa de Alto Yanajanca",
+    "provinceId": 92
+  },
+  {
+    "id": 940,
+    "name": "Huanuco",
+    "provinceId": 93
+  },
+  {
+    "id": 941,
+    "name": "Amarilis",
+    "provinceId": 93
+  },
+  {
+    "id": 942,
+    "name": "Chinchao",
+    "provinceId": 93
+  },
+  {
+    "id": 943,
+    "name": "Churubamba",
+    "provinceId": 93
+  },
+  {
+    "id": 944,
+    "name": "Margos",
+    "provinceId": 93
+  },
+  {
+    "id": 945,
+    "name": "Quisqui",
+    "provinceId": 93
+  },
+  {
+    "id": 946,
+    "name": "San Francisco de Cayran",
+    "provinceId": 93
+  },
+  {
+    "id": 947,
+    "name": "San Pedro de Chaulan",
+    "provinceId": 93
+  },
+  {
+    "id": 948,
+    "name": "Santa Maria del Valle",
+    "provinceId": 93
+  },
+  {
+    "id": 949,
+    "name": "Yarumayo",
+    "provinceId": 93
+  },
+  {
+    "id": 950,
+    "name": "Pillco Marca",
+    "provinceId": 93
+  },
+  {
+    "id": 951,
+    "name": "Yacus",
+    "provinceId": 93
+  },
+  {
+    "id": 952,
+    "name": "San Pablo de Pillao",
+    "provinceId": 93
+  },
+  {
+    "id": 953,
+    "name": "Ambo",
+    "provinceId": 94
+  },
+  {
+    "id": 954,
+    "name": "Cayna",
+    "provinceId": 94
+  },
+  {
+    "id": 955,
+    "name": "Colpas",
+    "provinceId": 94
+  },
+  {
+    "id": 956,
+    "name": "Conchamarca",
+    "provinceId": 94
+  },
+  {
+    "id": 957,
+    "name": "Huacar",
+    "provinceId": 94
+  },
+  {
+    "id": 958,
+    "name": "San Francisco",
+    "provinceId": 94
+  },
+  {
+    "id": 959,
+    "name": "San Rafael",
+    "provinceId": 94
+  },
+  {
+    "id": 960,
+    "name": "Tomay Kichwa",
+    "provinceId": 94
+  },
+  {
+    "id": 961,
+    "name": "Chavin de Pariarca",
+    "provinceId": 95
+  },
+  {
+    "id": 962,
+    "name": "Jacas Grande",
+    "provinceId": 95
+  },
+  {
+    "id": 963,
+    "name": "Arancay",
+    "provinceId": 95
+  },
+  {
+    "id": 964,
+    "name": "Jircan",
+    "provinceId": 95
+  },
+  {
+    "id": 965,
+    "name": "Miraflores",
+    "provinceId": 95
+  },
+  {
+    "id": 966,
+    "name": "Monzon",
+    "provinceId": 95
+  },
+  {
+    "id": 967,
+    "name": "Singa",
+    "provinceId": 95
+  },
+  {
+    "id": 968,
+    "name": "Punchao",
+    "provinceId": 95
+  },
+  {
+    "id": 969,
+    "name": "Puños",
+    "provinceId": 95
+  },
+  {
+    "id": 970,
+    "name": "Tantamayo",
+    "provinceId": 95
+  },
+  {
+    "id": 971,
+    "name": "Llata",
+    "provinceId": 95
+  },
+  {
+    "id": 972,
+    "name": "Cahuac",
+    "provinceId": 96
+  },
+  {
+    "id": 973,
+    "name": "Chavinillo",
+    "provinceId": 96
+  },
+  {
+    "id": 974,
+    "name": "Chacabamba",
+    "provinceId": 96
+  },
+  {
+    "id": 975,
+    "name": "Aparicio Pomares",
+    "provinceId": 96
+  },
+  {
+    "id": 976,
+    "name": "Jacas Chico",
+    "provinceId": 96
+  },
+  {
+    "id": 977,
+    "name": "Obas",
+    "provinceId": 96
+  },
+  {
+    "id": 978,
+    "name": "Pampamarca",
+    "provinceId": 96
+  },
+  {
+    "id": 979,
+    "name": "Choras",
+    "provinceId": 96
+  },
+  {
+    "id": 980,
+    "name": "Jesus",
+    "provinceId": 97
+  },
+  {
+    "id": 981,
+    "name": "Baños",
+    "provinceId": 97
+  },
+  {
+    "id": 982,
+    "name": "Jivia",
+    "provinceId": 97
+  },
+  {
+    "id": 983,
+    "name": "Queropalca",
+    "provinceId": 97
+  },
+  {
+    "id": 984,
+    "name": "Rondos",
+    "provinceId": 97
+  },
+  {
+    "id": 985,
+    "name": "San Francisco de Asis",
+    "provinceId": 97
+  },
+  {
+    "id": 986,
+    "name": "San Miguel de Cauri",
+    "provinceId": 97
+  },
+  {
+    "id": 987,
+    "name": "Panao",
+    "provinceId": 98
+  },
+  {
+    "id": 988,
+    "name": "Chaglla",
+    "provinceId": 98
+  },
+  {
+    "id": 989,
+    "name": "Molino",
+    "provinceId": 98
+  },
+  {
+    "id": 990,
+    "name": "Umari",
+    "provinceId": 98
+  },
+  {
+    "id": 991,
+    "name": "Nazca",
+    "provinceId": 99
+  },
+  {
+    "id": 992,
+    "name": "Changuillo",
+    "provinceId": 99
+  },
+  {
+    "id": 993,
+    "name": "Vista Alegre",
+    "provinceId": 99
+  },
+  {
+    "id": 994,
+    "name": "Marcona",
+    "provinceId": 99
+  },
+  {
+    "id": 995,
+    "name": "El Ingenio",
+    "provinceId": 99
+  },
+  {
+    "id": 996,
+    "name": "Ica",
+    "provinceId": 100
+  },
+  {
+    "id": 997,
+    "name": "La Tinguiña",
+    "provinceId": 100
+  },
+  {
+    "id": 998,
+    "name": "Los Aquijes",
+    "provinceId": 100
+  },
+  {
+    "id": 999,
+    "name": "Ocucaje",
+    "provinceId": 100
+  },
+  {
+    "id": 1000,
+    "name": "Pachacutec",
+    "provinceId": 100
+  },
+  {
+    "id": 1001,
+    "name": "Parcona",
+    "provinceId": 100
+  },
+  {
+    "id": 1002,
+    "name": "San Jose de los Molinos",
+    "provinceId": 100
+  },
+  {
+    "id": 1003,
+    "name": "Pueblo Nuevo",
+    "provinceId": 100
+  },
+  {
+    "id": 1004,
+    "name": "Salas",
+    "provinceId": 100
+  },
+  {
+    "id": 1005,
+    "name": "San Juan Bautista",
+    "provinceId": 100
+  },
+  {
+    "id": 1006,
+    "name": "Tate",
+    "provinceId": 100
+  },
+  {
+    "id": 1007,
+    "name": "Subtanjalla",
+    "provinceId": 100
+  },
+  {
+    "id": 1008,
+    "name": "Santiago",
+    "provinceId": 100
+  },
+  {
+    "id": 1009,
+    "name": "Yauca del Rosario",
+    "provinceId": 100
+  },
+  {
+    "id": 1010,
+    "name": "Huancano",
+    "provinceId": 101
+  },
+  {
+    "id": 1011,
+    "name": "Humay",
+    "provinceId": 101
+  },
+  {
+    "id": 1012,
+    "name": "Independencia",
+    "provinceId": 101
+  },
+  {
+    "id": 1013,
+    "name": "Pisco",
+    "provinceId": 101
+  },
+  {
+    "id": 1014,
+    "name": "Paracas",
+    "provinceId": 101
+  },
+  {
+    "id": 1015,
+    "name": "San Andres",
+    "provinceId": 101
+  },
+  {
+    "id": 1016,
+    "name": "San Clemente",
+    "provinceId": 101
+  },
+  {
+    "id": 1017,
+    "name": "Tupac Amaru Inca",
+    "provinceId": 101
+  },
+  {
+    "id": 1018,
+    "name": "Alto Laran",
+    "provinceId": 102
+  },
+  {
+    "id": 1019,
+    "name": "Chincha Alta",
+    "provinceId": 102
+  },
+  {
+    "id": 1020,
+    "name": "Chavin",
+    "provinceId": 102
+  },
+  {
+    "id": 1021,
+    "name": "Chincha Baja",
+    "provinceId": 102
+  },
+  {
+    "id": 1022,
+    "name": "El Carmen",
+    "provinceId": 102
+  },
+  {
+    "id": 1023,
+    "name": "Pueblo Nuevo",
+    "provinceId": 102
+  },
+  {
+    "id": 1024,
+    "name": "San Juan de Yanac",
+    "provinceId": 102
+  },
+  {
+    "id": 1025,
+    "name": "Sunampe",
+    "provinceId": 102
+  },
+  {
+    "id": 1026,
+    "name": "Tambo de Mora",
+    "provinceId": 102
+  },
+  {
+    "id": 1027,
+    "name": "Grocio Prado",
+    "provinceId": 102
+  },
+  {
+    "id": 1028,
+    "name": "San Pedro de Huacarpana",
+    "provinceId": 102
+  },
+  {
+    "id": 1029,
+    "name": "Palpa",
+    "provinceId": 103
+  },
+  {
+    "id": 1030,
+    "name": "Rio Grande",
+    "provinceId": 103
+  },
+  {
+    "id": 1031,
+    "name": "Tibillo",
+    "provinceId": 103
+  },
+  {
+    "id": 1032,
+    "name": "Llipata",
+    "provinceId": 103
+  },
+  {
+    "id": 1033,
+    "name": "Santa Cruz",
+    "provinceId": 103
+  },
+  {
+    "id": 1034,
+    "name": "Perene",
+    "provinceId": 104
+  },
+  {
+    "id": 1035,
+    "name": "Pichanaqui",
+    "provinceId": 104
+  },
+  {
+    "id": 1036,
+    "name": "San Luis de Shuaro",
+    "provinceId": 104
+  },
+  {
+    "id": 1037,
+    "name": "San Ramon",
+    "provinceId": 104
+  },
+  {
+    "id": 1038,
+    "name": "Vitoc",
+    "provinceId": 104
+  },
+  {
+    "id": 1039,
+    "name": "Chanchamayo",
+    "provinceId": 104
+  },
+  {
+    "id": 1040,
+    "name": "Tarma",
+    "provinceId": 105
+  },
+  {
+    "id": 1041,
+    "name": "Acobamba",
+    "provinceId": 105
+  },
+  {
+    "id": 1042,
+    "name": "Huasahuasi",
+    "provinceId": 105
+  },
+  {
+    "id": 1043,
+    "name": "Palca",
+    "provinceId": 105
+  },
+  {
+    "id": 1044,
+    "name": "Palcamayo",
+    "provinceId": 105
+  },
+  {
+    "id": 1045,
+    "name": "Tapo",
+    "provinceId": 105
+  },
+  {
+    "id": 1046,
+    "name": "San Pedro de Cajas",
+    "provinceId": 105
+  },
+  {
+    "id": 1047,
+    "name": "Huaricolca",
+    "provinceId": 105
+  },
+  {
+    "id": 1048,
+    "name": "La Union",
+    "provinceId": 105
+  },
+  {
+    "id": 1049,
+    "name": "Huancayo",
+    "provinceId": 106
+  },
+  {
+    "id": 1050,
+    "name": "Chilca",
+    "provinceId": 106
+  },
+  {
+    "id": 1051,
+    "name": "Chongos Alto",
+    "provinceId": 106
+  },
+  {
+    "id": 1052,
+    "name": "Chupuro",
+    "provinceId": 106
+  },
+  {
+    "id": 1053,
+    "name": "Carhuacallan Ga",
+    "provinceId": 106
+  },
+  {
+    "id": 1054,
+    "name": "Colca",
+    "provinceId": 106
+  },
+  {
+    "id": 1055,
+    "name": "Huacrapuquio",
+    "provinceId": 106
+  },
+  {
+    "id": 1056,
+    "name": "Hualhuas",
+    "provinceId": 106
+  },
+  {
+    "id": 1057,
+    "name": "El Tambo",
+    "provinceId": 106
+  },
+  {
+    "id": 1058,
+    "name": "Huancan",
+    "provinceId": 106
+  },
+  {
+    "id": 1059,
+    "name": "Huasicancha",
+    "provinceId": 106
+  },
+  {
+    "id": 1060,
+    "name": "Cullhuas",
+    "provinceId": 106
+  },
+  {
+    "id": 1061,
+    "name": "Ingenio",
+    "provinceId": 106
+  },
+  {
+    "id": 1062,
+    "name": "Huayucachi",
+    "provinceId": 106
+  },
+  {
+    "id": 1063,
+    "name": "Pucara",
+    "provinceId": 106
+  },
+  {
+    "id": 1064,
+    "name": "Quichuay",
+    "provinceId": 106
+  },
+  {
+    "id": 1065,
+    "name": "Chacapampa",
+    "provinceId": 106
+  },
+  {
+    "id": 1066,
+    "name": "Pilcomayo",
+    "provinceId": 106
+  },
+  {
+    "id": 1067,
+    "name": "Pariahuanca",
+    "provinceId": 106
+  },
+  {
+    "id": 1068,
+    "name": "San Agustin",
+    "provinceId": 106
+  },
+  {
+    "id": 1069,
+    "name": "Saño",
+    "provinceId": 106
+  },
+  {
+    "id": 1070,
+    "name": "Sapallanga",
+    "provinceId": 106
+  },
+  {
+    "id": 1071,
+    "name": "San Jeronimo de Tunan",
+    "provinceId": 106
+  },
+  {
+    "id": 1072,
+    "name": "Quilcas",
+    "provinceId": 106
+  },
+  {
+    "id": 1073,
+    "name": "Chicche",
+    "provinceId": 106
+  },
+  {
+    "id": 1074,
+    "name": "Sicaya",
+    "provinceId": 106
+  },
+  {
+    "id": 1075,
+    "name": "Santo Domingo de Acobamba",
+    "provinceId": 106
+  },
+  {
+    "id": 1076,
+    "name": "Viques",
+    "provinceId": 106
+  },
+  {
+    "id": 1077,
+    "name": "Chupaca",
+    "provinceId": 107
+  },
+  {
+    "id": 1078,
+    "name": "Ahuac",
+    "provinceId": 107
+  },
+  {
+    "id": 1079,
+    "name": "Chongos Bajo",
+    "provinceId": 107
+  },
+  {
+    "id": 1080,
+    "name": "Huachac",
+    "provinceId": 107
+  },
+  {
+    "id": 1081,
+    "name": "Huamancaca Chico",
+    "provinceId": 107
+  },
+  {
+    "id": 1082,
+    "name": "San Juan de Jarpa",
+    "provinceId": 107
+  },
+  {
+    "id": 1083,
+    "name": "Tres de Diciembre",
+    "provinceId": 107
+  },
+  {
+    "id": 1084,
+    "name": "San Juan de Yscos",
+    "provinceId": 107
+  },
+  {
+    "id": 1085,
+    "name": "Yanacancha",
+    "provinceId": 107
+  },
+  {
+    "id": 1086,
+    "name": "La Oroya",
+    "provinceId": 108
+  },
+  {
+    "id": 1087,
+    "name": "Chacapalpa",
+    "provinceId": 108
+  },
+  {
+    "id": 1088,
+    "name": "Marcapomaco Cha",
+    "provinceId": 108
+  },
+  {
+    "id": 1089,
+    "name": "Morococha",
+    "provinceId": 108
+  },
+  {
+    "id": 1090,
+    "name": "Paccha",
+    "provinceId": 108
+  },
+  {
+    "id": 1091,
+    "name": "Santa Barbara de Carhuacayan",
+    "provinceId": 108
+  },
+  {
+    "id": 1092,
+    "name": "Santa Rosa de Sacco",
+    "provinceId": 108
+  },
+  {
+    "id": 1093,
+    "name": "Yauli",
+    "provinceId": 108
+  },
+  {
+    "id": 1094,
+    "name": "Suitucancha",
+    "provinceId": 108
+  },
+  {
+    "id": 1095,
+    "name": "Huay-Huay",
+    "provinceId": 108
+  },
+  {
+    "id": 1096,
+    "name": "Jauja",
+    "provinceId": 109
+  },
+  {
+    "id": 1097,
+    "name": "Acolla",
+    "provinceId": 109
+  },
+  {
+    "id": 1098,
+    "name": "Apata",
+    "provinceId": 109
+  },
+  {
+    "id": 1099,
+    "name": "Ataura",
+    "provinceId": 109
+  },
+  {
+    "id": 1100,
+    "name": "Canchayllo",
+    "provinceId": 109
+  },
+  {
+    "id": 1101,
+    "name": "Curicaca",
+    "provinceId": 109
+  },
+  {
+    "id": 1102,
+    "name": "El Mantaro",
+    "provinceId": 109
+  },
+  {
+    "id": 1103,
+    "name": "Huamali",
+    "provinceId": 109
+  },
+  {
+    "id": 1104,
+    "name": "Huaripampa",
+    "provinceId": 109
+  },
+  {
+    "id": 1105,
+    "name": "Huertas",
+    "provinceId": 109
+  },
+  {
+    "id": 1106,
+    "name": "Janjaillo",
+    "provinceId": 109
+  },
+  {
+    "id": 1107,
+    "name": "Julcan",
+    "provinceId": 109
+  },
+  {
+    "id": 1108,
+    "name": "Leonor Ordoñez",
+    "provinceId": 109
+  },
+  {
+    "id": 1109,
+    "name": "Llocllapampa",
+    "provinceId": 109
+  },
+  {
+    "id": 1110,
+    "name": "Marco",
+    "provinceId": 109
+  },
+  {
+    "id": 1111,
+    "name": "Masma",
+    "provinceId": 109
+  },
+  {
+    "id": 1112,
+    "name": "Masma Chicche",
+    "provinceId": 109
+  },
+  {
+    "id": 1113,
+    "name": "Molinos",
+    "provinceId": 109
+  },
+  {
+    "id": 1114,
+    "name": "Monobamba",
+    "provinceId": 109
+  },
+  {
+    "id": 1115,
+    "name": "Muquiyauyo",
+    "provinceId": 109
+  },
+  {
+    "id": 1116,
+    "name": "Paca",
+    "provinceId": 109
+  },
+  {
+    "id": 1117,
+    "name": "Paccha",
+    "provinceId": 109
+  },
+  {
+    "id": 1118,
+    "name": "Pancan",
+    "provinceId": 109
+  },
+  {
+    "id": 1119,
+    "name": "Parco",
+    "provinceId": 109
+  },
+  {
+    "id": 1120,
+    "name": "Pomacancha",
+    "provinceId": 109
+  },
+  {
+    "id": 1121,
+    "name": "Ricran",
+    "provinceId": 109
+  },
+  {
+    "id": 1122,
+    "name": "San Lorenzo",
+    "provinceId": 109
+  },
+  {
+    "id": 1123,
+    "name": "Sausa",
+    "provinceId": 109
+  },
+  {
+    "id": 1124,
+    "name": "Sincos",
+    "provinceId": 109
+  },
+  {
+    "id": 1125,
+    "name": "Muqui",
+    "provinceId": 109
+  },
+  {
+    "id": 1126,
+    "name": "Yauli",
+    "provinceId": 109
+  },
+  {
+    "id": 1127,
+    "name": "Tunan Marca",
+    "provinceId": 109
+  },
+  {
+    "id": 1128,
+    "name": "San Pedro de Chunan",
+    "provinceId": 109
+  },
+  {
+    "id": 1129,
+    "name": "Yauyos",
+    "provinceId": 109
+  },
+  {
+    "id": 1130,
+    "name": "Aco",
+    "provinceId": 110
+  },
+  {
+    "id": 1131,
+    "name": "Andamarca",
+    "provinceId": 110
+  },
+  {
+    "id": 1132,
+    "name": "Concepcion",
+    "provinceId": 110
+  },
+  {
+    "id": 1133,
+    "name": "Chambara",
+    "provinceId": 110
+  },
+  {
+    "id": 1134,
+    "name": "Cochas",
+    "provinceId": 110
+  },
+  {
+    "id": 1135,
+    "name": "Heroinas Toledo",
+    "provinceId": 110
+  },
+  {
+    "id": 1136,
+    "name": "Matahuasi",
+    "provinceId": 110
+  },
+  {
+    "id": 1137,
+    "name": "Mito",
+    "provinceId": 110
+  },
+  {
+    "id": 1138,
+    "name": "Orcotuna",
+    "provinceId": 110
+  },
+  {
+    "id": 1139,
+    "name": "Nueve de Julio",
+    "provinceId": 110
+  },
+  {
+    "id": 1140,
+    "name": "Comas",
+    "provinceId": 110
+  },
+  {
+    "id": 1141,
+    "name": "San Jose de Quero",
+    "provinceId": 110
+  },
+  {
+    "id": 1142,
+    "name": "Manzanares",
+    "provinceId": 110
+  },
+  {
+    "id": 1143,
+    "name": "Mariscal Castilla",
+    "provinceId": 110
+  },
+  {
+    "id": 1144,
+    "name": "Santa Rosa de Ocopa",
+    "provinceId": 110
+  },
+  {
+    "id": 1145,
+    "name": "Junin",
+    "provinceId": 111
+  },
+  {
+    "id": 1146,
+    "name": "Carhuamayo",
+    "provinceId": 111
+  },
+  {
+    "id": 1147,
+    "name": "Ondores",
+    "provinceId": 111
+  },
+  {
+    "id": 1148,
+    "name": "Ulcumayo",
+    "provinceId": 111
+  },
+  {
+    "id": 1149,
+    "name": "Satipo",
+    "provinceId": 112
+  },
+  {
+    "id": 1150,
+    "name": "Coviriali",
+    "provinceId": 112
+  },
+  {
+    "id": 1151,
+    "name": "Llaylla",
+    "provinceId": 112
+  },
+  {
+    "id": 1152,
+    "name": "Pangoa",
+    "provinceId": 112
+  },
+  {
+    "id": 1153,
+    "name": "Pampa Hermosa",
+    "provinceId": 112
+  },
+  {
+    "id": 1154,
+    "name": "Rio Negro",
+    "provinceId": 112
+  },
+  {
+    "id": 1155,
+    "name": "Mazamari",
+    "provinceId": 112
+  },
+  {
+    "id": 1156,
+    "name": "Vizcatan del Ene",
+    "provinceId": 112
+  },
+  {
+    "id": 1157,
+    "name": "Rio Tambo",
+    "provinceId": 112
+  },
+  {
+    "id": 1158,
+    "name": "Trujillo",
+    "provinceId": 113
+  },
+  {
+    "id": 1159,
+    "name": "El Porvenir",
+    "provinceId": 113
+  },
+  {
+    "id": 1160,
+    "name": "Florencia de Mora",
+    "provinceId": 113
+  },
+  {
+    "id": 1161,
+    "name": "Huanchaco",
+    "provinceId": 113
+  },
+  {
+    "id": 1162,
+    "name": "La Esperanza",
+    "provinceId": 113
+  },
+  {
+    "id": 1163,
+    "name": "Laredo",
+    "provinceId": 113
+  },
+  {
+    "id": 1164,
+    "name": "Moche",
+    "provinceId": 113
+  },
+  {
+    "id": 1165,
+    "name": "Poroto",
+    "provinceId": 113
+  },
+  {
+    "id": 1166,
+    "name": "Simbal",
+    "provinceId": 113
+  },
+  {
+    "id": 1167,
+    "name": "Salaverry",
+    "provinceId": 113
+  },
+  {
+    "id": 1168,
+    "name": "Victor Larco Herrera",
+    "provinceId": 113
+  },
+  {
+    "id": 1169,
+    "name": "Otuzco",
+    "provinceId": 114
+  },
+  {
+    "id": 1170,
+    "name": "Agallpampa",
+    "provinceId": 114
+  },
+  {
+    "id": 1171,
+    "name": "Charat",
+    "provinceId": 114
+  },
+  {
+    "id": 1172,
+    "name": "Huaranchal",
+    "provinceId": 114
+  },
+  {
+    "id": 1173,
+    "name": "La Cuesta",
+    "provinceId": 114
+  },
+  {
+    "id": 1174,
+    "name": "Mache",
+    "provinceId": 114
+  },
+  {
+    "id": 1175,
+    "name": "Paranday",
+    "provinceId": 114
+  },
+  {
+    "id": 1176,
+    "name": "Salpo",
+    "provinceId": 114
+  },
+  {
+    "id": 1177,
+    "name": "Sinsicap",
+    "provinceId": 114
+  },
+  {
+    "id": 1178,
+    "name": "Usquil",
+    "provinceId": 114
+  },
+  {
+    "id": 1179,
+    "name": "Huamachuco",
+    "provinceId": 115
+  },
+  {
+    "id": 1180,
+    "name": "Cochorco",
+    "provinceId": 115
+  },
+  {
+    "id": 1181,
+    "name": "Curgos",
+    "provinceId": 115
+  },
+  {
+    "id": 1182,
+    "name": "Marcabal",
+    "provinceId": 115
+  },
+  {
+    "id": 1183,
+    "name": "Sanagoran",
+    "provinceId": 115
+  },
+  {
+    "id": 1184,
+    "name": "Sarin",
+    "provinceId": 115
+  },
+  {
+    "id": 1185,
+    "name": "Sartimbamba",
+    "provinceId": 115
+  },
+  {
+    "id": 1186,
+    "name": "Chugay",
+    "provinceId": 115
+  },
+  {
+    "id": 1187,
+    "name": "Virú",
+    "provinceId": 116
+  },
+  {
+    "id": 1188,
+    "name": "Chao",
+    "provinceId": 116
+  },
+  {
+    "id": 1189,
+    "name": "Guadalupito",
+    "provinceId": 116
+  },
+  {
+    "id": 1190,
+    "name": "Julcán",
+    "provinceId": 117
+  },
+  {
+    "id": 1191,
+    "name": "Calamarca",
+    "provinceId": 117
+  },
+  {
+    "id": 1192,
+    "name": "Carabamba",
+    "provinceId": 117
+  },
+  {
+    "id": 1193,
+    "name": "Huaso",
+    "provinceId": 117
+  },
+  {
+    "id": 1194,
+    "name": "Tayabamba",
+    "provinceId": 118
+  },
+  {
+    "id": 1195,
+    "name": "Buldibuyo",
+    "provinceId": 118
+  },
+  {
+    "id": 1196,
+    "name": "Ongon",
+    "provinceId": 118
+  },
+  {
+    "id": 1197,
+    "name": "Parcoy",
+    "provinceId": 118
+  },
+  {
+    "id": 1198,
+    "name": "Chillia",
+    "provinceId": 118
+  },
+  {
+    "id": 1199,
+    "name": "Pataz",
+    "provinceId": 118
+  },
+  {
+    "id": 1200,
+    "name": "Pias",
+    "provinceId": 118
+  },
+  {
+    "id": 1201,
+    "name": "Santiago de Challas",
+    "provinceId": 118
+  },
+  {
+    "id": 1202,
+    "name": "Huayo",
+    "provinceId": 118
+  },
+  {
+    "id": 1203,
+    "name": "Urpay",
+    "provinceId": 118
+  },
+  {
+    "id": 1204,
+    "name": "Huancaspata",
+    "provinceId": 118
+  },
+  {
+    "id": 1205,
+    "name": "Taurija",
+    "provinceId": 118
+  },
+  {
+    "id": 1206,
+    "name": "Huaylillas",
+    "provinceId": 118
+  },
+  {
+    "id": 1207,
+    "name": "Bolívar",
+    "provinceId": 119
+  },
+  {
+    "id": 1208,
+    "name": "Bambamarca",
+    "provinceId": 119
+  },
+  {
+    "id": 1209,
+    "name": "Condormarca",
+    "provinceId": 119
+  },
+  {
+    "id": 1210,
+    "name": "Longotea",
+    "provinceId": 119
+  },
+  {
+    "id": 1211,
+    "name": "Uchumarca",
+    "provinceId": 119
+  },
+  {
+    "id": 1212,
+    "name": "Ucuncha",
+    "provinceId": 119
+  },
+  {
+    "id": 1213,
+    "name": "San Pedro de Lloc",
+    "provinceId": 120
+  },
+  {
+    "id": 1214,
+    "name": "Guadalupe",
+    "provinceId": 120
+  },
+  {
+    "id": 1215,
+    "name": "Jequetepeque",
+    "provinceId": 120
+  },
+  {
+    "id": 1216,
+    "name": "San Jose",
+    "provinceId": 120
+  },
+  {
+    "id": 1217,
+    "name": "Pacasmayo",
+    "provinceId": 120
+  },
+  {
+    "id": 1218,
+    "name": "Santiago de Chuco",
+    "provinceId": 121
+  },
+  {
+    "id": 1219,
+    "name": "Angasmarca",
+    "provinceId": 121
+  },
+  {
+    "id": 1220,
+    "name": "Mollebamba",
+    "provinceId": 121
+  },
+  {
+    "id": 1221,
+    "name": "Mollepata",
+    "provinceId": 121
+  },
+  {
+    "id": 1222,
+    "name": "Quiruvilca",
+    "provinceId": 121
+  },
+  {
+    "id": 1223,
+    "name": "Sitabamba",
+    "provinceId": 121
+  },
+  {
+    "id": 1224,
+    "name": "Santa Cruz de Chuca",
+    "provinceId": 121
+  },
+  {
+    "id": 1225,
+    "name": "Cachicadan",
+    "provinceId": 121
+  },
+  {
+    "id": 1226,
+    "name": "Cascas",
+    "provinceId": 122
+  },
+  {
+    "id": 1227,
+    "name": "Lucma",
+    "provinceId": 122
+  },
+  {
+    "id": 1228,
+    "name": "Sayapullo",
+    "provinceId": 122
+  },
+  {
+    "id": 1229,
+    "name": "Compin",
+    "provinceId": 122
+  },
+  {
+    "id": 1230,
+    "name": "Chepén",
+    "provinceId": 123
+  },
+  {
+    "id": 1231,
+    "name": "Pacanga",
+    "provinceId": 123
+  },
+  {
+    "id": 1232,
+    "name": "Pueblo Nuevo",
+    "provinceId": 123
+  },
+  {
+    "id": 1233,
+    "name": "Ascope",
+    "provinceId": 124
+  },
+  {
+    "id": 1234,
+    "name": "Chocope",
+    "provinceId": 124
+  },
+  {
+    "id": 1235,
+    "name": "Chicama",
+    "provinceId": 124
+  },
+  {
+    "id": 1236,
+    "name": "Magdalena de Cao",
+    "provinceId": 124
+  },
+  {
+    "id": 1237,
+    "name": "Paijan",
+    "provinceId": 124
+  },
+  {
+    "id": 1238,
+    "name": "Razuri",
+    "provinceId": 124
+  },
+  {
+    "id": 1239,
+    "name": "Santiago de Cao",
+    "provinceId": 124
+  },
+  {
+    "id": 1240,
+    "name": "Casa Grande",
+    "provinceId": 124
+  },
+  {
+    "id": 1241,
+    "name": "Chiclayo",
+    "provinceId": 125
+  },
+  {
+    "id": 1242,
+    "name": "Jose Leonardo Ortiz",
+    "provinceId": 125
+  },
+  {
+    "id": 1243,
+    "name": "La Victoria",
+    "provinceId": 125
+  },
+  {
+    "id": 1244,
+    "name": "Chongoyape",
+    "provinceId": 125
+  },
+  {
+    "id": 1245,
+    "name": "Lagunas",
+    "provinceId": 125
+  },
+  {
+    "id": 1246,
+    "name": "Monsefu",
+    "provinceId": 125
+  },
+  {
+    "id": 1247,
+    "name": "Picsi",
+    "provinceId": 125
+  },
+  {
+    "id": 1248,
+    "name": "Pimentel",
+    "provinceId": 125
+  },
+  {
+    "id": 1249,
+    "name": "Nueva Arica",
+    "provinceId": 125
+  },
+  {
+    "id": 1250,
+    "name": "Oyotun",
+    "provinceId": 125
+  },
+  {
+    "id": 1251,
+    "name": "Eten Puerto",
+    "provinceId": 125
+  },
+  {
+    "id": 1252,
+    "name": "Eten",
+    "provinceId": 125
+  },
+  {
+    "id": 1253,
+    "name": "Santa Rosa",
+    "provinceId": 125
+  },
+  {
+    "id": 1254,
+    "name": "Reque",
+    "provinceId": 125
+  },
+  {
+    "id": 1255,
+    "name": "Saña",
+    "provinceId": 125
+  },
+  {
+    "id": 1256,
+    "name": "Cayalti",
+    "provinceId": 125
+  },
+  {
+    "id": 1257,
+    "name": "Patapo",
+    "provinceId": 125
+  },
+  {
+    "id": 1258,
+    "name": "Pomalca",
+    "provinceId": 125
+  },
+  {
+    "id": 1259,
+    "name": "Pucala",
+    "provinceId": 125
+  },
+  {
+    "id": 1260,
+    "name": "Tuman",
+    "provinceId": 125
+  },
+  {
+    "id": 1261,
+    "name": "Ferreñafe",
+    "provinceId": 126
+  },
+  {
+    "id": 1262,
+    "name": "Cañaris",
+    "provinceId": 126
+  },
+  {
+    "id": 1263,
+    "name": "Incahuasi",
+    "provinceId": 126
+  },
+  {
+    "id": 1264,
+    "name": "Pitipo",
+    "provinceId": 126
+  },
+  {
+    "id": 1265,
+    "name": "Pueblo Nuevo",
+    "provinceId": 126
+  },
+  {
+    "id": 1266,
+    "name": "Manuel Antonio Mesones Muro",
+    "provinceId": 126
+  },
+  {
+    "id": 1267,
+    "name": "Lambayeque",
+    "provinceId": 127
+  },
+  {
+    "id": 1268,
+    "name": "Chochope",
+    "provinceId": 127
+  },
+  {
+    "id": 1269,
+    "name": "Jayanca",
+    "provinceId": 127
+  },
+  {
+    "id": 1270,
+    "name": "Mochumi",
+    "provinceId": 127
+  },
+  {
+    "id": 1271,
+    "name": "Morrope",
+    "provinceId": 127
+  },
+  {
+    "id": 1272,
+    "name": "Illimo",
+    "provinceId": 127
+  },
+  {
+    "id": 1273,
+    "name": "Pacora",
+    "provinceId": 127
+  },
+  {
+    "id": 1274,
+    "name": "Motupe",
+    "provinceId": 127
+  },
+  {
+    "id": 1275,
+    "name": "Tucume",
+    "provinceId": 127
+  },
+  {
+    "id": 1276,
+    "name": "Salas",
+    "provinceId": 127
+  },
+  {
+    "id": 1277,
+    "name": "Olmos",
+    "provinceId": 127
+  },
+  {
+    "id": 1278,
+    "name": "San Jose",
+    "provinceId": 127
+  },
+  {
+    "id": 1279,
+    "name": "Canta",
+    "provinceId": 128
+  },
+  {
+    "id": 1280,
+    "name": "Arahuay",
+    "provinceId": 128
+  },
+  {
+    "id": 1281,
+    "name": "Huaros",
+    "provinceId": 128
+  },
+  {
+    "id": 1282,
+    "name": "Lachaqui",
+    "provinceId": 128
+  },
+  {
+    "id": 1283,
+    "name": "San Buenaventura",
+    "provinceId": 128
+  },
+  {
+    "id": 1284,
+    "name": "Santa Rosa de Quives",
+    "provinceId": 128
+  },
+  {
+    "id": 1285,
+    "name": "Huamantanga",
+    "provinceId": 128
+  },
+  {
+    "id": 1286,
+    "name": "Huaral",
+    "provinceId": 129
+  },
+  {
+    "id": 1287,
+    "name": "Atavillos Alto",
+    "provinceId": 129
+  },
+  {
+    "id": 1288,
+    "name": "Atavillos Bajo",
+    "provinceId": 129
+  },
+  {
+    "id": 1289,
+    "name": "Aucallama",
+    "provinceId": 129
+  },
+  {
+    "id": 1290,
+    "name": "Chancay",
+    "provinceId": 129
+  },
+  {
+    "id": 1291,
+    "name": "Ihuari",
+    "provinceId": 129
+  },
+  {
+    "id": 1292,
+    "name": "Lampian",
+    "provinceId": 129
+  },
+  {
+    "id": 1293,
+    "name": "Pacaraos",
+    "provinceId": 129
+  },
+  {
+    "id": 1294,
+    "name": "San Miguel de Acos",
+    "provinceId": 129
+  },
+  {
+    "id": 1295,
+    "name": "Santa Cruz de Andamarca",
+    "provinceId": 129
+  },
+  {
+    "id": 1296,
+    "name": "Veintisiete de Noviembre",
+    "provinceId": 129
+  },
+  {
+    "id": 1297,
+    "name": "Sumbilca",
+    "provinceId": 129
+  },
+  {
+    "id": 1298,
+    "name": "Barranca",
+    "provinceId": 130
+  },
+  {
+    "id": 1299,
+    "name": "Pativilca",
+    "provinceId": 130
+  },
+  {
+    "id": 1300,
+    "name": "Paramonga",
+    "provinceId": 130
+  },
+  {
+    "id": 1301,
+    "name": "Supe",
+    "provinceId": 130
+  },
+  {
+    "id": 1302,
+    "name": "Supe Puerto",
+    "provinceId": 130
+  },
+  {
+    "id": 1303,
+    "name": "Huacho",
+    "provinceId": 131
+  },
+  {
+    "id": 1304,
+    "name": "Ambar",
+    "provinceId": 131
+  },
+  {
+    "id": 1305,
+    "name": "Caleta de Carquin",
+    "provinceId": 131
+  },
+  {
+    "id": 1306,
+    "name": "Hualmay",
+    "provinceId": 131
+  },
+  {
+    "id": 1307,
+    "name": "Huaura",
+    "provinceId": 131
+  },
+  {
+    "id": 1308,
+    "name": "Checras",
+    "provinceId": 131
+  },
+  {
+    "id": 1309,
+    "name": "Leoncio Prado",
+    "provinceId": 131
+  },
+  {
+    "id": 1310,
+    "name": "Paccho",
+    "provinceId": 131
+  },
+  {
+    "id": 1311,
+    "name": "Santa Leonor",
+    "provinceId": 131
+  },
+  {
+    "id": 1312,
+    "name": "Santa Maria",
+    "provinceId": 131
+  },
+  {
+    "id": 1313,
+    "name": "Sayan",
+    "provinceId": 131
+  },
+  {
+    "id": 1314,
+    "name": "Vegueta",
+    "provinceId": 131
+  },
+  {
+    "id": 1315,
+    "name": "Oyón",
+    "provinceId": 132
+  },
+  {
+    "id": 1316,
+    "name": "Andajes",
+    "provinceId": 132
+  },
+  {
+    "id": 1317,
+    "name": "Caujul",
+    "provinceId": 132
+  },
+  {
+    "id": 1318,
+    "name": "Cochamarca",
+    "provinceId": 132
+  },
+  {
+    "id": 1319,
+    "name": "Navan",
+    "provinceId": 132
+  },
+  {
+    "id": 1320,
+    "name": "Pachangara",
+    "provinceId": 132
+  },
+  {
+    "id": 1321,
+    "name": "Lima",
+    "provinceId": 133
+  },
+  {
+    "id": 1322,
+    "name": "Ancon",
+    "provinceId": 133
+  },
+  {
+    "id": 1323,
+    "name": "Barranco",
+    "provinceId": 133
+  },
+  {
+    "id": 1324,
+    "name": "Breña",
+    "provinceId": 133
+  },
+  {
+    "id": 1325,
+    "name": "Chorrillos",
+    "provinceId": 133
+  },
+  {
+    "id": 1326,
+    "name": "Chosica",
+    "provinceId": 133
+  },
+  {
+    "id": 1327,
+    "name": "Cieneguilla",
+    "provinceId": 133
+  },
+  {
+    "id": 1328,
+    "name": "Chaclacayo",
+    "provinceId": 133
+  },
+  {
+    "id": 1329,
+    "name": "El Agustino",
+    "provinceId": 133
+  },
+  {
+    "id": 1330,
+    "name": "Independencia",
+    "provinceId": 133
+  },
+  {
+    "id": 1331,
+    "name": "Jesus Maria",
+    "provinceId": 133
+  },
+  {
+    "id": 1332,
+    "name": "La Molina",
+    "provinceId": 133
+  },
+  {
+    "id": 1333,
+    "name": "Comas",
+    "provinceId": 133
+  },
+  {
+    "id": 1334,
+    "name": "La Victoria",
+    "provinceId": 133
+  },
+  {
+    "id": 1335,
+    "name": "Lince",
+    "provinceId": 133
+  },
+  {
+    "id": 1336,
+    "name": "Lurigancho",
+    "provinceId": 133
+  },
+  {
+    "id": 1337,
+    "name": "Lurin",
+    "provinceId": 133
+  },
+  {
+    "id": 1338,
+    "name": "Magdalena Vieja",
+    "provinceId": 133
+  },
+  {
+    "id": 1339,
+    "name": "Magdalena del Mar",
+    "provinceId": 133
+  },
+  {
+    "id": 1340,
+    "name": "Miraflores",
+    "provinceId": 133
+  },
+  {
+    "id": 1341,
+    "name": "Carabayllo",
+    "provinceId": 133
+  },
+  {
+    "id": 1342,
+    "name": "Los Olivos",
+    "provinceId": 133
+  },
+  {
+    "id": 1343,
+    "name": "Ate",
+    "provinceId": 133
+  },
+  {
+    "id": 1344,
+    "name": "Pachacamac",
+    "provinceId": 133
+  },
+  {
+    "id": 1345,
+    "name": "Puente Piedra",
+    "provinceId": 133
+  },
+  {
+    "id": 1346,
+    "name": "Pucusana",
+    "provinceId": 133
+  },
+  {
+    "id": 1347,
+    "name": "San Bartolo",
+    "provinceId": 133
+  },
+  {
+    "id": 1348,
+    "name": "Rimac",
+    "provinceId": 133
+  },
+  {
+    "id": 1349,
+    "name": "San Juan de Lurigancho",
+    "provinceId": 133
+  },
+  {
+    "id": 1350,
+    "name": "San Juan de Miraflores",
+    "provinceId": 133
+  },
+  {
+    "id": 1351,
+    "name": "Pueblo Libre",
+    "provinceId": 133
+  },
+  {
+    "id": 1352,
+    "name": "San Borja",
+    "provinceId": 133
+  },
+  {
+    "id": 1353,
+    "name": "San Martin de Porres",
+    "provinceId": 133
+  },
+  {
+    "id": 1354,
+    "name": "Punta Hermosa",
+    "provinceId": 133
+  },
+  {
+    "id": 1355,
+    "name": "Punta Negra",
+    "provinceId": 133
+  },
+  {
+    "id": 1356,
+    "name": "San Luis",
+    "provinceId": 133
+  },
+  {
+    "id": 1357,
+    "name": "Santa Anita",
+    "provinceId": 133
+  },
+  {
+    "id": 1358,
+    "name": "Santa Maria del Mar",
+    "provinceId": 133
+  },
+  {
+    "id": 1359,
+    "name": "San Miguel",
+    "provinceId": 133
+  },
+  {
+    "id": 1360,
+    "name": "Surquillo",
+    "provinceId": 133
+  },
+  {
+    "id": 1361,
+    "name": "Villa El Salvador",
+    "provinceId": 133
+  },
+  {
+    "id": 1362,
+    "name": "Villa Maria del Triunfo",
+    "provinceId": 133
+  },
+  {
+    "id": 1363,
+    "name": "San Isidro",
+    "provinceId": 133
+  },
+  {
+    "id": 1364,
+    "name": "Santiago de Surco",
+    "provinceId": 133
+  },
+  {
+    "id": 1365,
+    "name": "Santa Rosa",
+    "provinceId": 133
+  },
+  {
+    "id": 1366,
+    "name": "San Vicente de Cañete",
+    "provinceId": 134
+  },
+  {
+    "id": 1367,
+    "name": "Asia",
+    "provinceId": 134
+  },
+  {
+    "id": 1368,
+    "name": "Cerro Azul",
+    "provinceId": 134
+  },
+  {
+    "id": 1369,
+    "name": "Chilca",
+    "provinceId": 134
+  },
+  {
+    "id": 1370,
+    "name": "Coayllo",
+    "provinceId": 134
+  },
+  {
+    "id": 1371,
+    "name": "Imperial",
+    "provinceId": 134
+  },
+  {
+    "id": 1372,
+    "name": "Lunahuana",
+    "provinceId": 134
+  },
+  {
+    "id": 1373,
+    "name": "Mala",
+    "provinceId": 134
+  },
+  {
+    "id": 1374,
+    "name": "Nuevo Imperial",
+    "provinceId": 134
+  },
+  {
+    "id": 1375,
+    "name": "Quilmana",
+    "provinceId": 134
+  },
+  {
+    "id": 1376,
+    "name": "San Antonio",
+    "provinceId": 134
+  },
+  {
+    "id": 1377,
+    "name": "San Luis",
+    "provinceId": 134
+  },
+  {
+    "id": 1378,
+    "name": "Santa Cruz de Flores",
+    "provinceId": 134
+  },
+  {
+    "id": 1379,
+    "name": "Zuñiga",
+    "provinceId": 134
+  },
+  {
+    "id": 1380,
+    "name": "Pacaran",
+    "provinceId": 134
+  },
+  {
+    "id": 1381,
+    "name": "Calango",
+    "provinceId": 134
+  },
+  {
+    "id": 1382,
+    "name": "Callahuanca",
+    "provinceId": 135
+  },
+  {
+    "id": 1383,
+    "name": "Carampoma",
+    "provinceId": 135
+  },
+  {
+    "id": 1384,
+    "name": "Matucana",
+    "provinceId": 135
+  },
+  {
+    "id": 1385,
+    "name": "Antioquia",
+    "provinceId": 135
+  },
+  {
+    "id": 1386,
+    "name": "Chicla",
+    "provinceId": 135
+  },
+  {
+    "id": 1387,
+    "name": "Huachupampa",
+    "provinceId": 135
+  },
+  {
+    "id": 1388,
+    "name": "Huarochirí",
+    "provinceId": 135
+  },
+  {
+    "id": 1389,
+    "name": "Lahuaytambo",
+    "provinceId": 135
+  },
+  {
+    "id": 1390,
+    "name": "Huanza",
+    "provinceId": 135
+  },
+  {
+    "id": 1391,
+    "name": "Langa",
+    "provinceId": 135
+  },
+  {
+    "id": 1392,
+    "name": "Laraos",
+    "provinceId": 135
+  },
+  {
+    "id": 1393,
+    "name": "Ricardo Palma",
+    "provinceId": 135
+  },
+  {
+    "id": 1394,
+    "name": "San Bartolome",
+    "provinceId": 135
+  },
+  {
+    "id": 1395,
+    "name": "San Damian",
+    "provinceId": 135
+  },
+  {
+    "id": 1396,
+    "name": "San Juan de Iris",
+    "provinceId": 135
+  },
+  {
+    "id": 1397,
+    "name": "San Andres de Tupicocha",
+    "provinceId": 135
+  },
+  {
+    "id": 1398,
+    "name": "Cuenca",
+    "provinceId": 135
+  },
+  {
+    "id": 1399,
+    "name": "San Juan de Tantaranche",
+    "provinceId": 135
+  },
+  {
+    "id": 1400,
+    "name": "San Mateo de Otao",
+    "provinceId": 135
+  },
+  {
+    "id": 1401,
+    "name": "San Pedro de Casta",
+    "provinceId": 135
+  },
+  {
+    "id": 1402,
+    "name": "San Pedro de Huancayre",
+    "provinceId": 135
+  },
+  {
+    "id": 1403,
+    "name": "Sangallaya",
+    "provinceId": 135
+  },
+  {
+    "id": 1404,
+    "name": "Mariatana",
+    "provinceId": 135
+  },
+  {
+    "id": 1405,
+    "name": "Santa Cruz de Cocachacra",
+    "provinceId": 135
+  },
+  {
+    "id": 1406,
+    "name": "Santa Eulalia",
+    "provinceId": 135
+  },
+  {
+    "id": 1407,
+    "name": "Santiago de Anchucaya",
+    "provinceId": 135
+  },
+  {
+    "id": 1408,
+    "name": "Santiago de Tuna",
+    "provinceId": 135
+  },
+  {
+    "id": 1409,
+    "name": "Santo Domingo de los Olleros",
+    "provinceId": 135
+  },
+  {
+    "id": 1410,
+    "name": "Surco",
+    "provinceId": 135
+  },
+  {
+    "id": 1411,
+    "name": "San Mateo",
+    "provinceId": 135
+  },
+  {
+    "id": 1412,
+    "name": "San Antonio",
+    "provinceId": 135
+  },
+  {
+    "id": 1413,
+    "name": "San Lorenzo de Quinti",
+    "provinceId": 135
+  },
+  {
+    "id": 1414,
+    "name": "Yauyos",
+    "provinceId": 136
+  },
+  {
+    "id": 1415,
+    "name": "Alis",
+    "provinceId": 136
+  },
+  {
+    "id": 1416,
+    "name": "Ayauca",
+    "provinceId": 136
+  },
+  {
+    "id": 1417,
+    "name": "Ayaviri",
+    "provinceId": 136
+  },
+  {
+    "id": 1418,
+    "name": "Azangaro",
+    "provinceId": 136
+  },
+  {
+    "id": 1419,
+    "name": "Cacra",
+    "provinceId": 136
+  },
+  {
+    "id": 1420,
+    "name": "Catahuasi",
+    "provinceId": 136
+  },
+  {
+    "id": 1421,
+    "name": "Chocos",
+    "provinceId": 136
+  },
+  {
+    "id": 1422,
+    "name": "Cochas",
+    "provinceId": 136
+  },
+  {
+    "id": 1423,
+    "name": "Colonia",
+    "provinceId": 136
+  },
+  {
+    "id": 1424,
+    "name": "Hongos",
+    "provinceId": 136
+  },
+  {
+    "id": 1425,
+    "name": "Huampara",
+    "provinceId": 136
+  },
+  {
+    "id": 1426,
+    "name": "Huancaya",
+    "provinceId": 136
+  },
+  {
+    "id": 1427,
+    "name": "Huangascar",
+    "provinceId": 136
+  },
+  {
+    "id": 1428,
+    "name": "Carania",
+    "provinceId": 136
+  },
+  {
+    "id": 1429,
+    "name": "Laraos",
+    "provinceId": 136
+  },
+  {
+    "id": 1430,
+    "name": "Huañec",
+    "provinceId": 136
+  },
+  {
+    "id": 1431,
+    "name": "Lincha",
+    "provinceId": 136
+  },
+  {
+    "id": 1432,
+    "name": "Madean",
+    "provinceId": 136
+  },
+  {
+    "id": 1433,
+    "name": "Huantan",
+    "provinceId": 136
+  },
+  {
+    "id": 1434,
+    "name": "Omas",
+    "provinceId": 136
+  },
+  {
+    "id": 1435,
+    "name": "Putinza",
+    "provinceId": 136
+  },
+  {
+    "id": 1436,
+    "name": "Quinches",
+    "provinceId": 136
+  },
+  {
+    "id": 1437,
+    "name": "Miraflores",
+    "provinceId": 136
+  },
+  {
+    "id": 1438,
+    "name": "San Pedro de Pilas",
+    "provinceId": 136
+  },
+  {
+    "id": 1439,
+    "name": "Quinocay",
+    "provinceId": 136
+  },
+  {
+    "id": 1440,
+    "name": "San Joaquin",
+    "provinceId": 136
+  },
+  {
+    "id": 1441,
+    "name": "Tauripampa",
+    "provinceId": 136
+  },
+  {
+    "id": 1442,
+    "name": "Tomas",
+    "provinceId": 136
+  },
+  {
+    "id": 1443,
+    "name": "Tanta",
+    "provinceId": 136
+  },
+  {
+    "id": 1444,
+    "name": "Tupe",
+    "provinceId": 136
+  },
+  {
+    "id": 1445,
+    "name": "Viñac",
+    "provinceId": 136
+  },
+  {
+    "id": 1446,
+    "name": "Vitis",
+    "provinceId": 136
+  },
+  {
+    "id": 1447,
+    "name": "Cajatambo",
+    "provinceId": 137
+  },
+  {
+    "id": 1448,
+    "name": "Huancapon",
+    "provinceId": 137
+  },
+  {
+    "id": 1449,
+    "name": "Manas",
+    "provinceId": 137
+  },
+  {
+    "id": 1450,
+    "name": "Copa",
+    "provinceId": 137
+  },
+  {
+    "id": 1451,
+    "name": "Gorgor",
+    "provinceId": 137
+  },
+  {
+    "id": 1452,
+    "name": "Alto Nanay",
+    "provinceId": 138
+  },
+  {
+    "id": 1453,
+    "name": "Indiana",
+    "provinceId": 138
+  },
+  {
+    "id": 1454,
+    "name": "Iquitos",
+    "provinceId": 138
+  },
+  {
+    "id": 1455,
+    "name": "Fernando Lores",
+    "provinceId": 138
+  },
+  {
+    "id": 1456,
+    "name": "Las Amazonas",
+    "provinceId": 138
+  },
+  {
+    "id": 1457,
+    "name": "Mazan",
+    "provinceId": 138
+  },
+  {
+    "id": 1458,
+    "name": "Napo",
+    "provinceId": 138
+  },
+  {
+    "id": 1459,
+    "name": "Punchana",
+    "provinceId": 138
+  },
+  {
+    "id": 1460,
+    "name": "Putumayo",
+    "provinceId": 138
+  },
+  {
+    "id": 1461,
+    "name": "Torres Causana",
+    "provinceId": 138
+  },
+  {
+    "id": 1462,
+    "name": "Belen",
+    "provinceId": 138
+  },
+  {
+    "id": 1463,
+    "name": "San Juan Bautista",
+    "provinceId": 138
+  },
+  {
+    "id": 1464,
+    "name": "Teniente Manuel Clavero",
+    "provinceId": 138
+  },
+  {
+    "id": 1465,
+    "name": "Requena",
+    "provinceId": 139
+  },
+  {
+    "id": 1466,
+    "name": "Alto Tapiche",
+    "provinceId": 139
+  },
+  {
+    "id": 1467,
+    "name": "Capelo",
+    "provinceId": 139
+  },
+  {
+    "id": 1468,
+    "name": "Emilio San Martin",
+    "provinceId": 139
+  },
+  {
+    "id": 1469,
+    "name": "Maquia",
+    "provinceId": 139
+  },
+  {
+    "id": 1470,
+    "name": "Saquena",
+    "provinceId": 139
+  },
+  {
+    "id": 1471,
+    "name": "Soplin",
+    "provinceId": 139
+  },
+  {
+    "id": 1472,
+    "name": "Tapiche",
+    "provinceId": 139
+  },
+  {
+    "id": 1473,
+    "name": "Jenaro Herrera",
+    "provinceId": 139
+  },
+  {
+    "id": 1474,
+    "name": "Yaquerana",
+    "provinceId": 139
+  },
+  {
+    "id": 1475,
+    "name": "Puinahua",
+    "provinceId": 139
+  },
+  {
+    "id": 1476,
+    "name": "Contamana",
+    "provinceId": 140
+  },
+  {
+    "id": 1477,
+    "name": "Inahuaya",
+    "provinceId": 140
+  },
+  {
+    "id": 1478,
+    "name": "Padre Marquez",
+    "provinceId": 140
+  },
+  {
+    "id": 1479,
+    "name": "Pampa Hermosa",
+    "provinceId": 140
+  },
+  {
+    "id": 1480,
+    "name": "Sarayacu",
+    "provinceId": 140
+  },
+  {
+    "id": 1481,
+    "name": "Vargas Guerra",
+    "provinceId": 140
+  },
+  {
+    "id": 1482,
+    "name": "Putumayo",
+    "provinceId": 141
+  },
+  {
+    "id": 1483,
+    "name": "Rosa Panduro",
+    "provinceId": 141
+  },
+  {
+    "id": 1484,
+    "name": "Yaguas",
+    "provinceId": 141
+  },
+  {
+    "id": 1485,
+    "name": "Teniente Manuel Clavero",
+    "provinceId": 141
+  },
+  {
+    "id": 1486,
+    "name": "Barranca",
+    "provinceId": 142
+  },
+  {
+    "id": 1487,
+    "name": "Cahuapanas",
+    "provinceId": 142
+  },
+  {
+    "id": 1488,
+    "name": "Manseriche",
+    "provinceId": 142
+  },
+  {
+    "id": 1489,
+    "name": "Morona",
+    "provinceId": 142
+  },
+  {
+    "id": 1490,
+    "name": "Pastaza",
+    "provinceId": 142
+  },
+  {
+    "id": 1491,
+    "name": "Andoas",
+    "provinceId": 142
+  },
+  {
+    "id": 1492,
+    "name": "Pebas",
+    "provinceId": 143
+  },
+  {
+    "id": 1493,
+    "name": "Ramon Castilla",
+    "provinceId": 143
+  },
+  {
+    "id": 1494,
+    "name": "Yavari",
+    "provinceId": 143
+  },
+  {
+    "id": 1495,
+    "name": "San Pablo",
+    "provinceId": 143
+  },
+  {
+    "id": 1496,
+    "name": "Balsapuerto",
+    "provinceId": 144
+  },
+  {
+    "id": 1497,
+    "name": "Jeberos",
+    "provinceId": 144
+  },
+  {
+    "id": 1498,
+    "name": "Lagunas",
+    "provinceId": 144
+  },
+  {
+    "id": 1499,
+    "name": "Santa Cruz",
+    "provinceId": 144
+  },
+  {
+    "id": 1500,
+    "name": "Teniente Cesar Lopez Rojas",
+    "provinceId": 144
+  },
+  {
+    "id": 1501,
+    "name": "Yurimaguas",
+    "provinceId": 144
+  },
+  {
+    "id": 1502,
+    "name": "Nauta",
+    "provinceId": 145
+  },
+  {
+    "id": 1503,
+    "name": "Parinari",
+    "provinceId": 145
+  },
+  {
+    "id": 1504,
+    "name": "Tigre",
+    "provinceId": 145
+  },
+  {
+    "id": 1505,
+    "name": "Trompeteros",
+    "provinceId": 145
+  },
+  {
+    "id": 1506,
+    "name": "Urarinas",
+    "provinceId": 145
+  },
+  {
+    "id": 1507,
+    "name": "Iñapari",
+    "provinceId": 146
+  },
+  {
+    "id": 1508,
+    "name": "Tahuamanu",
+    "provinceId": 146
+  },
+  {
+    "id": 1509,
+    "name": "Iberia",
+    "provinceId": 146
+  },
+  {
+    "id": 1510,
+    "name": "Huepetuhe",
+    "provinceId": 147
+  },
+  {
+    "id": 1511,
+    "name": "Madre de Dios",
+    "provinceId": 147
+  },
+  {
+    "id": 1512,
+    "name": "Manu",
+    "provinceId": 147
+  },
+  {
+    "id": 1513,
+    "name": "Fitzcarrald",
+    "provinceId": 147
+  },
+  {
+    "id": 1514,
+    "name": "Inambari",
+    "provinceId": 148
+  },
+  {
+    "id": 1515,
+    "name": "Tambopata",
+    "provinceId": 148
+  },
+  {
+    "id": 1516,
+    "name": "Laberinto",
+    "provinceId": 148
+  },
+  {
+    "id": 1517,
+    "name": "Las Piedras",
+    "provinceId": 148
+  },
+  {
+    "id": 1518,
+    "name": "Coalaque",
+    "provinceId": 149
+  },
+  {
+    "id": 1519,
+    "name": "Ichuña",
+    "provinceId": 149
+  },
+  {
+    "id": 1520,
+    "name": "Omate",
+    "provinceId": 149
+  },
+  {
+    "id": 1521,
+    "name": "Lloque",
+    "provinceId": 149
+  },
+  {
+    "id": 1522,
+    "name": "La Capilla",
+    "provinceId": 149
+  },
+  {
+    "id": 1523,
+    "name": "Matalaque",
+    "provinceId": 149
+  },
+  {
+    "id": 1524,
+    "name": "Puquina",
+    "provinceId": 149
+  },
+  {
+    "id": 1525,
+    "name": "Quinistaquilla S",
+    "provinceId": 149
+  },
+  {
+    "id": 1526,
+    "name": "Ubinas",
+    "provinceId": 149
+  },
+  {
+    "id": 1527,
+    "name": "Yunga",
+    "provinceId": 149
+  },
+  {
+    "id": 1528,
+    "name": "Chojata",
+    "provinceId": 149
+  },
+  {
+    "id": 1529,
+    "name": "Ilo",
+    "provinceId": 150
+  },
+  {
+    "id": 1530,
+    "name": "Pacocha",
+    "provinceId": 150
+  },
+  {
+    "id": 1531,
+    "name": "El Algarrobal",
+    "provinceId": 150
+  },
+  {
+    "id": 1532,
+    "name": "Moquegua",
+    "provinceId": 151
+  },
+  {
+    "id": 1533,
+    "name": "Carumas",
+    "provinceId": 151
+  },
+  {
+    "id": 1534,
+    "name": "Samegua",
+    "provinceId": 151
+  },
+  {
+    "id": 1535,
+    "name": "Torata",
+    "provinceId": 151
+  },
+  {
+    "id": 1536,
+    "name": "San Cristobal",
+    "provinceId": 151
+  },
+  {
+    "id": 1537,
+    "name": "Cuchumbaya",
+    "provinceId": 151
+  },
+  {
+    "id": 1538,
+    "name": "Oxapampa",
+    "provinceId": 152
+  },
+  {
+    "id": 1539,
+    "name": "Chontabamba",
+    "provinceId": 152
+  },
+  {
+    "id": 1540,
+    "name": "Huancabamba",
+    "provinceId": 152
+  },
+  {
+    "id": 1541,
+    "name": "Palcazu",
+    "provinceId": 152
+  },
+  {
+    "id": 1542,
+    "name": "Puerto Bermudez",
+    "provinceId": 152
+  },
+  {
+    "id": 1543,
+    "name": "Villa Rica",
+    "provinceId": 152
+  },
+  {
+    "id": 1544,
+    "name": "Constitucion",
+    "provinceId": 152
+  },
+  {
+    "id": 1545,
+    "name": "Pozuzo",
+    "provinceId": 152
+  },
+  {
+    "id": 1546,
+    "name": "Chaupimarca",
+    "provinceId": 153
+  },
+  {
+    "id": 1547,
+    "name": "Huachon",
+    "provinceId": 153
+  },
+  {
+    "id": 1548,
+    "name": "Huayllay",
+    "provinceId": 153
+  },
+  {
+    "id": 1549,
+    "name": "Huariaca",
+    "provinceId": 153
+  },
+  {
+    "id": 1550,
+    "name": "Pallanchacra",
+    "provinceId": 153
+  },
+  {
+    "id": 1551,
+    "name": "Paucartambo",
+    "provinceId": 153
+  },
+  {
+    "id": 1552,
+    "name": "Simon Bolivar",
+    "provinceId": 153
+  },
+  {
+    "id": 1553,
+    "name": "San Francisco de Asis de Yarusyacan",
+    "provinceId": 153
+  },
+  {
+    "id": 1554,
+    "name": "Tinyahuarco",
+    "provinceId": 153
+  },
+  {
+    "id": 1555,
+    "name": "Vicco",
+    "provinceId": 153
+  },
+  {
+    "id": 1556,
+    "name": "Yanacancha",
+    "provinceId": 153
+  },
+  {
+    "id": 1557,
+    "name": "Ticlacayan",
+    "provinceId": 153
+  },
+  {
+    "id": 1558,
+    "name": "Ninacaca",
+    "provinceId": 153
+  },
+  {
+    "id": 1559,
+    "name": "Yanahuanca",
+    "provinceId": 154
+  },
+  {
+    "id": 1560,
+    "name": "Chacayan",
+    "provinceId": 154
+  },
+  {
+    "id": 1561,
+    "name": "Goyllarisquizga",
+    "provinceId": 154
+  },
+  {
+    "id": 1562,
+    "name": "Paucar",
+    "provinceId": 154
+  },
+  {
+    "id": 1563,
+    "name": "San Pedro de Pillao",
+    "provinceId": 154
+  },
+  {
+    "id": 1564,
+    "name": "Santa Ana de Tusi",
+    "provinceId": 154
+  },
+  {
+    "id": 1565,
+    "name": "Tapuc",
+    "provinceId": 154
+  },
+  {
+    "id": 1566,
+    "name": "Vilcabamba",
+    "provinceId": 154
+  },
+  {
+    "id": 1567,
+    "name": "Catacaos",
+    "provinceId": 155
+  },
+  {
+    "id": 1568,
+    "name": "Cura Mori",
+    "provinceId": 155
+  },
+  {
+    "id": 1569,
+    "name": "Piura",
+    "provinceId": 155
+  },
+  {
+    "id": 1570,
+    "name": "Castilla",
+    "provinceId": 155
+  },
+  {
+    "id": 1571,
+    "name": "El Tallan",
+    "provinceId": 155
+  },
+  {
+    "id": 1572,
+    "name": "La Arena",
+    "provinceId": 155
+  },
+  {
+    "id": 1573,
+    "name": "La Union",
+    "provinceId": 155
+  },
+  {
+    "id": 1574,
+    "name": "Veintiseis de Octubre",
+    "provinceId": 155
+  },
+  {
+    "id": 1575,
+    "name": "Tambo Grande",
+    "provinceId": 155
+  },
+  {
+    "id": 1576,
+    "name": "Las Lomas",
+    "provinceId": 155
+  },
+  {
+    "id": 1577,
+    "name": "Sullana",
+    "provinceId": 156
+  },
+  {
+    "id": 1578,
+    "name": "Ignacio Escudero",
+    "provinceId": 156
+  },
+  {
+    "id": 1579,
+    "name": "Marcavelica",
+    "provinceId": 156
+  },
+  {
+    "id": 1580,
+    "name": "Miguel Checa",
+    "provinceId": 156
+  },
+  {
+    "id": 1581,
+    "name": "Querecotillo",
+    "provinceId": 156
+  },
+  {
+    "id": 1582,
+    "name": "Bellavista",
+    "provinceId": 156
+  },
+  {
+    "id": 1583,
+    "name": "Lancones",
+    "provinceId": 156
+  },
+  {
+    "id": 1584,
+    "name": "Salitral",
+    "provinceId": 156
+  },
+  {
+    "id": 1585,
+    "name": "Ayabaca",
+    "provinceId": 157
+  },
+  {
+    "id": 1586,
+    "name": "Frias",
+    "provinceId": 157
+  },
+  {
+    "id": 1587,
+    "name": "Jilili",
+    "provinceId": 157
+  },
+  {
+    "id": 1588,
+    "name": "Lagunas",
+    "provinceId": 157
+  },
+  {
+    "id": 1589,
+    "name": "Montero",
+    "provinceId": 157
+  },
+  {
+    "id": 1590,
+    "name": "Paimas",
+    "provinceId": 157
+  },
+  {
+    "id": 1591,
+    "name": "Sapillica",
+    "provinceId": 157
+  },
+  {
+    "id": 1592,
+    "name": "Suyo",
+    "provinceId": 157
+  },
+  {
+    "id": 1593,
+    "name": "Pacaipampa",
+    "provinceId": 157
+  },
+  {
+    "id": 1594,
+    "name": "Sicchez",
+    "provinceId": 157
+  },
+  {
+    "id": 1595,
+    "name": "Huancabamba",
+    "provinceId": 158
+  },
+  {
+    "id": 1596,
+    "name": "Huarmaca",
+    "provinceId": 158
+  },
+  {
+    "id": 1597,
+    "name": "Lalaquiz",
+    "provinceId": 158
+  },
+  {
+    "id": 1598,
+    "name": "San Miguel de El Faique",
+    "provinceId": 158
+  },
+  {
+    "id": 1599,
+    "name": "Sondor",
+    "provinceId": 158
+  },
+  {
+    "id": 1600,
+    "name": "Sondorillo",
+    "provinceId": 158
+  },
+  {
+    "id": 1601,
+    "name": "El Carmen de la Frontera",
+    "provinceId": 158
+  },
+  {
+    "id": 1602,
+    "name": "Canchaque",
+    "provinceId": 158
+  },
+  {
+    "id": 1603,
+    "name": "Chulucanas",
+    "provinceId": 159
+  },
+  {
+    "id": 1604,
+    "name": "Morropon",
+    "provinceId": 159
+  },
+  {
+    "id": 1605,
+    "name": "Buenos Aires",
+    "provinceId": 159
+  },
+  {
+    "id": 1606,
+    "name": "Chalaco",
+    "provinceId": 159
+  },
+  {
+    "id": 1607,
+    "name": "San Juan de Bigote",
+    "provinceId": 159
+  },
+  {
+    "id": 1608,
+    "name": "Santa Catalina de Mossa",
+    "provinceId": 159
+  },
+  {
+    "id": 1609,
+    "name": "Salitral",
+    "provinceId": 159
+  },
+  {
+    "id": 1610,
+    "name": "La Matanza",
+    "provinceId": 159
+  },
+  {
+    "id": 1611,
+    "name": "Yamango",
+    "provinceId": 159
+  },
+  {
+    "id": 1612,
+    "name": "Santo Domingo",
+    "provinceId": 159
+  },
+  {
+    "id": 1613,
+    "name": "Pariñas",
+    "provinceId": 160
+  },
+  {
+    "id": 1614,
+    "name": "El Alto",
+    "provinceId": 160
+  },
+  {
+    "id": 1615,
+    "name": "La Brea",
+    "provinceId": 160
+  },
+  {
+    "id": 1616,
+    "name": "Lobitos",
+    "provinceId": 160
+  },
+  {
+    "id": 1617,
+    "name": "Los Organos",
+    "provinceId": 160
+  },
+  {
+    "id": 1618,
+    "name": "Mancora",
+    "provinceId": 160
+  },
+  {
+    "id": 1619,
+    "name": "Amotape",
+    "provinceId": 161
+  },
+  {
+    "id": 1620,
+    "name": "Arenal",
+    "provinceId": 161
+  },
+  {
+    "id": 1621,
+    "name": "La Huaca",
+    "provinceId": 161
+  },
+  {
+    "id": 1622,
+    "name": "Tamarindo",
+    "provinceId": 161
+  },
+  {
+    "id": 1623,
+    "name": "Vichayal",
+    "provinceId": 161
+  },
+  {
+    "id": 1624,
+    "name": "Colan",
+    "provinceId": 161
+  },
+  {
+    "id": 1625,
+    "name": "Paita",
+    "provinceId": 161
+  },
+  {
+    "id": 1626,
+    "name": "Bellavista de la Union",
+    "provinceId": 162
+  },
+  {
+    "id": 1627,
+    "name": "Vice",
+    "provinceId": 162
+  },
+  {
+    "id": 1628,
+    "name": "Rinconada Llicuar",
+    "provinceId": 162
+  },
+  {
+    "id": 1629,
+    "name": "Cristo Nos Valga",
+    "provinceId": 162
+  },
+  {
+    "id": 1630,
+    "name": "Sechura",
+    "provinceId": 162
+  },
+  {
+    "id": 1631,
+    "name": "Bernal",
+    "provinceId": 162
+  },
+  {
+    "id": 1632,
+    "name": "Cabana",
+    "provinceId": 163
+  },
+  {
+    "id": 1633,
+    "name": "Cabanillas",
+    "provinceId": 163
+  },
+  {
+    "id": 1634,
+    "name": "Caracoto",
+    "provinceId": 163
+  },
+  {
+    "id": 1635,
+    "name": "San Miguel",
+    "provinceId": 163
+  },
+  {
+    "id": 1636,
+    "name": "Juliaca",
+    "provinceId": 163
+  },
+  {
+    "id": 1637,
+    "name": "Ayaviri",
+    "provinceId": 164
+  },
+  {
+    "id": 1638,
+    "name": "Llalli",
+    "provinceId": 164
+  },
+  {
+    "id": 1639,
+    "name": "Orurillo",
+    "provinceId": 164
+  },
+  {
+    "id": 1640,
+    "name": "Macari",
+    "provinceId": 164
+  },
+  {
+    "id": 1641,
+    "name": "Antauta",
+    "provinceId": 164
+  },
+  {
+    "id": 1642,
+    "name": "Cupi",
+    "provinceId": 164
+  },
+  {
+    "id": 1643,
+    "name": "Santa Rosa",
+    "provinceId": 164
+  },
+  {
+    "id": 1644,
+    "name": "Umachiri",
+    "provinceId": 164
+  },
+  {
+    "id": 1645,
+    "name": "Nuñoa",
+    "provinceId": 164
+  },
+  {
+    "id": 1646,
+    "name": "Macusani",
+    "provinceId": 165
+  },
+  {
+    "id": 1647,
+    "name": "Ajoyani",
+    "provinceId": 165
+  },
+  {
+    "id": 1648,
+    "name": "Ayapata",
+    "provinceId": 165
+  },
+  {
+    "id": 1649,
+    "name": "Coasa",
+    "provinceId": 165
+  },
+  {
+    "id": 1650,
+    "name": "Ollachea",
+    "provinceId": 165
+  },
+  {
+    "id": 1651,
+    "name": "Corani",
+    "provinceId": 165
+  },
+  {
+    "id": 1652,
+    "name": "Crucero",
+    "provinceId": 165
+  },
+  {
+    "id": 1653,
+    "name": "San Gaban",
+    "provinceId": 165
+  },
+  {
+    "id": 1654,
+    "name": "Usicayos",
+    "provinceId": 165
+  },
+  {
+    "id": 1655,
+    "name": "Ituata",
+    "provinceId": 165
+  },
+  {
+    "id": 1656,
+    "name": "Huancané",
+    "provinceId": 166
+  },
+  {
+    "id": 1657,
+    "name": "Huatasani",
+    "provinceId": 166
+  },
+  {
+    "id": 1658,
+    "name": "Pusi",
+    "provinceId": 166
+  },
+  {
+    "id": 1659,
+    "name": "Rosaspata",
+    "provinceId": 166
+  },
+  {
+    "id": 1660,
+    "name": "Vilque Chico",
+    "provinceId": 166
+  },
+  {
+    "id": 1661,
+    "name": "Taraco",
+    "provinceId": 166
+  },
+  {
+    "id": 1662,
+    "name": "Inchupalla",
+    "provinceId": 166
+  },
+  {
+    "id": 1663,
+    "name": "Cojata",
+    "provinceId": 166
+  },
+  {
+    "id": 1664,
+    "name": "Moho",
+    "provinceId": 167
+  },
+  {
+    "id": 1665,
+    "name": "Conima",
+    "provinceId": 167
+  },
+  {
+    "id": 1666,
+    "name": "Huayrapata",
+    "provinceId": 167
+  },
+  {
+    "id": 1667,
+    "name": "Tilali",
+    "provinceId": 167
+  },
+  {
+    "id": 1668,
+    "name": "Juli",
+    "provinceId": 168
+  },
+  {
+    "id": 1669,
+    "name": "Desaguadero",
+    "provinceId": 168
+  },
+  {
+    "id": 1670,
+    "name": "Kelluyo",
+    "provinceId": 168
+  },
+  {
+    "id": 1671,
+    "name": "Pisacoma",
+    "provinceId": 168
+  },
+  {
+    "id": 1672,
+    "name": "Zepita",
+    "provinceId": 168
+  },
+  {
+    "id": 1673,
+    "name": "Pomata",
+    "provinceId": 168
+  },
+  {
+    "id": 1674,
+    "name": "Huacullani",
+    "provinceId": 168
+  },
+  {
+    "id": 1675,
+    "name": "Putina",
+    "provinceId": 169
+  },
+  {
+    "id": 1676,
+    "name": "Ananea",
+    "provinceId": 169
+  },
+  {
+    "id": 1677,
+    "name": "Pedro Vilca Apaza",
+    "provinceId": 169
+  },
+  {
+    "id": 1678,
+    "name": "Quilcapuncu",
+    "provinceId": 169
+  },
+  {
+    "id": 1679,
+    "name": "Sina",
+    "provinceId": 169
+  },
+  {
+    "id": 1680,
+    "name": "Sandia",
+    "provinceId": 170
+  },
+  {
+    "id": 1681,
+    "name": "Limbani",
+    "provinceId": 170
+  },
+  {
+    "id": 1682,
+    "name": "Cuyocuyo",
+    "provinceId": 170
+  },
+  {
+    "id": 1683,
+    "name": "Patambuco",
+    "provinceId": 170
+  },
+  {
+    "id": 1684,
+    "name": "San Juan del Oro",
+    "provinceId": 170
+  },
+  {
+    "id": 1685,
+    "name": "Yanahuaya",
+    "provinceId": 170
+  },
+  {
+    "id": 1686,
+    "name": "San Pedro de Putina Punco",
+    "provinceId": 170
+  },
+  {
+    "id": 1687,
+    "name": "Alto Inambari",
+    "provinceId": 170
+  },
+  {
+    "id": 1688,
+    "name": "Phara",
+    "provinceId": 170
+  },
+  {
+    "id": 1689,
+    "name": "Quiaca",
+    "provinceId": 170
+  },
+  {
+    "id": 1690,
+    "name": "Lampa",
+    "provinceId": 171
+  },
+  {
+    "id": 1691,
+    "name": "Cabanilla",
+    "provinceId": 171
+  },
+  {
+    "id": 1692,
+    "name": "Ocuviri",
+    "provinceId": 171
+  },
+  {
+    "id": 1693,
+    "name": "Calapuja",
+    "provinceId": 171
+  },
+  {
+    "id": 1694,
+    "name": "Paratia",
+    "provinceId": 171
+  },
+  {
+    "id": 1695,
+    "name": "Palca",
+    "provinceId": 171
+  },
+  {
+    "id": 1696,
+    "name": "Pucara",
+    "provinceId": 171
+  },
+  {
+    "id": 1697,
+    "name": "Santa Lucia",
+    "provinceId": 171
+  },
+  {
+    "id": 1698,
+    "name": "Vilavila",
+    "provinceId": 171
+  },
+  {
+    "id": 1699,
+    "name": "Nicasio",
+    "provinceId": 171
+  },
+  {
+    "id": 1700,
+    "name": "Azangaro",
+    "provinceId": 172
+  },
+  {
+    "id": 1701,
+    "name": "Achaya",
+    "provinceId": 172
+  },
+  {
+    "id": 1702,
+    "name": "Arapa",
+    "provinceId": 172
+  },
+  {
+    "id": 1703,
+    "name": "Asillo",
+    "provinceId": 172
+  },
+  {
+    "id": 1704,
+    "name": "Caminaca",
+    "provinceId": 172
+  },
+  {
+    "id": 1705,
+    "name": "Chupa",
+    "provinceId": 172
+  },
+  {
+    "id": 1706,
+    "name": "Jose Domingo Choquehuanc A",
+    "provinceId": 172
+  },
+  {
+    "id": 1707,
+    "name": "Muñani",
+    "provinceId": 172
+  },
+  {
+    "id": 1708,
+    "name": "Potoni",
+    "provinceId": 172
+  },
+  {
+    "id": 1709,
+    "name": "Saman",
+    "provinceId": 172
+  },
+  {
+    "id": 1710,
+    "name": "San Anton",
+    "provinceId": 172
+  },
+  {
+    "id": 1711,
+    "name": "San Jose",
+    "provinceId": 172
+  },
+  {
+    "id": 1712,
+    "name": "San Juan de Salinas",
+    "provinceId": 172
+  },
+  {
+    "id": 1713,
+    "name": "Santiago de Pupuja",
+    "provinceId": 172
+  },
+  {
+    "id": 1714,
+    "name": "Tirapata",
+    "provinceId": 172
+  },
+  {
+    "id": 1715,
+    "name": "Amantani",
+    "provinceId": 173
+  },
+  {
+    "id": 1716,
+    "name": "Atuncolla",
+    "provinceId": 173
+  },
+  {
+    "id": 1717,
+    "name": "Puno",
+    "provinceId": 173
+  },
+  {
+    "id": 1718,
+    "name": "Chucuito",
+    "provinceId": 173
+  },
+  {
+    "id": 1719,
+    "name": "Huata",
+    "provinceId": 173
+  },
+  {
+    "id": 1720,
+    "name": "Mañazo",
+    "provinceId": 173
+  },
+  {
+    "id": 1721,
+    "name": "Paucarcolla",
+    "provinceId": 173
+  },
+  {
+    "id": 1722,
+    "name": "Pichacani",
+    "provinceId": 173
+  },
+  {
+    "id": 1723,
+    "name": "Acora",
+    "provinceId": 173
+  },
+  {
+    "id": 1724,
+    "name": "Plateria",
+    "provinceId": 173
+  },
+  {
+    "id": 1725,
+    "name": "San Antonio",
+    "provinceId": 173
+  },
+  {
+    "id": 1726,
+    "name": "Tiquillaca",
+    "provinceId": 173
+  },
+  {
+    "id": 1727,
+    "name": "Vilque",
+    "provinceId": 173
+  },
+  {
+    "id": 1728,
+    "name": "Coata",
+    "provinceId": 173
+  },
+  {
+    "id": 1729,
+    "name": "Capachica",
+    "provinceId": 173
+  },
+  {
+    "id": 1730,
+    "name": "Santa Rosa",
+    "provinceId": 174
+  },
+  {
+    "id": 1731,
+    "name": "Ilave",
+    "provinceId": 174
+  },
+  {
+    "id": 1732,
+    "name": "Capazo",
+    "provinceId": 174
+  },
+  {
+    "id": 1733,
+    "name": "Conduriri",
+    "provinceId": 174
+  },
+  {
+    "id": 1734,
+    "name": "Pilcuyo",
+    "provinceId": 174
+  },
+  {
+    "id": 1735,
+    "name": "Yunguyo",
+    "provinceId": 175
+  },
+  {
+    "id": 1736,
+    "name": "Anapia",
+    "provinceId": 175
+  },
+  {
+    "id": 1737,
+    "name": "Copani",
+    "provinceId": 175
+  },
+  {
+    "id": 1738,
+    "name": "Cuturapi",
+    "provinceId": 175
+  },
+  {
+    "id": 1739,
+    "name": "Ollaraya",
+    "provinceId": 175
+  },
+  {
+    "id": 1740,
+    "name": "Tinicachi",
+    "provinceId": 175
+  },
+  {
+    "id": 1741,
+    "name": "Unicachi",
+    "provinceId": 175
+  },
+  {
+    "id": 1742,
+    "name": "Bellavista",
+    "provinceId": 176
+  },
+  {
+    "id": 1743,
+    "name": "Alto Biavo",
+    "provinceId": 176
+  },
+  {
+    "id": 1744,
+    "name": "Huallaga",
+    "provinceId": 176
+  },
+  {
+    "id": 1745,
+    "name": "San Pablo",
+    "provinceId": 176
+  },
+  {
+    "id": 1746,
+    "name": "Bajo Biavo",
+    "provinceId": 176
+  },
+  {
+    "id": 1747,
+    "name": "San Rafael",
+    "provinceId": 176
+  },
+  {
+    "id": 1748,
+    "name": "Juanjui",
+    "provinceId": 177
+  },
+  {
+    "id": 1749,
+    "name": "Campanilla",
+    "provinceId": 177
+  },
+  {
+    "id": 1750,
+    "name": "Huicungo",
+    "provinceId": 177
+  },
+  {
+    "id": 1751,
+    "name": "Pajarillo",
+    "provinceId": 177
+  },
+  {
+    "id": 1752,
+    "name": "Pachiza",
+    "provinceId": 177
+  },
+  {
+    "id": 1753,
+    "name": "Alberto Leveau",
+    "provinceId": 178
+  },
+  {
+    "id": 1754,
+    "name": "Cacatachi",
+    "provinceId": 178
+  },
+  {
+    "id": 1755,
+    "name": "Tarapoto",
+    "provinceId": 178
+  },
+  {
+    "id": 1756,
+    "name": "Chazuta",
+    "provinceId": 178
+  },
+  {
+    "id": 1757,
+    "name": "El Porvenir",
+    "provinceId": 178
+  },
+  {
+    "id": 1758,
+    "name": "Huimbayoc",
+    "provinceId": 178
+  },
+  {
+    "id": 1759,
+    "name": "Chipurana",
+    "provinceId": 178
+  },
+  {
+    "id": 1760,
+    "name": "La Banda de Shilcayo",
+    "provinceId": 178
+  },
+  {
+    "id": 1761,
+    "name": "Juan Guerra",
+    "provinceId": 178
+  },
+  {
+    "id": 1762,
+    "name": "Morales",
+    "provinceId": 178
+  },
+  {
+    "id": 1763,
+    "name": "Papaplaya",
+    "provinceId": 178
+  },
+  {
+    "id": 1764,
+    "name": "San Antonio",
+    "provinceId": 178
+  },
+  {
+    "id": 1765,
+    "name": "Sauce",
+    "provinceId": 178
+  },
+  {
+    "id": 1766,
+    "name": "Shapaja",
+    "provinceId": 178
+  },
+  {
+    "id": 1767,
+    "name": "Moyobamba",
+    "provinceId": 179
+  },
+  {
+    "id": 1768,
+    "name": "Jepelacio",
+    "provinceId": 179
+  },
+  {
+    "id": 1769,
+    "name": "Yantalo",
+    "provinceId": 179
+  },
+  {
+    "id": 1770,
+    "name": "Calzada",
+    "provinceId": 179
+  },
+  {
+    "id": 1771,
+    "name": "Habana",
+    "provinceId": 179
+  },
+  {
+    "id": 1772,
+    "name": "Soritor",
+    "provinceId": 179
+  },
+  {
+    "id": 1773,
+    "name": "Picota",
+    "provinceId": 180
+  },
+  {
+    "id": 1774,
+    "name": "Buenos Aires",
+    "provinceId": 180
+  },
+  {
+    "id": 1775,
+    "name": "Caspisapa",
+    "provinceId": 180
+  },
+  {
+    "id": 1776,
+    "name": "San Hilarion",
+    "provinceId": 180
+  },
+  {
+    "id": 1777,
+    "name": "Pilluana",
+    "provinceId": 180
+  },
+  {
+    "id": 1778,
+    "name": "San Cristobal",
+    "provinceId": 180
+  },
+  {
+    "id": 1779,
+    "name": "Pucacaca",
+    "provinceId": 180
+  },
+  {
+    "id": 1780,
+    "name": "Tres Unidos",
+    "provinceId": 180
+  },
+  {
+    "id": 1781,
+    "name": "Shamboyacu",
+    "provinceId": 180
+  },
+  {
+    "id": 1782,
+    "name": "Tingo de Ponasa",
+    "provinceId": 180
+  },
+  {
+    "id": 1783,
+    "name": "Lamas",
+    "provinceId": 181
+  },
+  {
+    "id": 1784,
+    "name": "Alonso de Alvarado",
+    "provinceId": 181
+  },
+  {
+    "id": 1785,
+    "name": "Barranquita",
+    "provinceId": 181
+  },
+  {
+    "id": 1786,
+    "name": "Cuñumbuqui",
+    "provinceId": 181
+  },
+  {
+    "id": 1787,
+    "name": "Caynarachi",
+    "provinceId": 181
+  },
+  {
+    "id": 1788,
+    "name": "Rumisapa",
+    "provinceId": 181
+  },
+  {
+    "id": 1789,
+    "name": "San Roque de Cumbaza",
+    "provinceId": 181
+  },
+  {
+    "id": 1790,
+    "name": "Shanao",
+    "provinceId": 181
+  },
+  {
+    "id": 1791,
+    "name": "Tabalosos",
+    "provinceId": 181
+  },
+  {
+    "id": 1792,
+    "name": "Zapatero",
+    "provinceId": 181
+  },
+  {
+    "id": 1793,
+    "name": "Pinto Recodo",
+    "provinceId": 181
+  },
+  {
+    "id": 1794,
+    "name": "San Jose de Sisa",
+    "provinceId": 182
+  },
+  {
+    "id": 1795,
+    "name": "Agua Blanca",
+    "provinceId": 182
+  },
+  {
+    "id": 1796,
+    "name": "San Martin",
+    "provinceId": 182
+  },
+  {
+    "id": 1797,
+    "name": "Shatoja",
+    "provinceId": 182
+  },
+  {
+    "id": 1798,
+    "name": "Santa Rosa",
+    "provinceId": 182
+  },
+  {
+    "id": 1799,
+    "name": "Saposoa",
+    "provinceId": 183
+  },
+  {
+    "id": 1800,
+    "name": "Alto Saposoa",
+    "provinceId": 183
+  },
+  {
+    "id": 1801,
+    "name": "El Eslabon",
+    "provinceId": 183
+  },
+  {
+    "id": 1802,
+    "name": "Piscoyacu",
+    "provinceId": 183
+  },
+  {
+    "id": 1803,
+    "name": "Tingo de Saposoa",
+    "provinceId": 183
+  },
+  {
+    "id": 1804,
+    "name": "Sacanche",
+    "provinceId": 183
+  },
+  {
+    "id": 1805,
+    "name": "Awajun",
+    "provinceId": 184
+  },
+  {
+    "id": 1806,
+    "name": "Elias Soplin Vargas",
+    "provinceId": 184
+  },
+  {
+    "id": 1807,
+    "name": "Nueva Cajamarca",
+    "provinceId": 184
+  },
+  {
+    "id": 1808,
+    "name": "Pardo Miguel",
+    "provinceId": 184
+  },
+  {
+    "id": 1809,
+    "name": "Posic",
+    "provinceId": 184
+  },
+  {
+    "id": 1810,
+    "name": "Rioja",
+    "provinceId": 184
+  },
+  {
+    "id": 1811,
+    "name": "San Fernando",
+    "provinceId": 184
+  },
+  {
+    "id": 1812,
+    "name": "Yorongos",
+    "provinceId": 184
+  },
+  {
+    "id": 1813,
+    "name": "Yuracyacu",
+    "provinceId": 184
+  },
+  {
+    "id": 1814,
+    "name": "Tocache",
+    "provinceId": 185
+  },
+  {
+    "id": 1815,
+    "name": "Nuevo Progreso",
+    "provinceId": 185
+  },
+  {
+    "id": 1816,
+    "name": "Polvora",
+    "provinceId": 185
+  },
+  {
+    "id": 1817,
+    "name": "Shunte",
+    "provinceId": 185
+  },
+  {
+    "id": 1818,
+    "name": "Uchiza",
+    "provinceId": 185
+  },
+  {
+    "id": 1819,
+    "name": "Candarave",
+    "provinceId": 186
+  },
+  {
+    "id": 1820,
+    "name": "Cairani",
+    "provinceId": 186
+  },
+  {
+    "id": 1821,
+    "name": "Camilaca",
+    "provinceId": 186
+  },
+  {
+    "id": 1822,
+    "name": "Curibaya",
+    "provinceId": 186
+  },
+  {
+    "id": 1823,
+    "name": "Huanuara",
+    "provinceId": 186
+  },
+  {
+    "id": 1824,
+    "name": "Quilahuani",
+    "provinceId": 186
+  },
+  {
+    "id": 1825,
+    "name": "Tarata",
+    "provinceId": 187
+  },
+  {
+    "id": 1826,
+    "name": "Estique",
+    "provinceId": 187
+  },
+  {
+    "id": 1827,
+    "name": "Estique-Pampa",
+    "provinceId": 187
+  },
+  {
+    "id": 1828,
+    "name": "Sitajara",
+    "provinceId": 187
+  },
+  {
+    "id": 1829,
+    "name": "Susapaya",
+    "provinceId": 187
+  },
+  {
+    "id": 1830,
+    "name": "Tarucachi",
+    "provinceId": 187
+  },
+  {
+    "id": 1831,
+    "name": "Ticaco",
+    "provinceId": 187
+  },
+  {
+    "id": 1832,
+    "name": "Heroes Albarracin",
+    "provinceId": 187
+  },
+  {
+    "id": 1833,
+    "name": "Tacna",
+    "provinceId": 188
+  },
+  {
+    "id": 1834,
+    "name": "Alto de la Alianza",
+    "provinceId": 188
+  },
+  {
+    "id": 1835,
+    "name": "Calana",
+    "provinceId": 188
+  },
+  {
+    "id": 1836,
+    "name": "Pachia",
+    "provinceId": 188
+  },
+  {
+    "id": 1837,
+    "name": "Pocollay",
+    "provinceId": 188
+  },
+  {
+    "id": 1838,
+    "name": "Palca",
+    "provinceId": 188
+  },
+  {
+    "id": 1839,
+    "name": "Coronel Gregorio Albarracin Lanchipa",
+    "provinceId": 188
+  },
+  {
+    "id": 1840,
+    "name": "Ciudad Nueva",
+    "provinceId": 188
+  },
+  {
+    "id": 1841,
+    "name": "Inclan",
+    "provinceId": 188
+  },
+  {
+    "id": 1842,
+    "name": "La Yarada los Palos",
+    "provinceId": 188
+  },
+  {
+    "id": 1843,
+    "name": "Sama",
+    "provinceId": 188
+  },
+  {
+    "id": 1844,
+    "name": "Locumba",
+    "provinceId": 189
+  },
+  {
+    "id": 1845,
+    "name": "Ilabaya",
+    "provinceId": 189
+  },
+  {
+    "id": 1846,
+    "name": "Ite",
+    "provinceId": 189
+  },
+  {
+    "id": 1847,
+    "name": "Tumbes",
+    "provinceId": 190
+  },
+  {
+    "id": 1848,
+    "name": "Corrales",
+    "provinceId": 190
+  },
+  {
+    "id": 1849,
+    "name": "La Cruz",
+    "provinceId": 190
+  },
+  {
+    "id": 1850,
+    "name": "San Jacinto",
+    "provinceId": 190
+  },
+  {
+    "id": 1851,
+    "name": "San Juan de la Virgen",
+    "provinceId": 190
+  },
+  {
+    "id": 1852,
+    "name": "Pampas de Hospital",
+    "provinceId": 190
+  },
+  {
+    "id": 1853,
+    "name": "Zarumilla",
+    "provinceId": 191
+  },
+  {
+    "id": 1854,
+    "name": "Aguas Verdes",
+    "provinceId": 191
+  },
+  {
+    "id": 1855,
+    "name": "Matapalo",
+    "provinceId": 191
+  },
+  {
+    "id": 1856,
+    "name": "Papayal",
+    "provinceId": 191
+  },
+  {
+    "id": 1857,
+    "name": "Casitas",
+    "provinceId": 192
+  },
+  {
+    "id": 1858,
+    "name": "Canoas de Punta Sal",
+    "provinceId": 192
+  },
+  {
+    "id": 1859,
+    "name": "Zorritos",
+    "provinceId": 192
+  },
+  {
+    "id": 1860,
+    "name": "Neshuya",
+    "provinceId": 193
+  },
+  {
+    "id": 1861,
+    "name": "Irazola",
+    "provinceId": 193
+  },
+  {
+    "id": 1862,
+    "name": "Curimana",
+    "provinceId": 193
+  },
+  {
+    "id": 1863,
+    "name": "Alexander Von Humboldt",
+    "provinceId": 193
+  },
+  {
+    "id": 1864,
+    "name": "Padre Abad",
+    "provinceId": 193
+  },
+  {
+    "id": 1865,
+    "name": "Púrus",
+    "provinceId": 194
+  },
+  {
+    "id": 1866,
+    "name": "Calleria",
+    "provinceId": 195
+  },
+  {
+    "id": 1867,
+    "name": "Masisea",
+    "provinceId": 195
+  },
+  {
+    "id": 1868,
+    "name": "Nueva Requena",
+    "provinceId": 195
+  },
+  {
+    "id": 1869,
+    "name": "Manantay",
+    "provinceId": 195
+  },
+  {
+    "id": 1870,
+    "name": "Campoverde",
+    "provinceId": 195
+  },
+  {
+    "id": 1871,
+    "name": "Yarinacocha",
+    "provinceId": 195
+  },
+  {
+    "id": 1872,
+    "name": "Iparia",
+    "provinceId": 195
+  },
+  {
+    "id": 1873,
+    "name": "Raymondi",
+    "provinceId": 196
+  },
+  {
+    "id": 1874,
+    "name": "Sepahua",
+    "provinceId": 196
+  },
+  {
+    "id": 1875,
+    "name": "Tahuania",
+    "provinceId": 196
+  },
+  {
+    "id": 1876,
+    "name": "Yurua",
+    "provinceId": 196
+  }
+]

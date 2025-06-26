@@ -1,0 +1,11 @@
+[
+  {
+    "id": 1,
+    "sedeId": 1,
+    "trabajadorId": 1,
+    "cargoId": 1,
+    "fecha": "2025-04-01T05:00:00.000Z",
+    "hora": "08:00",
+    "marcacion": 1
+  }
+]

@@ -1,0 +1,111 @@
+<p-toolbar styleClass="!px-6">
+  <ng-template #start>
+    <div class="h-full flex items-center gap-8">
+      <a class="text-3xl font-bold text-orange-400" routerLink="/">inTime</a>
+      <div class="flex items-center gap-4">
+        <p-button
+          *ngFor="let item of listaMenu; let i = index"
+          text
+          severity="secondary"
+          rounded
+          size="small"
+          (click)="toggleMenu($event, item.menu)"
+        >
+          <div class="flex justify-center items-center gap-3">
+            <div>{{ item.label }}</div>
+            <iconify-icon [icon]="'bx:bxs-chevron-down'" class="text-md" />
+          </div>
+        </p-button>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #end>
+    <div class="flex justify-center items-center gap-4">
+      <app-notifications />
+      <p-button
+        severity="secondary"
+        rounded
+        size="small"
+        styleClass="!p-0"
+        (click)="profileMenu.toggle($event)"
+      >
+        <div class="w-8 h-8 flex justify-center items-center">
+          <img
+            *ngIf="profileImage"
+            [src]="profileImage"
+            alt="Imagen de perfil"
+          />
+          <div
+            *ngIf="!profileImage"
+            class="w-8 h-8 flex items-center justify-center"
+          >
+            <iconify-icon
+              [icon]="'material-symbols:person-rounded'"
+              class="text-xl"
+            />
+          </div>
+        </div>
+      </p-button>
+    </div>
+  </ng-template>
+</p-toolbar>
+
+<p-menu
+  #menu
+  [model]="menuItems"
+  [popup]="true"
+  appendTo="body"
+  styleClass="overflow-hidden"
+>
+  <ng-template pTemplate="item" let-item>
+    <div class="px-2">
+      <a
+        pRipple
+        class="flex items-center gap-3 p-menuitem-link py-1 cursor-pointer"
+        [routerLink]="item.routerLink"
+      >
+        <iconify-icon [icon]="item.icon" />
+        <span>{{ item.label }}</span>
+      </a>
+    </div>
+  </ng-template>
+</p-menu>
+
+<p-menu
+  #profileMenu
+  [model]="profileMenuItems"
+  [popup]="true"
+  appendTo="body"
+  styleClass="overflow-hidden"
+>
+  <ng-template #start>
+    <div class="flex items-center gap-2 py-2 px-2">
+      <p-avatar shape="circle" size="large" styleClass="!w-10 !h-10 shadow-lg">
+        <img *ngIf="profileImage" [src]="profileImage" alt="imagen de perfil" />
+        <div *ngIf="!profileImage" class="flex items-center justify-center">
+          <iconify-icon
+            [icon]="'material-symbols:person-rounded'"
+            class="text-2xl"
+          />
+        </div>
+      </p-avatar>
+      <div class="flex flex-col">
+        <p class="text-sm font-medium">{{ fullName }}</p>
+        <p class="text-xs font-light capitalize">{{ rolNombre }}</p>
+      </div>
+    </div>
+    <div class="w-full h-[1px] bg-slate-300 dark:bg-slate-500"></div>
+  </ng-template>
+  <ng-template pTemplate="item" let-item>
+    <div class="px-2 bg-slate-50 dark:bg-slate-900">
+      <a
+        pRipple
+        class="flex items-center gap-2 p-menuitem-link py-1 cursor-pointer"
+      >
+        <iconify-icon [icon]="item.icon" />
+        <span>{{ item.label }}</span>
+      </a>
+    </div>
+  </ng-template>
+</p-menu>

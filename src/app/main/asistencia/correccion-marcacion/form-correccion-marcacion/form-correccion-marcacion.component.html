@@ -1,0 +1,113 @@
+<form [formGroup]="formData" class="flex flex-col gap-2">
+  <div class="flex flex-col gap-2">
+    <label class="text-sm font-medium" for="username"> Trabajador </label>
+    <input
+      pInputText
+      id="nombre"
+      [(ngModel)]="trabajador"
+      readonly
+      disabled
+      [ngModelOptions]="{ standalone: true }"
+    />
+  </div>
+  <div class="flex flex-col gap-2">
+    <label class="text-sm font-medium" for="username"> Cargo </label>
+    <input
+      pInputText
+      id="nombre"
+      [(ngModel)]="cargo"
+      readonly
+      disabled
+      [ngModelOptions]="{ standalone: true }"
+    />
+  </div>
+  <div class="flex flex-col gap-2">
+    <label class="text-sm font-medium" for="username"> Edificio </label>
+    <input
+      pInputText
+      id="nombre"
+      [(ngModel)]="sede"
+      readonly
+      disabled
+      [ngModelOptions]="{ standalone: true }"
+    />
+  </div>
+  <div class="flex flex-col gap-2">
+    <label class="text-sm font-medium" for="fechaAsistencia">
+      Fecha de asistencia
+    </label>
+    <p-datepicker
+      id="fechaAsistencia"
+      styleClass="w-full uppercase"
+      dateFormat="dd M yy"
+      placeholder="DD MMM YYYY"
+      [showIcon]="true"
+      [(ngModel)]="fecha"
+      readonly
+      disabled
+      [ngModelOptions]="{ standalone: true }"
+      appendTo="body"
+    />
+  </div>
+  <div class="flex gap-6 justify-center">
+    <div class="flex flex-col gap-2">
+      <label class="text-center text-sm font-medium" for="username">
+        Hora entrada
+      </label>
+      <div class="flex justify-center">
+        <p-datepicker
+          inputId="calendar-timeonly"
+          [timeOnly]="true"
+          styleClass="w-32"
+          [(ngModel)]="marcacionEntrada"
+          (ngModelChange)="selectEntrada($event)"
+          [ngModelOptions]="{ standalone: true }"
+          [readonlyInput]="true"
+          [showIcon]="true"
+        />
+      </div>
+    </div>
+    <div class="flex flex-col gap-2">
+      <label class="text-center text-sm font-medium" for="username">
+        Hora salida
+      </label>
+      <div class="flex justify-center">
+        <p-datepicker
+          inputId="calendar-timeonly"
+          [timeOnly]="true"
+          styleClass="w-32"
+          [(ngModel)]="marcacionSalida"
+          (onClickOutside)="selectSalida($event)"
+          [ngModelOptions]="{ standalone: true }"
+          [readonlyInput]="true"
+          [showIcon]="true"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-col gap-2">
+    <label class="text-sm font-medium" for="username">Nota</label>
+    <textarea formControlName="nota" rows="3" cols="30" pTextarea></textarea>
+  </div>
+  <!-- <div class="flex flex-col gap-2">
+    <label class="text-sm font-medium" for="username"> Corregido por </label>
+    <input
+      pInputText
+      id="nombre"
+      [(ngModel)]="supervisor"
+      [ngModelOptions]="{ standalone: true }"
+      aria-describedby="nombre-help"
+      readonly
+      disabled
+    />
+  </div> -->
+  <div class="flex justify-end gap-2 mt-4">
+    <p-button
+      severity="info"
+      size="small"
+      [label]="id ? 'Actualizar' : 'Guardar'"
+      [disabled]="formData.invalid"
+      (onClick)="guardar()"
+    />
+  </div>
+</form>

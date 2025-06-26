@@ -1,0 +1,105 @@
+<div class="flex flex-col gap-2">
+  <form [formGroup]="formData" class="grid grid-cols-1 gap-2">
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium" for="username">Edificio</label>
+      <input
+        pInputText
+        id="nombre"
+        [(ngModel)]="sede"
+        readonly
+        disabled
+        [ngModelOptions]="{ standalone: true }"
+      />
+    </div>
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium" for="username">Cargo</label>
+      <input
+        pInputText
+        id="nombre"
+        [(ngModel)]="cargo"
+        readonly
+        disabled
+        [ngModelOptions]="{ standalone: true }"
+      />
+    </div>
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium" for="username">Trabajador</label>
+      <input
+        pInputText
+        id="nombre"
+        [(ngModel)]="trabajador"
+        readonly
+        disabled
+        [ngModelOptions]="{ standalone: true }"
+      />
+    </div>
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium" for="fechaInicio">
+        Fecha de inasistencia
+      </label>
+      <p-datepicker
+        id="fechaInicio"
+        styleClass="w-full uppercase"
+        dateFormat="dd M yy"
+        placeholder="DD MMM YYYY"
+        [(ngModel)]="fecha"
+        [readonlyInput]="true"
+        [showIcon]="true"
+        appendTo="body"
+        disabled
+        [ngModelOptions]="{ standalone: true }"
+      />
+    </div>
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium" for="username">Nota</label>
+      <textarea formControlName="nota" rows="3" cols="30" pTextarea></textarea>
+    </div>
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium" for="username">Archivo adjunto </label>
+      <div class="flex">
+        <input
+          #fileImage
+          class="hidden"
+          type="file"
+          (change)="onFileSelected($event)"
+          accept="application/pdf"
+        />
+        <div class="flex items-center gap-2">
+          <p-button
+            severity="contrast"
+            size="small"
+            (click)="fileImage.click()"
+          >
+            <div class="flex justify-center items-center">
+              <div>Cargar</div>
+            </div>
+          </p-button>
+          <p class="w-64 text-sm italic truncate" [pTooltip]="filename">
+            {{ !!filename ? filename : "Archivo no cargado." }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <p-checkbox formControlName="conGoce" binary="true" />
+      <label class="text-sm pt-1" for="conGoce">
+        Justificación con goce de haber
+      </label>
+    </div>
+    <div class="flex items-center gap-2">
+      <p-checkbox formControlName="incluirExtra" binary="true" [disabled]="!conGoce" />
+      <label class="text-sm pt-1" for="incluirExtra">
+        Incluir pago de horas extra
+      </label>
+    </div>
+  </form>
+  <div class="flex justify-end gap-2 mt-4">
+    <p-button
+      severity="info"
+      size="small"
+      [label]="id ? 'Actualizar' : 'Guardar'"
+      [disabled]="formData.invalid || !archivo"
+      (onClick)="guardar()"
+    />
+  </div>
+</div>

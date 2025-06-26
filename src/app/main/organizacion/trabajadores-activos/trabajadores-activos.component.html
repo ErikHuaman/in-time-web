@@ -1,0 +1,201 @@
+<div class="flex flex-col h-full">
+  <div class="flex flex-col justify-center gap-4 px-6 py-4">
+    <div class="flex justify-between items-center gap-4">
+      <title-card [title]="title" [icon]="icon" />
+    </div>
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <p-multiselect
+          [options]="listaSedes"
+          [(ngModel)]="selectedSedes"
+          optionLabel="nombre"
+          optionValue="id"
+          placeholder="Edificios"
+          [maxSelectedLabels]="2"
+          (onChange)="filtrar($event.value)"
+          styleClass="w-42"
+          pTooltip="Edificios"
+          tooltipPosition="top"
+          tooltipStyleClass="text-sm"
+        />
+        <p-multiselect
+          [options]="listaCargos"
+          [(ngModel)]="selectedCargos"
+          optionLabel="nombre"
+          optionValue="id"
+          placeholder="Cargos"
+          [maxSelectedLabels]="2"
+          (onChange)="filtrar($event.value)"
+          styleClass="w-42"
+          pTooltip="Cargos"
+          tooltipPosition="top"
+          tooltipStyleClass="text-sm"
+        />
+        <p-inputgroup>
+          <input pInputText [(ngModel)]="searchText" placeholder="Buscar" />
+          <p-inputgroup-addon>
+            <p-button
+              icon="pi pi-search"
+              severity="info"
+              variant="text"
+              size="small"
+              (click)="search()"
+              [disabled]="!searchText"
+              pTooltip="Buscar"
+              tooltipPosition="top"
+              tooltipStyleClass="!text-xs !font-normal !p-0"
+            />
+          </p-inputgroup-addon>
+        </p-inputgroup>
+      </div>
+      <div class="flex items-center gap-3">
+        <!-- <p-button severity="info" size="small">
+          <div class="flex justify-center items-center font-medium gap-1">
+            <i
+              class="iconify icon text-lg"
+              data-icon="material-symbols:download-rounded"
+              data-inline="false"
+            ></i>
+            <div>XLS</div>
+          </div>
+        </p-button> -->
+        <p-button severity="info" size="small" (click)="addNew()">
+          <div class="flex justify-center items-center font-medium gap-1">
+            <i
+              class="iconify icon text-lg"
+              data-icon="material-symbols:add-rounded"
+              data-inline="false"
+            ></i>
+            <div>AGREGAR</div>
+          </div>
+        </p-button>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-col h-[calc(100% - 8.5rem)] px-6">
+    <p-table
+      #dt1
+      dataKey="id"
+      [value]="dataTable"
+      stripedRows
+      [scrollable]="true"
+      scrollHeight="720px"
+      styleClass="w-full"
+    >
+      <ng-template #header>
+        <tr>
+          <th><div class="text-center text-xs uppercase">Doc ID</div></th>
+          <th><div class="text-xs uppercase">Nombre</div></th>
+          <th><div class="text-xs uppercase">Apellido</div></th>
+          <th><div class="text-center text-xs uppercase">Edificios</div></th>
+          <th><div class="text-center text-xs uppercase">Cargo</div></th>
+          <th>
+            <div class="text-center text-xs uppercase">Tiempo de contrato</div>
+          </th>
+          <th>
+            <div class="text-center text-xs uppercase">Fecha de inicio</div>
+          </th>
+          <th>
+            <div class="text-center text-xs uppercase">Acciones</div>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-item>
+        <tr>
+          <td>
+            <div class="text-center text-sm">{{ item.identificacion }}</div>
+          </td>
+          <td>
+            <div class="text-sm">{{ item.nombre }}</div>
+          </td>
+          <td>
+            <div class="text-sm">{{ item.apellido }}</div>
+          </td>
+          <td class="w-100">
+            <div
+              class="w-100 flex flex-wrap gap-2 items-center justify-center text-sm font-light capitalize italic"
+              [ngClass]="{ 'cursor-pointer': item.sedes.length > 4 }"
+              (click)="item.sedes.length > 4 ? op.toggle($event) : ''"
+              [pTooltip]="item.sedes.length > 4 ? 'Ver más' : ''"
+              tooltipPosition="top"
+              tooltipStyleClass="!text-xs !font-normal !p-0"
+            >
+              <!-- Mostrar los primeros 5 -->
+              @for (sede of item.sedes.slice(0, 4); track $index) {
+              <p-chip class="!py-1 !px-2 shadow !bg-amber-200">
+                <div class="text-xs font-medium">{{ sede.nombre }}</div>
+              </p-chip>
+              }
+
+              <!-- Mostrar "..." si hay más de 5 -->
+              @if (item.sedes.length > 4) {
+              <span class="text-xs font-semibold">...</span>
+              }
+            </div>
+            <p-popover #op styleClass="gap-2 p-2">
+              <div class="w-100 max-h-40 overflow-y-auto flex flex-col">
+                <div
+                  class="flex flex-wrap gap-2 items-center justify-center text-sm font-light capitalize italic"
+                >
+                  @for (sede of item.sedes; track $index) {
+                  <p-chip class="!py-1 !px-2 shadow !bg-amber-200">
+                    <div class="text-xs font-medium">{{ sede.nombre }}</div>
+                  </p-chip>
+                  }
+                </div>
+              </div>
+            </p-popover>
+          </td>
+          <td>
+            <div class="text-center text-sm">
+              {{ item.contratos[0]?.cargo?.nombre }}
+            </div>
+          </td>
+          <td>
+            <div class="text-center text-sm">
+              {{ item.contratos[0]?.tiempoContrato?.nombre }}
+            </div>
+          </td>
+          <td>
+            <div class="text-center text-sm">
+              {{
+                item.contratos[0]?.fechaInicio
+                  | date : "dd MMM yyyy"
+                  | uppercase
+              }}
+            </div>
+          </td>
+          <td class="w-28">
+            <div class="flex justify-center items-center gap-1">
+              <button-edit (click)="edit(item)" />
+              <button-delete (click)="remove(item)" />
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template #emptymessage>
+        <tr>
+          <td colspan="100">
+            <div class="text-center text-sm font-extralight">
+              No se encontraron registros.
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template #footer>
+        <tr>
+          <td colspan="100">
+            <div class="flex justify-center items-center">
+              <app-paginator
+                [totalItems]="totalItems"
+                [limit]="limit()"
+                [offset]="offset()"
+                (pageChange)="onPageChange($event)"
+              />
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

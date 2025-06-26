@@ -1,0 +1,113 @@
+<div class="flex flex-col h-full">
+  <div class="flex flex-col justify-center gap-4 px-6 py-4">
+    <div class="flex justify-between items-center gap-4">
+      <title-card [title]="title" [icon]="icon" />
+    </div>
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <p-iconfield>
+          <p-inputicon styleClass="pi pi-search" />
+          <input
+            type="text"
+            pInputText
+            placeholder="Buscar"
+            (input)="filterGlobal(dt1, $event.target)"
+          />
+        </p-iconfield>
+      </div>
+      <div class="flex items-center gap-3">
+        <!-- <p-button severity="info" size="small">
+          <div class="flex justify-center items-center font-medium gap-1">
+            <i
+              class="iconify icon text-lg"
+              data-icon="material-symbols:download-rounded"
+              data-inline="false"
+            ></i>
+            <div>XLS</div>
+          </div>
+        </p-button> -->
+        <p-button severity="info" size="small" (click)="addNew()">
+          <div class="flex justify-center items-center font-medium gap-1">
+            <i
+              class="iconify icon text-lg"
+              data-icon="material-symbols:add-rounded"
+              data-inline="false"
+            ></i>
+            <div>INACTIVAR TRABAJADOR</div>
+          </div>
+        </p-button>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-col h-[calc(100% - 8.5rem)] px-6">
+    <p-table
+      #dt1
+      dataKey="id"
+      [value]="dataTable"
+      stripedRows
+      [scrollable]="true"
+      scrollHeight="720px"
+      styleClass="w-full"
+    >
+      <ng-template #header>
+        <tr>
+          <th><div class="text-center text-xs uppercase">ID</div></th>
+          <th><div class="text-xs uppercase">Nombre</div></th>
+          <th><div class="text-xs uppercase">Apellido</div></th>
+          <th>
+            <div class="text-center text-xs uppercase">
+              Motivo de suspención
+            </div>
+          </th>
+          <th>
+            <div class="text-center text-xs uppercase">Nota</div>
+          </th>
+          <th>
+            <div class="text-center text-xs uppercase">Fecha de suspención</div>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-item>
+        <tr (click)="edit(item.id)" class="hover:!bg-slate-200 cursor-pointer">
+          <td>
+            <div class="text-center text-sm">{{ item.orden }}</div>
+          </td>
+          <td>
+            <div class="text-sm">{{ item.nombre }}</div>
+          </td>
+          <td>
+            <div class="text-sm">{{ item.apellido }}</div>
+          </td>
+          <td>
+            <div class="text-center text-sm">
+              {{ (item.inactivaciones ?? [])[0]?.motivoSuspension }}
+            </div>
+          </td>
+          <td>
+            <div class="text-center text-sm">
+              {{ (item.inactivaciones ?? [])[0]?.nota }}
+            </div>
+          </td>
+          <td>
+            <div class="text-center text-sm">
+              {{
+                (item.inactivaciones ?? [])[0]?.fechaSuspension
+                  | date : "dd MMM yyyy"
+                  | uppercase
+              }}
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template #emptymessage>
+        <tr>
+          <td colspan="100">
+            <div class="text-center text-sm font-extralight">
+              No se encontraron registros.
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

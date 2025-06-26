@@ -1,0 +1,181 @@
+<div class="flex flex-col h-full">
+  <div class="flex flex-col justify-center gap-4 px-6 py-4">
+    <div class="flex justify-between items-center gap-4">
+      <title-card [title]="title" [icon]="icon" />
+      <!-- <p-button
+        severity="danger"
+        size="small"
+        [routerLink]="'/ajustes/configuracion'"
+      >
+        <div class="flex justify-center items-center font-medium gap-1">
+          <i
+            class="iconify icon text-lg"
+            data-icon="uil:left-arrow-from-left"
+            data-inline="false"
+          ></i>
+          <span>Configuración</span>
+        </div>
+      </p-button> -->
+    </div>
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <p-iconfield>
+          <p-inputicon styleClass="pi pi-search" />
+          <input
+            type="text"
+            pInputText
+            placeholder="Buscar"
+            (input)="filterGlobal(dt, $event.target)"
+          />
+        </p-iconfield>
+      </div>
+      <div class="flex items-center gap-3">
+        <p-button severity="info" size="small" (click)="permisos()">
+          <div class="flex justify-center items-center font-medium gap-1">
+            <i
+              class="iconify icon text-lg"
+              data-icon="material-symbols:how-to-reg-outline"
+              data-inline="false"
+            ></i>
+            <span>Roles</span>
+          </div>
+        </p-button>
+        <p-button severity="info" size="small" (click)="addNew()">
+          <div class="flex justify-center items-center font-medium gap-1">
+            <i
+              class="iconify icon text-lg"
+              data-icon="uil:plus"
+              data-inline="false"
+            ></i>
+            <span>Agregar</span>
+          </div>
+        </p-button>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-col h-[calc(100% - 8.5rem)] px-6">
+    <p-table
+      #dt
+      dataKey="id"
+      [value]="dataTable"
+      [columns]="cols"
+      [exportHeader]="'customExportHeader'"
+      stripedRows
+      [scrollable]="true"
+      scrollHeight="720px"
+      styleClass="w-full"
+      [globalFilterFields]="['nombre']"
+      exportFilename="cargos"
+    >
+      <ng-template #header let-columns>
+        <tr>
+          <th
+            *ngFor="let col of columns"
+            [ngClass]="[col.widthClass ? col.widthClass : '']"
+          >
+            <div
+              [ngClass]="[
+                'text-xs uppercase',
+                col.align ? 'text-' + col.align : 'text-start'
+              ]"
+            >
+              {{ col.header }}
+            </div>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-item>
+        <tr>
+          <!-- <td>
+            <div class="text-center text-sm">{{ item.orden }}</div>
+          </td> -->
+          <td>
+            <div class="text-start text-sm capitalize">{{ item.nombre }}</div>
+          </td>
+          <td>
+            <div class="text-start text-sm capitalize">{{ item.apellido }}</div>
+          </td>
+          <td>
+            <div class="text-center text-sm lowercase">{{ item.username }}</div>
+          </td>
+          <td>
+            <div class="text-center text-sm capitalize">
+              {{ item.rol.nombre }}
+            </div>
+          </td>
+          <td class="w-100">
+            <div
+              class="w-100 flex flex-wrap gap-2 items-center justify-center text-sm font-light capitalize italic"
+              [ngClass]="{ 'cursor-pointer': item.sedes.length > 4 }"
+              (click)="op.toggle($event)"
+              [pTooltip]="item.sedes.length > 4 ? 'Ver más' : ''"
+              tooltipPosition="top"
+              tooltipStyleClass="!text-xs !font-normal !p-0"
+            >
+              <!-- Mostrar los primeros 5 -->
+              @for (sede of item.sedes.slice(0, 4); track $index) {
+              <p-chip class="!py-1 !px-2 shadow !bg-amber-200">
+                <div class="text-xs font-medium">{{ sede.nombre }}</div>
+              </p-chip>
+              }
+
+              <!-- Mostrar "..." si hay más de 5 -->
+              @if (item.sedes.length > 4) {
+              <span class="text-xs font-semibold">...</span>
+              }
+            </div>
+            <p-popover #op styleClass="gap-2 p-2">
+              <div class="w-100 max-h-40 overflow-y-auto flex flex-col">
+                <div
+                  class="flex flex-wrap gap-2 items-center justify-center text-sm font-light capitalize italic"
+                >
+                  @for (sede of item.sedes; track $index) {
+                  <p-chip class="!py-1 !px-2 shadow !bg-amber-200">
+                    <div class="text-xs font-medium">{{ sede.nombre }}</div>
+                  </p-chip>
+                  }
+                </div>
+              </div>
+            </p-popover>
+          </td>
+          <td>
+            <div class="flex justify-center items-center text-sm capitalize">
+              <p-tag
+                [value]="item.isActive ? 'Activo' : 'Inactivo'"
+                [severity]="item.isActive ? 'success' : 'warn'"
+                styleClass="uppercase !font-bold !text-xs"
+                rounded
+              />
+            </div>
+          </td>
+          <td>
+            <div class="flex justify-center items-center gap-1">
+              <button-edit (click)="edit(item)" />
+              <button-delete (click)="remove(item)" />
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template #emptymessage>
+        <ng-container *ngIf="loadingTable; else elseTemplate">
+          @for (item of [].constructor(4); track $index) {
+          <tr class="h-12">
+            <td *ngFor="let col of cols; let even = even">
+              <p-skeleton />
+            </td>
+          </tr>
+          }
+        </ng-container>
+        <ng-template #elseTemplate>
+          <tr>
+            <td colspan="100">
+              <div class="text-center text-sm font-extralight">
+                No se encontraron registros.
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

@@ -1,0 +1,122 @@
+<div class="flex flex-col gap-2">
+  <form [formGroup]="formData" class="grid grid-cols-1 gap-2">
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium" for="idSede">Edificio</label>
+      <p-select
+        id="idSede"
+        [options]="listaSedes"
+        optionLabel="nombre"
+        optionValue="id"
+        formControlName="idSede"
+        (onChange)="filtrar($event)"
+        placeholder="Seleccione..."
+      />
+    </div>
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium" for="idCargo">Cargo</label>
+      <p-select
+        id="idCargo"
+        [options]="listaCargos"
+        optionLabel="nombre"
+        optionValue="id"
+        formControlName="idCargo"
+        (onChange)="filtrar($event)"
+        placeholder="Seleccione..."
+      />
+    </div>
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium" for="idTrabajador">Trabajador</label>
+      <p-select
+        id="idTrabajador"
+        [options]="listaTrabajadoresFiltrados"
+        optionLabel="labelName"
+        optionValue="id"
+        formControlName="idTrabajador"
+        placeholder="Seleccione..."
+      />
+    </div>
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium" for="fechaInicio"
+        >Fecha de inicio</label
+      >
+      <p-datepicker
+        id="fechaInicio"
+        styleClass="w-full uppercase"
+        dateFormat="dd M yy"
+        placeholder="DD MMM YYYY"
+        formControlName="fechaInicio"
+        [showIcon]="true"
+        appendTo="body"
+      />
+    </div>
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium" for="fechaFin">Fecha de fin</label>
+      <p-datepicker
+        id="fechaFin"
+        styleClass="w-full uppercase"
+        dateFormat="dd M yy"
+        placeholder="DD MMM YYYY"
+        formControlName="fechaFin"
+        [showIcon]="true"
+        appendTo="body"
+      />
+    </div>
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium" for="nota">Nota</label>
+      <textarea
+        id="nota"
+        rows="3"
+        cols="30"
+        pTextarea
+        formControlName="nota"
+      ></textarea>
+    </div>
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium" for="username">Archivo adjunto </label>
+      <div class="flex">
+        <input
+          #fileImage
+          class="hidden"
+          type="file"
+          (change)="onFileSelected($event)"
+          accept="application/pdf"
+        />
+        <div class="flex items-center gap-2">
+          <p-button
+            severity="contrast"
+            size="small"
+            (click)="fileImage.click()"
+          >
+            <div class="flex justify-center items-center">
+              <div>Cargar</div>
+            </div>
+          </p-button>
+          <p class="w-64 text-sm italic truncate" [pTooltip]="filename">
+            {{ !!filename ? filename : "Archivo no cargado." }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <p-checkbox formControlName="conGoce" binary="true" />
+      <label class="text-sm pt-1" for="conGoce">
+        Justificación con goce de haber
+      </label>
+    </div>
+    <div class="flex items-center gap-2">
+      <p-checkbox formControlName="incluirExtra" binary="true" [disabled]="!conGoce" />
+      <label class="text-sm pt-1" for="incluirExtra">
+        Incluir pago de horas extra
+      </label>
+    </div>
+  </form>
+  <div class="flex justify-end gap-2 mt-4">
+    <p-button
+      severity="info"
+      size="small"
+      [label]="id ? 'Actualizar' : 'Guardar'"
+      [disabled]="formData.invalid || !archivo"
+      (onClick)="guardar()"
+    />
+  </div>
+</div>

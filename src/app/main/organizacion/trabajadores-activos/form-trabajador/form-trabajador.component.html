@@ -1,0 +1,665 @@
+<form [formGroup]="formData" class="grid grid-cols-1 gap-4">
+  <div class="grid grid-cols-1 gap-y-2 gap-x-4">
+    <div class="grid grid-cols-3 gap-y-2 gap-x-4">
+      <p-fieldset legend="Datos generales" styleClass="h-full">
+        <div class="grid grid-cols-1 gap-2" formGroupName="trabajador">
+          <div class="flex flex-col gap-2">
+            <label class="text-sm font-medium" for="nombreTrabajador">
+              Nombre <span class="text-xs">*</span>
+            </label>
+            <input id="nombreTrabajador" pInputText formControlName="nombre" />
+          </div>
+          <div class="flex flex-col gap-2">
+            <label class="text-sm font-medium" for="apellidoTrabajador">
+              Apellidos <span class="text-xs">*</span>
+            </label>
+            <input
+              pInputText
+              id="apellidoTrabajador"
+              formControlName="apellido"
+            />
+          </div>
+          <div class="flex flex-col gap-2">
+            <label class="text-sm font-medium" for="generoTrabajador">
+              Género <span class="text-xs">*</span>
+            </label>
+            <p-select
+              id="generoTrabajador"
+              [options]="listaGeneros"
+              formControlName="genero"
+              placeholder="Seleccione..."
+              appendTo="body"
+            />
+          </div>
+          <div class="flex flex-col gap-2">
+            <label class="text-sm font-medium" for="nacionalidadTrabajador">
+              Nacionalidad <span class="text-xs">*</span>
+            </label>
+            <p-select
+              inputId="nacionalidadTrabajador"
+              [options]="listaPaises"
+              optionLabel="name"
+              optionValue="id"
+              placeholder="Seleccione..."
+              formControlName="idPais"
+              [filter]="true"
+              appendTo="body"
+            />
+          </div>
+          <div class="flex flex-col gap-2">
+            <label class="text-sm font-medium" for="tipoDocumentoTrabajador">
+              Documento de Identificación <span class="text-xs">*</span>
+            </label>
+            <p-select
+              inputId="tipoDocumentoTrabajador"
+              [options]="listaTipoDocId"
+              optionLabel="nombre"
+              optionValue="id"
+              formControlName="idTipoDocID"
+              placeholder="Seleccione..."
+              (onChange)="selectTipoDocId($event.value)"
+              appendTo="body"
+            />
+          </div>
+          <div class="flex flex-col gap-2">
+            <label class="text-sm font-medium" for="identificacionTrabajador">
+              Identificación <span class="text-xs">*</span>
+            </label>
+            <input
+              pInputText
+              id="identificacionTrabajador"
+              formControlName="identificacion"
+              (keypress)="allowOnlyNumbers($event)"
+            />
+          </div>
+          <div class="flex flex-col gap-2">
+            <label class="text-sm font-medium" for="estadoCivilTrabajador">
+              Estado civil <span class="text-xs">*</span>
+            </label>
+            <p-select
+              inputId="estadoCivilTrabajador"
+              [options]="listaEstadoCivil"
+              optionLabel="nombre"
+              optionValue="id"
+              formControlName="idEstadoCivil"
+              placeholder="Seleccione..."
+              appendTo="body"
+            />
+          </div>
+        </div>
+      </p-fieldset>
+      <p-fieldset legend="Detalles de contrato" styleClass="h-full">
+        <div class="grid grid-cols-1 gap-2" formGroupName="contrato">
+          <div class="flex flex-col gap-2">
+            <label class="text-sm font-medium" for="idCargoNomina">
+              Cargo <span class="text-xs">*</span>
+            </label>
+            <p-select
+              inputId="idCargoNomina"
+              [options]="listaCargos"
+              optionLabel="nombre"
+              optionValue="id"
+              formControlName="idCargo"
+              placeholder="Seleccione..."
+              (onChange)="changeCargo($event)"
+              [filter]="true"
+              appendTo="body"
+            />
+          </div>
+          <div class="flex flex-col gap-2">
+            <label class="text-sm font-medium" for="numeroNomina">
+              N° nomina
+            </label>
+            <input
+              pInputText
+              id="numeroNomina"
+              formControlName="numNomina"
+              (keypress)="allowOnlyNumbers($event)"
+            />
+          </div>
+          <div class="flex flex-col gap-2">
+            <label class="text-sm font-medium" for="fechaContratoNomina">
+              Fecha de contrato <span class="text-xs">*</span>
+            </label>
+            <p-datepicker
+              id="fechaContratoNomina"
+              styleClass="w-full uppercase"
+              dateFormat="dd M yy"
+              placeholder="DD MMM YYYY"
+              [showIcon]="true"
+              appendTo="body"
+              formControlName="fechaContrato"
+            />
+          </div>
+          <div class="flex flex-col gap-2">
+            <label class="text-sm font-medium" for="fechaInicioNomina">
+              Fecha de inicio laboral <span class="text-xs">*</span>
+            </label>
+            <p-datepicker
+              id="fechaInicioNomina"
+              styleClass="w-full uppercase"
+              dateFormat="dd M yy"
+              placeholder="DD MMM YYYY"
+              [showIcon]="true"
+              appendTo="body"
+              formControlName="fechaInicio"
+            />
+          </div>
+          <div class="flex flex-col gap-2">
+            <label class="text-sm font-medium" for="idTiempoContratoNomina">
+              Tiempo de contrato <span class="text-xs">*</span>
+            </label>
+            <p-select
+              inputId="idTiempoContratoNomina"
+              [options]="listaTiempos"
+              optionLabel="nombre"
+              optionValue="id"
+              formControlName="idTiempoContrato"
+              placeholder="Seleccione..."
+              appendTo="body"
+            />
+          </div>
+          <div class="flex flex-col gap-2">
+            <label class="text-sm font-medium" for="idFrecuenciaPagoNomina">
+              Frecuencia de pago <span class="text-xs">*</span>
+            </label>
+            <p-select
+              inputId="idFrecuenciaPagoNomina"
+              [options]="listaFrecuenciaPago"
+              optionLabel="nombre"
+              optionValue="id"
+              formControlName="idFrecuenciaPago"
+              placeholder="Seleccione..."
+              appendTo="body"
+            />
+          </div>
+          <div class="flex flex-col gap-2">
+            <label class="text-sm font-medium" for="horasContratoNomina">
+              Horas diarias <span class="text-xs">*</span>
+            </label>
+            <p-inputnumber
+              inputId="horasContratoNomina"
+              formControlName="horasContrato"
+              [max]="24"
+              [maxlength]="2"
+            />
+          </div>
+          <div class="flex flex-col gap-2">
+            <label class="text-sm font-medium" for="salarioMensual">
+              {{ isDiario ? "Pago diario" : "Salario base" }}
+              <span class="text-xs">*</span>
+            </label>
+            <p-inputnumber
+              inputId="salarioMensual"
+              formControlName="salarioMensual"
+              mode="currency"
+              currency="PEN"
+              locale="es-PE"
+            />
+          </div>
+        </div>
+      </p-fieldset>
+      <div class="flex flex-col gap-y-2 gap-x-4">
+        <p-fieldset legend="Controles">
+          <div class="grid grid-cols-1 gap-2" formGroupName="control">
+            <div class="flex flex-col gap-2">
+              <label class="text-sm font-medium" for="turnoTrabajoId">
+                Turno de trabajo <span class="text-xs">*</span>
+              </label>
+              <p-select
+                inputId="turnoTrabajoId"
+                [options]="listaTurnos"
+                formControlName="idTurnoTrabajo"
+                optionLabel="nombre"
+                optionValue="id"
+                placeholder="Seleccione..."
+                appendTo="body"
+              />
+            </div>
+            <!-- <div class="flex flex-col gap-2">
+              <label
+                class="text-sm font-medium"
+                for="marcacionAutomaticaControl"
+              >
+                Modo de marcación <span class="text-xs">*</span>
+              </label>
+              <p-select
+                inputId="marcacionAutomaticaControl"
+                [options]="listaModoMarcacion"
+                formControlName="marcacionAutomatica"
+                optionLabel="nombre"
+                optionValue="value"
+                placeholder="Seleccione..."
+                appendTo="body"
+              />
+            </div> -->
+          </div>
+        </p-fieldset>
+
+        <p-fieldset legend="Registro biométrico">
+          <div class="grid grid-cols-1 gap-2" formGroupName="biometrico">
+            <div class="flex flex-col gap-2">
+              <label class="text-sm font-medium" for="tipoVerificacion">
+                Tipo de verificación <span class="text-xs">*</span>
+              </label>
+              <div class="flex justify-center gap-4">
+                <div class="flex items-center gap-1">
+                  <p-radiobutton
+                    value="foto"
+                    inputId="tipoVerificacion2"
+                    [(ngModel)]="tipoVerificacion"
+                    [ngModelOptions]="{ standalone: true }"
+                    (ngModelChange)="changeTipo($event)"
+                    [disabled]="this.fotoCargada"
+                  />
+                  <label for="tipoVerificacion2">Foto</label>
+                </div>
+
+                <div class="flex items-center gap-1">
+                  <p-radiobutton
+                    value="codigo"
+                    inputId="tipoVerificacion1"
+                    [(ngModel)]="tipoVerificacion"
+                    [ngModelOptions]="{ standalone: true }"
+                    (ngModelChange)="changeTipo($event)"
+                    [disabled]="this.fotoCargada"
+                  />
+                  <label for="tipoVerificacion1">Código</label>
+                </div>
+              </div>
+            </div>
+            <div
+              *ngIf="tipoVerificacion === 'codigo'"
+              class="flex flex-col gap-2"
+            >
+              <label class="text-sm font-medium" for="dniReemplazo">
+                Código <span class="text-xs">*</span>
+              </label>
+              <div class="flex flex-col justify-center items-center gap-3">
+                <p-inputotp
+                  [readonly]="true"
+                  [length]="6"
+                  size="small"
+                  formControlName="codigo"
+                  styleClass="!text-base font-medium"
+                />
+                <div class="w-full">
+                  <p-button
+                    severity="contrast"
+                    size="small"
+                    (click)="generarCodigo()"
+                    styleClass="w-full"
+                  >
+                    <div class="flex justify-center items-center gap-2">
+                      <div>Generar</div>
+                    </div>
+                  </p-button>
+                </div>
+              </div>
+            </div>
+            <div
+              *ngIf="tipoVerificacion === 'foto'"
+              class="flex flex-col gap-2"
+            >
+              <label class="text-sm font-medium">
+                Foto <span class="text-xs">*</span>
+              </label>
+              <div class="flex justify-center">
+                <div
+                  class="border border-slate-300 rounded-lg h-80 w-full flex justify-center items-center"
+                >
+                  <img
+                    *ngIf="previewUrl"
+                    [src]="previewUrl"
+                    alt="Imagen seleccionada"
+                    class="w-full h-full object-cover rounded-lg overflow-hidden"
+                  />
+                  <p *ngIf="!previewUrl" class="text-sm italic">Sin foto</p>
+                </div>
+              </div>
+              <div class="flex justify-end">
+                <input
+                  #fileImage
+                  class="hidden"
+                  type="file"
+                  (change)="onFileSelected($event)"
+                  accept="image/*"
+                />
+                <div class="w-full">
+                  <p-button
+                  severity="contrast"
+                  size="small"
+                  (click)="fileImage.click()"
+                  styleClass="w-full"
+                >
+                  <div class="flex justify-center items-center gap-2">
+                    <div>Cargar foto</div>
+                    <i
+                      class="iconify icon text-lg"
+                      data-icon="bx:upload"
+                      data-inline="false"
+                    ></i>
+                  </div>
+                </p-button>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="flex flex-col gap-2">
+              <label class="text-sm font-medium">
+                Foto registrada <span class="text-xs">*</span>
+              </label>
+              <div
+                class="border border-slate-300 rounded-lg h-80 w-full flex justify-center items-center"
+              >
+                <img
+                  *ngIf="previewUrl"
+                  [src]="previewUrl"
+                  alt="Imagen seleccionada"
+                  class="w-full h-full object-cover rounded-lg overflow-hidden"
+                />
+                <p *ngIf="!previewUrl" class="text-sm italic">Sin foto</p>
+              </div>
+              <div class="flex justify-end">
+                <input
+                  #fileImage
+                  class="hidden"
+                  type="file"
+                  (change)="onFileSelected($event)"
+                  accept="image/*"
+                />
+                <p-button
+                  severity="contrast"
+                  size="small"
+                  (click)="fileImage.click()"
+                >
+                  <div class="flex justify-center items-center gap-2">
+                    <div>Cargar foto</div>
+                    <i
+                      class="iconify icon text-lg"
+                      data-icon="bx:upload"
+                      data-inline="false"
+                    ></i>
+                  </div>
+                </p-button>
+              </div>
+            </div> -->
+          </div>
+        </p-fieldset>
+      </div>
+    </div>
+    <div class="flex justify-center">
+      <p-button
+        *ngIf="!avanzado"
+        severity="warn"
+        variant="outlined"
+        size="small"
+        [label]="'Opciones avanzadas'"
+        (onClick)="avanzado = true"
+      />
+    </div>
+    <p-fieldset *ngIf="avanzado" legend="Información complementaria">
+      <div class="grid grid-cols-3 gap-y-2 gap-x-4">
+        <p-fieldset legend="Dirección">
+          <div class="grid grid-cols-1 gap-2" formGroupName="info">
+            <div class="flex flex-col gap-2">
+              <label class="text-sm font-medium" for="idPaisInfo"> País </label>
+              <p-select
+                inputId="idPaisInfo"
+                [options]="listaPaises"
+                optionLabel="name"
+                [(ngModel)]="paisDefault"
+                [ngModelOptions]="{ standalone: true }"
+                placeholder="Seleccione..."
+                [filter]="true"
+                [disabled]="true"
+                appendTo="body"
+              />
+            </div>
+            <div class="flex flex-col gap-2">
+              <label class="text-sm font-medium" for="idStateInfo">
+                Departamento
+              </label>
+              <p-select
+                inputId="idStateInfo"
+                [options]="listaDepartamentos"
+                optionLabel="name"
+                optionValue="id"
+                [(ngModel)]="idRegion"
+                [ngModelOptions]="{ standalone: true }"
+                placeholder="Seleccione..."
+                (ngModelChange)="cargarProvincias($event)"
+                emptyFilterMessage="No se encontró ningún resultado"
+                emptyMessage="No se encontró ningún resultado"
+                [filter]="true"
+                appendTo="body"
+              />
+            </div>
+            <div class="flex flex-col gap-2">
+              <label class="text-sm font-medium" for="idProvinceInfo">
+                Provincia
+              </label>
+              <p-select
+                inputId="idProvinceInfo"
+                [options]="listaProvincias"
+                optionLabel="name"
+                optionValue="id"
+                [(ngModel)]="idProvincia"
+                [ngModelOptions]="{ standalone: true }"
+                placeholder="Seleccione..."
+                (ngModelChange)="cargarCiudades($event)"
+                emptyFilterMessage="No se encontró ningún resultado"
+                emptyMessage="No se encontró ningún resultado"
+                [filter]="true"
+                appendTo="body"
+              />
+            </div>
+            <div class="flex flex-col gap-2">
+              <label class="text-sm font-medium" for="idCiudadInfo"
+                >Cuidad</label
+              >
+              <p-select
+                inputId="idCiudadInfo"
+                [options]="listaCiudades"
+                optionLabel="name"
+                optionValue="id"
+                formControlName="idCiudad"
+                placeholder="Seleccione..."
+                emptyFilterMessage="No se encontró ningún resultado"
+                emptyMessage="No se encontró ningún resultado"
+                [filter]="true"
+                appendTo="body"
+              />
+            </div>
+            <div class="flex flex-col gap-2">
+              <label class="text-sm font-medium" for="direccionInfo">
+                Dirección
+              </label>
+              <input
+                pInputText
+                id="direccionInfo"
+                formControlName="direccion"
+              />
+            </div>
+            <div class="flex flex-col gap-2">
+              <label class="text-sm font-medium" for="celular">Celular</label>
+              <input
+                pInputText
+                id="celular"
+                formControlName="celular"
+                (keypress)="allowOnlyNumbers($event)"
+              />
+            </div>
+            <div class="flex flex-col gap-2">
+              <label class="text-sm font-medium" for="correo">
+                Correo electrónico personal
+              </label>
+              <input
+                pInputText
+                type="email"
+                id="correo"
+                formControlName="correo"
+              />
+            </div>
+          </div>
+        </p-fieldset>
+        <p-fieldset legend="Contacto de emergencia">
+          <div class="grid grid-cols-1 gap-2" formGroupName="contacto">
+            <div class="flex flex-col gap-2">
+              <label class="text-sm font-medium" for="nombreContacto">
+                Nombre
+              </label>
+              <input id="nombreContacto" pInputText formControlName="nombre" />
+            </div>
+            <div class="flex flex-col gap-2">
+              <label class="text-sm font-medium" for="apellidoContacto">
+                Apellidos
+              </label>
+              <input
+                pInputText
+                id="apellidoContacto"
+                formControlName="apellido"
+              />
+            </div>
+            <div class="flex flex-col gap-2">
+              <label class="text-sm font-medium" for="parentezcoContacto">
+                Parentezco
+              </label>
+              <input
+                pInputText
+                id="parentezcoContacto"
+                formControlName="parentezco"
+              />
+            </div>
+            <div class="flex flex-col gap-2">
+              <label class="text-sm font-medium" for="celularContacto">
+                Celular
+              </label>
+              <input
+                pInputText
+                id="celularContacto"
+                formControlName="celular"
+                (keypress)="allowOnlyNumbers($event)"
+              />
+            </div>
+            <div class="flex flex-col gap-2">
+              <label class="text-sm font-medium" for="correoContacto">
+                Correo electrónico personal
+              </label>
+              <input
+                pInputText
+                id="correoContacto"
+                type="email"
+                formControlName="correo"
+              />
+            </div>
+          </div>
+        </p-fieldset>
+        <p-fieldset legend="Beneficios">
+          <div class="grid grid-cols-1 gap-2" formGroupName="beneficio">
+            <div class="flex flex-col gap-2">
+              <label class="text-sm font-medium" for="pagoFeriado">
+                Pago por feriado trabajado
+              </label>
+              <p-inputnumber
+                inputId="pagoFeriado"
+                formControlName="pagoFeriado"
+                mode="currency"
+                currency="PEN"
+                locale="es-PE"
+              />
+            </div>
+            <div class="flex flex-col gap-2">
+              <label class="text-sm font-medium" for="fondoPensionesId">
+                Fondo de pensiones
+              </label>
+              <p-select
+                inputId="fondoPensionesId"
+                [options]="listaFondosPensiones"
+                formControlName="idFondoPensiones"
+                optionLabel="nombre"
+                optionValue="id"
+                placeholder="Seleccione..."
+                emptyFilterMessage="No se encontró ningún resultado"
+                emptyMessage="No se encontró ningún resultado"
+                [filter]="true"
+                appendTo="body"
+              />
+            </div>
+            <div class="flex flex-col gap-2">
+              <label class="text-sm font-medium" for="seguroSaludId">
+                Seguro de Salud
+              </label>
+              <p-select
+                inputId="seguroSaludId"
+                [options]="listaSeguroSalud"
+                formControlName="idSeguroSalud"
+                optionLabel="nombre"
+                optionValue="id"
+                placeholder="Seleccione..."
+                emptyFilterMessage="No se encontró ningún resultado"
+                emptyMessage="No se encontró ningún resultado"
+                [filter]="true"
+                appendTo="body"
+              />
+            </div>
+          </div>
+        </p-fieldset>
+      </div>
+      <div class="flex justify-center">
+        <p-button
+          severity="warn"
+          variant="outlined"
+          size="small"
+          [label]="'Ver menos'"
+          (onClick)="avanzado = false"
+        />
+      </div>
+    </p-fieldset>
+  </div>
+  <div class="flex justify-between gap-4">
+    <div
+      class="col-span-3 flex items-center gap-2 py-1"
+      formGroupName="trabajador"
+    >
+      <p-toggleswitch formControlName="isActive" />
+      <label class="text-sm font-medium pb-1.5" for="isActive">{{
+        isActive ? "Activo" : "Inactivo"
+      }}</label>
+    </div>
+    <div class="flex gap-2">
+      <!-- <p-button
+      severity="info"
+      size="small"
+      [label]="'Descargar plantilla'"
+      (onClick)="exportarPlantillaExcel()"
+    /> -->
+      <!-- <div class="flex justify-end">
+        <input
+          #fileImage
+          class="hidden"
+          type="file"
+          (change)="onExcelSelected($event)"
+          accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        />
+        <p-button severity="contrast" size="small" (click)="fileImage.click()">
+          <div class="flex justify-center items-center gap-2">
+            <div>Importar Excel</div>
+            <i
+              class="iconify icon text-lg"
+              data-icon="bx:upload"
+              data-inline="false"
+            ></i>
+          </div>
+        </p-button>
+      </div> -->
+      <p-button
+        severity="info"
+        size="small"
+        [label]="id ? 'Actualizar' : 'Guardar'"
+        [loading]="loading"
+        [disabled]="this.invalid"
+        (onClick)="guardar()"
+      />
+    </div>
+  </div>
+</form>

@@ -1,0 +1,63 @@
+<div class="flex flex-col gap-2">
+  <form [formGroup]="formData" class="flex flex-col gap-2">
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium" for="trabajadorId">Trabajador</label>
+      <p-select
+        id="trabajadorId"
+        [options]="listaTrabajadores"
+        optionLabel="labelName"
+        optionValue="id"
+        formControlName="idTrabajador"
+        placeholder="Seleccione..."
+        [readonly]="!!id"
+        [disabled]="!!id"
+        appendTo="body"
+      />
+    </div>
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium" for="motivoSuspension"
+        >Motivo de suspensión</label
+      >
+      <textarea
+        id="nota"
+        rows="1"
+        cols="30"
+        pTextarea
+        formControlName="motivoSuspension"
+      ></textarea>
+    </div>
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium" for="fechaSuspension"
+        >Fecha de suspensión</label
+      >
+      <p-datepicker
+        id="fechaSuspension"
+        styleClass="w-full uppercase"
+        dateFormat="dd M yy"
+        placeholder="DD MMM YYYY"
+        formControlName="fechaSuspension"
+        [showIcon]="true"
+        appendTo="body"
+      />
+    </div>
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium" for="nota">Nota</label>
+      <textarea
+        id="nota"
+        rows="3"
+        cols="30"
+        pTextarea
+        formControlName="nota"
+      ></textarea>
+    </div>
+  </form>
+  <div class="flex justify-end gap-2 mt-4">
+    <p-button
+      severity="info"
+      size="small"
+      [label]="id ? 'Actualizar' : 'Guardar'"
+      [disabled]="formData.invalid"
+      (onClick)="guardar()"
+    />
+  </div>
+</div>

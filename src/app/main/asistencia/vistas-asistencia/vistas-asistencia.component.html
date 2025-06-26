@@ -1,0 +1,664 @@
+<div class="h-full flex flex-col gap-4">
+  <div class="flex flex-col justify-center gap-4 px-6 py-4">
+    <div class="flex justify-between items-center gap-4">
+      <title-card [title]="title" [icon]="icon" />
+    </div>
+    <div class="grid grid-cols-6 gap-3 lg:gap-6">
+      @for (item of cards; track $index) {
+      <div
+        [ngClass]="[
+          'flex flex-col gap-6 rounded-2xl shadow-lg px-6 py-4',
+          item.classColor
+        ]"
+      >
+        <div class="grow">
+          <div class="flex flex-col gap-2">
+            <div
+              class="flex flex-col justify-center items-center gap-3 text-slate-50"
+            >
+              <div class="font-semibold text-5xl">{{ item.num }}</div>
+              <p class="text-base lg:text-lg xl:text-xl font-bold text-center">
+                {{ item.label }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+  <div class="h-full flex flex-col gap-4">
+    <ng-container *ngIf="tabSelected == 'general'">
+      <div class="flex items-center justify-between px-6">
+        <div class="flex items-center gap-3">
+          <p-datepicker
+            id="fechaInicio"
+            view="month"
+            dateFormat="MM yy"
+            placeholder="Seleccionar mes"
+            [(ngModel)]="fechaSelected"
+            [readonlyInput]="true"
+            showIcon
+            iconDisplay="input"
+            styleClass="w-44"
+            appendTo="body"
+            pTooltip="Mes"
+            tooltipPosition="top"
+            tooltipStyleClass="text-sm"
+            (ngModelChange)="cambiarFecha($event)"
+          />
+          <p-multiselect
+            [options]="listaSedes"
+            [(ngModel)]="selectedSedes"
+            optionLabel="nombre"
+            optionValue="id"
+            placeholder="Edificios"
+            [maxSelectedLabels]="2"
+            (onChange)="filtrar($event.value)"
+            styleClass="w-42"
+            pTooltip="Edificios"
+            tooltipPosition="top"
+            tooltipStyleClass="text-sm"
+          />
+          <p-multiselect
+            [options]="listaCargos"
+            [(ngModel)]="selectedCargos"
+            optionLabel="nombre"
+            optionValue="id"
+            placeholder="Cargos"
+            [maxSelectedLabels]="2"
+            (onChange)="filtrar($event.value)"
+            styleClass="w-42"
+            pTooltip="Cargos"
+            tooltipPosition="top"
+            tooltipStyleClass="text-sm"
+          />
+          <p-iconfield>
+            <p-inputicon styleClass="pi pi-search" />
+            <input
+              type="text"
+              pInputText
+              placeholder="Buscar"
+              (input)="filterGlobal(dt1, $event.target)"
+            />
+          </p-iconfield>
+          <p-button
+            (click)="legend.toggle($event)"
+            severity="contrast"
+            icon="pi pi-book"
+            label="Leyenda"
+            size="small"
+          />
+          <p-popover #legend>
+            <div class="flex flex-col gap-4 w-56">
+              <table>
+                <thead>
+                  <tr>
+                    <th class="text-sm font-semibold">Leyenda</th>
+                    <th class="w-16 h-2 rounded-full"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (item of leyenda; track $index) {
+                  <tr>
+                    <td class="px-2 py-0.5">
+                      <div class="text-sm">{{ item.nombre }}</div>
+                    </td>
+                    <td class="px-2 py-0.5">
+                      <div
+                        class="text-sm w-10 flex justify-center"
+                        [style.color]="item.textColor"
+                        [style.background]="item.bgColor"
+                      >
+                        {{ item.codigo }}
+                      </div>
+                    </td>
+                  </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          </p-popover>
+        </div>
+        <div class="flex items-center gap-3">
+          <!-- <p-button severity="info" size="small">
+            <div class="flex justify-center items-center font-medium gap-1">
+              <i
+                class="iconify icon text-lg"
+                data-icon="material-symbols:download-rounded"
+                data-inline="false"
+              ></i>
+              <div>XLS</div>
+            </div>
+          </p-button> -->
+        </div>
+      </div>
+      <div class="flex flex-col px-6">
+        <p-table
+          #dt1
+          dataKey="id"
+          [value]="dataTable"
+          stripedRows
+          [scrollable]="true"
+          scrollHeight="575px"
+          styleClass="w-full"
+          [responsive]="true"
+          responsiveLayout="scroll"
+          [globalFilterFields]="['nombre', 'apellido']"
+        >
+          <ng-template #header>
+            <tr>
+              <th>
+                <div class="w-8 text-xs text-center uppercase"></div>
+              </th>
+              <!-- <th>
+                <div class="w-12 text-xs text-center uppercase">N°</div>
+              </th> -->
+              <th>
+                <div class="w-42 text-xs uppercase">Apellidos y Nombre</div>
+              </th>
+              <th>
+                <div class="w-32 text-xs text-center uppercase">Edificio</div>
+              </th>
+              <th>
+                <div class="w-32 text-xs text-center uppercase">Cargo</div>
+              </th>
+              <ng-container *ngIf="dataTable.length">
+                <th *ngFor="let item of daysMonth">
+                  <div
+                    class="w-8 h-8 flex flex-col items-center justify-center gap-0.5"
+                  >
+                    <div class="text-center text-xs uppercase">
+                      {{ item.nombre }}
+                    </div>
+                    <div class="text-center text-xs uppercase">
+                      {{ item.dia }}
+                    </div>
+                  </div>
+                </th>
+              </ng-container>
+              <ng-container *ngIf="!dataTable.length">
+                <th>
+                  <div class="text-center text-xs uppercase">...</div>
+                </th>
+              </ng-container>
+
+              <th>
+                <div class="text-center text-xs uppercase">Días lab.</div>
+              </th>
+              <th>
+                <div class="text-center text-xs uppercase">Feriados</div>
+              </th>
+              <th>
+                <div class="text-center text-xs uppercase">F</div>
+              </th>
+              <th>
+                <div class="text-center text-xs uppercase">P</div>
+              </th>
+              <th>
+                <div class="text-center text-xs uppercase">X</div>
+              </th>
+              <th>
+                <div class="text-center text-xs uppercase">Total</div>
+              </th>
+              <th>
+                <div class="text-center text-xs uppercase">Horas diarias</div>
+              </th>
+              <th>
+                <div class="text-center text-xs uppercase">Horas sem.</div>
+              </th>
+              <th>
+                <div class="text-center text-xs uppercase">Horas mes</div>
+              </th>
+              <th>
+                <div class="text-center text-xs uppercase">Horas ord.</div>
+              </th>
+              <th>
+                <div class="text-center text-xs uppercase">Horas extras</div>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template #body let-item let-i="rowIndex">
+            <tr>
+              <td>
+                <div class="flex items-center justify-center">
+                  <p-button
+                    text
+                    (click)="select(item)"
+                    severity="success"
+                    size="small"
+                    rounded
+                    styleClass="!w-10 !p-2"
+                    pTooltip="Detalle mensual"
+                    tooltipPosition="top"
+                    tooltipStyleClass="!text-xs !font-normal !p-0"
+                  >
+                    <i
+                      class="iconify icon font-bold text-xl"
+                      [attr.data-icon]="'material-symbols:open-in-new-rounded'"
+                      data-inline="false"
+                    ></i>
+                  </p-button>
+                </div>
+              </td>
+              <!-- <td>
+                <div class="text-sm text-center">
+                  {{ i + 1 }}
+                </div>
+              </td> -->
+              <td>
+                <div class="text-sm">
+                  {{ item.labelName }}
+                </div>
+              </td>
+              <td>
+                <div class="text-sm text-center">
+                  {{ item.sede?.nombre }}
+                </div>
+              </td>
+              <td>
+                <div class="text-sm text-center">
+                  {{ item.cargo?.nombre }}
+                </div>
+              </td>
+              <td *ngFor="let num of item.marcaciones">
+                <div
+                  class="text-center text-sm rounded-md cursor-pointer"
+                  [ngClass]="[num.corregido ? 'ring-2' : '']"
+                  [style.color]="textColor(num.codigo)"
+                  [style.background]="bgColor(num.codigo)"
+                  [pTooltip]="
+                    legendLabel(num.codigo, num.corregido, num.justificado)
+                  "
+                  tooltipPosition="top"
+                  tooltipStyleClass="!text-xs !p-0"
+                  (click)="verDetalle(item, num)"
+                >
+                  {{ num.codigo }}
+                </div>
+              </td>
+              <td>
+                <div class="text-center text-sm">
+                  {{ item.diasLaborados }}
+                </div>
+              </td>
+              <td>
+                <div class="text-center text-sm">
+                  {{ item.feriados }}
+                </div>
+              </td>
+              <td>
+                <div class="text-center text-sm">
+                  {{ item.faltas }}
+                </div>
+              </td>
+              <td>
+                <div class="text-center text-sm">
+                  {{ item.permisos }}
+                </div>
+              </td>
+              <td>
+                <div class="text-center text-sm">
+                  {{ item.descansos }}
+                </div>
+              </td>
+              <td>
+                <div class="text-center text-sm">
+                  {{ item.totalDias }}
+                </div>
+              </td>
+              <td>
+                <div class="text-center text-sm">
+                  {{ item.horasDiarias }}
+                </div>
+              </td>
+              <td>
+                <div class="text-center text-sm">
+                  {{ item.horasSemanales }}
+                </div>
+              </td>
+              <td>
+                <div class="text-center text-sm">
+                  {{ item.horasMensuales }}
+                </div>
+              </td>
+              <td>
+                <div class="text-center text-sm">
+                  {{ item.horasOrdinarias }}
+                </div>
+              </td>
+              <td>
+                <div class="text-center text-sm">
+                  {{ item.horasExtra }}
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template #emptymessage>
+            <tr>
+              <td colspan="100">
+                <div class="text-center text-sm font-extralight">
+                  No se encontraron registros.
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="tabSelected == 'worker'">
+      <div class="flex items-center justify-between px-6">
+        <div class="flex gap-4 items-center">
+          <p-button
+            severity="info"
+            size="small"
+            icon="pi pi-arrow-left"
+            raised
+            (click)="volver()"
+          />
+          <p-iconfield>
+            <p-inputicon styleClass="pi pi-search" />
+            <input
+              type="text"
+              pInputText
+              placeholder="Buscar fecha"
+              (input)="filterGlobal(dt1, $event.target)"
+            />
+          </p-iconfield>
+        </div>
+        <div class="flex items-center gap-2">
+          <p-button severity="info" size="small">
+            <div class="flex justify-center items-center font-medium gap-1">
+              <i
+                class="iconify icon text-lg"
+                data-icon="material-symbols:download-rounded"
+                data-inline="false"
+              ></i>
+              <div>XLS</div>
+            </div>
+          </p-button>
+        </div>
+      </div>
+      <div class="flex flex-col px-6">
+        <p-table
+          #dt1
+          dataKey="id"
+          [value]="dataTableWorker"
+          stripedRows
+          [scrollable]="true"
+          scrollHeight="520px"
+          styleClass="w-full"
+          [globalFilterFields]="['fecha']"
+        >
+          <ng-template #caption>
+            <div class="flex items-center gap-4">
+              <table>
+                <tBody>
+                  <tr>
+                    <td class="font-semibold text-xs uppercase px-2 py-0">
+                      TRABAJADOR :
+                    </td>
+                    <td
+                      class="font-bold text-sm ps-2 pe-6 py-0 uppercase border-e"
+                    >
+                      {{ itemSelected.labelName }}
+                    </td>
+                    <td class="font-semibold text-xs uppercase ps-6 pe-2 py-0">
+                      CARGO :
+                    </td>
+                    <td
+                      class="font-bold text-sm ps-2 pe-6 py-0 uppercase border-e"
+                    >
+                      {{ itemSelected.cargo?.nombre }}
+                    </td>
+                    <td class="font-semibold text-xs uppercase ps-6 pe-2 py-0">
+                      EDIFICIO :
+                    </td>
+                    <td class="font-bold text-sm px-2 py-0 uppercase">
+                      {{ itemSelected.sede?.nombre }}
+                    </td>
+                  </tr>
+                </tBody>
+              </table>
+            </div>
+          </ng-template>
+          <ng-template #header>
+            <tr>
+              <th rowspan="2">
+                <div class="text-center text-xs uppercase">Fecha</div>
+              </th>
+              <th colspan="2">
+                <div class="text-center text-xs uppercase">Horario</div>
+              </th>
+              <th colspan="2">
+                <div class="text-center text-xs uppercase">Marcación</div>
+              </th>
+              <th rowspan="2">
+                <div class="text-center text-xs uppercase">tardanza</div>
+              </th>
+              <th rowspan="2">
+                <div class="text-center text-xs uppercase">retiro temprano</div>
+              </th>
+              <th rowspan="2">
+                <div class="text-center text-xs uppercase">sobretiempo</div>
+              </th>
+            </tr>
+            <tr>
+              <th>
+                <div class="text-center text-xs uppercase">Entrada</div>
+              </th>
+              <th>
+                <div class="text-center text-xs uppercase">Salida</div>
+              </th>
+              <th *ngFor="let item of iconsMarcacion">
+                <div
+                  class="flex items-center justify-center text-center text-xs uppercase"
+                  [pTooltip]="item.label"
+                  tooltipPosition="top"
+                  tooltipStyleClass="text-xs"
+                >
+                  {{ item.label }}
+                </div>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template #body let-item let-i="rowIndex">
+            <tr>
+              <td>
+                <div class="text-center text-sm">
+                  {{ item.fecha | date : "dd MMM yyyy" | uppercase }}
+                </div>
+              </td>
+              <td class="!text-center !text-sm">
+                <div class="flex justify-center">
+                  <div
+                    [ngClass]="[
+                      'w-24 h-10 rounded-lg border flex items-center justify-center text-sm gap-1 py-1',
+                      item.horario.entrada
+                        ? 'bg-sky-300/50 border-sky-300/75 text-sky-700'
+                        : item.horario.diaDescanso
+                        ? 'bg-orange-50 border-orange-500 text-orange-700'
+                        : ''
+                    ]"
+                  >
+                    {{
+                      item.horario.entrada
+                        ? (item.horario.entrada | date : "HH:mm")
+                        : item.horario.diaDescanso
+                        ? "Descanso"
+                        : "--:--"
+                    }}
+                  </div>
+                </div>
+              </td>
+              <td class="!text-center !text-sm">
+                <div class="flex justify-center">
+                  <div
+                    [ngClass]="[
+                      'w-24 h-10 rounded-lg border flex items-center justify-center text-sm gap-1 py-1',
+                      item.horario.salida
+                        ? 'bg-sky-300/50 border-sky-300/75 text-sky-700'
+                        : item.horario.diaDescanso
+                        ? 'bg-orange-50 border-orange-500 text-orange-700'
+                        : ''
+                    ]"
+                  >
+                    {{
+                      item.horario.salida
+                        ? (item.horario.salida | date : "HH:mm")
+                        : item.horario.diaDescanso
+                        ? "Descanso"
+                        : "--:--"
+                    }}
+                  </div>
+                </div>
+              </td>
+              <td class="!text-center !text-sm">
+                <div class="flex justify-center">
+                  <div
+                    [ngClass]="[
+                      'w-24 h-10 rounded-lg flex items-center justify-center text-sm gap-1 py-1',
+                      item.codigo == 'F'
+                        ? 'bg-red-100 text-red-500 border border-red-500'
+                        : item.horario.diaDescanso
+                        ? item.asistencia.marcacionEntrada
+                          ? 'bg-green-100 text-green-500 border border-green-500'
+                          : 'bg-orange-50 text-orange-700 border border-orange-500'
+                        : 'bg-slate-300'
+                    ]"
+                  >
+                    {{
+                      item.asistencia.marcacionEntrada
+                        ? (item.asistencia.marcacionEntrada | date : "HH:mm")
+                        : item.codigo == "X"
+                        ? "Descanso"
+                        : item.codigo == "-"
+                        ? "Libre"
+                        : "--:--"
+                    }}
+                  </div>
+                </div>
+              </td>
+              <td class="!text-center !text-sm">
+                <div class="flex justify-center">
+                  <div
+                    [ngClass]="[
+                      'w-24 h-10 rounded-lg flex items-center justify-center text-sm gap-1 py-1',
+                      item.codigo == 'F'
+                        ? 'bg-red-100 text-red-500 border border-red-500'
+                        : item.horario.diaDescanso
+                        ? item.asistencia.marcacionSalida
+                          ? 'bg-green-100 text-green-500 border border-green-500'
+                          : 'bg-orange-50 text-orange-700 border border-orange-500'
+                        : 'bg-slate-300'
+                    ]"
+                  >
+                    {{
+                      item.asistencia.marcacionSalida
+                        ? (item.asistencia.marcacionSalida | date : "HH:mm")
+                        : item.codigo == "X"
+                        ? "Descanso"
+                        : item.codigo == "-"
+                        ? "Libre"
+                        : "--:--"
+                    }}
+                  </div>
+                </div>
+              </td>
+              <td class="!text-center !text-sm">
+                <div class="flex justify-center">
+                  <div
+                    [ngClass]="[
+                      'w-24 h-10 rounded-lg flex items-center justify-center text-sm gap-1 py-1',
+                      item.tardanza?.hora || item.tardanza?.minuto
+                        ? ' bg-red-500 text-slate-50 font-bold'
+                        : 'bg-slate-300'
+                    ]"
+                  >
+                    <ng-container
+                      *ngIf="
+                        item.tardanza?.hora || item.tardanza?.minuto;
+                        else elseTemplate
+                      "
+                    >
+                      <span>
+                        {{ item.tardanza?.hora | number : "2.0-0" }}:{{
+                          item.tardanza?.minuto | number : "2.0-0"
+                        }}
+                      </span>
+                    </ng-container>
+                    <ng-template #elseTemplate>
+                      <div class="text-xs">
+                        {{ item.codigo == "X" ? "Descanso" : "--:--" }}
+                      </div>
+                    </ng-template>
+                  </div>
+                </div>
+              </td>
+              <td class="!text-center !text-sm">
+                <div class="flex justify-center">
+                  <div
+                    [ngClass]="[
+                      'w-24 h-10 rounded-lg flex items-center justify-center text-sm gap-1 py-1',
+                      item.retiro?.hora || item.retiro?.minuto
+                        ? ' bg-red-500 text-slate-50 font-bold'
+                        : 'bg-slate-300'
+                    ]"
+                  >
+                    <ng-container
+                      *ngIf="
+                        item.retiro?.hora || item.retiro?.minuto;
+                        else elseTemplate
+                      "
+                    >
+                      <span>
+                        {{ item.retiro?.hora | number : "2.0-0" }}:{{
+                          item.retiro?.minuto | number : "2.0-0"
+                        }}
+                      </span>
+                    </ng-container>
+                    <ng-template #elseTemplate>
+                      <div class="text-xs">
+                        {{ item.codigo == "X" ? "Descanso" : "--:--" }}
+                      </div>
+                    </ng-template>
+                  </div>
+                </div>
+              </td>
+              <td class="!text-center !text-sm">
+                <div class="flex justify-center">
+                  <div
+                    [ngClass]="[
+                      'w-24 h-10 rounded-lg flex items-center justify-center text-sm gap-1 py-1',
+                      item.sobretiempo?.hora || item.sobretiempo?.minuto
+                        ? ' bg-green-600 text-slate-50 font-bold'
+                        : 'bg-slate-300'
+                    ]"
+                  >
+                    <ng-container
+                      *ngIf="
+                        item.sobretiempo?.hora || item.sobretiempo?.minuto;
+                        else elseTemplate
+                      "
+                    >
+                      <span>
+                        {{ item.sobretiempo?.hora | number : "2.0-0" }}:{{
+                          item.sobretiempo?.minuto | number : "2.0-0"
+                        }}
+                      </span>
+                    </ng-container>
+                    <ng-template #elseTemplate>
+                      <div class="text-xs">
+                        {{ item.codigo == "X" ? "Descanso" : "--:--" }}
+                      </div>
+                    </ng-template>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </ng-container>
+  </div>
+</div>

@@ -1,0 +1,191 @@
+<div class="flex flex-col gap-4">
+  <tr>
+    <td class="font-semibold text-xs uppercase px-2 py-0">TRABAJADOR :</td>
+    <td class="font-bold text-sm ps-2 pe-6 py-0 uppercase border-e">
+      {{ trabajador?.labelName }}
+    </td>
+    <td class="font-semibold text-xs uppercase ps-6 pe-2 py-0">CARGO :</td>
+    <td class="font-bold text-sm ps-2 pe-6 py-0 uppercase border-e">
+      {{ trabajador?.cargo?.nombre }}
+    </td>
+    <td class="font-semibold text-xs uppercase ps-6 pe-2 py-0">EDIFICIO :</td>
+    <td class="font-bold text-sm px-2 py-0 uppercase">
+      {{ trabajador?.sede?.nombre }}
+    </td>
+  </tr>
+  <div class="flex justify-center gap-4">
+    <td class="!text-center !text-sm px-2">
+      <div class="flex flex-col items-center justify-center h-full gap-1">
+        <div class="flex items-center">
+          <div class="uppercase">Fecha de trabajo</div>
+        </div>
+        <div class="flex justify-center text-sm font-bold">
+          {{ marcacion.fecha | date : "dd MMM yyyy" | uppercase }}
+        </div>
+      </div>
+    </td>
+    <td class="!text-center !text-sm px-2">
+      <div class="font-bold uppercase">Horario del día</div>
+      <div class="flex gap-2">
+        <div class="flex justify-center">
+          <div class="flex flex-col gap-0.5">
+            <div>Entrada</div>
+            <div
+              [ngClass]="[
+                'w-24 h-10 rounded-lg border flex items-center justify-center text-sm gap-1 py-1',
+                marcacion?.horario.entrada
+                  ? 'bg-sky-300/50 border-sky-300/75 text-sky-700'
+                  : marcacion?.horario.diaDescanso
+                  ? 'bg-orange-50 border-orange-500 text-orange-700'
+                  : ''
+              ]"
+            >
+              {{
+                marcacion?.horario.entrada
+                  ? (marcacion?.horario.entrada | date : "HH:mm")
+                  : marcacion?.horario.diaDescanso
+                  ? "Descanso"
+                  : "--:--"
+              }}
+            </div>
+          </div>
+        </div>
+        <div class="flex justify-center">
+          <div class="flex flex-col gap-0.5">
+            <div>Salida</div>
+            <div
+              [ngClass]="[
+                'w-24 h-10 rounded-lg border flex items-center justify-center text-sm gap-1 py-1',
+                marcacion?.horario.salida
+                  ? 'bg-sky-300/50 border-sky-300/75 text-sky-700'
+                  : marcacion?.horario.diaDescanso
+                  ? 'bg-orange-50 border-orange-500 text-orange-700'
+                  : ''
+              ]"
+            >
+              {{
+                marcacion?.horario.salida
+                  ? (marcacion?.horario.salida | date : "HH:mm")
+                  : marcacion?.horario.diaDescanso
+                  ? "Descanso"
+                  : "--:--"
+              }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </td>
+    <td class="!text-center !text-sm px-2">
+      <div class="font-bold uppercase">Marcación del día</div>
+      <div class="flex gap-2">
+        <div class="flex justify-center">
+          <div class="flex flex-col gap-0.5">
+            <div>Entrada</div>
+            <div
+              [ngClass]="[
+                'w-24 h-10 rounded-lg flex items-center justify-center text-sm gap-1 py-1',
+                marcacion?.codigo == 'F'
+                  ? 'bg-red-100 text-red-500 border border-red-500'
+                  : marcacion?.horario.diaDescanso
+                  ? marcacion?.asistencia.marcacionEntrada
+                    ? 'bg-green-100 text-green-500 border border-green-500'
+                    : 'bg-orange-50 text-orange-700 border border-orange-500'
+                  : 'bg-slate-300'
+              ]"
+            >
+              {{
+                marcacion?.asistencia.marcacionEntrada
+                  ? (marcacion?.asistencia.marcacionEntrada | date : "HH:mm")
+                  : marcacion?.codigo == "X"
+                  ? "Descanso"
+                  : marcacion?.codigo == "-"
+                  ? "Libre"
+                  : "--:--"
+              }}
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-center">
+          <div class="flex flex-col gap-0.5">
+            <div>Salida</div>
+            <div
+              [ngClass]="[
+                'w-24 h-10 rounded-lg flex items-center justify-center text-sm gap-1 py-1',
+                marcacion?.codigo == 'F'
+                  ? 'bg-red-100 text-red-500 border border-red-500'
+                  : marcacion?.horario.diaDescanso
+                  ? marcacion?.asistencia.marcacionSalida
+                    ? 'bg-green-100 text-green-500 border border-green-500'
+                    : 'bg-orange-50 text-orange-700 border border-orange-500'
+                  : 'bg-slate-300'
+              ]"
+            >
+              {{
+                marcacion?.asistencia.marcacionSalida
+                  ? (marcacion?.asistencia.marcacionSalida | date : "HH:mm")
+                  : marcacion?.codigo == "X"
+                  ? "Descanso"
+                  : marcacion?.codigo == "-"
+                  ? "Libre"
+                  : "--:--"
+              }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </td>
+  </div>
+  <div class="flex justify-end">
+    <tr>
+      <td>
+        <div class="flex gap-1">
+          <div
+            class="flex items-center font-semibold text-xs uppercase px-2 py-0"
+          >
+            Edificio :
+          </div>
+          <div
+            class="flex items-center hover:ring-2 p-1"
+            (click)="centrarEdificio()"
+          >
+            <img width="20" height="20" src="/house.png" alt="" />
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="flex gap-1">
+          <div
+            class="flex items-center font-semibold text-xs uppercase px-2 py-0"
+          >
+            Entrada :
+          </div>
+          <div
+            class="flex items-center hover:ring-2 p-1"
+            (click)="centrarEntrada()"
+          >
+            <img width="20" height="20" src="/gps-green.png" alt="" />
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="flex gap-1">
+          <div
+            class="flex items-center font-semibold text-xs uppercase px-2 py-0"
+          >
+            Salida :
+          </div>
+          <div
+            class="flex items-center hover:ring-2 p-1"
+            (click)="centrarSalida()"
+          >
+            <img width="20" height="20" src="/gps-red.png" alt="" />
+          </div>
+        </div>
+      </td>
+    </tr>
+  </div>
+  <div class="w-full border border-slate-300 rounded-md overflow-hidden">
+    <div id="map" class="h-105 min-h-105"></div>
+  </div>
+</div>

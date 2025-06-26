@@ -1,0 +1,118 @@
+import { CommonModule } from '@angular/common';
+import { Component, inject, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Cargo } from '@models/cargo.model';
+import { Sede } from '@models/sede.model';
+import { AsistenciaUsuarioService } from '@services/asistencia-usuario.service';
+import { SedeService } from '@services/sede.service';
+import { ButtonModule } from 'primeng/button';
+import { DatePickerModule } from 'primeng/datepicker';
+import { DialogService } from 'primeng/dynamicdialog';
+import { IconField } from 'primeng/iconfield';
+import { InputIcon } from 'primeng/inputicon';
+import { InputTextModule } from 'primeng/inputtext';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { TableModule } from 'primeng/table';
+import { forkJoin, mergeMap } from 'rxjs';
+import { DetalleVisitaComponent } from './detalle-visita/detalle-visita.component';
+import { TitleCardComponent } from '@components/title-card/title-card.component';
+
+@Component({
+  selector: 'app-visitas-supervisores',
+  imports: [
+    CommonModule,
+    ButtonModule,
+    DatePickerModule,
+    MultiSelectModule,
+    FormsModule,
+    InputIcon,
+    IconField,
+    InputTextModule,
+    TableModule,
+    TitleCardComponent,
+  ],
+  templateUrl: './visitas-supervisores.component.html',
+  styles: ``,
+})
+export class VisitasSupervisoresComponent implements OnInit {
+  title: string = 'Visitas de supervisores';
+
+  icon: string = 'material-symbols:supervised-user-circle-outline';
+
+  private readonly dialogService = inject(DialogService);
+
+  private readonly sedeService = inject(SedeService);
+
+  private readonly asistenciaUsuarioService = inject(AsistenciaUsuarioService);
+
+  fechaSelected!: Date;
+
+  listaSedes: Sede[] = [];
+
+  selectedSedes: string[] = [];
+
+  listaCargos: Cargo[] = [];
+
+  selectedCargos: string[] = [];
+  dataTable: any[] = [];
+  listaVisitasMensual: any[] = [];
+
+  ngOnInit(): void {
+    this.fechaSelected = new Date('2025/06/01');
+    this.cargarAsistencia();
+  }
+
+  cambiarFecha(event: Date) {
+    this.cargarAsistencia();
+  }
+
+  cargarAsistencia() {
+    this.sedeService
+      .findAll()
+      .pipe(
+        mergeMap((data) => {
+          this.listaSedes = data;
+          this.selectedSedes = this.listaSedes.map((item) => item.id);
+          return this.asistenciaUsuarioService.findAllByMonth(
+            this.fechaSelected
+          );
+        })
+      )
+      .subscribe({
+        next: (data) => {
+          this.listaVisitasMensual = data.map((d) => {
+            d.fechaGroup = d.fecha.toString();
+            d.usuario = {
+              ...d.usuario,
+              labelName: `${d.usuario?.nombre} ${d.usuario?.apellido}`,
+            };
+            return d;
+          });
+          this.filtrar();
+        },
+      });
+  }
+
+  filtrar(event?: number) {
+    this.dataTable = this.listaVisitasMensual.filter((t) => {
+      return this.selectedSedes.includes(t.dispositivo?.sede?.id);
+    });
+  }
+
+  filterGlobal(dt: any, target: EventTarget | null) {
+    dt.filterGlobal((target as HTMLInputElement).value, 'contains');
+  }
+
+  verDetalle(item: any) {
+    console.log(item);
+
+    this.dialogService.open(DetalleVisitaComponent, {
+      header: 'Detalle de visita',
+      styleClass: 'modal-4xl',
+      data: item,
+      modal: true,
+      dismissableMask: true,
+      closable: true,
+    });
+  }
+}

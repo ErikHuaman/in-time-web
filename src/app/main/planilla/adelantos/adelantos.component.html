@@ -1,0 +1,172 @@
+<div class="flex flex-col h-full">
+  <div class="flex flex-col justify-center gap-4 px-6 py-4">
+    <div class="flex justify-between items-center gap-4">
+      <title-card [title]="title" [icon]="icon" />
+    </div>
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <p-datepicker
+          id="fechaInicio"
+          view="month"
+          dateFormat="MM yy"
+          placeholder="Seleccionar mes"
+          [(ngModel)]="fechaSelected"
+          [readonlyInput]="true"
+          showIcon
+          iconDisplay="input"
+          styleClass="w-44"
+          appendTo="body"
+          pTooltip="Mes"
+          tooltipPosition="top"
+          tooltipStyleClass="text-sm"
+        />
+        <p-multiselect
+          [options]="listaSedes"
+          [(ngModel)]="selectedSedes"
+          optionLabel="nombre"
+          optionValue="id"
+          placeholder="Edificios"
+          [maxSelectedLabels]="2"
+          (onChange)="filtrar($event.value)"
+          styleClass="w-42"
+          pTooltip="Edificios"
+          tooltipPosition="top"
+          tooltipStyleClass="text-sm"
+        />
+        <p-multiselect
+          [options]="listaCargos"
+          [(ngModel)]="selectedCargos"
+          optionLabel="nombre"
+          optionValue="id"
+          placeholder="Cargos"
+          [maxSelectedLabels]="2"
+          (onChange)="filtrar($event.value)"
+          styleClass="w-42"
+          pTooltip="Cargos"
+          tooltipPosition="top"
+          tooltipStyleClass="text-sm"
+        />
+        <p-iconfield>
+          <p-inputicon styleClass="pi pi-search" />
+          <input
+            type="text"
+            pInputText
+            placeholder="Buscar"
+            (input)="filterGlobal(dt1, $event.target)"
+          />
+        </p-iconfield>
+      </div>
+      <div class="flex items-center gap-3">
+        <p-button severity="info" size="small">
+          <div class="flex justify-center items-center font-medium gap-1">
+            <i
+              class="iconify icon text-lg"
+              data-icon="material-symbols:download-rounded"
+              data-inline="false"
+            ></i>
+            <div>XLS</div>
+          </div>
+        </p-button>
+        <p-button severity="info" size="small" (click)="addNew()">
+          <div class="flex justify-center items-center font-medium gap-1">
+            <i
+              class="iconify icon text-lg"
+              data-icon="material-symbols:add-rounded"
+              data-inline="false"
+            ></i>
+            <div>AGREGAR</div>
+          </div>
+        </p-button>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-col h-[calc(100% - 8.5rem)] px-6">
+    <p-table
+      #dt1
+      [columns]="cols"
+      [value]="dataTable"
+      stripedRows
+      [scrollable]="true"
+      [exportHeader]="'customExportHeader'"
+      scrollHeight="720px"
+      styleClass="w-full"
+      [globalFilterFields]="['nombre', 'apellido']"
+      exportFilename="adelantos"
+    >
+    <ng-template #header let-columns>
+      <tr>
+        <th
+          *ngFor="let col of columns"
+          [ngClass]="[col.widthClass ? col.widthClass : '']"
+        >
+          <div
+            [ngClass]="[
+              'text-xs uppercase',
+              col.align ? 'text-' + col.align : 'text-start'
+            ]"
+          >
+            {{ col.header }}
+          </div>
+        </th>
+      </tr>
+    </ng-template>
+      <ng-template #body let-item>
+        <tr (click)="edit(item)" class="hover:!bg-slate-200 cursor-pointer">
+          <td>
+            <div class="text-center text-sm">{{ item.orden }}</div>
+          </td>
+          <td>
+            <div class="text-start text-sm">{{ item.trabajador?.nombre }}</div>
+          </td>
+          <td>
+            <div class="text-start text-sm">
+              {{ item.trabajador?.apellido }}
+            </div>
+          </td>
+          <td>
+            <div class="text-center text-sm">{{ item.sede?.nombre }}</div>
+          </td>
+          <td>
+            <div class="text-center text-sm">{{ item.cargo?.nombre }}</div>
+          </td>
+          <td>
+            <div class="text-center text-sm">{{ item.montoAdelanto | currency }}</div>
+          </td>
+          <td>
+            <div class="text-center text-sm">{{ item.cuotasDescuento }}</div>
+          </td>
+          <td>
+            <div class="text-center text-sm">
+              {{ item.fechaAdelanto | date : "dd MMM yyyy" | uppercase }}
+            </div>
+          </td>
+          <td>
+            <div class="text-center text-sm">
+              {{ item.fechaDescuento | date : "dd MMM yyyy" | uppercase }}
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template #emptymessage>
+        <ng-container *ngIf="loadingTable; else elseTemplate">
+          @for (item of [].constructor(4); track $index) {
+          <tr class="h-12">
+            <td *ngFor="let col of cols; let even = even">
+              <p-skeleton />
+            </td>
+          </tr>
+          }
+        </ng-container>
+        <ng-template #elseTemplate>
+          <tr>
+            <td colspan="100">
+              <div class="text-center text-sm font-extralight">
+                No se encontraron registros.
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
