@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '@environments/environments';
 import { GrupoModulo } from '@models/grupo-modulo.model';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +13,11 @@ export class GrupoModuloService {
   private readonly http = inject(HttpClient);
 
   findAll(filter: boolean = true): Observable<GrupoModulo[]> {
-    return this.http.get<GrupoModulo[]>(`${this.url}?filter=${filter}`);
+    // return this.http.get<GrupoModulo[]>(`${this.url}?filter=${filter}`);
+    return this.http.get<any>(this.url).pipe(
+      map((data: any) => data.data),
+      map((data: GrupoModulo[]) => data)
+    );
   }
 
   findAllPermisos(): Observable<GrupoModulo[]> {
@@ -29,7 +33,7 @@ export class GrupoModuloService {
   }
 
   update(id: string, dto: GrupoModulo): Observable<GrupoModulo> {
-    return this.http.put<GrupoModulo>(`${this.url}/${id}`, dto);
+    return this.http.patch<GrupoModulo>(`${this.url}/${id}`, dto);
   }
 
   changeStatus(id: string, isActive: boolean): Observable<any> {

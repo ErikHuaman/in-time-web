@@ -28,6 +28,6 @@ export class BloqueHorasService {
   }
 
   update(id: string, dto: BloqueHoras): Observable<BloqueHoras> {
-    return this.http.put<BloqueHoras>(`${this.url}/${id}`, dto);
+    return this.http.patch<BloqueHoras>(`${this.url}/${id}`, dto);
   }
 }

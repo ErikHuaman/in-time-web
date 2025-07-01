@@ -28,6 +28,9 @@ import { InputOtpModule } from 'primeng/inputotp';
 import { ReemplaceroService } from '@services/reemplacero.service';
 import { Reemplacero } from '@models/reemplacero.model';
 import { FormReemplazoComponent } from '../form-reemplazo/form-reemplazo.component';
+import { TrabajadorStore } from '@stores/trabajador.store';
+import { sanitizedForm } from '@functions/forms.function';
+import { ReemplazoHorario } from '@models/reemplazo-horario.model';
 
 @Component({
   selector: 'app-form-asignar-reemplazo',
@@ -57,13 +60,23 @@ export class FormAsignarReemplazoComponent implements OnInit {
 
   private readonly msg = inject(MessageGlobalService);
 
-  private readonly trabajadorService = inject(TrabajadorService);
+  private readonly trabajadorStore = inject(TrabajadorStore);
 
   private readonly reemplaceroService = inject(ReemplaceroService);
 
   private readonly reemplazoHorarioService = inject(ReemplazoHorarioService);
 
-  listaTrabajadores: Trabajador[] = [];
+  get listaTrabajadores(): Trabajador[] {
+    return this.trabajadorStore
+      .items()
+      .filter(
+        (item) => item.contratos.filter((c) => c.cargo.isEditable).length != 0
+      )
+      .map((item) => {
+        item.labelName = `${item.identificacion} | ${item.nombre} ${item.apellido}`;
+        return item;
+      });
+  }
   listaReemplaceros: Reemplacero[] = [];
   selectedReemplazo?: Reemplacero;
   listaSedes: Sede[] = [];
@@ -121,24 +134,21 @@ export class FormAsignarReemplazoComponent implements OnInit {
     this.reemplaceroService.findAll().subscribe({
       next: (data) => {
         this.listaReemplaceros = data;
+        if (this.formData.get('idReemplacero')?.value) {
+          this.selectedReemplazo = this.listaReemplaceros.find(
+            (item) => item.id === this.formData.get('idReemplacero')?.value
+          );
+        }
       },
     });
   }
 
   cargarTrabajadoresActivos() {
-    this.trabajadorService.findAllActivos().subscribe({
-      next: (data) => {
-        this.listaTrabajadores = data
-          .filter(
-            (item) =>
-              item.contratos.filter((c) => c.cargo.isEditable).length != 0
-          )
-          .map((item) => {
-            item.labelName = `${item.identificacion} | ${item.nombre} ${item.apellido}`;
-            return item;
-          });
-      },
-    });
+    const q: Record<string, any> = {
+      filter: false,
+      isActive: true,
+    };
+    this.trabajadorStore.loadAll(undefined, undefined, q);
   }
 
   nuevoReemplazo() {
@@ -146,7 +156,7 @@ export class FormAsignarReemplazoComponent implements OnInit {
       header: 'Nuevo reemplazero',
       styleClass: 'modal-sm',
       modal: true,
-      dismissableMask: true,
+      dismissableMask: false,
       closable: true,
     });
 
@@ -157,12 +167,12 @@ export class FormAsignarReemplazoComponent implements OnInit {
     });
   }
 
-  selectReemplacero(event: any){
-    this.formData.get('idReemplacero')?.setValue(this.selectedReemplazo?.id)
+  selectReemplacero(event: any) {
+    this.formData.get('idReemplacero')?.setValue(this.selectedReemplazo?.id);
   }
 
   guardar() {
-    const form = this.formData.value;
+    const form: ReemplazoHorario = sanitizedForm(this.formData.getRawValue());
     if (!this.id) {
       this.reemplazoHorarioService.create(form).subscribe({
         next: (data) => {

@@ -43,9 +43,9 @@ export class PatronesHorarioComponent {
     this.dialogService.open(FormNewPatternComponent, {
       header: 'Nuevo patrón',
       styleClass: 'modal-xl',
-      position: 'top',
+      position: 'center',
       modal: true,
-      dismissableMask: true,
+      dismissableMask: false,
       closable: true,
     });
   }
@@ -54,9 +54,9 @@ export class PatronesHorarioComponent {
     this.dialogService.open(FormNewPatternComponent, {
       header: 'Editar patrón',
       styleClass: 'modal-xl',
-      position: 'top',
+      position: 'center',
       modal: true,
-      dismissableMask: true,
+      dismissableMask: false,
       closable: true,
     });
   }

@@ -108,6 +108,10 @@
   @apply !bg-slate-100 !border !border-slate-50 !py-2;
 }
 
+.p-datatable-tfoot > tr > td {
+  @apply !border-b-0 !py-2;
+}
+
 .cal-cell-row.cal-header {
   @apply capitalize font-medium border-s border-slate-200;
 }
@@ -120,10 +124,10 @@
   @apply !w-8 !h-8;
 }
 
-.p-tab{
+.p-tab {
   @apply !py-1;
 }
 
-.p-tab-active{
+.p-tab-active {
   @apply !bg-sky-700 !text-slate-50 !rounded-t-md;
 }

@@ -1,3 +1,5 @@
+import { Trabajador } from './trabajador.model';
+
 export interface Adelanto {
   id?: string;
   idSede?: string;
@@ -7,4 +9,5 @@ export interface Adelanto {
   cuotasDescuento?: number;
   fechaAdelanto?: Date;
   fechaDescuento?: Date;
+  trabajador?: Trabajador;
 }

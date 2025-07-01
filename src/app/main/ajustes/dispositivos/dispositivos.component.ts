@@ -42,7 +42,7 @@ export class DispositivosComponent implements OnInit {
       header: 'Nuevo dispositivo',
       styleClass: 'modal-md',
       modal: true,
-      dismissableMask: true,
+      dismissableMask: false,
       closable: true,
     });
 
@@ -59,7 +59,7 @@ export class DispositivosComponent implements OnInit {
       styleClass: 'modal-md',
       data: { id },
       modal: true,
-      dismissableMask: true,
+      dismissableMask: false,
       closable: true,
     });
 

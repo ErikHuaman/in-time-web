@@ -27,7 +27,7 @@ export interface Trabajador {
   asistencia: any[];
 
   labelName?: string;
-  inactivaciones?: InactivacionTrabajador[];
+  inactivaciones: InactivacionTrabajador[];
 }
 
 export interface ContratoTrabajador {

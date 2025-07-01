@@ -7,6 +7,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { sanitizedForm } from '@functions/forms.function';
 import { Dispositivo } from '@models/dispositivo.model';
 import { Sede } from '@models/sede.model';
 import { DispositivoService } from '@services/dispositivo.service';
@@ -29,7 +30,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
     InputTextModule,
     ButtonModule,
     CheckboxModule,
-    ToggleSwitchModule
+    ToggleSwitchModule,
   ],
   templateUrl: './form-dispositivo.component.html',
   styles: ``,
@@ -59,10 +60,10 @@ export class FormDispositivoComponent implements OnInit {
       validators: [Validators.required],
     }),
     idSede: new FormControl<string | undefined>(undefined, {
-      nonNullable: false,
+      nonNullable: true,
     }),
     isActive: new FormControl<boolean>(true, {
-      nonNullable: false,
+      nonNullable: true,
     }),
   });
 
@@ -89,7 +90,7 @@ export class FormDispositivoComponent implements OnInit {
         this.formData.get('nombre')?.setValue(data.nombre);
         this.formData.get('codigo')?.setValue(data.codigo);
         this.formData.get('idSede')?.setValue(data.id);
-        this.formData.get('isActive')?.setValue(data.isActive);
+        this.formData.get('isActive')?.setValue(data.isActive!);
       },
     });
   }
@@ -99,9 +100,9 @@ export class FormDispositivoComponent implements OnInit {
   }
 
   guardar() {
-    const form = this.formData.value;
+    const form: Dispositivo = sanitizedForm(this.formData.getRawValue());
     if (!this.id) {
-      this.dispositivoService.create(form as Dispositivo).subscribe({
+      this.dispositivoService.create(form).subscribe({
         next: (data) => {
           this.msg.success('¡Registrado con éxito!');
           this.ref.close(data);
@@ -111,7 +112,7 @@ export class FormDispositivoComponent implements OnInit {
         },
       });
     } else {
-      this.dispositivoService.update(this.id, form as Dispositivo).subscribe({
+      this.dispositivoService.update(this.id, form).subscribe({
         next: (data) => {
           this.msg.success('¡Actualizado con éxito!');
           this.ref.close(data);

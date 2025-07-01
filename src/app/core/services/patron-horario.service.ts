@@ -28,6 +28,6 @@ export class PatronHorarioService {
   }
 
   update(id: string, dto: PatronHorario): Observable<PatronHorario> {
-    return this.http.put<PatronHorario>(`${this.url}/${id}`, dto);
+    return this.http.patch<PatronHorario>(`${this.url}/${id}`, dto);
   }
 }

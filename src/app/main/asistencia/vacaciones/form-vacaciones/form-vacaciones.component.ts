@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, effect, inject, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import {
   DialogService,
@@ -27,6 +27,12 @@ import { Sede } from '@models/sede.model';
 import { Cargo } from '@models/cargo.model';
 import { VacacionService } from '@services/vacacion.service';
 import { MessageGlobalService } from '@services/message-global.service';
+import { TrabajadorStore } from '@stores/trabajador.store';
+import { CargoStore } from '@stores/cargo.store';
+import { SedeStore } from '@stores/sede.store';
+import { sanitizedForm } from '@functions/forms.function';
+import { Vacacion } from '@models/vacacion.model';
+import { diferenciaDias } from '@functions/fecha.function';
 
 @Component({
   selector: 'app-form-vacaciones',
@@ -50,20 +56,52 @@ export class FormVacacionesComponent implements OnInit {
 
   private readonly dialogService: DialogService = inject(DialogService);
 
-  private readonly cargoService = inject(CargoService);
+  private readonly cargoStore = inject(CargoStore);
 
-  private readonly sedeService = inject(SedeService);
+  private readonly sedeStore = inject(SedeStore);
 
-  private readonly trabajadorService = inject(TrabajadorService);
+  private readonly trabajadorStore = inject(TrabajadorStore);
 
   private readonly vacacionService = inject(VacacionService);
 
   private readonly msg = inject(MessageGlobalService);
+  diasUtiles: number = 15;
 
-  listaTrabajadores: Trabajador[] = [];
+  get listaTrabajadores(): Trabajador[] {
+    return this.trabajadorStore.items().map((item) => {
+      item.labelName = `${item.identificacion} | ${item.nombre} ${item.apellido}`;
+      return item;
+    });
+  }
   listaTrabajadoresFiltrados: Trabajador[] = [];
-  listaSedes: Sede[] = [];
-  listaCargos: Cargo[] = [];
+  get listaCargos(): Cargo[] {
+    return this.cargoStore.items();
+  }
+
+  get listaSedes(): Sede[] {
+    return this.sedeStore.items();
+  }
+
+  private sedesEffect = effect(() => {
+    const sedes = this.sedeStore.items();
+    if (sedes) {
+      this.filtrar();
+    }
+  });
+
+  private cargosEffect = effect(() => {
+    const cargos = this.cargoStore.items();
+    if (cargos) {
+      this.filtrar();
+    }
+  });
+
+  private trabajadoresEffect = effect(() => {
+    const sedes = this.trabajadorStore.items();
+    if (sedes) {
+      this.filtrar();
+    }
+  });
 
   formData = new FormGroup({
     idSede: new FormControl<string | undefined>(undefined, {
@@ -108,50 +146,42 @@ export class FormVacacionesComponent implements OnInit {
 
     if (instance.data) {
       this.id = instance.data['id'];
-      this.formData.controls['idSede'].setValue(instance.data['idSede']);
-      this.formData.controls['idCargo'].setValue(instance.data['idCargo']);
-      this.formData.controls['idTrabajador'].setValue(
-        instance.data['idTrabajador']
-      );
-      this.formData.controls['fechaInicio'].setValue(
-        new Date(instance.data['fechaInicio'])
-      );
-      this.formData.controls['fechaFin'].setValue(
-        new Date(instance.data['fechaFin'])
-      );
+      this.formData.get('idSede')!.setValue(instance.data['idSede']);
+      this.formData.get('idCargo')!.setValue(instance.data['idCargo']);
+      this.formData
+        .get('idTrabajador')!
+        .setValue(instance.data['idTrabajador']);
+      this.diasUtiles =
+        instance.data['diasDisponibles'] +
+        diferenciaDias(
+          new Date(instance.data['fechaInicio']),
+          new Date(instance.data['fechaFin'])
+        ) + 1;
+      this.formData.get('diasDisponibles')!.setValue(this.diasUtiles);
+      this.formData
+        .get('diasUtilizados')!
+        .setValue(instance.data['diasUtilizados']);
+      this.formData
+        .get('fechaInicio')!
+        .setValue(new Date(instance.data['fechaInicio']));
+      this.formData
+        .get('fechaFin')!
+        .setValue(new Date(instance.data['fechaFin']));
+
+      this.selectFechaInicio();
     }
 
-    this.cargarSedes();
-    this.cargarCargos();
+    this.sedeStore.loadAll();
+    this.cargoStore.loadAll();
     this.cargarTrabajadoresActivos();
   }
 
-  cargarSedes() {
-    this.sedeService.findAll().subscribe({
-      next: (data) => {
-        this.listaSedes = data;
-      },
-    });
-  }
-
-  cargarCargos() {
-    this.cargoService.findAll().subscribe({
-      next: (data) => {
-        this.listaCargos = data;
-      },
-    });
-  }
-
   cargarTrabajadoresActivos() {
-    // this.trabajadorService.findAllActivos().subscribe({
-    //   next: (data) => {
-    //     this.listaTrabajadores = data.map((item) => {
-    //       item.labelName = `${item.identificacion} | ${item.nombre} ${item.apellido}`;
-    //       return item;
-    //     });
-    //     this.filtrar();
-    //   },
-    // });
+    const q: Record<string, any> = {
+      filter: false,
+      isActive: true,
+    };
+    this.trabajadorStore.loadAll(undefined, undefined, q);
   }
 
   filtrar(event?: any) {
@@ -159,25 +189,28 @@ export class FormVacacionesComponent implements OnInit {
       (item) =>
         item.sedes
           .map((s) => s.id)
-          .includes(this.formData.get('idSede')?.value as string) &&
-        item.contratos[0].idCargo === this.formData.get('idCargo')?.value
+          .includes(this.formData.get('idSede')!.value as string) &&
+        item.contratos[0].idCargo === this.formData.get('idCargo')!.value
     );
   }
 
-  selectFechaInicio(event: any) {
-    this.formData.get('fechaFin')?.enable();
-    this.minDate = this.formData.get('fechaInicio')?.value as Date;
+  selectFechaInicio(event?: any) {
+    this.minDate = this.formData.get('fechaInicio')!.value as Date;
     this.maxDate = new Date(this.minDate);
-
-    this.maxDate.setDate(this.maxDate.getDate() + 15);
+    this.maxDate.setDate(this.maxDate.getDate() + this.diasUtiles - 1);
+    this.formData.get('fechaFin')!.enable();
+    if (event) {
+      this.formData.get('fechaFin')!.setValue(undefined);
+    }
   }
 
   selectFechaFin(event: any) {
-    const fin = this.formData.get('fechaFin')?.value as Date;
-    const inicio = this.formData.get('fechaInicio')?.value as Date;
-    const diferenciaEnMilisegundos = fin.getTime() - inicio.getTime();
-    const diferenciaEnDias = diferenciaEnMilisegundos / (1000 * 60 * 60 * 24);
-    this.formData.get('diasUtilizados')?.setValue(diferenciaEnDias);
+    const diferenciaEnDias =
+      diferenciaDias(
+        this.formData.get('fechaInicio')!.value!,
+        this.formData.get('fechaFin')!.value!
+      ) + 1;
+    this.formData.get('diasUtilizados')!.setValue(diferenciaEnDias);
   }
 
   onUpload(event: any) {
@@ -186,7 +219,7 @@ export class FormVacacionesComponent implements OnInit {
   }
 
   guardar() {
-    const form = this.formData.value;
+    const form: Vacacion = sanitizedForm(this.formData.getRawValue());
     if (!this.id) {
       this.vacacionService
         .create({
@@ -209,8 +242,7 @@ export class FormVacacionesComponent implements OnInit {
         .update(this.id, {
           ...form,
           diasUtilizados: form.diasUtilizados,
-          diasDisponibles:
-            (form.diasDisponibles as number) - (form.diasUtilizados as number),
+          diasDisponibles: this.diasUtiles - (form.diasUtilizados as number),
         })
         .subscribe({
           next: (data) => {

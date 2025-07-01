@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, effect, inject, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { FieldsetModule } from 'primeng/fieldset';
@@ -26,6 +26,8 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { CheckboxModule } from 'primeng/checkbox';
 import { TooltipModule } from 'primeng/tooltip';
 import { InputOtpModule } from 'primeng/inputotp';
+import { TrabajadorStore } from '@stores/trabajador.store';
+import { sanitizedForm } from '@functions/forms.function';
 
 @Component({
   selector: 'app-form-permiso',
@@ -58,11 +60,17 @@ export class FormPermisoComponent implements OnInit {
 
   private readonly sedeService = inject(SedeService);
 
-  private readonly trabajadorService = inject(TrabajadorService);
+  private readonly trabajadorStore = inject(TrabajadorStore);
 
   private readonly permisoService = inject(PermisoTrabajadorService);
 
-  listaTrabajadores: Trabajador[] = [];
+  get listaTrabajadores(): Trabajador[] {
+    return this.trabajadorStore.items().map((item) => {
+      item.labelName = `${item.identificacion} | ${item.nombre} ${item.apellido}`;
+      return item;
+    });
+  }
+
   listaTrabajadoresFiltrados: Trabajador[] = [];
   listaSedes: Sede[] = [];
   listaCargos: Cargo[] = [];
@@ -110,34 +118,46 @@ export class FormPermisoComponent implements OnInit {
   archivo?: File;
   filename!: string;
 
-  ngOnInit(): void {
-    const instance = this.dialogService.getInstance(this.ref);
+  private resetOnSuccessEffect = effect(() => {
+    const items = this.trabajadorStore.items();
 
-    if (instance.data) {
-      this.id = instance.data['id'];
-      this.formData.controls['idSede'].setValue(instance.data['idSede']);
-      this.formData.controls['idCargo'].setValue(instance.data['idCargo']);
-      this.formData.controls['idTrabajador'].setValue(
-        instance.data['idTrabajador']
-      );
+    // Manejo de errores
+    if (items) {
+      this.filtrar();
+    }
+  });
+
+  ngOnInit(): void {
+    this.cargarTrabajadoresActivos();
+    const instance = this.dialogService.getInstance(this.ref);
+    const data = instance.data;
+    if (data) {
+      this.id = data['id'];
+      this.formData.controls['idSede'].setValue(data['idSede']);
+      this.formData.controls['idCargo'].setValue(data['idCargo']);
+      this.formData.controls['idTrabajador'].setValue(data['idTrabajador']);
       this.formData.controls['fechaInicio'].setValue(
-        new Date(instance.data['fechaInicio'])
+        new Date(data['fechaInicio'])
       );
-      this.formData.controls['fechaFin'].setValue(
-        new Date(instance.data['fechaFin'])
-      );
-      this.formData.controls['nota'].setValue(instance.data['nota']);
+      this.formData.controls['fechaFin'].setValue(new Date(data['fechaFin']));
+      this.formData.controls['nota'].setValue(data['nota']);
+      this.formData.controls['conGoce'].setValue(data['conGoce']);
+      this.formData.controls['incluirExtra'].setValue(data['incluirExtra']);
+
+      if (data['conGoce']) {
+        this.formData.controls['incluirExtra'].enable();
+      }
     }
 
     this.cargarSedes();
     this.cargarCargos();
-    this.cargarTrabajadoresActivos();
   }
 
   cargarSedes() {
     this.sedeService.findAll().subscribe({
       next: (data) => {
         this.listaSedes = data;
+        this.filtrar();
       },
     });
   }
@@ -146,27 +166,25 @@ export class FormPermisoComponent implements OnInit {
     this.cargoService.findAll().subscribe({
       next: (data) => {
         this.listaCargos = data;
+        this.filtrar();
       },
     });
   }
 
   cargarTrabajadoresActivos() {
-    // this.trabajadorService.findAllActivos().subscribe({
-    //   next: (data) => {
-    //     this.listaTrabajadores = data.map((item) => {
-    //       item.labelName = `${item.identificacion} | ${item.nombre} ${item.apellido}`;
-    //       return item;
-    //     });
-    //     this.filtrar(null);
-    //   },
-    // });
+    const q: Record<string, any> = {
+      filter: false,
+      isActive: true,
+    };
+    this.trabajadorStore.loadAll(undefined, undefined, q);
   }
 
-  filtrar(event: any) {
+  filtrar(event?: any) {
     this.listaTrabajadoresFiltrados = this.listaTrabajadores.filter(
       (item) =>
-        item.sedes[0]?.id ===
-          this.formData.get('idSede')?.value &&
+        item.sedes
+          .map((sede) => sede.id)
+          .includes(this.formData.get('idSede')?.value!) &&
         item.contratos[0].idCargo === this.formData.get('idCargo')?.value
     );
   }
@@ -191,17 +209,19 @@ export class FormPermisoComponent implements OnInit {
   }
 
   guardar() {
-    const form = this.formData.value;
+    const form = sanitizedForm(this.formData.getRawValue());
     if (!this.id) {
-      this.permisoService.create({ ...form, archivo: this.archivo }).subscribe({
-        next: (data) => {
-          this.msg.success('¡Registrado con éxito!');
-          this.ref.close(data);
-        },
-        error: (e) => {
-          this.msg.error(e.error.message);
-        },
-      });
+      this.permisoService
+        .create({ ...form }, { file: this.archivo })
+        .subscribe({
+          next: (data) => {
+            this.msg.success('¡Registrado con éxito!');
+            this.ref.close(data);
+          },
+          error: (e) => {
+            this.msg.error(e.error.message);
+          },
+        });
     } else {
       this.permisoService.update(this.id, form).subscribe({
         next: (data) => {

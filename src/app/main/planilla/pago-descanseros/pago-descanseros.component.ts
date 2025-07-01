@@ -1,14 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, effect, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ButtonCustomComponent } from '@components/buttons/button-custom/button-custom.component';
 import { TitleCardComponent } from '@components/title-card/title-card.component';
 import { Cargo } from '@models/cargo.model';
 import { Column, ExportColumn } from '@models/column-table.model';
 import { Sede } from '@models/sede.model';
-import { CargoService } from '@services/cargo.service';
 import { MessageGlobalService } from '@services/message-global.service';
-import { SedeService } from '@services/sede.service';
 import { TrabajadorService } from '@services/trabajador.service';
+import { CargoStore } from '@stores/cargo.store';
+import { SedeStore } from '@stores/sede.store';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialog } from 'primeng/confirmdialog';
 import { DatePickerModule } from 'primeng/datepicker';
@@ -20,7 +21,6 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
-import { forkJoin, mergeMap } from 'rxjs';
 
 @Component({
   selector: 'app-pago-descanseros',
@@ -38,6 +38,7 @@ import { forkJoin, mergeMap } from 'rxjs';
     InputTextModule,
     FormsModule,
     TitleCardComponent,
+    ButtonCustomComponent
   ],
   templateUrl: './pago-descanseros.component.html',
   styles: ``,
@@ -52,9 +53,9 @@ export class PagoDescanserosComponent implements OnInit {
 
   private readonly msg = inject(MessageGlobalService);
 
-  private readonly sedeService = inject(SedeService);
+  private readonly cargoStore = inject(CargoStore);
 
-  private readonly cargoService = inject(CargoService);
+  private readonly sedeStore = inject(SedeStore);
 
   private readonly trabajadorService = inject(TrabajadorService);
 
@@ -68,19 +69,40 @@ export class PagoDescanserosComponent implements OnInit {
 
   listaPagoMensual: any[] = [];
 
-  listaSedes: Sede[] = [];
+  get listaCargos(): Cargo[] {
+    return this.cargoStore.items();
+  }
+
+  get listaSedes(): Sede[] {
+    return this.sedeStore.items();
+  }
 
   selectedSedes: string[] = [];
 
-  listaCargos: Cargo[] = [];
-
   selectedCargos: string[] = [];
+
+  private sedesEffect = effect(() => {
+    const sedes = this.sedeStore.items();
+    if (sedes) {
+      this.selectedSedes = sedes.map((item) => item.id);
+      this.filtrar();
+    }
+  });
+
+  private cargosEffect = effect(() => {
+    const cargos = this.cargoStore.items();
+    if (cargos) {
+      this.selectedCargos = cargos.map((item) => item.id);
+
+      this.filtrar();
+    }
+  });
 
   loadingTable: boolean = false;
   skeletons: number[] = [];
 
   ngOnInit(): void {
-    this.fechaSelected = new Date('2025/04/01');
+    this.fechaSelected = new Date();
 
     this.cols = [
       [
@@ -143,25 +165,16 @@ export class PagoDescanserosComponent implements OnInit {
         dataKey: col.field,
       }));
 
+    this.sedeStore.loadAll();
+    this.cargoStore.loadAll();
+    // this.loadData();
     this.cargarPagosMensuales();
   }
 
   cargarPagosMensuales() {
     this.loadingTable = true;
-    forkJoin([
-      /* this.sedeService.findAll(), this.cargoService.findAll() */
-    ])
-      .pipe(
-        mergeMap((arr) => {
-          /* this.listaSedes = arr[0];
-          this.selectedSedes = this.listaSedes.map((item) => item.id); */
-          // this.listaCargos = arr[1];
-          // this.selectedCargos = this.listaCargos.map((item) => item.id);
-          return this.trabajadorService.findAllPagoByMonthDescanseros(
-            this.fechaSelected
-          );
-        })
-      )
+    this.trabajadorService
+      .findAllPagoByMonthDescanseros(this.fechaSelected)
       .subscribe({
         next: (data) => {
           this.listaPagoMensual = data;
@@ -187,9 +200,9 @@ export class PagoDescanserosComponent implements OnInit {
     // this.dialogService.open(ComprobantePagoComponent, {
     //   header: 'Boleta de pago',
     //   styleClass: 'modal-6xl',
-    //   position: 'top',
+    //   position: 'center',
     //   data: { trabajador: item },
-    //   dismissableMask: true,
+    //   dismissableMask: false,
     //   closable: true,
     // });
   }
@@ -200,7 +213,7 @@ export class PagoDescanserosComponent implements OnInit {
     //   styleClass: 'modal-4xl',
     //   data: { id: item.id, fecha: this.fechaSelected },
     //   modal: true,
-    //   dismissableMask: true,
+    //   dismissableMask: false,
     //   closable: true,
     // });
   }

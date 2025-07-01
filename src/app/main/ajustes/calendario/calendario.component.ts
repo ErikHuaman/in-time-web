@@ -201,9 +201,9 @@ export class CalendarioComponent implements OnInit {
     const ref = this.dialogService.open(FormEventoComponent, {
       header: 'Nuevo feriado',
       styleClass: 'modal-md',
-      position: 'top',
+      position: 'center',
       modal: true,
-      dismissableMask: true,
+      dismissableMask: false,
       closable: true,
     });
 

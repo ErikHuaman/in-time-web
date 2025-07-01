@@ -10,6 +10,7 @@
         formControlName="idSede"
         (onChange)="filtrar($event)"
         placeholder="Seleccione..."
+        appendTo="body"
       />
     </div>
     <div class="flex flex-col gap-2">
@@ -22,6 +23,7 @@
         formControlName="idCargo"
         (onChange)="filtrar($event)"
         placeholder="Seleccione..."
+        appendTo="body"
       />
     </div>
     <div class="flex flex-col gap-2">
@@ -33,6 +35,8 @@
         optionValue="id"
         formControlName="idTrabajador"
         placeholder="Seleccione..."
+        [filter]="true"
+        appendTo="body"
       />
     </div>
     <div class="flex flex-col gap-2">
@@ -47,9 +51,24 @@
         locale="es-PE"
       />
     </div>
+    <div class="flex justify-center gap-2 py-2">
+      <div class="flex items-center">
+        <p-checkbox
+          class="flex items-center"
+          [(ngModel)]="selfMonth"
+          [ngModelOptions]="{ standalone: true }"
+          (ngModelChange)="changeSelfMonth($event)"
+          [binary]="true"
+          inputId="selfMonth"
+        />
+        <label for="selfMonth" class="text-sm px-2 m-0"
+          >Descontar el mismo mes</label
+        >
+      </div>
+    </div>
     <div class="flex flex-col gap-2">
       <label class="text-sm font-medium" for="cuotasDescuento"
-        >Cuotas de descuento</label
+        >Cuotas de descuento <span class="italic">(Meses)</span></label
       >
       <p-inputnumber id="cuotasDescuento" formControlName="cuotasDescuento" />
     </div>
@@ -63,19 +82,22 @@
         dateFormat="dd M yy"
         placeholder="DD MMM YYYY"
         formControlName="fechaAdelanto"
+        (ngModelChange)="changeFechaDescuento()"
         [showIcon]="true"
         appendTo="body"
       />
     </div>
+
     <div class="flex flex-col gap-2">
       <label class="text-sm font-medium" for="fechaDescuento"
-        >Fecha de inicio de descuento</label
+        >Mes de inicio de descuento</label
       >
       <p-datepicker
         id="fechaDescuento"
         styleClass="w-full uppercase"
-        dateFormat="dd M yy"
-        placeholder="DD MMM YYYY"
+        dateFormat="M yy"
+        placeholder="MMM yyyy"
+        view="month"
         formControlName="fechaDescuento"
         [showIcon]="true"
         appendTo="body"

@@ -53,6 +53,7 @@ export class FormPermisosComponent implements OnInit {
   cargarGrupoModulo(id: string) {
     this.moduloService.findAllByRol(id).subscribe({
       next: (data) => {
+        console.log("data", data);
         this.listaModulos = data.map((item: any) => {
           item.permisos.todos = this.evaluarTodos(item.permisos);
           return item;

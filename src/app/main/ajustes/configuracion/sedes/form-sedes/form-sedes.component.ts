@@ -47,6 +47,7 @@ import { Ciudad, Pais, Provincia, Region } from '@models/nacionalidad.model';
 import { SedeStore } from '@stores/sede.store';
 import { MessageGlobalService } from '@services/message-global.service';
 import { NacionalidadStore } from '@stores/nacionalidad.store';
+import { sanitizedForm } from '@functions/forms.function';
 
 @Component({
   selector: 'app-form-sedes',
@@ -348,7 +349,9 @@ export class FormSedesComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   guardar() {
-    const { idRegion, idProvincia, ...form } = this.formData.value;
+    const { idRegion, idProvincia, ...form } = sanitizedForm(
+      this.formData.getRawValue()
+    );
     if (this.id) {
       this.store.update(this.id, { ...form, id: this.id } as Sede);
     } else {

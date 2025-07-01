@@ -20,6 +20,8 @@ import { TrabajadorStore } from '@stores/trabajador.store';
 import { Trabajador } from '@models/trabajador.model';
 import { Cargo } from '@models/cargo.model';
 import { Sede } from '@models/sede.model';
+import { TrabajadorInactivoStore } from '@stores/trabajador-inactivo.store';
+import { ButtonEditComponent } from '@components/buttons/button-edit/button-edit.component';
 
 @Component({
   selector: 'app-trabajadores-inactivos',
@@ -35,6 +37,7 @@ import { Sede } from '@models/sede.model';
     SelectModule,
     FormsModule,
     TitleCardComponent,
+    ButtonEditComponent
   ],
   templateUrl: './trabajadores-inactivos.component.html',
   styles: ``,
@@ -54,7 +57,7 @@ export class TrabajadoresInactivosComponent implements OnInit {
 
   private readonly sedeStore = inject(SedeStore);
 
-  private readonly store = inject(TrabajadorStore);
+  private readonly store = inject(TrabajadorInactivoStore);
 
   selectedSedes: string[] = [];
 
@@ -156,9 +159,9 @@ export class TrabajadoresInactivosComponent implements OnInit {
     const ref = this.dialogService.open(FormInactivarTrabajadorComponent, {
       header: 'Inactivar trabajador',
       styleClass: 'modal-md',
-      position: 'top',
+      position: 'center',
       modal: true,
-      dismissableMask: true,
+      dismissableMask: false,
       closable: true,
     });
 
@@ -174,10 +177,10 @@ export class TrabajadoresInactivosComponent implements OnInit {
     const ref = this.dialogService.open(FormInactivarTrabajadorComponent, {
       header: 'Inactivar trabajador',
       styleClass: 'modal-md',
-      position: 'top',
+      position: 'center',
       data: { id },
       modal: true,
-      dismissableMask: true,
+      dismissableMask: false,
       closable: true,
     });
 

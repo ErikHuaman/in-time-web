@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '@environments/environments';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Feriado } from '@models/feriado.model';
 
 @Injectable({
@@ -13,7 +13,10 @@ export class FeriadoService {
   private readonly http = inject(HttpClient);
 
   findAll(): Observable<Feriado[]> {
-    return this.http.get<Feriado[]>(this.url);
+    return this.http.get<any>(this.url).pipe(
+      map((data: any) => data.data),
+      map((data: Feriado[]) => data)
+    );
   }
 
   findOne(id: string): Observable<Feriado> {
@@ -25,7 +28,7 @@ export class FeriadoService {
   }
 
   update(id: string, dto: Feriado): Observable<Feriado> {
-    return this.http.put<Feriado>(`${this.url}/${id}`, dto);
+    return this.http.patch<Feriado>(`${this.url}/${id}`, dto);
   }
 
   findAllByMonth(fecha: Date): Observable<Feriado[]> {

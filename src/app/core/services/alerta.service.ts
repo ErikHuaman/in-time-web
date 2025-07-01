@@ -27,7 +27,7 @@ export class AlertaService {
   }
 
   update(id: string, dto: any): Observable<any> {
-    return this.http.put<any>(`${this.url}/${id}`, dto);
+    return this.http.patch<any>(`${this.url}/${id}`, dto);
   }
 
   changeStatus(id: string, isActive: boolean): Observable<any> {

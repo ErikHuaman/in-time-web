@@ -28,6 +28,8 @@ import { FormAsignarReemplazoComponent } from './form-asignar-reemplazo/form-asi
 import { ReemplaceroService } from '@services/reemplacero.service';
 import { Reemplacero } from '@models/reemplacero.model';
 import { TitleCardComponent } from '@components/title-card/title-card.component';
+import { ButtonEditComponent } from '@components/buttons/button-edit/button-edit.component';
+import { ButtonDeleteComponent } from '@components/buttons/button-delete/button-delete.component';
 
 @Component({
   selector: 'app-reemplazos',
@@ -47,6 +49,8 @@ import { TitleCardComponent } from '@components/title-card/title-card.component'
     SkeletonModule,
     TabsModule,
     TitleCardComponent,
+    ButtonEditComponent,
+    ButtonDeleteComponent,
   ],
   templateUrl: './reemplazos.component.html',
   styles: ``,
@@ -211,7 +215,7 @@ export class ReemplazosComponent implements OnInit {
       header: 'Asignar reemplazo',
       styleClass: 'modal-md',
       modal: true,
-      dismissableMask: true,
+      dismissableMask: false,
       closable: true,
     });
 
@@ -223,12 +227,12 @@ export class ReemplazosComponent implements OnInit {
   }
 
   editar(item: ReemplazoHorario) {
-    const ref = this.dialogService.open(FormReemplazoComponent, {
+    const ref = this.dialogService.open(FormAsignarReemplazoComponent, {
       header: 'Modificar reemplazo',
       styleClass: 'modal-md',
       data: item,
       modal: true,
-      dismissableMask: true,
+      dismissableMask: false,
       closable: true,
     });
     ref.onClose.subscribe((res) => {
@@ -271,7 +275,7 @@ export class ReemplazosComponent implements OnInit {
       header: 'Nuevo reemplazero',
       styleClass: 'modal-sm',
       modal: true,
-      dismissableMask: true,
+      dismissableMask: false,
       closable: true,
     });
 
@@ -288,7 +292,7 @@ export class ReemplazosComponent implements OnInit {
       styleClass: 'modal-sm',
       data: item,
       modal: true,
-      dismissableMask: true,
+      dismissableMask: false,
       closable: true,
     });
     ref.onClose.subscribe((res) => {

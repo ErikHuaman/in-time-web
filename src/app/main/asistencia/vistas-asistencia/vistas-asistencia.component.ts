@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, effect, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -27,6 +27,11 @@ import { DetalleAsistenciaComponent } from './detalle-asistencia/detalle-asisten
 import { EstadoAsistenciaService } from '@services/estado-asistencia.service';
 import { EstadoAsistencia } from '@models/estado-asistencia.model';
 import { TitleCardComponent } from '@components/title-card/title-card.component';
+import { SedeStore } from '@stores/sede.store';
+import { CargoStore } from '@stores/cargo.store';
+import { ChipModule } from 'primeng/chip';
+import { ButtonEditComponent } from '@components/buttons/button-edit/button-edit.component';
+import { ButtonCustomComponent } from '@components/buttons/button-custom/button-custom.component';
 
 @Component({
   selector: 'app-vistas-asistencia',
@@ -44,9 +49,11 @@ import { TitleCardComponent } from '@components/title-card/title-card.component'
     TagModule,
     DatePickerModule,
     TooltipModule,
+    ChipModule,
     PopoverModule,
     MultiSelectModule,
     TitleCardComponent,
+    ButtonCustomComponent,
   ],
   templateUrl: './vistas-asistencia.component.html',
   styles: ``,
@@ -59,9 +66,9 @@ export class VistasAsistenciaComponent implements OnInit {
 
   private readonly dialogService = inject(DialogService);
 
-  private readonly sedeService = inject(SedeService);
+  private readonly sedeStore = inject(SedeStore);
 
-  private readonly cargoService = inject(CargoService);
+  private readonly cargoStore = inject(CargoStore);
 
   private readonly asistenciaService = inject(AsistenciaService);
 
@@ -86,13 +93,34 @@ export class VistasAsistenciaComponent implements OnInit {
 
   dataTableWorker: any[] = [];
 
-  listaSedes: Sede[] = [];
-
   selectedSedes: string[] = [];
 
-  listaCargos: Cargo[] = [];
-
   selectedCargos: string[] = [];
+
+  get listaCargos(): Cargo[] {
+    return this.cargoStore.items();
+  }
+
+  get listaSedes(): Sede[] {
+    return this.sedeStore.items();
+  }
+
+  private sedesEffect = effect(() => {
+    const sedes = this.sedeStore.items();
+    if (sedes) {
+      this.selectedSedes = sedes.map((item) => item.id);
+      this.filtrar();
+    }
+  });
+
+  private cargosEffect = effect(() => {
+    const cargos = this.cargoStore.items();
+    if (cargos) {
+      this.selectedCargos = cargos.map((item) => item.id);
+
+      this.filtrar();
+    }
+  });
 
   listaTrabajadores: Trabajador[] = [];
 
@@ -106,7 +134,9 @@ export class VistasAsistenciaComponent implements OnInit {
   itemSelected: any;
 
   ngOnInit(): void {
-    this.fechaSelected = new Date('2025/05/01');
+    this.fechaSelected = new Date();
+    this.sedeStore.loadAll();
+    this.cargoStore.loadAll();
     this.cargarDias();
     this.cargarLeyenda();
     this.cargarAsistencia();
@@ -132,69 +162,60 @@ export class VistasAsistenciaComponent implements OnInit {
   }
 
   cargarAsistencia() {
-    forkJoin([
-      /* this.sedeService.findAll(), this.cargoService.findAll() */
-    ])
-      .pipe(
-        mergeMap((arr) => {
-          /* this.listaSedes = arr[0];
-          this.selectedSedes = this.listaSedes.map((item) => item.id); */
-          // this.listaCargos = arr[1];
-          // this.selectedCargos = this.listaCargos.map((item) => item.id);
-          return this.asistenciaService.findAllByMonth(this.fechaSelected);
-        })
-      )
-      .subscribe({
-        next: (data) => {
-          this.listaAsistenciaMensual = data.asistencia.map((item) => {
-            item.labelName = `${item.nombre} ${item.apellido}`;
-            // item.asistencia = this.generarAsistencia();
-            return item;
-          });
-          this.cards = [
-            {
-              num: data.cards.faltas,
-              label: 'Ausencias',
-              classColor: 'bg-red-600 text-slate-50',
-            },
-            {
-              num: data.cards.tardanzas,
-              label: 'Tardanzas',
-              classColor: 'bg-red-600 text-slate-50',
-            },
+    this.asistenciaService.findAllByMonth(this.fechaSelected).subscribe({
+      next: (data) => {
+        this.listaAsistenciaMensual = data.asistencia.map((item) => {
+          item.labelName = `${item.nombre} ${item.apellido}`;
+          // item.asistencia = this.generarAsistencia();
+          return item;
+        });
+        this.cards = [
+          {
+            num: data.cards.faltas,
+            label: 'Ausencias',
+            classColor: 'bg-red-600 text-slate-50',
+          },
+          {
+            num: data.cards.tardanzas,
+            label: 'Tardanzas',
+            classColor: 'bg-red-600 text-slate-50',
+          },
 
-            {
-              num: data.cards.retiros,
-              label: 'Retiro temprano',
-              classColor: 'bg-red-600 text-slate-50',
-            },
-            {
-              num: data.cards.sobretiempos,
-              label: 'Sobretiempo',
-              classColor: 'bg-green-600 text-slate-50',
-            },
-            {
-              num: data.cards.vacaciones,
-              label: 'Vacaciones',
-              classColor: 'bg-purple-700 text-slate-50',
-            },
-            {
-              num: data.cards.permisos,
-              label: 'Permisos',
-              classColor: 'bg-purple-700 text-slate-50',
-            },
-          ];
-          this.filtrar();
-        },
-      });
+          {
+            num: data.cards.retiros,
+            label: 'Retiro temprano',
+            classColor: 'bg-red-600 text-slate-50',
+          },
+          {
+            num: data.cards.sobretiempos,
+            label: 'Sobretiempo',
+            classColor: 'bg-green-600 text-slate-50',
+          },
+          {
+            num: data.cards.vacaciones,
+            label: 'Vacaciones',
+            classColor: 'bg-purple-700 text-slate-50',
+          },
+          {
+            num: data.cards.permisos,
+            label: 'Permisos',
+            classColor: 'bg-purple-700 text-slate-50',
+          },
+        ];
+        this.filtrar();
+      },
+    });
   }
 
   filtrar(event?: number) {
+    console.log('this.listaAsistenciaMensual', this.listaAsistenciaMensual);
     this.dataTable = this.listaAsistenciaMensual.filter(
       (t) =>
-        this.selectedSedes.includes(t.sede.id) &&
+        t.sedes.some((s: Sede) => this.selectedSedes.includes(s.id)) &&
         this.selectedCargos.includes(t.cargo.id)
     );
+
+    console.log('this.dataTable', this.dataTable);
   }
 
   cambiarFecha(event: Date) {
@@ -291,7 +312,7 @@ export class VistasAsistenciaComponent implements OnInit {
         marcacion: marcacion,
       },
       modal: true,
-      dismissableMask: true,
+      dismissableMask: false,
       closable: true,
     });
   }

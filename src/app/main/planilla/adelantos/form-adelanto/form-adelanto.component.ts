@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, effect, inject, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import {
   DialogService,
@@ -28,6 +28,12 @@ import { Trabajador } from '@models/trabajador.model';
 import { Sede } from '@models/sede.model';
 import { Cargo } from '@models/cargo.model';
 import { MessageGlobalService } from '@services/message-global.service';
+import { TrabajadorStore } from '@stores/trabajador.store';
+import { CargoStore } from '@stores/cargo.store';
+import { SedeStore } from '@stores/sede.store';
+import { AdelantoStore } from '@stores/adelanto.store';
+import { CheckboxModule } from 'primeng/checkbox';
+import { sanitizedForm } from '@functions/forms.function';
 
 @Component({
   selector: 'app-form-adelanto',
@@ -43,6 +49,7 @@ import { MessageGlobalService } from '@services/message-global.service';
     DatePickerModule,
     TextareaModule,
     FileUploadModule,
+    CheckboxModule,
   ],
   templateUrl: './form-adelanto.component.html',
   styles: ``,
@@ -52,20 +59,45 @@ export class FormAdelantoComponent implements OnInit {
 
   private readonly dialogService: DialogService = inject(DialogService);
 
-  private readonly cargoService = inject(CargoService);
-
-  private readonly sedeService = inject(SedeService);
-
-  private readonly trabajadorService = inject(TrabajadorService);
-
-  private readonly adelantoService = inject(AdelantoService);
-
   private readonly msg = inject(MessageGlobalService);
 
-  listaTrabajadores: Trabajador[] = [];
+  private readonly store = inject(AdelantoStore);
+
+  private readonly cargoStore = inject(CargoStore);
+
+  private readonly sedeStore = inject(SedeStore);
+
+  private readonly trabajadorStore = inject(TrabajadorStore);
+
+  get listaTrabajadores(): Trabajador[] {
+    return this.trabajadorStore
+      .items()
+      .filter(
+        (item) => item.contratos.filter((c) => c.cargo.isEditable).length != 0
+      )
+      .map((item) => {
+        item.labelName = `${item.identificacion} | ${item.nombre} ${item.apellido}`;
+        return item;
+      });
+  }
   listaTrabajadoresFiltrados: Trabajador[] = [];
-  listaSedes: Sede[] = [];
-  listaCargos: Cargo[] = [];
+
+  get listaSedes(): Sede[] {
+    return this.sedeStore.items();
+  }
+
+  get listaCargos(): Cargo[] {
+    return this.cargoStore.items();
+  }
+
+  private sedesEffect = effect(() => {
+    const items = this.trabajadorStore.items();
+    if (items) {
+      this.filtrar();
+    }
+  });
+
+  selfMonth: boolean = true;
 
   formData = new FormGroup({
     idSede: new FormControl<string | undefined>(undefined, {
@@ -95,10 +127,13 @@ export class FormAdelantoComponent implements OnInit {
       nonNullable: true,
       validators: [Validators.required],
     }),
-    fechaDescuento: new FormControl<Date | undefined>(undefined, {
-      nonNullable: true,
-      validators: [Validators.required],
-    }),
+    fechaDescuento: new FormControl<Date | undefined>(
+      { value: undefined, disabled: true },
+      {
+        nonNullable: true,
+        validators: [Validators.required],
+      }
+    ),
   });
 
   id!: string;
@@ -110,72 +145,104 @@ export class FormAdelantoComponent implements OnInit {
     },
   ];
 
-  ngOnInit(): void {
-    const instance = this.dialogService.getInstance(this.ref);
+  private resetOnSuccessEffect = effect(() => {
+    const item = this.store.selectedItem();
+    const error = this.store.error();
+    const action = this.store.lastAction();
 
-    if (instance.data) {
-      this.id = instance.data['id'];
-      this.formData.controls['idSede'].setValue(instance.data['idSede']);
-      this.formData.controls['idCargo'].setValue(instance.data['idCargo']);
-      this.formData.controls['idTrabajador'].setValue(
-        instance.data['idTrabajador']
+    // Manejo de errores
+    if (error) {
+      console.log('error', error);
+      this.msg.error(
+        error ?? '¡Ups, ocurrió un error inesperado al guardar el rol!'
       );
-      this.formData.controls['montoAdelanto'].setValue(
-        instance.data['montoAdelanto']
-      );
-      this.formData.controls['cuotasDescuento'].setValue(
-        instance.data['cuotasDescuento']
-      );
-      this.formData.controls['fechaAdelanto'].setValue(
-        new Date(instance.data['fechaAdelanto'])
-      );
-      this.formData.controls['fechaDescuento'].setValue(
-        new Date(instance.data['fechaDescuento'])
-      );
+      return; // Salimos si hay un error
     }
 
-    this.cargarSedes();
-    this.cargarCargos();
+    // Si se ha creado o actualizado correctamente
+    if (
+      action === 'created' ||
+      action === 'updated' ||
+      action === 'createMany'
+    ) {
+      this.msg.success(
+        action === 'created'
+          ? '¡Rol creado exitosamente!'
+          : action === 'updated'
+          ? '¡Rol actualizado exitosamente!'
+          : '¡Roles creados exitosamente!'
+      );
+
+      // this.formData.reset({
+      //   name: '',
+      //   description: undefined,
+      //   status: true,
+      // });
+
+      this.store.clearSelected();
+      this.ref.close(true);
+      return;
+    }
+
+    // Si hay un item seleccionado, se carga en el formulario
+    if (item && this.id !== item.id) {
+      this.id = item.id!;
+      console.log('item', item);
+      this.formData.patchValue({
+        idSede: item.idSede,
+        idCargo: item.idCargo,
+        idTrabajador: item.idTrabajador,
+        montoAdelanto: item.montoAdelanto,
+        cuotasDescuento: item.cuotasDescuento,
+        fechaAdelanto: new Date(item.fechaAdelanto!),
+        fechaDescuento: new Date(item.fechaDescuento!),
+      });
+      this.formData.get('idSede')!.disable();
+      this.formData.get('idCargo')!.disable();
+      this.formData.get('idTrabajador')!.disable();
+
+      this.filtrar();
+    }
+  });
+
+  ngOnInit(): void {
     this.cargarTrabajadoresActivos();
   }
 
-  cargarSedes() {
-    this.sedeService.findAll().subscribe({
-      next: (data) => {
-        this.listaSedes = data;
-      },
-    });
-  }
-
-  cargarCargos() {
-    this.cargoService.findAll().subscribe({
-      next: (data) => {
-        this.listaCargos = data;
-      },
-    });
-  }
-
   cargarTrabajadoresActivos() {
-    this.trabajadorService.findAllActivos().subscribe({
-      next: (data) => {
-        this.listaTrabajadores = data
-          .filter((item) => item.sedes[0]?.id)
-          .map((item) => {
-            item.labelName = `${item.identificacion} | ${item.nombre} ${item.apellido}`;
-            return item;
-          });
-
-        this.filtrar(null);
-      },
-    });
+    const q: Record<string, any> = {
+      filter: false,
+      isActive: true,
+    };
+    this.trabajadorStore.loadAll(undefined, undefined, q);
   }
 
-  filtrar(event: any) {
+  filtrar(event?: any) {
     this.listaTrabajadoresFiltrados = this.listaTrabajadores.filter(
       (item) =>
         item.sedes[0]?.id === this.formData.get('idSede')?.value &&
         item.contratos[0].idCargo === this.formData.get('idCargo')?.value
     );
+  }
+
+  changeSelfMonth(event: any) {
+    if (this.selfMonth) {
+      this.formData
+        .get('fechaDescuento')!
+        .setValue(this.formData.get('fechaAdelanto')?.value);
+      this.formData.get('fechaDescuento')?.disable();
+    } else {
+      this.formData.get('fechaDescuento')?.enable();
+    }
+  }
+
+  changeFechaDescuento() {
+    console.log('changeFechaDescuento');
+    if (this.selfMonth) {
+      this.formData
+        .get('fechaDescuento')!
+        .setValue(this.formData.get('fechaAdelanto')?.value);
+    }
   }
 
   onUpload(event: any) {
@@ -184,27 +251,12 @@ export class FormAdelantoComponent implements OnInit {
   }
 
   guardar() {
-    const form = this.formData.value;
+    const form = sanitizedForm(this.formData.getRawValue());
+
     if (!this.id) {
-      this.adelantoService.create(form).subscribe({
-        next: (data) => {
-          this.msg.success('¡Registrado con éxito!');
-          this.ref.close(data);
-        },
-        error: (e) => {
-          this.msg.error(e.error.message);
-        },
-      });
+      this.store.create({ ...form, cuotasDescuento: 1 });
     } else {
-      this.adelantoService.update(this.id, form).subscribe({
-        next: (data) => {
-          this.msg.success('¡Actualizado con éxito!');
-          this.ref.close(data);
-        },
-        error: (e) => {
-          this.msg.error(e.error.message);
-        },
-      });
+      this.store.update(this.id, { ...form, cuotasDescuento: 1 });
     }
   }
 }

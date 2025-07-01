@@ -29,6 +29,7 @@ import { RolStore } from '@stores/rol.store';
 import { ButtonEditComponent } from '@components/buttons/button-edit/button-edit.component';
 import { ButtonDeleteComponent } from '@components/buttons/button-delete/button-delete.component';
 import { ButtonCustomComponent } from '@components/buttons/button-custom/button-custom.component';
+import { sanitizedForm } from '@functions/forms.function';
 
 @Component({
   selector: 'app-form-permrolesisos',
@@ -46,7 +47,7 @@ import { ButtonCustomComponent } from '@components/buttons/button-custom/button-
     TooltipModule,
     ButtonEditComponent,
     ButtonDeleteComponent,
-    ButtonCustomComponent
+    ButtonCustomComponent,
   ],
   templateUrl: './form-roles.component.html',
   styles: ``,
@@ -153,9 +154,9 @@ export class FormRolesComponent implements OnInit {
     // const ref = this.dialogService.open(FormUsuarioComponent, {
     //   header: 'Nuevo usuario',
     //   styleClass: 'modal-md',
-    //   // position: 'top',
+    //   // position: 'center',
     //   modal: true,
-    //   // dismissableMask: true,
+    //   // dismissableMask: false,
     //   closable: true,
     // });
     // ref.onClose.subscribe((res) => {
@@ -181,7 +182,7 @@ export class FormRolesComponent implements OnInit {
       styleClass: 'modal-6xl',
       modal: true,
       data: { id },
-      dismissableMask: true,
+      dismissableMask: false,
       closable: true,
     });
     ref.onClose.subscribe((res) => {
@@ -210,17 +211,17 @@ export class FormRolesComponent implements OnInit {
     this.msg.confirm(
       `¿Está seguro de eliminar el edificio ${item.nombre}? Esta acción no se puede deshacer.`,
       () => {
-        this.store.delete(item.id);
+        this.store.delete(item.id!);
       }
     );
   }
 
   guardar() {
-    const { ...form } = this.formData.value;
+    const form: Rol = sanitizedForm(this.formData.getRawValue());
     if (this.id) {
-      this.store.update(this.id, { ...form, id: this.id } as Rol);
+      this.store.update(this.id, { ...form, id: this.id });
     } else {
-      this.store.create(form as Rol);
+      this.store.create(form);
     }
   }
 }

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '@environments/environments';
 import { EstadoAsistencia } from '@models/estado-asistencia.model';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,9 @@ export class EstadoAsistenciaService {
   private readonly http = inject(HttpClient);
 
   findAll(): Observable<EstadoAsistencia[]> {
-    return this.http.get<EstadoAsistencia[]>(this.url);
+    return this.http.get<any>(this.url).pipe(
+      map((data: any) => data.data),
+      map((data: EstadoAsistencia[]) => data)
+    );
   }
 }

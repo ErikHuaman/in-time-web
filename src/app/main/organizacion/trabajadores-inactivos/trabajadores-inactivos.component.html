@@ -51,7 +51,7 @@
     >
       <ng-template #header>
         <tr>
-          <th><div class="text-center text-xs uppercase">ID</div></th>
+          <th><div class="text-center text-xs uppercase">Doc ID</div></th>
           <th><div class="text-xs uppercase">Nombre</div></th>
           <th><div class="text-xs uppercase">Apellido</div></th>
           <th>
@@ -65,12 +65,13 @@
           <th>
             <div class="text-center text-xs uppercase">Fecha de suspención</div>
           </th>
+          <th></th>
         </tr>
       </ng-template>
       <ng-template #body let-item>
-        <tr (click)="edit(item.id)" class="hover:!bg-slate-200 cursor-pointer">
-          <td>
-            <div class="text-center text-sm">{{ item.orden }}</div>
+        <tr>
+          <td class="!w-20">
+            <div class="text-center text-sm">{{ item.identificacion }}</div>
           </td>
           <td>
             <div class="text-sm">{{ item.nombre }}</div>
@@ -95,6 +96,11 @@
                   | date : "dd MMM yyyy"
                   | uppercase
               }}
+            </div>
+          </td>
+          <td>
+            <div class="flex justify-center items-center gap-2">
+              <button-edit (click)="edit(item.id)" />
             </div>
           </td>
         </tr>

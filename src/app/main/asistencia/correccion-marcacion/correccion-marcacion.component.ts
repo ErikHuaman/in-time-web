@@ -72,7 +72,7 @@ export class CorreccionMarcacionComponent implements OnInit {
   listaAsistenciaMensual: any[] = [];
 
   ngOnInit(): void {
-    this.fechaSelected = new Date('2025/04/01');
+    this.fechaSelected = new Date();
     this.cargarAsistenciaObservada();
   }
 
@@ -118,7 +118,7 @@ export class CorreccionMarcacionComponent implements OnInit {
       styleClass: 'modal-md',
       focusOnShow: false,
       modal: true,
-      dismissableMask: true,
+      dismissableMask: false,
       closable: true,
     });
 

@@ -1,3 +1,6 @@
+import { Sede } from "./sede.model";
+import { Trabajador } from "./trabajador.model";
+
 export interface Vacacion {
   id?: string;
   idSede?: string;
@@ -7,4 +10,6 @@ export interface Vacacion {
   diasUtilizados?: number;
   fechaInicio?: Date;
   fechaFin?: Date;
+  trabajador?: Trabajador;
+  sede?: Sede;
 }

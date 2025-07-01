@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { environment } from '@environments/environments';
 import { toFormData } from '@functions/formData.function';
 import { CorreccionMarcacion } from '@models/correccion-marcacion.model';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +14,10 @@ export class CorreccionMarcacionService {
   private readonly http = inject(HttpClient);
 
   findAll(): Observable<CorreccionMarcacion[]> {
-    return this.http.get<CorreccionMarcacion[]>(this.url);
+    return this.http.get<any>(this.url).pipe(
+      map((data: any) => data.data),
+      map((data: CorreccionMarcacion[]) => data)
+    );
   }
 
   findOne(id: string): Observable<CorreccionMarcacion> {
@@ -29,6 +32,6 @@ export class CorreccionMarcacionService {
     id: string,
     dto: CorreccionMarcacion
   ): Observable<CorreccionMarcacion> {
-    return this.http.put<CorreccionMarcacion>(`${this.url}/${id}`, dto);
+    return this.http.patch<CorreccionMarcacion>(`${this.url}/${id}`, dto);
   }
 }

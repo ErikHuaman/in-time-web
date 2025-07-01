@@ -3,13 +3,13 @@
     <tbody>
       <tr>
         <td class="text-start text-sm font-medium px-2 py-0.5">
-          RUC: {{ datos.ruc }}
+          RUC: {{ formData?.datos?.ruc }}
         </td>
       </tr>
       <tr>
         <td class="text-start text-sm font-medium px-2 py-0.5">
           Empleador:
-          {{ datos.razonSocial }}
+          {{ formData?.datos?.razonSocial }}
         </td>
       </tr>
       <tr>
@@ -57,16 +57,16 @@
       </tr>
       <tr>
         <td class="border py-0.5 text-center text-sm uppercase">
-          {{ datos.tipoDoc }}
+          {{ formData?.datos?.tipoDoc }}
         </td>
         <td class="border py-0.5 text-center text-sm">
-          {{ datos.identificacion }}
+          {{ formData?.datos?.identificacion }}
         </td>
         <td colspan="4" class="border py-0.5 text-center text-sm uppercase">
-          {{ datos.nombre }} {{ datos.apellido }}
+          {{ formData?.datos?.nombre }} {{ formData?.datos?.apellido }}
         </td>
         <td colspan="2" class="border py-0.5 text-center text-sm uppercase">
-          {{ datos.situacion }}
+          {{ formData?.datos?.situacion }}
         </td>
       </tr>
       <tr>
@@ -97,16 +97,16 @@
       </tr>
       <tr>
         <td colspan="2" class="border py-0.5 text-center text-sm">
-          {{ fechaActual | date : "dd/MM/yyyy" }}
+          {{ fechaContrato | date : "dd/MM/yyyy" }}
         </td>
         <td colspan="2" class="border py-0.5 text-center text-sm uppercase">
-          {{ datos.tipoTrabajador }}
+          {{ formData?.datos?.tipoTrabajador }}
         </td>
         <td colspan="2" class="border py-0.5 text-center text-sm uppercase">
-          {{ datos.regimenPensionario }}
+          {{ formData?.datos?.regimenPensionario }}
         </td>
         <td colspan="2" class="border py-0.5 text-center text-sm">
-          {{ datos.cuspp }}
+          {{ formData?.datos?.cuspp }}
         </td>
       </tr>
       <tr>
@@ -171,28 +171,28 @@
       </tr>
       <tr>
         <td class="border py-0.5 text-center text-sm">
-          {{ datos.diasLaborados }}
+          {{ formData?.datos?.diasLaborados }}
         </td>
         <td class="border py-0.5 text-center text-sm">
-          {{ datos.diasNoLaborados }}
+          {{ formData?.datos?.diasNoLaborados }}
         </td>
         <td class="border py-0.5 text-center text-sm">
-          {{ datos.diasSubcidiados }}
+          {{ formData?.datos?.diasSubcidiados }}
         </td>
         <td class="border py-0.5 text-center text-sm">
-          {{ datos.condicion }}
+          {{ formData?.datos?.condicion }}
         </td>
         <td class="border py-0.5 text-center text-sm">
-          {{ datos.totalHoras }}
+          {{ formData?.datos?.totalHoras }}
         </td>
         <td class="border py-0.5 text-center text-sm">
-          {{ datos.minutos }}
+          {{ formData?.datos?.minutos }}
         </td>
         <td class="border py-0.5 text-center text-sm">
-          {{ datos.totalHorasExtra }}
+          {{ formData?.datos?.totalHorasExtra }}
         </td>
         <td class="border py-0.5 text-center text-sm">
-          {{ datos.minutosExtra }}
+          {{ formData?.datos?.minutosExtra }}
         </td>
       </tr>
       <tr>
@@ -230,16 +230,16 @@
       </tr>
       <tr>
         <td class="border py-0.5 text-center text-sm">
-          {{ datos.suspencionTipo }}
+          {{ formData?.datos?.suspencionTipo }}
         </td>
         <td colspan="4" class="border py-0.5 text-center text-sm">
-          {{ datos.suspencionMotivo }}
+          {{ formData?.datos?.suspencionMotivo }}
         </td>
         <td class="border py-0.5 text-center text-sm">
-          {{ datos.suspencionDias }}
+          {{ formData?.datos?.suspencionDias }}
         </td>
         <td colspan="2" class="border py-0.5 text-center text-sm">
-          {{ datos.quintaCategoria }}
+          {{ formData?.datos?.quintaCategoria }}
         </td>
       </tr>
     </tbody>
@@ -274,7 +274,7 @@
           Neto S/
         </td>
       </tr>
-      <ng-container *ngFor="let grupo of grupoDetalle">
+      <ng-container *ngFor="let grupo of formData?.grupoDetalle">
         <tr>
           <td colspan="8" class="border-x py-0.5 text-sm">
             <div class="bg-sky-600/25 text-slate-700 px-2">
@@ -303,7 +303,7 @@
       <tr>
         <td colspan="8" class="border-x border-b py-0.5 text-sm">
           <div class="bg-sky-600/25 text-slate-700 px-2 flex justify-between">
-            <span>Neto a Pagar</span> <span>{{ pagoNeto }}</span>
+            <span>Neto a Pagar</span> <span>{{ formData?.pagoNeto }}</span>
           </div>
         </td>
       </tr>
@@ -319,11 +319,11 @@
           Aporte de Empleador
         </td>
       </tr>
-      <tr *ngFor="let item of aportes; let i = index">
+      <tr *ngFor="let item of formData?.aportes; let i = index">
         <td
           [ngClass]="[
             'border-s py-0.5 px-2 text-start text-sm',
-            aportes.length == i + 1 ? 'border-b' : ''
+            formData?.aportes.length == i + 1 ? 'border-b' : ''
           ]"
         >
           {{ item.codigo }}
@@ -332,7 +332,7 @@
           colspan="4"
           [ngClass]="[
             'py-0.5 px-2 text-start text-sm',
-            aportes.length == i + 1 ? 'border-b' : ''
+            formData?.aportes.length == i + 1 ? 'border-b' : ''
           ]"
         >
           {{ item.nombre }}
@@ -340,7 +340,7 @@
         <td
           [ngClass]="[
             'py-0.5 px-2 text-end text-sm',
-            aportes.length == i + 1 ? 'border-b' : ''
+            formData?.aportes.length == i + 1 ? 'border-b' : ''
           ]"
         >
           {{ item.ingreso }}
@@ -348,7 +348,7 @@
         <td
           [ngClass]="[
             'py-0.5 px-2 text-end text-sm',
-            aportes.length == i + 1 ? 'border-b' : ''
+            formData?.aportes.length == i + 1 ? 'border-b' : ''
           ]"
         >
           {{ item.descuento }}
@@ -356,7 +356,7 @@
         <td
           [ngClass]="[
             'border-e py-0.5 px-2 text-end text-sm',
-            aportes.length == i + 1 ? 'border-b' : ''
+            formData?.aportes.length == i + 1 ? 'border-b' : ''
           ]"
         >
           {{ item.neto }}

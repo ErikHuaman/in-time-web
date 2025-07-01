@@ -22,18 +22,41 @@ export class TrabajadorService extends GenericCrudService<Trabajador> {
   }
 
   findAllPagoByMonth(fechaSelected: Date): Observable<Trabajador[]> {
-    return of([]);
+    return this.http.post<Trabajador[]>(`${this.url}/PagoByMonth`, {
+      fecha: fechaSelected,
+    });
   }
 
   findOnePagoByMonthAndIdTrabajador(
     id: string,
     mesSelected: Date
   ): Observable<Trabajador[]> {
-    return of([]);
+    return this.http.post<Trabajador[]>(
+      `${this.url}/PagoByMonthAndIdTrabajador`,
+      {
+        id,
+        fecha: mesSelected,
+      }
+    );
   }
 
-  findAllPagoByMonthDescanseros(fechaSelected: Date): Observable<Trabajador[]> {
-    return of([]);
+  findComprobantePagoByMonthAndIdTrabajador(
+    id: string,
+    mesSelected: Date
+  ): Observable<any> {
+    return this.http.post<any>(
+      `${this.url}/ComprobantePagoByMonthAndIdTrabajador`,
+      {
+        id,
+        fecha: mesSelected,
+      }
+    );
+  }
+
+  findAllPagoByMonthDescanseros(fecha: Date): Observable<any[]> {
+    return this.http.post<Trabajador[]>(`${this.url}/PagoByMonthDescanseros`, {
+      fecha,
+    });
   }
 }
 //  {
@@ -84,7 +107,7 @@ export class TrabajadorService extends GenericCrudService<Trabajador> {
 //   }
 
 //   update(id: string, dto: Trabajador): Observable<Trabajador> {
-//     return this.http.put<Trabajador>(`${this.url}/${id}`, dto);
+//     return this.http.patch<Trabajador>(`${this.url}/${id}`, dto);
 //   }
 
 //   delete(id: string, force: boolean = false): Observable<void> {

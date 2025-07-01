@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, effect, inject, OnInit } from '@angular/core';
 import { ConfirmDialog } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { FormsModule } from '@angular/forms';
@@ -23,6 +23,12 @@ import { Cargo } from '@models/cargo.model';
 import { SkeletonModule } from 'primeng/skeleton';
 import { forkJoin, mergeMap } from 'rxjs';
 import { TitleCardComponent } from '@components/title-card/title-card.component';
+import { SedeStore } from '@stores/sede.store';
+import { CargoStore } from '@stores/cargo.store';
+import { ChipModule } from 'primeng/chip';
+import { PopoverModule } from 'primeng/popover';
+import { TooltipModule } from 'primeng/tooltip';
+import { ButtonCustomComponent } from '@components/buttons/button-custom/button-custom.component';
 
 @Component({
   selector: 'app-vista-planilla',
@@ -39,7 +45,11 @@ import { TitleCardComponent } from '@components/title-card/title-card.component'
     IconField,
     InputTextModule,
     FormsModule,
+    ChipModule,
+    PopoverModule,
+    TooltipModule,
     TitleCardComponent,
+    ButtonCustomComponent,
   ],
   templateUrl: './vista-planilla.component.html',
   styles: ``,
@@ -57,9 +67,9 @@ export class VistaPlanillaComponent implements OnInit {
 
   private readonly messageService = inject(MessageService);
 
-  private readonly sedeService = inject(SedeService);
+  private readonly sedeStore = inject(SedeStore);
 
-  private readonly cargoService = inject(CargoService);
+  private readonly cargoStore = inject(CargoStore);
 
   private readonly trabajadorService = inject(TrabajadorService);
 
@@ -73,27 +83,48 @@ export class VistaPlanillaComponent implements OnInit {
 
   listaPagoMensual: any[] = [];
 
-  listaSedes: Sede[] = [];
-
   selectedSedes: string[] = [];
 
-  listaCargos: Cargo[] = [];
-
   selectedCargos: string[] = [];
+
+  get listaCargos(): Cargo[] {
+    return this.cargoStore.items();
+  }
+
+  get listaSedes(): Sede[] {
+    return this.sedeStore.items();
+  }
+
+  private sedesEffect = effect(() => {
+    const sedes = this.sedeStore.items();
+    if (sedes) {
+      this.selectedSedes = sedes.map((item) => item.id);
+      this.filtrar();
+    }
+  });
+
+  private cargosEffect = effect(() => {
+    const cargos = this.cargoStore.items();
+    if (cargos) {
+      this.selectedCargos = cargos.map((item) => item.id);
+
+      this.filtrar();
+    }
+  });
 
   loadingTable: boolean = false;
   skeletons: number[] = [];
 
   ngOnInit(): void {
-    this.fechaSelected = new Date('2025/04/01');
+    this.fechaSelected = new Date();
 
     this.cols = [
       [
-        { field: 'ruc', header: 'RUC', align: 'center', rowSpan: '2' },
+        { field: 'id', header: 'Doc ID', align: 'center', rowSpan: '2' },
         { field: 'nombre', header: 'Nombre', rowSpan: '2' },
         { field: 'apellido', header: 'Apellido', rowSpan: '2' },
-        { field: 'sede', header: 'Edificio', align: 'center', rowSpan: '2' },
         { field: 'cargo', header: 'Cargo', align: 'center', rowSpan: '2' },
+        { field: 'sede', header: 'Edificios', align: 'center', rowSpan: '2' },
         {
           field: 'sueldoBasico',
           header: 'Sueldo básico',
@@ -160,36 +191,26 @@ export class VistaPlanillaComponent implements OnInit {
         dataKey: col.field,
       }));
 
+    this.sedeStore.loadAll();
+    this.cargoStore.loadAll();
     this.cargarPagosMensuales();
   }
 
   cargarPagosMensuales() {
     this.loadingTable = true;
-    forkJoin([
-      /* this.sedeService.findAll(), this.cargoService.findAll() */
-    ])
-      .pipe(
-        mergeMap((arr) => {
-          /* this.listaSedes = arr[0];
-          this.selectedSedes = this.listaSedes.map((item) => item.id); */
-          // this.listaCargos = arr[1];
-          // this.selectedCargos = this.listaCargos.map((item) => item.id);
-          return this.trabajadorService.findAllPagoByMonth(this.fechaSelected);
-        })
-      )
-      .subscribe({
-        next: (data) => {
-          this.listaPagoMensual = data;
-          this.loadingTable = false;
-          this.filtrar();
-        },
-      });
+    this.trabajadorService.findAllPagoByMonth(this.fechaSelected).subscribe({
+      next: (data) => {
+        this.listaPagoMensual = data;
+        this.loadingTable = false;
+        this.filtrar();
+      },
+    });
   }
 
   filtrar(event?: number) {
     this.dataTable = this.listaPagoMensual.filter(
       (t) =>
-        this.selectedSedes.includes(t.sede.id) &&
+        t.sedes.some((s: Sede) => this.selectedSedes.includes(s.id)) &&
         this.selectedCargos.includes(t.cargo.id)
     );
   }
@@ -200,11 +221,11 @@ export class VistaPlanillaComponent implements OnInit {
 
   getComprobante(item: any) {
     this.dialogService.open(ComprobantePagoComponent, {
-      header: 'Datos de boleta de pago',
+      header: 'Previsualización - Datos de boleta de pago',
       styleClass: 'modal-5xl',
-      position: 'top',
-      data: { trabajador: item },
-      dismissableMask: true,
+      position: 'center',
+      data: { id: item.id, fecha: this.fechaSelected },
+      dismissableMask: false,
       closable: true,
     });
   }
@@ -215,7 +236,7 @@ export class VistaPlanillaComponent implements OnInit {
       styleClass: 'modal-4xl',
       data: { id: item.id, fecha: this.fechaSelected },
       modal: true,
-      dismissableMask: true,
+      dismissableMask: false,
       closable: true,
     });
   }

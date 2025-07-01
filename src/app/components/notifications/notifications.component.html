@@ -24,7 +24,7 @@
         Notificaciones
       </span>
       <ul *ngIf="notificaciones.length" class="list-none flex flex-col gap-2">
-        @for(item of notificaciones; track item) {
+        @for(item of notificaciones; track item.id) {
         <li
           [ngClass]="[
             'flex items-center gap-2 shadow py-1 px-2',

@@ -1,28 +1,28 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, effect, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
-import { IconField } from 'primeng/iconfield';
-import { InputIcon } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DialogService } from 'primeng/dynamicdialog';
 import { SelectModule } from 'primeng/select';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { FormAdelantoComponent } from './form-adelanto/form-adelanto.component';
 import { DatePickerModule } from 'primeng/datepicker';
-import { SedeService } from '@services/sede.service';
-import { CargoService } from '@services/cargo.service';
-import { TrabajadorService } from '@services/trabajador.service';
-import { mergeMap } from 'rxjs';
-import { AdelantoService } from '@services/adelanto.service';
-import { Trabajador } from '@models/trabajador.model';
 import { Cargo } from '@models/cargo.model';
 import { Sede } from '@models/sede.model';
 import { Adelanto } from '@models/adelanto.model';
 import { Column, ExportColumn } from '@models/column-table.model';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TitleCardComponent } from '@components/title-card/title-card.component';
+import { CargoStore } from '@stores/cargo.store';
+import { SedeStore } from '@stores/sede.store';
+import { AdelantoStore } from '@stores/adelanto.store';
+import { MessageGlobalService } from '@services/message-global.service';
+import { InputGroup } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { ButtonEditComponent } from '@components/buttons/button-edit/button-edit.component';
+import { ButtonDeleteComponent } from '@components/buttons/button-delete/button-delete.component';
 
 @Component({
   selector: 'app-adelantos',
@@ -32,14 +32,16 @@ import { TitleCardComponent } from '@components/title-card/title-card.component'
     MultiSelectModule,
     ButtonModule,
     TableModule,
-    InputIcon,
-    IconField,
+    InputGroup,
+    InputGroupAddonModule,
     InputTextModule,
     SelectModule,
     FormsModule,
     DatePickerModule,
     SkeletonModule,
     TitleCardComponent,
+    ButtonEditComponent,
+    ButtonDeleteComponent,
   ],
   templateUrl: './adelantos.component.html',
   styles: ``,
@@ -52,27 +54,77 @@ export class AdelantosComponent implements OnInit {
 
   private readonly dialogService = inject(DialogService);
 
-  private readonly sedeService = inject(SedeService);
+  private readonly msg = inject(MessageGlobalService);
 
-  private readonly cargoService = inject(CargoService);
+  private readonly cargoStore = inject(CargoStore);
 
-  private readonly trabajadorService = inject(TrabajadorService);
+  private readonly sedeStore = inject(SedeStore);
 
-  private readonly adelantoService = inject(AdelantoService);
+  private readonly store = inject(AdelantoStore);
 
-  fechaSelected: Date | undefined = new Date('2025/03/01');
+  fechaSelected: Date | undefined = new Date();
 
-  listaSedes: Sede[] = [];
+  openModal: boolean = false;
+
+  get listaCargos(): Cargo[] {
+    return this.cargoStore.items();
+  }
+
+  get listaSedes(): Sede[] {
+    return this.sedeStore.items();
+  }
 
   selectedSedes: string[] = [];
 
-  listaCargos: Cargo[] = [];
-
   selectedCargos: string[] = [];
 
-  listaTrabajadores: Trabajador[] = [];
+  private sedesEffect = effect(() => {
+    const sedes = this.sedeStore.items();
+    if (sedes) {
+      this.selectedSedes = sedes.map((item) => item.id);
+      this.filtrar();
+    }
+  });
 
-  listaAdelantos: Adelanto[] = [];
+  private cargosEffect = effect(() => {
+    const cargos = this.cargoStore.items();
+    if (cargos) {
+      this.selectedCargos = cargos.map((item) => item.id);
+
+      this.filtrar();
+    }
+  });
+
+  get listaAdelantos(): Adelanto[] {
+    return this.store.items();
+  }
+
+  private resetOnSuccessEffect = effect(() => {
+    const error = this.store.error();
+    const action = this.store.lastAction();
+    const items = this.store.items();
+
+    if (items) {
+      this.filtrar();
+    }
+
+    // Manejo de errores
+    if (!this.openModal && error) {
+      console.log('error', error);
+      this.msg.error(
+        error ?? '¡Ups, ocurrió un error inesperado al eliminar el equipo!'
+      );
+      return; // Salimos si hay un error
+    }
+
+    // Si se ha creado o actualizado correctamente
+    if (action === 'deleted') {
+      this.msg.success('¡equipo eliminado exitosamente!');
+      this.store.clearSelected();
+      this.loadData();
+      return;
+    }
+  });
 
   dataTable: Adelanto[] = [];
 
@@ -80,7 +132,17 @@ export class AdelantosComponent implements OnInit {
 
   exportColumns!: ExportColumn[];
 
-  loadingTable?: boolean = false;
+  limit = signal(12);
+  offset = signal(0);
+  searchText = signal('');
+
+  get loadingTable(): boolean {
+    return this.store.loading();
+  }
+
+  get totalItems(): number {
+    return this.store.totalItems();
+  }
 
   ngOnInit(): void {
     this.cols = [
@@ -107,6 +169,12 @@ export class AdelantosComponent implements OnInit {
         header: 'Fecha de descuento',
         align: 'center',
       },
+      {
+        field: '',
+        header: 'Acciones',
+        align: 'center',
+        widthClass: '!w-36',
+      },
     ];
 
     this.exportColumns = this.cols.map((col) => ({
@@ -114,79 +182,88 @@ export class AdelantosComponent implements OnInit {
       dataKey: col.field,
     }));
 
-    this.cargarAdelantos();
+    this.sedeStore.loadAll();
+    this.cargoStore.loadAll();
+    this.loadData();
   }
 
-  cargarAdelantos() {
-    this.loadingTable = true;
-    this.cargoService
-      .findAll()
-      .pipe(
-        mergeMap((data) => {
-          this.listaCargos = data;
-          this.selectedCargos = this.listaCargos.map((item) => item.id);
-          return this.sedeService.findAll();
-        }),
-        mergeMap((data) => {
-          this.listaSedes = data;
-          this.selectedSedes = this.listaSedes.map((item) => item.id);
-          return this.trabajadorService.findAllActivos();
-        }),
-        mergeMap((data) => {
-          this.listaTrabajadores = data;
-          return this.adelantoService.findAll();
-        })
-      )
-      .subscribe({
-        next: (data) => {
-          this.loadingTable = false;
-          this.listaAdelantos = data;
-          this.filtrar();
-        },
-      });
+  loadData() {
+    this.store.loadAll(this.limit(), this.offset());
+  }
+
+  search() {
+    const q: Record<string, any> = {
+      filter: false,
+      isActive: true,
+      search: this.searchText(),
+    };
+    this.store.loadAll(this.limit(), this.offset(), q);
+  }
+
+  onPageChange(event: { limit: number; offset: number }) {
+    this.limit.set(event.limit);
+    this.offset.set(event.offset);
+    this.loadData();
   }
 
   filtrar(event?: number) {
     this.dataTable = this.listaAdelantos.filter(
       (t) =>
-        this.selectedSedes.includes(t.id as string) &&
+        this.selectedSedes.includes(t.idSede as string) &&
         this.selectedCargos.includes(t.idCargo as string)
     );
   }
 
   addNew() {
+    this.store.clearSelected();
+    this.openModal = true;
     const ref = this.dialogService.open(FormAdelantoComponent, {
       header: 'Registrar adelanto de sueldo',
       styleClass: 'modal-md',
-      position: 'top',
+      position: 'center',
       modal: true,
-      dismissableMask: true,
+      dismissableMask: false,
       closable: true,
     });
 
     ref.onClose.subscribe((res) => {
+      this.openModal = false;
       if (res) {
-        this.cargarAdelantos();
+        this.loadData();
       }
     });
   }
 
   edit(item: any) {
+    this.store.loadById(item.id!);
+    this.openModal = true;
     const ref = this.dialogService.open(FormAdelantoComponent, {
       header: 'Inactivar trabajador',
       styleClass: 'modal-md',
-      position: 'top',
-      data: item,
+      position: 'center',
       modal: true,
-      dismissableMask: true,
+      dismissableMask: false,
       closable: true,
     });
 
     ref.onClose.subscribe((res) => {
+      this.openModal = false;
       if (res) {
-        this.cargarAdelantos();
+        this.loadData();
       }
     });
+  }
+
+  remove(item: Adelanto) {
+    this.msg.confirm(
+      `<div class='px-4 py-2'>
+        <p class='text-center'> ¿Está seguro de eliminar el adelanto a <span class='uppercase font-bold'>${item?.trabajador?.nombre} ${item?.trabajador?.apellido}</span>? </p>
+        <p class='text-center'> Esta acción no se puede deshacer. </p>
+      </div>`,
+      () => {
+        this.store.delete(item.id!);
+      }
+    );
   }
 
   filterGlobal(dt: any, target: EventTarget | null) {

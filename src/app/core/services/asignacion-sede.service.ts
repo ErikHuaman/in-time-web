@@ -38,6 +38,6 @@ export class AsignacionSedeService {
   }
 
   update(id: string, dto: AsignacionSede): Observable<AsignacionSede> {
-    return this.http.put<AsignacionSede>(`${this.url}/${id}`, dto);
+    return this.http.patch<AsignacionSede>(`${this.url}/${id}`, dto);
   }
 }

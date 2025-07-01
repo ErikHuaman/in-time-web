@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '@environments/environments';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Dispositivo } from '@models/dispositivo.model';
 
 @Injectable({
@@ -13,7 +13,10 @@ export class DispositivoService {
   private readonly http = inject(HttpClient);
 
   findAll(): Observable<Dispositivo[]> {
-    return this.http.get<Dispositivo[]>(this.url);
+    return this.http.get<any>(this.url).pipe(
+      map((data: any) => data.data),
+      map((data: Dispositivo[]) => data)
+    );
   }
 
   findOne(id: string): Observable<Dispositivo> {
@@ -25,6 +28,6 @@ export class DispositivoService {
   }
 
   update(id: string, dto: Dispositivo): Observable<Dispositivo> {
-    return this.http.put<Dispositivo>(`${this.url}/${id}`, dto);
+    return this.http.patch<Dispositivo>(`${this.url}/${id}`, dto);
   }
 }

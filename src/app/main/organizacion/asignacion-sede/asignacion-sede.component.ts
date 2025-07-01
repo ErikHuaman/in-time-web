@@ -160,7 +160,7 @@ export class AsignacionSedeComponent implements OnInit {
       {
         field: 'id',
         header: 'ID',
-        customExportHeader: 'Asignación ID',
+        customExportHeader: 'Doc ID',
         align: 'center',
         widthClass: '!w-20',
       },
@@ -220,15 +220,18 @@ export class AsignacionSedeComponent implements OnInit {
   }
 
   addNew() {
+    this.store.clearSelected();
+    this.openModal = true;
     const ref = this.dialogService.open(FormAsignacionSedeComponent, {
       header: 'Asignación edificio',
       styleClass: 'modal-md',
       modal: true,
-      dismissableMask: true,
+      dismissableMask: false,
       closable: true,
     });
 
     ref.onClose.subscribe((res) => {
+      this.openModal = false;
       if (res) {
         this.loadData();
       }
@@ -236,16 +239,18 @@ export class AsignacionSedeComponent implements OnInit {
   }
 
   editar(idTrabajador: string) {
+    this.store.clearSelected();
     const ref = this.dialogService.open(FormAsignacionSedeComponent, {
       header: 'Asignación edificio',
       styleClass: 'modal-md',
       modal: true,
-      dismissableMask: true,
+      dismissableMask: false,
       closable: true,
       data: { idTrabajador },
     });
 
     ref.onClose.subscribe((res) => {
+      this.openModal = false;
       if (res) {
         this.loadData();
       }

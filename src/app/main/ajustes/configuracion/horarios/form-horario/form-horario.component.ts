@@ -44,6 +44,7 @@ import { PatronHorarioItem } from '@models/patron-horario-item.model';
 import { Sede } from '@models/sede.model';
 import { Cargo } from '@models/cargo.model';
 import { TrabajadorStore } from '@stores/trabajador.store';
+import { sanitizedForm } from '@functions/forms.function';
 
 @Component({
   selector: 'app-form-horario',
@@ -186,13 +187,12 @@ export class FormHorarioComponent implements OnInit {
   }
 
   asignarEdificio(idSede: string) {
-    console.log('idSede', idSede);
     this.listaHorarioTrabajadorItem.forEach(
       (items: HorarioTrabajadorItem[], index: number) => {
         if (index === this.preSelectedIndexes[0]) {
           items.forEach((item: HorarioTrabajadorItem, i: number) => {
             if (i === this.preSelectedIndexes[1]) {
-              item.id = idSede;
+              item.idSede = idSede;
             }
           });
         }
@@ -210,7 +210,7 @@ export class FormHorarioComponent implements OnInit {
               item.idBloqueHoras = undefined;
               item.diaLibre = false;
               item.diaDescanso = true;
-              item.id = undefined;
+              item.idSede = undefined;
             }
           });
         }
@@ -390,7 +390,7 @@ export class FormHorarioComponent implements OnInit {
                 item.idBloqueHoras = pItem.idBloqueHoras;
                 item.diaLibre = pItem.diaLibre;
                 item.diaDescanso = pItem.diaDescanso;
-                item.id =
+                item.idSede =
                   this.listaSedes.length == 1
                     ? this.listaSedes[0].id
                     : undefined;
@@ -425,7 +425,8 @@ export class FormHorarioComponent implements OnInit {
       item.bloque = this.selectedBloque;
       item.diaLibre = false;
       item.diaDescanso = false;
-      item.id = this.listaSedes.length == 1 ? this.listaSedes[0].id : undefined;
+      item.idSede =
+        this.listaSedes.length == 1 ? this.listaSedes[0].id : undefined;
       this.idPatronSelected = undefined;
     }
   }
@@ -448,13 +449,13 @@ export class FormHorarioComponent implements OnInit {
       this.listaHorarioTrabajadorItem.every(
         (items: any[]) =>
           items.every((item: any) => !item.bloque) ||
-          items.every((item: any) => !item.id)
+          items.every((item: any) => !item.idSede)
       )
     );
   }
 
   preGuardar() {
-    const form = this.formData.value;
+    const form: HorarioTrabajador = sanitizedForm(this.formData.getRawValue());
     if (!this.idPatronSelected) {
       const ref = this.dialogService.open(FormPatronComponent, {
         header: 'Guardar patrón',
@@ -480,26 +481,19 @@ export class FormHorarioComponent implements OnInit {
   }
 
   guardar(id?: string) {
-    console.log(this.formData.value);
-    const form = this.formData.value;
+    const form: HorarioTrabajador = sanitizedForm(this.formData.getRawValue());
     this.horarioTrabajadorService
       .create({
         ...form,
         idTurnoTrabajo: this.idTurnoTrabajo,
         idPatronHorario: id,
+        items: this.listaHorarioTrabajadorItem.flatMap((items) =>
+          items.map((item) => ({
+            ...item,
+          }))
+        ),
       } as HorarioTrabajador)
-      .pipe(
-        mergeMap((data: HorarioTrabajador) =>
-          this.horarioTrabajadorItemService.createMany(
-            this.listaHorarioTrabajadorItem.flatMap((items) =>
-              items.map((item) => ({
-                ...item,
-                idHorarioTrabajador: data.id,
-              }))
-            )
-          )
-        )
-      )
+
       .subscribe({
         next: (data) => {
           this.msg.success('¡Registrado con éxito!');

@@ -57,7 +57,7 @@
           />
         </p-iconfield>
       </div>
-      <div class="flex items-center gap-3">
+      <!-- <div class="flex items-center gap-3">
         <p-button severity="info" size="small">
           <div class="flex justify-center items-center font-medium gap-1">
             <i
@@ -68,7 +68,7 @@
             <div>XLS</div>
           </div>
         </p-button>
-      </div>
+      </div> -->
     </div>
   </div>
   <div class="flex flex-col h-[calc(100% - 8.5rem)] px-6">
@@ -233,6 +233,15 @@
                   data-inline="false"
                 ></i>
               </p-button>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template #emptymessage>
+        <tr>
+          <td colspan="100">
+            <div class="text-center text-sm font-extralight">
+              No se encontraron registros.
             </div>
           </td>
         </tr>

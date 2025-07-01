@@ -39,6 +39,6 @@ export class HorarioTrabajadorService {
   }
 
   update(id: string, dto: HorarioTrabajador): Observable<HorarioTrabajador> {
-    return this.http.put<HorarioTrabajador>(`${this.url}/${id}`, dto);
+    return this.http.patch<HorarioTrabajador>(`${this.url}/${id}`, dto);
   }
 }

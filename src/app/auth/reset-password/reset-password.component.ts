@@ -8,6 +8,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { sanitizedForm } from '@functions/forms.function';
+import { LoginRequest } from '@models/auth.model';
 import { AuthStore } from '@stores/auth.store';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -55,6 +57,7 @@ export class ResetPasswordComponent {
   }
 
   onSubmit() {
-    // this.store.login(this.formData.value as LoginRequest, this.returnUrl);
+    const form: LoginRequest = sanitizedForm(this.formData.getRawValue());
+    // this.store.login(form, this.returnUrl);
   }
 }

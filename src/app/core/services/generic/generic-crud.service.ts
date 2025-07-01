@@ -5,7 +5,7 @@ import { PaginatedResponse } from '@interfaces/paginated-response.interface';
 import { Observable } from 'rxjs';
 
 export class GenericCrudService<T> {
-  private readonly url!: string;
+  protected readonly url!: string;
 
   constructor(protected http: HttpClient, endpoint: string) {
     this.url = `${environment.apiUrl}/${endpoint}`;
@@ -62,11 +62,11 @@ export class GenericCrudService<T> {
   }
 
   // Métodos opcionales específicos
-  changeStatus?(id: string, isActive: boolean): Observable<any> {
+  changeStatus(id: string, isActive: boolean): Observable<any> {
     return this.http.get<any>(`${this.url}/changeStatus/${id}/${isActive}`);
   }
 
-  obtenerArchivo?(id: string): Observable<Blob> {
+  getFile(id: string): Observable<Blob> {
     return this.http.get(`${this.url}/obtenerArchivo/${id}`, {
       responseType: 'blob',
     });

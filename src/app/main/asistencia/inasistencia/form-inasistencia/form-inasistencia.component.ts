@@ -23,6 +23,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { MessageGlobalService } from '@services/message-global.service';
 import { JustificacionInasistenciaService } from '@services/justificacion-inasistencia.service';
 import { JustificacionInasistencia } from '@models/justificacion-inasistencia.model';
+import { sanitizedForm } from '@functions/forms.function';
 
 @Component({
   selector: 'app-form-inasistencia',
@@ -139,10 +140,12 @@ export class FormInasistenciaComponent implements OnInit {
   }
 
   guardar() {
-    const form = this.formData.value;
+    const form: JustificacionInasistencia = sanitizedForm(
+      this.formData.getRawValue()
+    );
     if (!this.id) {
       this.justificacionInasistenciaService
-        .create({ ...form, fecha: this.fecha, archivo: this.archivo })
+        .create({ ...form, fecha: this.fecha }, { file: this.archivo })
         .subscribe({
           next: (data) => {
             this.msg.success('¡Registrado con éxito!');
@@ -154,7 +157,7 @@ export class FormInasistenciaComponent implements OnInit {
         });
     } else {
       this.justificacionInasistenciaService
-        .update(this.id, { ...form, fecha: this.fecha })
+        .update(this.id, { ...form, fecha: this.fecha }, { file: this.archivo })
         .subscribe({
           next: (data) => {
             this.msg.success('¡Actualizado con éxito!');

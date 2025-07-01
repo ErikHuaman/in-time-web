@@ -7,6 +7,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { sanitizedForm } from '@functions/forms.function';
 import { Feriado } from '@models/feriado.model';
 import { FeriadoService } from '@services/feriado.service';
 import { MessageGlobalService } from '@services/message-global.service';
@@ -63,7 +64,7 @@ export class FormEventoComponent {
   });
 
   guardar() {
-    const form = this.formData.value;
+    const form = sanitizedForm(this.formData.getRawValue());
     if (!this.id) {
       this.feriadoService.create(form as Feriado).subscribe({
         next: (data) => {

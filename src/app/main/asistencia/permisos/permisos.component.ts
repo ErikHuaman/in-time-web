@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, effect, inject, OnInit, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DatePickerModule } from 'primeng/datepicker';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -19,12 +19,19 @@ import { CargoService } from '@services/cargo.service';
 import { TrabajadorService } from '@services/trabajador.service';
 import { mergeMap } from 'rxjs';
 import { Column, ExportColumn } from '@models/column-table.model';
-import { Trabajador } from '@models/trabajador.model';
 import { Cargo } from '@models/cargo.model';
 import { Sede } from '@models/sede.model';
 import { PermisoTrabajador } from '@models/permiso-trabajador.model';
 import { PermisoTrabajadorService } from '@services/permiso-trabajador.service';
 import { TitleCardComponent } from '@components/title-card/title-card.component';
+import { ButtonEditComponent } from '@components/buttons/button-edit/button-edit.component';
+import { ButtonDeleteComponent } from '@components/buttons/button-delete/button-delete.component';
+import { MessageGlobalService } from '@services/message-global.service';
+import { CargoStore } from '@stores/cargo.store';
+import { SedeStore } from '@stores/sede.store';
+import { PermisoTrabajadorStore } from '@stores/permiso-trabajador.store';
+import { InputGroup } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 
 @Component({
   selector: 'app-permisos',
@@ -33,8 +40,8 @@ import { TitleCardComponent } from '@components/title-card/title-card.component'
     FormsModule,
     ButtonModule,
     TableModule,
-    InputIcon,
-    IconField,
+    InputGroup,
+    InputGroupAddonModule,
     InputTextModule,
     SelectModule,
     TagModule,
@@ -43,6 +50,8 @@ import { TitleCardComponent } from '@components/title-card/title-card.component'
     MultiSelectModule,
     SkeletonModule,
     TitleCardComponent,
+    ButtonEditComponent,
+    ButtonDeleteComponent,
   ],
   templateUrl: './permisos.component.html',
   styles: ``,
@@ -55,27 +64,83 @@ export class PermisosComponent implements OnInit {
 
   private readonly dialogService = inject(DialogService);
 
-  private readonly sedeService = inject(SedeService);
+  private readonly msg = inject(MessageGlobalService);
 
-  private readonly cargoService = inject(CargoService);
+  private readonly cargoStore = inject(CargoStore);
 
-  private readonly trabajadorService = inject(TrabajadorService);
+  private readonly sedeStore = inject(SedeStore);
 
-  private readonly permisoService = inject(PermisoTrabajadorService);
+  private readonly store = inject(PermisoTrabajadorStore);
 
-  fechaSelected: Date | undefined = new Date('2025/03/01');
+  fechaSelected: Date | undefined = new Date();
 
-  listaSedes: Sede[] = [];
+  openModal: boolean = false;
+
+  get listaCargos(): Cargo[] {
+    return this.cargoStore.items();
+  }
+
+  get listaSedes(): Sede[] {
+    return this.sedeStore.items();
+  }
 
   selectedSedes: string[] = [];
 
-  listaCargos: Cargo[] = [];
-
   selectedCargos: string[] = [];
 
-  listaPermisos: PermisoTrabajador[] = [];
+  private sedesEffect = effect(() => {
+    const sedes = this.sedeStore.items();
+    if (sedes) {
+      this.selectedSedes = sedes.map((item) => item.id);
+      this.filtrar();
+    }
+  });
+
+  private cargosEffect = effect(() => {
+    const cargos = this.cargoStore.items();
+    if (cargos) {
+      this.selectedCargos = cargos.map((item) => item.id);
+
+      this.filtrar();
+    }
+  });
+
+  get listaPermisos(): PermisoTrabajador[] {
+    return this.store.items();
+  }
+
+  private resetOnSuccessEffect = effect(() => {
+    const error = this.store.error();
+    const action = this.store.lastAction();
+    const items = this.store.items();
+
+    if (items) {
+      this.filtrar();
+    }
+
+    // Manejo de errores
+    if (!this.openModal && error) {
+      console.log('error', error);
+      this.msg.error(
+        error ?? '¡Ups, ocurrió un error inesperado al eliminar el equipo!'
+      );
+      return; // Salimos si hay un error
+    }
+
+    // Si se ha creado o actualizado correctamente
+    if (action === 'deleted') {
+      this.msg.success('¡equipo eliminado exitosamente!');
+      this.store.clearSelected();
+      this.loadData();
+      return;
+    }
+  });
 
   dataTable: PermisoTrabajador[] = [];
+
+  limit = signal(12);
+  offset = signal(0);
+  searchText = signal('');
 
   cols!: Column[];
 
@@ -99,6 +164,12 @@ export class PermisosComponent implements OnInit {
       { field: 'nota', header: 'Nota', align: 'center' },
       { field: 'fechaInicio', header: 'Fecha inicio', align: 'center' },
       { field: 'fechaFin', header: 'Fecha fin', align: 'center' },
+      {
+        field: '',
+        header: 'Acciones',
+        align: 'center',
+        widthClass: '!w-36',
+      },
     ];
 
     this.exportColumns = this.cols.map((col) => ({
@@ -106,74 +177,89 @@ export class PermisosComponent implements OnInit {
       dataKey: col.field,
     }));
 
-    this.cargarPermisos();
+    this.sedeStore.loadAll();
+    this.cargoStore.loadAll();
+    this.loadData();
   }
 
-  cargarPermisos() {
-    this.loadingTable = true;
-    this.cargoService
-      .findAll()
-      .pipe(
-        mergeMap((data) => {
-          this.listaCargos = data;
-          this.selectedCargos = this.listaCargos.map((item) => item.id);
-          return this.sedeService.findAll();
-        }),
-        mergeMap((data) => {
-          this.listaSedes = data;
-          this.selectedSedes = this.listaSedes.map((item) => item.id);
-          return this.permisoService.findAll();
-        })
-      )
-      .subscribe({
-        next: (data) => {
-          this.loadingTable = false;
-          this.listaPermisos = data;
-          this.filtrar();
-        },
-      });
+  loadData() {
+    this.store.loadAll(this.limit(), this.offset());
+  }
+
+  search() {
+    const q: Record<string, any> = {
+      filter: false,
+      isActive: true,
+      search: this.searchText(),
+    };
+    this.store.loadAll(this.limit(), this.offset(), q);
+  }
+
+  onPageChange(event: { limit: number; offset: number }) {
+    this.limit.set(event.limit);
+    this.offset.set(event.offset);
+    this.loadData();
   }
 
   filtrar(event?: number) {
+    console.log('this.listaPermisos', this.listaPermisos);
     this.dataTable = this.listaPermisos.filter(
       (t) =>
-        this.selectedSedes.includes(t.id as string) &&
+        this.selectedSedes.includes(t.idSede as string) &&
         this.selectedCargos.includes(t.idCargo as string)
     );
   }
 
   addNew() {
+    this.store.clearSelected();
+    this.openModal = true;
     const ref = this.dialogService.open(FormPermisoComponent, {
       header: 'Nuevo permiso',
       styleClass: 'modal-md',
       modal: true,
-      dismissableMask: true,
+      dismissableMask: false,
       closable: true,
     });
 
     ref.onClose.subscribe((res) => {
+      this.openModal = false;
       if (res) {
-        this.cargarPermisos();
+        this.loadData();
       }
     });
   }
 
-  edit(item: any) {
+  edit(item: PermisoTrabajador) {
+    this.store.loadById(item.id!);
+    this.openModal = true;
     const ref = this.dialogService.open(FormPermisoComponent, {
       header: 'Modificar permiso',
       styleClass: 'modal-md',
-      position: 'top',
+      position: 'center',
       data: item,
       modal: true,
-      dismissableMask: true,
+      dismissableMask: false,
       closable: true,
     });
 
     ref.onClose.subscribe((res) => {
+      this.openModal = false;
       if (res) {
-        this.cargarPermisos();
+        this.loadData();
       }
     });
+  }
+
+  remove(item: PermisoTrabajador) {
+    this.msg.confirm(
+      `<div class='px-4 py-2'>
+          <p class='text-center'> ¿Está seguro de eliminar el permiso a <span class='uppercase font-bold'>${item?.trabajador?.nombre} ${item?.trabajador?.apellido}</span>? </p>
+          <p class='text-center'> Esta acción no se puede deshacer. </p>
+        </div>`,
+      () => {
+        this.store.delete(item.id!);
+      }
+    );
   }
 
   filterGlobal(dt: any, target: EventTarget | null) {

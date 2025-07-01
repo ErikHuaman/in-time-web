@@ -266,7 +266,7 @@ export class HorariosComponent {
       styleClass: 'modal-6xl',
       data: { isEditable: true },
       modal: true,
-      dismissableMask: true,
+      dismissableMask: false,
       closable: true,
     });
 
@@ -283,7 +283,7 @@ export class HorariosComponent {
       styleClass: 'modal-6xl',
       data: { isEditable: false },
       modal: true,
-      dismissableMask: true,
+      dismissableMask: false,
       closable: true,
     });
 
@@ -300,7 +300,7 @@ export class HorariosComponent {
     // styleClass: "modal-6xl",
     // position: "top",
     // modal: true,
-    // dismissableMask: true,
+    // dismissableMask: false,
     // closable: true
     // })
   }

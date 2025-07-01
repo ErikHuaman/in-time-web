@@ -29,6 +29,7 @@ import { InputOtpModule } from 'primeng/inputotp';
 import { generarCodigoNumerico } from '@functions/number.function';
 import { ReemplaceroService } from '@services/reemplacero.service';
 import { Reemplacero } from '@models/reemplacero.model';
+import { sanitizedForm } from '@functions/forms.function';
 
 @Component({
   selector: 'app-form-reemplazo',
@@ -114,20 +115,25 @@ export class FormReemplazoComponent implements OnInit {
       this.formData.get('nombres')?.setValue(data['nombres']);
       this.formData.get('dni')?.setValue(data['dni']);
       this.formData.get('codigo')?.setValue(data['codigo']);
-    }
 
-    this.cargarTrabajadoresActivos();
+      if (!data['codigo']) {
+        this.tipoVerificacion = 'foto';
+        this.getArchivoBiometrico(data['id']);
+      } else {
+        this.tipoVerificacion = 'codigo';
+      }
+    }
   }
 
-  // getArchivoBiometrico(id: string) {
-  //   this.registroBiometricoService.obtenerArchivo(id).subscribe({
-  //     next: (blob) => {
-  //       this.previewUrl = this.sanitizer.bypassSecurityTrustUrl(
-  //         window.URL.createObjectURL(blob)
-  //       );
-  //     },
-  //   });
-  // }
+  getArchivoBiometrico(id: string) {
+    this.reemplaceroService.getFile(id).subscribe({
+      next: (blob) => {
+        this.previewUrl = this.sanitizer.bypassSecurityTrustUrl(
+          window.URL.createObjectURL(blob)
+        );
+      },
+    });
+  }
 
   cargarReemplazo() {
     this.reemplaceroService.findAll().subscribe({
@@ -135,22 +141,6 @@ export class FormReemplazoComponent implements OnInit {
         this.listaReemplaceros = data;
       },
     });
-  }
-
-  cargarTrabajadoresActivos() {
-    // this.trabajadorService.findAllActivos().subscribe({
-    //   next: (data) => {
-    //     this.listaTrabajadores = data
-    //       .filter(
-    //         (item) =>
-    //           item.contratos.filter((c) => c.cargo.isEditable).length != 0
-    //       )
-    //       .map((item) => {
-    //         item.labelName = `${item.identificacion} | ${item.nombre} ${item.apellido}`;
-    //         return item;
-    //       });
-    //   },
-    // });
   }
 
   changeTipo(event: any) {
@@ -185,14 +175,14 @@ export class FormReemplazoComponent implements OnInit {
       this.formData.invalid ||
       (this.tipoVerificacion == 'codigo'
         ? !this.formData.get('codigo')?.value
-        : !this.archivo)
+        : !this.previewUrl)
     );
   }
 
   guardar() {
-    const form = this.formData.value;
+    const form: Reemplacero = sanitizedForm(this.formData.getRawValue());
     if (!this.id) {
-      this.reemplaceroService.create(form).subscribe({
+      this.reemplaceroService.create(form, { file: this.archivo }).subscribe({
         next: (data) => {
           this.msg.success('¡Registrado con éxito!');
           this.ref.close(data);
@@ -202,15 +192,17 @@ export class FormReemplazoComponent implements OnInit {
         },
       });
     } else {
-      this.reemplaceroService.update(this.id, form).subscribe({
-        next: (data) => {
-          this.msg.success('¡Actualizado con éxito!');
-          this.ref.close(data);
-        },
-        error: (e) => {
-          this.msg.error(e.error.message);
-        },
-      });
+      this.reemplaceroService
+        .update(this.id, form, { file: this.archivo })
+        .subscribe({
+          next: (data) => {
+            this.msg.success('¡Actualizado con éxito!');
+            this.ref.close(data);
+          },
+          error: (e) => {
+            this.msg.error(e.error.message);
+          },
+        });
     }
   }
 }

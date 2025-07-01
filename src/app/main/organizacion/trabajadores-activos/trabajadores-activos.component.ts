@@ -2,8 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, effect, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
-import { IconField } from 'primeng/iconfield';
-import { InputIcon } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -62,15 +60,11 @@ export class TrabajadoresActivosComponent implements OnInit {
 
   private readonly msg = inject(MessageGlobalService);
 
+  private readonly store = inject(TrabajadorStore);
+
   private readonly cargoStore = inject(CargoStore);
 
   private readonly sedeStore = inject(SedeStore);
-
-  private readonly store = inject(TrabajadorStore);
-
-  selectedSedes: string[] = [];
-
-  selectedCargos: string[] = [];
 
   get listaTrabajadores(): Trabajador[] {
     return this.store.items();
@@ -99,6 +93,10 @@ export class TrabajadoresActivosComponent implements OnInit {
   get listaSedes(): Sede[] {
     return this.sedeStore.items();
   }
+
+  selectedSedes: string[] = [];
+
+  selectedCargos: string[] = [];
 
   private sedesEffect = effect(() => {
     const sedes = this.sedeStore.items();
@@ -194,7 +192,7 @@ export class TrabajadoresActivosComponent implements OnInit {
       header: 'Bitácora del trabajador',
       styleClass: 'modal-6xl',
       modal: true,
-      dismissableMask: true,
+      dismissableMask: false,
       closable: true,
     });
 
@@ -213,7 +211,7 @@ export class TrabajadoresActivosComponent implements OnInit {
       header: 'Bitácora del trabajador',
       styleClass: 'modal-6xl',
       modal: true,
-      dismissableMask: true,
+      dismissableMask: false,
       closable: true,
     });
 
@@ -232,11 +230,7 @@ export class TrabajadoresActivosComponent implements OnInit {
         <p class='text-center'> Esta acción no se puede deshacer. </p>
       </div>`,
       () => {
-        // this.sedeService.delete(item.id).subscribe({
-        //   next: (data) => {
-        //     this.loadData();
-        //   },
-        // });
+        this.store.delete(item.id!);
       }
     );
   }

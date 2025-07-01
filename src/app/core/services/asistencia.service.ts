@@ -22,9 +22,13 @@ export class AsistenciaService {
   findAllObservadoByMonth(fecha: Date): Observable<any[]> {
     return this.http.post<any[]>(`${this.url}/ObservadoByMonth`, { fecha });
   }
-  
+
   findAllInasistenciaByMonth(fecha: Date): Observable<any[]> {
     return this.http.post<any[]>(`${this.url}/InasistenciaByMonth`, { fecha });
+  }
+
+  findAllBySupervisorAndDate(fecha: Date): Observable<any[]> {
+    return this.http.post<any[]>(`${this.url}/BySupervisorAndDate`, { fecha });
   }
 
   create(dto: Asistencia): Observable<Asistencia> {
@@ -32,7 +36,7 @@ export class AsistenciaService {
   }
 
   update(id: string, dto: Asistencia): Observable<Asistencia> {
-    return this.http.put<Asistencia>(`${this.url}/${id}`, dto);
+    return this.http.patch<Asistencia>(`${this.url}/${id}`, dto);
   }
 
   changeStatus(id: string, isActive: boolean): Observable<any> {

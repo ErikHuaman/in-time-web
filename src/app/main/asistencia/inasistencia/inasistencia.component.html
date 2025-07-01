@@ -57,7 +57,7 @@
           />
         </p-iconfield>
       </div>
-      <div class="flex items-center gap-3">
+      <!-- <div class="flex items-center gap-3">
         <p-button severity="info" size="small">
           <div class="flex justify-center items-center font-medium gap-1">
             <i
@@ -68,7 +68,7 @@
             <div>XLS</div>
           </div>
         </p-button>
-      </div>
+      </div> -->
     </div>
   </div>
   <div class="flex flex-col h-[calc(100% - 8.5rem)] px-6">
@@ -125,7 +125,8 @@
           </td>
           <td>
             <div class="flex justify-center">
-              <p-button
+              <button-custom icon="material-symbols:document-search-outline-rounded" tooltip="Justificar inasistencia" (click)="edit(item)" />
+              <!-- <p-button
                 text
                 (click)="edit(item)"
                 severity="info"
@@ -141,7 +142,7 @@
                   "
                   data-inline="false"
                 ></i>
-              </p-button>
+              </p-button> -->
             </div>
           </td>
         </tr>

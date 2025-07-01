@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, effect, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Cargo } from '@models/cargo.model';
 import { Sede } from '@models/sede.model';
@@ -16,6 +16,8 @@ import { TableModule } from 'primeng/table';
 import { forkJoin, mergeMap } from 'rxjs';
 import { DetalleVisitaComponent } from './detalle-visita/detalle-visita.component';
 import { TitleCardComponent } from '@components/title-card/title-card.component';
+import { ButtonCustomComponent } from '@components/buttons/button-custom/button-custom.component';
+import { SedeStore } from '@stores/sede.store';
 
 @Component({
   selector: 'app-visitas-supervisores',
@@ -30,6 +32,7 @@ import { TitleCardComponent } from '@components/title-card/title-card.component'
     InputTextModule,
     TableModule,
     TitleCardComponent,
+    ButtonCustomComponent,
   ],
   templateUrl: './visitas-supervisores.component.html',
   styles: ``,
@@ -41,24 +44,32 @@ export class VisitasSupervisoresComponent implements OnInit {
 
   private readonly dialogService = inject(DialogService);
 
-  private readonly sedeService = inject(SedeService);
+  private readonly sedeStore = inject(SedeStore);
 
   private readonly asistenciaUsuarioService = inject(AsistenciaUsuarioService);
 
   fechaSelected!: Date;
 
-  listaSedes: Sede[] = [];
+  get listaSedes(): Sede[] {
+    return this.sedeStore.items();
+  }
 
   selectedSedes: string[] = [];
 
-  listaCargos: Cargo[] = [];
+  private sedesEffect = effect(() => {
+    const sedes = this.sedeStore.items();
+    if (sedes) {
+      this.selectedSedes = sedes.map((item) => item.id);
+      this.filtrar();
+    }
+  });
 
-  selectedCargos: string[] = [];
   dataTable: any[] = [];
   listaVisitasMensual: any[] = [];
 
   ngOnInit(): void {
-    this.fechaSelected = new Date('2025/06/01');
+    this.fechaSelected = new Date();
+    this.sedeStore.loadAll();
     this.cargarAsistencia();
   }
 
@@ -67,30 +78,19 @@ export class VisitasSupervisoresComponent implements OnInit {
   }
 
   cargarAsistencia() {
-    this.sedeService
-      .findAll()
-      .pipe(
-        mergeMap((data) => {
-          this.listaSedes = data;
-          this.selectedSedes = this.listaSedes.map((item) => item.id);
-          return this.asistenciaUsuarioService.findAllByMonth(
-            this.fechaSelected
-          );
-        })
-      )
-      .subscribe({
-        next: (data) => {
-          this.listaVisitasMensual = data.map((d) => {
-            d.fechaGroup = d.fecha.toString();
-            d.usuario = {
-              ...d.usuario,
-              labelName: `${d.usuario?.nombre} ${d.usuario?.apellido}`,
-            };
-            return d;
-          });
-          this.filtrar();
-        },
-      });
+    this.asistenciaUsuarioService.findAllByMonth(this.fechaSelected).subscribe({
+      next: (data) => {
+        this.listaVisitasMensual = data.map((d) => {
+          d.fechaGroup = d.fecha.toString();
+          d.usuario = {
+            ...d.usuario,
+            labelName: `${d.usuario?.nombre} ${d.usuario?.apellido}`,
+          };
+          return d;
+        });
+        this.filtrar();
+      },
+    });
   }
 
   filtrar(event?: number) {
@@ -111,7 +111,7 @@ export class VisitasSupervisoresComponent implements OnInit {
       styleClass: 'modal-4xl',
       data: item,
       modal: true,
-      dismissableMask: true,
+      dismissableMask: false,
       closable: true,
     });
   }

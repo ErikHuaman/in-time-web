@@ -15,6 +15,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { AuthStore } from '@stores/auth.store';
 import { LoginRequest } from '@models/auth.model';
 import { CheckboxModule } from 'primeng/checkbox';
+import { sanitizedForm } from '@functions/forms.function';
 
 @Component({
   selector: 'app-login',
@@ -70,6 +71,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.store.login(this.formData.value as LoginRequest, this.returnUrl);
+    const form: LoginRequest = sanitizedForm(this.formData.getRawValue());
+    this.store.login(form, this.returnUrl);
   }
 }

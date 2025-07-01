@@ -1,3 +1,5 @@
+import { Trabajador } from "./trabajador.model";
+
 export interface PermisoTrabajador {
   id?: string;
   idSede?: string;
@@ -9,4 +11,5 @@ export interface PermisoTrabajador {
   conGoce?: boolean;
   incluirExtra?: boolean;
   archivo?: File;
+  trabajador?: Trabajador;
 }

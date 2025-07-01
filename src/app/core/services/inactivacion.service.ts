@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '@environments/environments';
 import { InactivacionTrabajador } from '@models/inactivacionTrabajador.model';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +13,10 @@ export class InactivacionService {
   private readonly http = inject(HttpClient);
 
   findAll(): Observable<InactivacionTrabajador[]> {
-    return this.http.get<InactivacionTrabajador[]>(this.url);
+    return this.http.get<any>(this.url).pipe(
+      map((data: any) => data.data),
+      map((data: InactivacionTrabajador[]) => data)
+    );
   }
 
   findOne(id: string): Observable<InactivacionTrabajador> {
@@ -25,6 +28,6 @@ export class InactivacionService {
   }
 
   update(id: string, dto: InactivacionTrabajador): Observable<InactivacionTrabajador> {
-    return this.http.put<InactivacionTrabajador>(`${this.url}/${id}`, dto);
+    return this.http.patch<InactivacionTrabajador>(`${this.url}/${id}`, dto);
   }
 }

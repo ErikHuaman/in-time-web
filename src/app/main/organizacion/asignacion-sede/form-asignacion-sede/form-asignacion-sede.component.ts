@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import {
   DialogService,
@@ -27,7 +27,9 @@ import { AsignacionSede } from '@models/asignacion-sede.model';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { SedeStore } from '@stores/sede.store';
 import { Sede } from '@models/sede.model';
-import { Cargo } from '@models/cargo.model';
+import { TrabajadorStore } from '@stores/trabajador.store';
+import { Trabajador } from '@models/trabajador.model';
+import { MessageGlobalService } from '@services/message-global.service';
 
 @Component({
   selector: 'app-form-asignacion-sede',
@@ -52,13 +54,20 @@ export class FormAsignacionSedeComponent {
 
   private readonly dialogService: DialogService = inject(DialogService);
 
+  private readonly msg = inject(MessageGlobalService);
+
   private readonly sedeStore = inject(SedeStore);
 
-  private readonly asignacionSedeService = inject(AsignacionSedeService);
+  // private readonly asignacionSedeService = inject(AsignacionSedeService);
 
-  private readonly trabajadorService = inject(TrabajadorService);
+  private readonly store = inject(TrabajadorStore);
 
-  listaTrabajadores: any[] = [];
+  get listaTrabajadores(): Trabajador[] {
+    return this.store.items().map((item) => {
+      item.labelName = `${item.identificacion} | ${item.nombre} ${item.apellido}`;
+      return item;
+    });
+  }
 
   get listaSedes(): Sede[] {
     return this.sedeStore.items();
@@ -81,6 +90,61 @@ export class FormAsignacionSedeComponent {
     return this.formData.get('asignaciones') as FormArray;
   }
 
+  private resetOnSuccessEffect = effect(() => {
+    const item = this.store.selectedItem();
+    const error = this.store.error();
+    const action = this.store.lastAction();
+
+    // Manejo de errores
+    if (error) {
+      console.log('error', error);
+      this.msg.error(
+        error ?? '¡Ups, ocurrió un error inesperado al asignar edificios!'
+      );
+      return; // Salimos si hay un error
+    }
+
+    // Si se ha creado o actualizado correctamente
+    if (action === 'updated') {
+      this.msg.success('¡Edificios asignados exitosamente!');
+
+      this.store.clearSelected();
+      this.ref.close(true);
+      return;
+    }
+
+    // Si hay un item seleccionado, se carga en el formulario
+    if (item) {
+      this.formData.get('idSedes')?.setValue(item.sedes.map((item) => item.id));
+      this.asignaciones.clear();
+      console.log("item.sedes", item.sedes)
+      item.sedes.forEach((item) => {
+        const asignacionFormGroup = new FormGroup({
+          id: new FormControl<string | undefined>(item.id, {
+            nonNullable: true,
+            validators: [],
+          }),
+          idSede: new FormControl<string | undefined>(item.id, {
+            nonNullable: true,
+            validators: [Validators.required],
+          }),
+          nombreSede: new FormControl<string>(item.nombre, {
+            nonNullable: true,
+            validators: [Validators.required],
+          }),
+          fechaAsignacion: new FormControl<Date | undefined>(
+            new Date(item?.AsignacionSede?.fechaAsignacion!),
+            {
+              nonNullable: true,
+              validators: [Validators.required],
+            }
+          ),
+        });
+        this.asignaciones.push(asignacionFormGroup);
+      });
+    }
+  });
+
   ngOnInit(): void {
     const instance = this.dialogService.getInstance(this.ref);
     const data = instance.data;
@@ -90,64 +154,52 @@ export class FormAsignacionSedeComponent {
       this.formData.get('idTrabajador')?.disable();
       this.precargar();
     }
-    this.cargarSedes();
     this.cargarTrabajadoresActivos();
   }
 
   precargar() {
     if (this.idTrabajador) {
-      this.asignacionSedeService
-        .findAllByTrabajador(this.idTrabajador)
-        .subscribe({
-          next: (data) => {
-            this.formData.get('idSedes')?.setValue(data.map((item) => item.id));
-            this.asignaciones.clear();
-            data.forEach((item) => {
-              const asignacionFormGroup = new FormGroup({
-                id: new FormControl<string | undefined>(item.id, {
-                  nonNullable: true,
-                  validators: [],
-                }),
-                idSede: new FormControl<string | undefined>(item.id, {
-                  nonNullable: true,
-                  validators: [Validators.required],
-                }),
-                nombreSede: new FormControl<string>(item.sede.nombre, {
-                  nonNullable: true,
-                  validators: [Validators.required],
-                }),
-                fechaAsignacion: new FormControl<Date | undefined>(
-                  new Date(item.fechaAsignacion),
-                  {
-                    nonNullable: true,
-                    validators: [Validators.required],
-                  }
-                ),
-              });
-              this.asignaciones.push(asignacionFormGroup);
-            });
-          },
-        });
+      this.store.loadById(this.idTrabajador);
+      // .findAllByTrabajador(this.idTrabajador)
+      // .subscribe({
+      //   next: (data) => {
+      //     this.formData.get('idSedes')?.setValue(data.map((item) => item.id));
+      //     this.asignaciones.clear();
+      //     data.forEach((item) => {
+      //       const asignacionFormGroup = new FormGroup({
+      //         id: new FormControl<string | undefined>(item.id, {
+      //           nonNullable: true,
+      //           validators: [],
+      //         }),
+      //         idSede: new FormControl<string | undefined>(item.id, {
+      //           nonNullable: true,
+      //           validators: [Validators.required],
+      //         }),
+      //         nombreSede: new FormControl<string>(item.sede.nombre, {
+      //           nonNullable: true,
+      //           validators: [Validators.required],
+      //         }),
+      //         fechaAsignacion: new FormControl<Date | undefined>(
+      //           new Date(item.fechaAsignacion),
+      //           {
+      //             nonNullable: true,
+      //             validators: [Validators.required],
+      //           }
+      //         ),
+      //       });
+      //       this.asignaciones.push(asignacionFormGroup);
+      //     });
+      //   },
+      // });
     }
   }
 
-  cargarSedes() {
-    // this.sedeService.findAll().subscribe({
-    //   next: (data) => {
-    //     this.listaSedes = data;
-    //   },
-    // });
-  }
-
   cargarTrabajadoresActivos() {
-    this.trabajadorService.findAllActivos().subscribe({
-      next: (data) => {
-        this.listaTrabajadores = data.map((item) => {
-          item.labelName = `${item.identificacion} | ${item.nombre} ${item.apellido}`;
-          return item;
-        });
-      },
-    });
+    const q: Record<string, any> = {
+      filter: false,
+      isActive: true,
+    };
+    this.store.loadAll(undefined, undefined, q);
   }
 
   selectTrabajador(id: string) {
@@ -208,21 +260,17 @@ export class FormAsignacionSedeComponent {
   guardar() {
     const idTrabajador = this.formData.get('idTrabajador')?.value;
     const array: any[] = this.formData.get('asignaciones')?.value ?? [];
-    this.asignacionSedeService
-      .multipleCreate(
-        array.map((item) => {
-          return {
-            id: item.id ?? undefined,
-            idSede: item.id,
-            idTrabajador,
+    this.store.update(
+      idTrabajador!,
+      {
+        sedes: array.map((item) => ({
+          id: item.idSede,
+          AsignacionSede: {
             fechaAsignacion: item.fechaAsignacion,
-          } as AsignacionSede;
-        })
-      )
-      .subscribe({
-        next: (data) => {
-          this.ref.close(data);
-        },
-      });
+          },
+        })),
+      } as Trabajador,
+      {}
+    );
   }
 }

@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, effect, inject, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DatePickerModule } from 'primeng/datepicker';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DialogService } from 'primeng/dynamicdialog';
 import { IconField } from 'primeng/iconfield';
 import { InputIcon } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
@@ -13,10 +13,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { FormVacacionesComponent } from './form-vacaciones/form-vacaciones.component';
 import { FormsModule } from '@angular/forms';
 import { MultiSelectModule } from 'primeng/multiselect';
-import { SedeService } from '@services/sede.service';
-import { CargoService } from '@services/cargo.service';
 import { TrabajadorService } from '@services/trabajador.service';
-import { mergeMap } from 'rxjs';
 import { VacacionService } from '@services/vacacion.service';
 import { Column, ExportColumn } from '@models/column-table.model';
 import { SkeletonModule } from 'primeng/skeleton';
@@ -25,6 +22,11 @@ import { Trabajador } from '@models/trabajador.model';
 import { Cargo } from '@models/cargo.model';
 import { Sede } from '@models/sede.model';
 import { TitleCardComponent } from '@components/title-card/title-card.component';
+import { CargoStore } from '@stores/cargo.store';
+import { SedeStore } from '@stores/sede.store';
+import { ButtonEditComponent } from '@components/buttons/button-edit/button-edit.component';
+import { ButtonDeleteComponent } from '@components/buttons/button-delete/button-delete.component';
+import { MessageGlobalService } from '@services/message-global.service';
 
 @Component({
   selector: 'app-vacaciones',
@@ -43,6 +45,8 @@ import { TitleCardComponent } from '@components/title-card/title-card.component'
     TooltipModule,
     SkeletonModule,
     TitleCardComponent,
+    ButtonEditComponent,
+    ButtonDeleteComponent,
   ],
   templateUrl: './vacaciones.component.html',
   styles: ``,
@@ -55,9 +59,11 @@ export class VacacionesComponent implements OnInit {
 
   private readonly dialogService = inject(DialogService);
 
-  private readonly sedeService = inject(SedeService);
+  private readonly msg = inject(MessageGlobalService);
 
-  private readonly cargoService = inject(CargoService);
+  private readonly cargoStore = inject(CargoStore);
+
+  private readonly sedeStore = inject(SedeStore);
 
   private readonly trabajadorService = inject(TrabajadorService);
 
@@ -65,11 +71,7 @@ export class VacacionesComponent implements OnInit {
 
   fechaSelected: Date | undefined = new Date('2025/03/01');
 
-  listaSedes: Sede[] = [];
-
   selectedSedes: string[] = [];
-
-  listaCargos: Cargo[] = [];
 
   selectedCargos: string[] = [];
 
@@ -84,6 +86,31 @@ export class VacacionesComponent implements OnInit {
   exportColumns!: ExportColumn[];
 
   loadingTable?: boolean = false;
+
+  get listaCargos(): Cargo[] {
+    return this.cargoStore.items();
+  }
+
+  get listaSedes(): Sede[] {
+    return this.sedeStore.items();
+  }
+
+  private sedesEffect = effect(() => {
+    const sedes = this.sedeStore.items();
+    if (sedes) {
+      this.selectedSedes = sedes.map((item) => item.id);
+      this.filtrar();
+    }
+  });
+
+  private cargosEffect = effect(() => {
+    const cargos = this.cargoStore.items();
+    if (cargos) {
+      this.selectedCargos = cargos.map((item) => item.id);
+
+      this.filtrar();
+    }
+  });
 
   ngOnInit(): void {
     this.cols = [
@@ -102,6 +129,12 @@ export class VacacionesComponent implements OnInit {
       { field: 'diasDisponibles', header: 'Días disponibles', align: 'center' },
       { field: 'fechaInicio', header: 'Fecha inicio', align: 'center' },
       { field: 'fechaFin', header: 'Fecha fin', align: 'center' },
+      {
+        field: '',
+        header: 'Acciones',
+        align: 'center',
+        widthClass: '!w-36',
+      },
     ];
 
     this.exportColumns = this.cols.map((col) => ({
@@ -109,38 +142,26 @@ export class VacacionesComponent implements OnInit {
       dataKey: col.field,
     }));
 
+    this.sedeStore.loadAll();
+    this.cargoStore.loadAll();
     this.cargarVacaciones();
   }
 
   cargarVacaciones() {
     this.loadingTable = true;
-    this.cargoService
-      .findAll()
-      .pipe(
-        mergeMap((data) => {
-          this.listaCargos = data;
-          this.selectedCargos = this.listaCargos.map((item) => item.id);
-          return this.sedeService.findAll();
-        }),
-        mergeMap((data) => {
-          this.listaSedes = data;
-          this.selectedSedes = this.listaSedes.map((item) => item.id);
-          return this.vacacionService.findAll();
-        })
-      )
-      .subscribe({
-        next: (data) => {
-          this.listaVacaciones = data;
-          this.loadingTable = false;
-          this.filtrar();
-        },
-      });
+    this.vacacionService.findAll().subscribe({
+      next: (data) => {
+        this.listaVacaciones = data;
+        this.loadingTable = false;
+        this.filtrar();
+      },
+    });
   }
 
   filtrar(event?: number) {
     this.dataTable = this.listaVacaciones.filter(
       (t) =>
-        this.selectedSedes.includes(t.id as string) &&
+        this.selectedSedes.includes(t.idSede as string) &&
         this.selectedCargos.includes(t.idCargo as string)
     );
   }
@@ -150,7 +171,7 @@ export class VacacionesComponent implements OnInit {
       header: 'Establecer vacaciones',
       styleClass: 'modal-md',
       modal: true,
-      dismissableMask: true,
+      dismissableMask: false,
       closable: true,
     });
 
@@ -165,10 +186,10 @@ export class VacacionesComponent implements OnInit {
     const ref = this.dialogService.open(FormVacacionesComponent, {
       header: 'Detalle de vacaciones',
       styleClass: 'modal-md',
-      position: 'top',
+      position: 'center',
       data: item,
       modal: true,
-      dismissableMask: true,
+      dismissableMask: false,
       closable: true,
     });
 
@@ -177,6 +198,18 @@ export class VacacionesComponent implements OnInit {
         this.cargarVacaciones();
       }
     });
+  }
+
+  remove(item: Vacacion) {
+    this.msg.confirm(
+      `<div class='px-4 py-2'>
+            <p class='text-center'> ¿Está seguro de eliminar el usuario <span class='uppercase font-bold'>${item.trabajador?.nombre}</span>? </p>
+            <p class='text-center'> Esta acción no se puede deshacer. </p>
+          </div>`,
+      () => {
+        // this.store.delete(item.id);
+      }
+    );
   }
 
   filterGlobal(dt: any, target: EventTarget | null) {

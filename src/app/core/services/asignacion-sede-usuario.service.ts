@@ -43,6 +43,6 @@ export class AsignacionSedeUsuarioService {
     id: string,
     dto: AsignacionSedeUsuario
   ): Observable<AsignacionSedeUsuario> {
-    return this.http.put<AsignacionSedeUsuario>(`${this.url}/${id}`, dto);
+    return this.http.patch<AsignacionSedeUsuario>(`${this.url}/${id}`, dto);
   }
 }

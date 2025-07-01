@@ -200,7 +200,7 @@ export class UsuariosComponent implements OnInit {
       header: 'Roles de usuario',
       styleClass: 'modal-2xl',
       modal: true,
-      dismissableMask: true,
+      dismissableMask: false,
       closable: true,
     });
     ref.onClose.subscribe((res) => {

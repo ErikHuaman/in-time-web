@@ -22,6 +22,7 @@ import { ButtonDeleteComponent } from '@components/buttons/button-delete/button-
 import { CargoStore } from '@stores/cargo.store';
 import { InputGroup } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { PaginatorComponent } from '@components/paginator/paginator.component';
 
 @Component({
   selector: 'app-cargos',
@@ -40,6 +41,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
     TitleCardComponent,
     ButtonEditComponent,
     ButtonDeleteComponent,
+    PaginatorComponent
   ],
   templateUrl: './cargos.component.html',
   styles: ``,

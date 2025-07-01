@@ -158,10 +158,10 @@
                 <div class="w-42 text-xs uppercase">Apellidos y Nombre</div>
               </th>
               <th>
-                <div class="w-32 text-xs text-center uppercase">Edificio</div>
+                <div class="text-xs text-center uppercase">Cargo</div>
               </th>
-              <th>
-                <div class="w-32 text-xs text-center uppercase">Cargo</div>
+              <th class="w-100">
+                <div class="text-xs text-center uppercase">Edificio</div>
               </th>
               <ng-container *ngIf="dataTable.length">
                 <th *ngFor="let item of daysMonth">
@@ -222,57 +222,76 @@
             <tr>
               <td>
                 <div class="flex items-center justify-center">
-                  <p-button
-                    text
-                    (click)="select(item)"
+                  <button-custom
                     severity="success"
-                    size="small"
-                    rounded
-                    styleClass="!w-10 !p-2"
-                    pTooltip="Detalle mensual"
-                    tooltipPosition="top"
-                    tooltipStyleClass="!text-xs !font-normal !p-0"
-                  >
-                    <i
-                      class="iconify icon font-bold text-xl"
-                      [attr.data-icon]="'material-symbols:open-in-new-rounded'"
-                      data-inline="false"
-                    ></i>
-                  </p-button>
+                    tooltip="Detalle mensual"
+                    icon="material-symbols:open-in-new-rounded"
+                    (click)="select(item)"
+                  />
                 </div>
               </td>
-              <!-- <td>
-                <div class="text-sm text-center">
-                  {{ i + 1 }}
-                </div>
-              </td> -->
               <td>
-                <div class="text-sm">
+                <div class="text-sm uppercase">
                   {{ item.labelName }}
                 </div>
               </td>
               <td>
-                <div class="text-sm text-center">
-                  {{ item.sede?.nombre }}
-                </div>
-              </td>
-              <td>
-                <div class="text-sm text-center">
+                <div class="text-sm text-center uppercase">
                   {{ item.cargo?.nombre }}
                 </div>
               </td>
+              <td class="w-100">
+                <div
+                  class="w-100 flex flex-wrap gap-2 items-center justify-center text-sm font-light capitalize italic"
+                  [ngClass]="{ 'cursor-pointer': item.sedes.length > 4 }"
+                  (click)="item.sedes.length > 4 ? op.toggle($event) : ''"
+                  [pTooltip]="item.sedes.length > 4 ? 'Ver más' : ''"
+                  tooltipPosition="top"
+                  tooltipStyleClass="!text-xs !font-normal !p-0"
+                >
+                  <!-- Mostrar los primeros 5 -->
+                  @for (sede of item.sedes.slice(0, 4); track $index) {
+                  <p-chip class="!py-1 !px-2 shadow !bg-amber-200">
+                    <div class="text-xs font-medium">{{ sede.nombre }}</div>
+                  </p-chip>
+                  }
+
+                  <!-- Mostrar "..." si hay más de 5 -->
+                  @if (item.sedes.length > 4) {
+                  <span class="text-xs font-semibold">...</span>
+                  }
+                </div>
+                <p-popover #op styleClass="gap-2 p-2">
+                  <div class="w-100 max-h-40 overflow-y-auto flex flex-col">
+                    <div
+                      class="flex flex-wrap gap-2 items-center justify-center text-sm font-light capitalize italic"
+                    >
+                      @for (sede of item.sedes; track $index) {
+                      <p-chip class="!py-1 !px-2 shadow !bg-amber-200">
+                        <div class="text-xs font-medium">{{ sede.nombre }}</div>
+                      </p-chip>
+                      }
+                    </div>
+                  </div>
+                </p-popover>
+              </td>
               <td *ngFor="let num of item.marcaciones">
                 <div
-                  class="text-center text-sm rounded-md cursor-pointer"
-                  [ngClass]="[num.corregido ? 'ring-2' : '']"
+                  class="text-center text-sm font-medium rounded-md"
+                  [ngClass]="{
+                    'ring-2': !!num.corregido,
+                    'cursor-pointer': num.codigo != '-'
+                  }"
                   [style.color]="textColor(num.codigo)"
                   [style.background]="bgColor(num.codigo)"
                   [pTooltip]="
-                    legendLabel(num.codigo, num.corregido, num.justificado)
+                    num.codigo != '-'
+                      ? legendLabel(num.codigo, num.corregido, num.justificado)
+                      : ''
                   "
                   tooltipPosition="top"
                   tooltipStyleClass="!text-xs !p-0"
-                  (click)="verDetalle(item, num)"
+                  (click)="num.codigo != '-' ? verDetalle(item, num) : ''"
                 >
                   {{ num.codigo }}
                 </div>

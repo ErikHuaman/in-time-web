@@ -7,6 +7,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { sanitizedForm } from '@functions/forms.function';
 import { Cargo } from '@models/cargo.model';
 import { MessageGlobalService } from '@services/message-global.service';
 import { CargoStore } from '@stores/cargo.store';
@@ -103,7 +104,7 @@ export class FormCargoComponent {
   }
 
   guardar() {
-    const { ...form } = this.formData.value;
+    const { ...form } = sanitizedForm(this.formData.getRawValue());
     if (this.id) {
       this.store.update(this.id, { ...form, id: this.id } as Cargo);
     } else {

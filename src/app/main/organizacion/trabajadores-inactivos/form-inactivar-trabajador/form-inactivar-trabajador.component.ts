@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import {
   DialogService,
@@ -25,6 +25,9 @@ import { InactivacionTrabajador } from '@models/inactivacionTrabajador.model';
 import { map, mergeMap, of } from 'rxjs';
 import { Trabajador } from '@models/trabajador.model';
 import { TrabajadorStore } from '@stores/trabajador.store';
+import { TrabajadorInactivoStore } from '@stores/trabajador-inactivo.store';
+import { MessageGlobalService } from '@services/message-global.service';
+import { sanitizedForm } from '@functions/forms.function';
 
 @Component({
   selector: 'app-form-inactivar-trabajador',
@@ -48,7 +51,11 @@ export class FormInactivarTrabajadorComponent {
 
   private readonly dialogService: DialogService = inject(DialogService);
 
-  private readonly trabajadorStore = inject(TrabajadorStore);
+  private readonly msg = inject(MessageGlobalService);
+
+  private readonly store = inject(TrabajadorStore);
+
+  private readonly trabajadorInactivoStore = inject(TrabajadorInactivoStore);
 
   private readonly inactivacionService = inject(InactivacionService);
 
@@ -72,22 +79,70 @@ export class FormInactivarTrabajadorComponent {
   });
 
   id: string | undefined;
+  isInactivos: boolean = false;
+  idTrabajador: any;
 
   get listaTrabajadores(): Trabajador[] {
-    return this.trabajadorStore.items().map((item) => {
+    return (
+      this.isInactivos
+        ? this.trabajadorInactivoStore.items()
+        : this.store.items()
+    ).map((item) => {
       item.labelName = `${item.identificacion} | ${item.nombre} ${item.apellido}`;
       return item;
     });
   }
 
+  private resetOnSuccessEffect = effect(() => {
+    const item = this.trabajadorInactivoStore.selectedItem();
+    const error = this.trabajadorInactivoStore.error();
+    const action = this.trabajadorInactivoStore.lastAction();
+
+    // Manejo de errores
+    if (error) {
+      console.log('error', error);
+      this.msg.error(
+        error ?? '¡Ups, ocurrió un error inesperado al asignar edificios!'
+      );
+      return; // Salimos si hay un error
+    }
+
+    // Si se ha creado o actualizado correctamente
+    if (action === 'updated') {
+      this.msg.success('¡Edificios asignados exitosamente!');
+
+      this.trabajadorInactivoStore.clearSelected();
+      this.ref.close(true);
+      return;
+    }
+
+    // Si hay un item seleccionado, se carga en el formulario
+    if (item!) {
+      this.formData.get('idTrabajador')?.setValue(item.id);
+
+      console.log('item', item);
+
+      if (item?.inactivaciones!) {
+        this.id = item?.inactivaciones![0]?.id;
+        this.formData
+          .get('motivoSuspension')
+          ?.setValue(item?.inactivaciones![0]?.motivoSuspension);
+        this.formData
+          .get('fechaSuspension')
+          ?.setValue(new Date(item?.inactivaciones![0]?.fechaSuspension!));
+        this.formData.get('nota')?.setValue(item?.inactivaciones![0]?.nota!);
+
+        this.formData.get('idTrabajador')?.disable();
+      }
+    }
+  });
+
   ngOnInit(): void {
     const instance = this.dialogService.getInstance(this.ref);
 
     if (instance.data) {
-      this.id = instance.data['id'];
-      this.formData.get('idTrabajador')?.disable();
-      this.formData.get('motivoSuspension')?.disable();
-      this.formData.get('fechaSuspension')?.disable();
+      this.isInactivos = true;
+      this.idTrabajador = instance.data['id'];
       this.precargar();
       this.cargarTrabajadoresActivos(false);
     } else {
@@ -96,7 +151,7 @@ export class FormInactivarTrabajadorComponent {
   }
 
   precargar() {
-    this.inactivacionService.findOne(this.id!).subscribe({
+    this.trabajadorInactivoStore.loadById(this.idTrabajador!); /* .subscribe({
       next: (data) => {
         this.formData.get('idTrabajador')?.setValue(data.idTrabajador);
         this.formData.get('motivoSuspension')?.setValue(data.motivoSuspension);
@@ -105,7 +160,7 @@ export class FormInactivarTrabajadorComponent {
           ?.setValue(new Date(data.fechaSuspension));
         this.formData.get('nota')?.setValue(data.nota);
       },
-    });
+    }); */
   }
 
   cargarTrabajadoresActivos(activos: boolean = true) {
@@ -113,7 +168,11 @@ export class FormInactivarTrabajadorComponent {
       filter: false,
       isActive: activos,
     };
-    this.trabajadorStore.loadAll(undefined, undefined, q);
+    if (activos) {
+      this.store.loadAll(undefined, undefined, q);
+    } else {
+      this.trabajadorInactivoStore.loadAll(undefined, undefined, q);
+    }
   }
 
   onUpload(event: any) {
@@ -122,10 +181,11 @@ export class FormInactivarTrabajadorComponent {
   }
 
   guardar() {
-    const { ...form } = this.formData.value;
+    const form: InactivacionTrabajador = sanitizedForm(this.formData.getRawValue());
+    console.log("form", form);
     if (this.id) {
       this.inactivacionService
-        .update(this.id, { ...form, id: this.id } as InactivacionTrabajador)
+        .update(this.id, { ...form, id: this.id, idTrabajador: this.idTrabajador } as InactivacionTrabajador)
         .subscribe({
           next: (data) => {
             this.ref.close(data);
@@ -133,7 +193,7 @@ export class FormInactivarTrabajadorComponent {
         });
     } else {
       this.inactivacionService
-        .create(form as InactivacionTrabajador)
+        .create(form )
         .pipe(
           map((data) => {
             const trabajador = this.listaTrabajadores.find(
@@ -150,7 +210,7 @@ export class FormInactivarTrabajadorComponent {
                 identificacion,
                 idEstadoCivil,
               } = trabajador;
-              this.trabajadorStore.update(
+              this.store.update(
                 id,
                 {
                   id,

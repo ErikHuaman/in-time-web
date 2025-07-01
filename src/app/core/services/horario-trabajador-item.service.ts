@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '@environments/environments';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { HorarioTrabajadorItem } from '@models/horario-trabajador-item.model';
 
 @Injectable({
@@ -13,7 +13,10 @@ export class HorarioTrabajadorItemService {
   private readonly http = inject(HttpClient);
 
   findAll(): Observable<HorarioTrabajadorItem[]> {
-    return this.http.get<HorarioTrabajadorItem[]>(this.url);
+    return this.http.get<any>(this.url).pipe(
+      map((data: any) => data.data),
+      map((data: HorarioTrabajadorItem[]) => data)
+    );
   }
 
   findOne(id: string): Observable<HorarioTrabajadorItem> {
@@ -37,6 +40,6 @@ export class HorarioTrabajadorItemService {
     id: string,
     dto: HorarioTrabajadorItem
   ): Observable<HorarioTrabajadorItem> {
-    return this.http.put<HorarioTrabajadorItem>(`${this.url}/${id}`, dto);
+    return this.http.patch<HorarioTrabajadorItem>(`${this.url}/${id}`, dto);
   }
 }

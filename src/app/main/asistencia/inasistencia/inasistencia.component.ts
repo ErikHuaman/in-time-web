@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, effect, inject, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DatePickerModule } from 'primeng/datepicker';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -22,6 +22,10 @@ import { Column, ExportColumn } from '@models/column-table.model';
 import { SkeletonModule } from 'primeng/skeleton';
 import { forkJoin, mergeMap } from 'rxjs';
 import { TitleCardComponent } from '@components/title-card/title-card.component';
+import { SedeStore } from '@stores/sede.store';
+import { CargoStore } from '@stores/cargo.store';
+import { ButtonEditComponent } from '@components/buttons/button-edit/button-edit.component';
+import { ButtonCustomComponent } from '@components/buttons/button-custom/button-custom.component';
 
 @Component({
   selector: 'app-inasistencia',
@@ -39,7 +43,8 @@ import { TitleCardComponent } from '@components/title-card/title-card.component'
     DatePickerModule,
     TooltipModule,
     SkeletonModule,
-    TitleCardComponent
+    TitleCardComponent,
+    ButtonCustomComponent
   ],
   templateUrl: './inasistencia.component.html',
   styles: ``,
@@ -53,19 +58,15 @@ export class InasistenciaComponent implements OnInit {
 
   private readonly dialogService = inject(DialogService);
 
-  private readonly sedeService = inject(SedeService);
+  private readonly sedeStore = inject(SedeStore);
 
-  private readonly cargoService = inject(CargoService);
+  private readonly cargoStore = inject(CargoStore);
 
   private readonly asistenciaService = inject(AsistenciaService);
 
   fechaSelected!: Date;
 
-  listaSedes: Sede[] = [];
-
   selectedSedes: string[] = [];
-
-  listaCargos: Cargo[] = [];
 
   selectedCargos: string[] = [];
 
@@ -79,8 +80,32 @@ export class InasistenciaComponent implements OnInit {
 
   listaAsistenciaMensual: any[] = [];
 
+  get listaCargos(): Cargo[] {
+    return this.cargoStore.items();
+  }
+
+  get listaSedes(): Sede[] {
+    return this.sedeStore.items();
+  }
+
+  private sedesEffect = effect(() => {
+    const sedes = this.sedeStore.items();
+    if (sedes) {
+      this.selectedSedes = sedes.map((item) => item.id);
+      this.filtrar();
+    }
+  });
+
+  private cargosEffect = effect(() => {
+    const cargos = this.cargoStore.items();
+    if (cargos) {
+      this.selectedCargos = cargos.map((item) => item.id);
+      this.filtrar();
+    }
+  });
+
   ngOnInit(): void {
-    this.fechaSelected = new Date('2025/04/01');
+    this.fechaSelected = new Date();
 
     this.cols = [
       { field: 'fecha', header: 'Fecha', align: 'center', widthClass: '!w-36' },
@@ -110,6 +135,8 @@ export class InasistenciaComponent implements OnInit {
         dataKey: col.field,
       }));
 
+    this.sedeStore.loadAll();
+    this.cargoStore.loadAll();
     this.cargarInasistencia();
   }
 
@@ -127,23 +154,21 @@ export class InasistenciaComponent implements OnInit {
 
   cargarInasistencia() {
     this.loadingTable = true;
-    forkJoin([/* this.sedeService.findAll(), this.cargoService.findAll() */])
-      .pipe(
-        mergeMap((arr) => {
-          /* this.listaSedes = arr[0];
-          this.selectedSedes = this.listaSedes.map((item) => item.id); */
-          // this.listaCargos = arr[1];
-          // this.selectedCargos = this.listaCargos.map((item) => item.id);
-          return this.asistenciaService.findAllInasistenciaByMonth(
-            this.fechaSelected
-          );
-        })
-      )
+    this.asistenciaService
+      .findAllInasistenciaByMonth(this.fechaSelected)
       .subscribe({
         next: (data) => {
           this.loadingTable = false;
           this.listaAsistenciaMensual = data;
           this.filtrar();
+        },
+      });
+
+     this.asistenciaService
+      .findAllBySupervisorAndDate(this.fechaSelected)
+      .subscribe({
+        next: (data) => {
+          console.log("data", data);
         },
       });
   }
@@ -154,7 +179,7 @@ export class InasistenciaComponent implements OnInit {
       styleClass: 'modal-md',
       data: item,
       modal: true,
-      dismissableMask: true,
+      dismissableMask: false,
       focusOnShow: false,
       closable: true,
     });

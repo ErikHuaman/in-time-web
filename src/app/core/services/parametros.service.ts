@@ -21,6 +21,6 @@ export class ParametrosService {
   }
 
   update(id: string, dto: Parametro): Observable<Parametro> {
-    return this.http.put<Parametro>(`${this.url}/${id}`, dto);
+    return this.http.patch<Parametro>(`${this.url}/${id}`, dto);
   }
 }

@@ -8,7 +8,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { Cargo } from '@models/cargo.model';
-import { CargoService } from '@services/cargo.service';
 import { NacionalidadService } from '@services/nacionalidad.service';
 import { ButtonModule } from 'primeng/button';
 import { DatePickerModule } from 'primeng/datepicker';
@@ -24,17 +23,11 @@ import { Ciudad, Pais, Provincia, Region } from '@models/nacionalidad.model';
 import { FrecuenciaPago } from '@models/frecuencia-pago.model';
 import { TipoDocIdent } from '@models/tipo-doc-ident.model';
 import { TiempoContrato } from '@models/tiempo-contrato.model';
-import { TipoDocIdentService } from '@services/tipo-doc-ident.service';
 import { FrecuenciaPagoService } from '@services/frecuencia-pago.service';
 import { TiempoContratoService } from '@services/tiempo-contrato.service';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { EstadoCivil } from '@models/estado-civil.model';
 import { EstadoCivilService } from '@services/estado-civil.service';
-import { InfoTrabajadorService } from '@services/info-trabajador.service';
-import { ContratoTrabajadorService } from '@services/contrato-trabajador.service';
-import { ContactoTrabajadorService } from '@services/contacto-trabajador.service';
-import { BeneficioTrabajadorService } from '@services/beneficio-trabajador.service';
-import { ControlTrabajadorService } from '@services/control-trabajador.service';
 import {
   BeneficioTrabajador,
   ContactoTrabajador,
@@ -43,7 +36,6 @@ import {
   InfoTrabajador,
   Trabajador,
 } from '@models/trabajador.model';
-import { RegistroBiometricoService } from '@services/registro-biometrico.service';
 import { RegistroBiometrico } from '@models/registro-biometrico.model';
 import { SeguroSaludService } from '@services/seguro-salud.service';
 import { FondoPensionesService } from '@services/fondo-pensiones.service';
@@ -56,13 +48,13 @@ import { generarCodigoNumerico } from '@functions/number.function';
 import { RadioButtonModule } from 'primeng/radiobutton';
 
 import * as XLSX from 'xlsx';
-import * as fs from 'file-saver';
+import { saveAs } from 'file-saver';
 import { TrabajadorStore } from '@stores/trabajador.store';
 import { SedeStore } from '@stores/sede.store';
 import { CargoStore } from '@stores/cargo.store';
 import { Sede } from '@models/sede.model';
-import { AsignacionSede } from '@models/asignacion-sede.model';
 import { TipoDocIdentStore } from '@stores/tipo-doc-ident.store';
+import { getDateExcel } from '@functions/fecha.function';
 
 @Component({
   selector: 'app-form-trabajador',
@@ -111,10 +103,6 @@ export class FormTrabajadorComponent implements OnInit {
   private readonly seguroService = inject(SeguroSaludService);
 
   private readonly fondoPensionesService = inject(FondoPensionesService);
-
-  private readonly registroBiometricoService = inject(
-    RegistroBiometricoService
-  );
 
   private readonly sanitizer = inject(DomSanitizer);
 
@@ -343,6 +331,10 @@ export class FormTrabajadorComponent implements OnInit {
     return this.store.loading();
   }
 
+  private getFileEffect = effect(() => {
+    this.previewUrl = this.store.previewUrl();
+  });
+
   private resetOnSuccessEffect = effect(() => {
     const item = this.store.selectedItem();
     const error = this.store.error();
@@ -370,12 +362,6 @@ export class FormTrabajadorComponent implements OnInit {
           ? '¡Rol actualizado exitosamente!'
           : '¡Roles creados exitosamente!'
       );
-
-      // this.formData.reset({
-      //   name: '',
-      //   description: undefined,
-      //   status: true,
-      // });
 
       this.store.clearSelected();
       this.ref.close(true);
@@ -473,38 +459,6 @@ export class FormTrabajadorComponent implements OnInit {
           marcacionAutomatica: item.controles[0]?.marcacionAutomatica,
         });
       }
-      //       this.trabajadorService
-      //   .findOne(this.id)
-      //   .pipe(
-      //     mergeMap((data) => {
-
-      //       return this.nacionalidadService.getPaises();
-      //     }),
-      //     mergeMap((data) => {
-      //       this.listaPaises = data;
-      //       this.paisDefault = this.listaPaises.find((p) => p.iso3 === 'PER');
-      //       return this.paisDefault?.id
-      //         ? this.nacionalidadService.getRegiones(this.paisDefault?.id)
-      //         : of([]);
-      //     }),
-      //     mergeMap((data) => {
-      //       this.listaDepartamentos = data;
-      //       return this.idRegion
-      //         ? this.nacionalidadService.getProvincias(this.idRegion)
-      //         : of([]);
-      //     }),
-      //     mergeMap((data) => {
-      //       this.listaProvincias = data;
-      //       return this.idProvincia
-      //         ? this.nacionalidadService.getCiudades(this.idProvincia)
-      //         : of([]);
-      //     })
-      //   )
-      //   .subscribe({
-      //     next: (data) => {
-      //       this.listaCiudades = data;
-      //     },
-      //   });
     }
   });
 
@@ -586,14 +540,7 @@ export class FormTrabajadorComponent implements OnInit {
   }
 
   getArchivoBiometrico(id: string) {
-    this.registroBiometricoService.obtenerArchivo(id).subscribe({
-      next: (blob) => {
-        this.previewUrl = this.sanitizer.bypassSecurityTrustUrl(
-          window.URL.createObjectURL(blob)
-        );
-        this.fotoCargada = true;
-      },
-    });
+    this.store.getFile(id);
   }
 
   private cargarPais() {
@@ -638,11 +585,9 @@ export class FormTrabajadorComponent implements OnInit {
 
   changeCargo(event: any) {
     if (
-      [0].includes(
-        this.listaCargos.findIndex(
-          (item) => item.id === this.formData.get('contrato.idCargo')?.value
-        )
-      )
+      this.listaCargos.find(
+        (item) => item.id === this.formData.get('contrato.idCargo')?.value
+      )?.isDescansero
     ) {
       this.listaFrecuenciaPago = this.listaFrecuenciaPagoAll.filter(
         (item) => item.orden == 1
@@ -817,7 +762,7 @@ export class FormTrabajadorComponent implements OnInit {
       type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8',
     });
 
-    fs.saveAs(blob, 'plantilla_trabajador.xlsx');
+    saveAs(blob, 'plantilla_trabajador.xlsx');
   }
 
   onExcelSelected(event: any): void {
@@ -847,8 +792,7 @@ export class FormTrabajadorComponent implements OnInit {
     const trabajadorData: Trabajador[] = data
       .filter((item) => item['trabajador.TipoDocID'])
       .map((item) => {
-        const utc_days_ini = Math.floor(item['contrato.fechaInicio'] - 25569); // 25569 = 1 Jan 1970 in Excel
-        const utc_value_ini = utc_days_ini * 86400; // seconds in a day
+        const utc_value_ini = getDateExcel(item['contrato.fechaInicio']); // seconds in a day
 
         const idPais = this.listaPaises.find(
           (pais) =>

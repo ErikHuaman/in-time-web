@@ -25,6 +25,8 @@ import { TrabajadorService } from '@services/trabajador.service';
 import { Trabajador } from '@models/trabajador.model';
 import { mergeMap } from 'rxjs';
 import { CorreccionMarcacionService } from '@services/correccion-marcacion.service';
+import { sanitizedForm } from '@functions/forms.function';
+import { CorreccionMarcacion } from '@models/correccion-marcacion.model';
 
 @Component({
   selector: 'app-form-correccion-marcacion',
@@ -153,7 +155,9 @@ export class FormCorreccionMarcacionComponent implements OnInit {
   }
 
   guardar() {
-    const form = this.formData.value;
+    const form: CorreccionMarcacion = sanitizedForm(
+      this.formData.getRawValue()
+    );
     if (!this.id) {
       this.correccionMarcacionService
         .create({

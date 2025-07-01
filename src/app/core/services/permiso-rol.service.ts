@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '@environments/environments';
 import { PermisoRol } from '@models/permiso-rol.model';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,10 @@ private readonly url = `${environment.apiUrl}/permisoRoles`;
   private readonly http = inject(HttpClient);
 
   findAll(): Observable<PermisoRol[]> {
-    return this.http.get<PermisoRol[]>(this.url);
+    return this.http.get<any>(this.url).pipe(
+      map((data: any) => data.data),
+      map((data: PermisoRol[]) => data)
+    );
   }
 
   findOne(id: string): Observable<PermisoRol> {
@@ -34,6 +37,6 @@ private readonly url = `${environment.apiUrl}/permisoRoles`;
     id: string,
     dto: PermisoRol
   ): Observable<PermisoRol> {
-    return this.http.put<PermisoRol>(`${this.url}/${id}`, dto);
+    return this.http.patch<PermisoRol>(`${this.url}/${id}`, dto);
   }
 }

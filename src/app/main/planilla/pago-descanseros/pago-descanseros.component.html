@@ -75,7 +75,7 @@
             <div>EMITIR COMPROBANTE</div>
           </div>
         </p-button>
-        <p-button severity="info" size="small" (click)="dt.exportCSV()">
+        <!-- <p-button severity="info" size="small" (click)="dt.exportCSV()">
           <div class="flex justify-center items-center font-medium gap-1">
             <i
               class="iconify icon text-lg"
@@ -84,7 +84,7 @@
             ></i>
             <span>Exportar</span>
           </div>
-        </p-button>
+        </p-button> -->
       </div>
     </div>
   </div>
@@ -170,34 +170,19 @@
           </td>
           <td>
             <div class="flex justify-center items-center gap-2">
-              <p-button
-                text
-                (click)="getCalculoPago(item)"
+              <button-custom
                 severity="warn"
-                size="small"
-                rounded
-                styleClass="!w-10 !p-2"
-              >
-                <i
-                  class="iconify icon font-bold text-xl"
-                  [attr.data-icon]="'solar:calculator-broken'"
-                  data-inline="false"
-                ></i>
-              </p-button>
-              <p-button
-                text
-                (click)="getComprobante(item)"
+                tooltip="Detalle mensual"
+                icon="solar:calculator-broken"
+                (click)="getCalculoPago(item)"
+              />
+
+              <button-custom
                 severity="info"
-                size="small"
-                rounded
-                styleClass="!w-10 !p-2"
-              >
-                <i
-                  class="iconify icon font-bold text-xl"
-                  [attr.data-icon]="'material-symbols:docs-outline-rounded'"
-                  data-inline="false"
-                ></i>
-              </p-button>
+                tooltip="Detalle mensual"
+                icon="material-symbols:docs-outline-rounded"
+                (click)="getComprobante(item)"
+              />
             </div>
           </td>
         </tr>

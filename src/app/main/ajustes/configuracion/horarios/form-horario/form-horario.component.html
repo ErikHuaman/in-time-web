@@ -13,6 +13,7 @@
           (onChange)="selectTrabajador($event)"
           formControlName="idTrabajador"
           placeholder="Seleccione..."
+          [filter]="true"
           appendTo="body"
         />
       </div>
@@ -234,13 +235,13 @@
                       </span>
                     </div>
                     <p
-                      *ngIf="item.id"
+                      *ngIf="item.idSede"
                       class="h-4 w-18 truncate text-xs"
-                      [pTooltip]="getEdificio(item.id)"
+                      [pTooltip]="getEdificio(item.idSede)"
                       tooltipPosition="top"
                       tooltipStyleClass="text-xs"
                     >
-                      {{ getEdificio(item.id) }}
+                      {{ getEdificio(item.idSede) }}
                     </p>
                   </ng-container>
                   <ng-template #elseTemplate>

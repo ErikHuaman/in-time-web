@@ -57,7 +57,7 @@
         </p-iconfield>
       </div>
       <div class="flex items-center gap-3">
-        <p-button severity="info" size="small">
+        <!-- <p-button severity="info" size="small">
           <div class="flex justify-center items-center font-medium gap-1">
             <i
               class="iconify icon text-lg"
@@ -66,7 +66,7 @@
             ></i>
             <div>XLS</div>
           </div>
-        </p-button>
+        </p-button> -->
         <p-button severity="info" size="small" (click)="addNew()">
           <div class="flex justify-center items-center font-medium gap-1">
             <i
@@ -142,6 +142,12 @@
           <td>
             <div class="text-center text-sm">
               {{ item.fechaFin | date : "dd MMM yyyy" | uppercase }}
+            </div>
+          </td>
+          <td>
+            <div class="flex justify-center items-center gap-1">
+              <button-edit (click)="edit(item)" />
+              <button-delete (click)="remove(item)" />
             </div>
           </td>
         </tr>
