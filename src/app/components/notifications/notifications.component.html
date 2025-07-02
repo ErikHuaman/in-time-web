@@ -64,11 +64,7 @@
                 tooltipStyleClass="text-xs"
                 (click)="eliminar(item.id)"
               >
-                <i
-                  class="iconify icon text-red-500"
-                  data-icon="material-symbols:delete-outline-rounded"
-                  data-inline="false"
-                ></i>
+                <iconify-icon [icon]="'material-symbols:delete-outline-rounded'" class="text-xl" />
               </div>
             </div>
           </div>

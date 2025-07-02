@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -32,6 +32,7 @@ import { sanitizedForm } from '@functions/forms.function';
   ],
   templateUrl: './login.component.html',
   styles: ``,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class LoginComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);

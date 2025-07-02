@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, OnInit } from '@angular/core';
 import { Dispositivo } from '@models/dispositivo.model';
 import { DispositivoService } from '@services/dispositivo.service';
 import { ButtonModule } from 'primeng/button';
@@ -13,6 +13,7 @@ import { TitleCardComponent } from '@components/title-card/title-card.component'
   imports: [CommonModule, ButtonModule, BadgeModule, TitleCardComponent],
   templateUrl: './dispositivos.component.html',
   styles: ``,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class DispositivosComponent implements OnInit {
   title: string = 'Dispositivos';

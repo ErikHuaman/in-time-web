@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
@@ -23,6 +23,7 @@ import { FormNewPatternComponent } from './form-new-pattern/form-new-pattern.com
   templateUrl: './patrones-horario.component.html',
   styles: ``,
   providers: [DialogService],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class PatronesHorarioComponent {
   title: string = 'Patrones de marcación';

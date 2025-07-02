@@ -14,11 +14,7 @@
         <div class="grow">
           <div class="flex flex-col gap-2">
             <div class="flex items-center gap-4">
-              <i
-                class="iconify icon font-bold text-2xl"
-                [attr.data-icon]="item.icon"
-                data-inline="false"
-              ></i>
+              <iconify-icon [icon]="item.icon" class="text-lg" />
               <h3 class="font-semibold text-xl">{{ item.title }}</h3>
             </div>
             <p class="text-base text-slate-500">

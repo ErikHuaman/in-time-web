@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 
@@ -8,6 +8,7 @@ import { ButtonModule } from 'primeng/button';
   imports: [CommonModule, RouterModule, ButtonModule],
   templateUrl: './configuracion.component.html',
   styles: ``,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ConfiguracionComponent {
   title: string = 'Configuración';

@@ -2,11 +2,7 @@
   <div class="flex justify-start">
     <p-button severity="info" size="small" (click)="cancelar()">
       <div class="flex justify-center items-center font-medium gap-1">
-        <i
-          class="iconify icon text-lg"
-          data-icon="material-symbols:chevron-left-rounded"
-          data-inline="false"
-        ></i>
+        <iconify-icon [icon]="'material-symbols:chevron-left-rounded'" class="text-lg" />
         <span>Volver</span>
       </div>
     </p-button>
@@ -49,11 +45,7 @@
   <div class="flex justify-end">
     <p-button severity="info" size="small" (click)="addNew()">
       <div class="flex justify-center items-center font-medium gap-1">
-        <i
-          class="iconify icon text-lg"
-          data-icon="uil:plus"
-          data-inline="false"
-        ></i>
+        <iconify-icon [icon]="'uil:plus'" class="text-lg" />
         <span>Agregar</span>
       </div>
     </p-button>

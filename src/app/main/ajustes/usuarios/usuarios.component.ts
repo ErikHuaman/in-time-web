@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, inject, OnInit, signal } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, effect, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { Column, ExportColumn } from '@models/column-table.model';
@@ -24,6 +24,9 @@ import { ChipModule } from 'primeng/chip';
 import { PopoverModule } from 'primeng/popover';
 import { ButtonEditComponent } from '@components/buttons/button-edit/button-edit.component';
 import { ButtonDeleteComponent } from '@components/buttons/button-delete/button-delete.component';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputGroup } from 'primeng/inputgroup';
+import { PaginatorComponent } from '@components/paginator/paginator.component';
 
 @Component({
   selector: 'app-usuarios',
@@ -33,8 +36,8 @@ import { ButtonDeleteComponent } from '@components/buttons/button-delete/button-
     FormsModule,
     ButtonModule,
     TableModule,
-    InputIcon,
-    IconField,
+    // InputIcon,
+    // IconField,
     InputTextModule,
     TagModule,
     SkeletonModule,
@@ -44,10 +47,14 @@ import { ButtonDeleteComponent } from '@components/buttons/button-delete/button-
     TitleCardComponent,
     ButtonEditComponent,
     ButtonDeleteComponent,
+    InputGroup,
+    InputGroupAddonModule,
+    PaginatorComponent,
   ],
   templateUrl: './usuarios.component.html',
   styles: ``,
   providers: [DialogService],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class UsuariosComponent implements OnInit {
   title: string = 'Usuarios';
@@ -113,6 +120,7 @@ export class UsuariosComponent implements OnInit {
       //   align: 'center',
       //   widthClass: '!w-32',
       // },
+      { field: 'identificacion', header: 'Doc ID' },
       { field: 'nombre', header: 'Nombre' },
       { field: 'apellido', header: 'Apellido' },
       { field: 'usuario', header: 'Usuario', align: 'center' },

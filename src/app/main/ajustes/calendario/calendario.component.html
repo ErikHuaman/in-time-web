@@ -51,11 +51,7 @@
       <div class="flex items-center gap-3">
         <p-button severity="info" size="small" (click)="addEvent()">
           <div class="flex justify-center items-center font-medium gap-1">
-            <i
-              class="iconify icon text-lg"
-              data-icon="material-symbols:add-rounded"
-              data-inline="false"
-            ></i>
+            <iconify-icon [icon]="'material-symbols:add-rounded'" class="text-lg" />
             <div>AGREGAR</div>
           </div>
         </p-button>
@@ -66,11 +62,7 @@
           optionValue="value"
         >
           <ng-template #item let-item>
-            <i
-              class="iconify icon font-bold text-xl"
-              [attr.data-icon]="item.icon"
-              data-inline="false"
-            ></i>
+            <iconify-icon [icon]="item.icon" class="text-xl" />
           </ng-template>
         </p-selectbutton>
       </div>

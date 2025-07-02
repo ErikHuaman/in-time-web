@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, inject, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, effect, inject, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -52,6 +52,7 @@ import { SafeUrl } from '@angular/platform-browser';
   ],
   templateUrl: './form-roles.component.html',
   styles: ``,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class FormRolesComponent implements OnInit {
   public readonly ref: DynamicDialogRef = inject(DynamicDialogRef);
