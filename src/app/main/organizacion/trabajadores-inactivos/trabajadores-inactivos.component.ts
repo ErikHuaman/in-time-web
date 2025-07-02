@@ -2,26 +2,24 @@ import { CommonModule } from '@angular/common';
 import { Component, effect, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
-import { IconField } from 'primeng/iconfield';
-import { InputIcon } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { SelectModule } from 'primeng/select';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { FormInactivarTrabajadorComponent } from './form-inactivar-trabajador/form-inactivar-trabajador.component';
-import { InactivacionService } from '@services/inactivacion.service';
-import { InactivacionTrabajador } from '@models/inactivacionTrabajador.model';
 import { TitleCardComponent } from '@components/title-card/title-card.component';
 import { MessageGlobalService } from '@services/message-global.service';
 import { CargoStore } from '@stores/cargo.store';
 import { SedeStore } from '@stores/sede.store';
-import { TrabajadorStore } from '@stores/trabajador.store';
 import { Trabajador } from '@models/trabajador.model';
 import { Cargo } from '@models/cargo.model';
 import { Sede } from '@models/sede.model';
 import { TrabajadorInactivoStore } from '@stores/trabajador-inactivo.store';
 import { ButtonEditComponent } from '@components/buttons/button-edit/button-edit.component';
+import { ButtonCustomComponent } from '@components/buttons/button-custom/button-custom.component';
+import { InputGroup } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 
 @Component({
   selector: 'app-trabajadores-inactivos',
@@ -31,13 +29,14 @@ import { ButtonEditComponent } from '@components/buttons/button-edit/button-edit
     MultiSelectModule,
     ButtonModule,
     TableModule,
-    InputIcon,
-    IconField,
+    InputGroup,
+    InputGroupAddonModule,
     InputTextModule,
     SelectModule,
     FormsModule,
     TitleCardComponent,
-    ButtonEditComponent
+    ButtonEditComponent,
+    ButtonCustomComponent,
   ],
   templateUrl: './trabajadores-inactivos.component.html',
   styles: ``,
@@ -190,6 +189,17 @@ export class TrabajadoresInactivosComponent implements OnInit {
         this.loadData();
       }
     });
+  }
+
+  reactivate(item: Trabajador) {
+    this.msg.confirm(
+      `<div class='px-4 py-2'>
+        <p class='text-center'> ¿Está seguro de reactivar al trabajador <span class='uppercase font-bold'>${item.nombre} ${item.apellido}</span>? </p>
+      </div>`,
+      () => {
+        this.store.changeStatus(item.id!, true);
+      }
+    );
   }
 
   filterGlobal(dt: any, target: EventTarget | null) {

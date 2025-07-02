@@ -184,6 +184,29 @@ export function createEntityStore<T>(options: {
             .subscribe();
         },
 
+        changeStatus(id: string | string, status: boolean) {
+          patchState(store, { loading: true, error: null });
+          service
+            .changeStatus(id, status)
+            .pipe(
+              tap({
+                next: (item) =>
+                  patchState(store, {
+                    items: [],
+                    selectedItem: null,
+                    loading: false,
+                    lastAction: 'deleted',
+                  }),
+                error: (err) =>
+                  patchState(store, {
+                    error: `[${entity}] ${err?.error?.message}`,
+                    loading: false,
+                  }),
+              })
+            )
+            .subscribe();
+        },
+
         getFile(id: string | string) {
           patchState(store, { previewUrl: '' });
           service

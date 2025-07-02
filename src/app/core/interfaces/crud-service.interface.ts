@@ -16,5 +16,6 @@ export interface CrudService<T> {
     ext?: { file?: File }
   ): Observable<T>;
   delete(id: number | string): Observable<void>;
+  changeStatus(id: number | string, status: boolean): Observable<T>;
   getFile(id: number | string): Observable<Blob>;
 }

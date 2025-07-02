@@ -134,7 +134,6 @@ export class ParametrosComponent implements OnInit {
   cargarFondoPensiones() {
     this.fondoPensionesService
       .findAll()
-      .pipe(map((data: any) => data.data))
       .subscribe({
         next: (data: FondoPensiones[]) => {
           this.fondoPensiones.clear();
@@ -189,7 +188,6 @@ export class ParametrosComponent implements OnInit {
   cargarSeguroSalud() {
     this.seguroSaludService
       .findAll()
-      .pipe(map((data: any) => data.data))
       .subscribe({
         next: (data: SeguroSalud[]) => {
           this.seguroSalud.clear();

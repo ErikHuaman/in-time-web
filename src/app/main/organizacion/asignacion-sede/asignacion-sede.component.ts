@@ -32,6 +32,8 @@ import { PaginatorComponent } from '@components/paginator/paginator.component';
 import { TooltipModule } from 'primeng/tooltip';
 import { ChipModule } from 'primeng/chip';
 import { PopoverModule } from 'primeng/popover';
+import { InputGroup } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 
 @Component({
   selector: 'app-asignacion-sede',
@@ -41,8 +43,8 @@ import { PopoverModule } from 'primeng/popover';
     MultiSelectModule,
     ButtonModule,
     TableModule,
-    InputIcon,
-    IconField,
+    InputGroup,
+    InputGroupAddonModule,
     InputTextModule,
     SelectModule,
     FormsModule,
@@ -192,6 +194,7 @@ export class AsignacionSedeComponent implements OnInit {
     const q: Record<string, any> = {
       filter: false,
       isActive: true,
+      isAsigned: true,
     };
     this.store.loadAll(this.limit(), this.offset(), q);
   }
@@ -200,6 +203,7 @@ export class AsignacionSedeComponent implements OnInit {
     const q: Record<string, any> = {
       filter: false,
       isActive: true,
+      isAsigned: true,
       search: this.searchText(),
     };
     this.store.loadAll(this.limit(), this.offset(), q);

@@ -117,7 +117,7 @@ export class FormAsignacionSedeComponent {
     if (item) {
       this.formData.get('idSedes')?.setValue(item.sedes.map((item) => item.id));
       this.asignaciones.clear();
-      console.log("item.sedes", item.sedes)
+      console.log('item.sedes', item.sedes);
       item.sedes.forEach((item) => {
         const asignacionFormGroup = new FormGroup({
           id: new FormControl<string | undefined>(item.id, {
@@ -160,37 +160,6 @@ export class FormAsignacionSedeComponent {
   precargar() {
     if (this.idTrabajador) {
       this.store.loadById(this.idTrabajador);
-      // .findAllByTrabajador(this.idTrabajador)
-      // .subscribe({
-      //   next: (data) => {
-      //     this.formData.get('idSedes')?.setValue(data.map((item) => item.id));
-      //     this.asignaciones.clear();
-      //     data.forEach((item) => {
-      //       const asignacionFormGroup = new FormGroup({
-      //         id: new FormControl<string | undefined>(item.id, {
-      //           nonNullable: true,
-      //           validators: [],
-      //         }),
-      //         idSede: new FormControl<string | undefined>(item.id, {
-      //           nonNullable: true,
-      //           validators: [Validators.required],
-      //         }),
-      //         nombreSede: new FormControl<string>(item.sede.nombre, {
-      //           nonNullable: true,
-      //           validators: [Validators.required],
-      //         }),
-      //         fechaAsignacion: new FormControl<Date | undefined>(
-      //           new Date(item.fechaAsignacion),
-      //           {
-      //             nonNullable: true,
-      //             validators: [Validators.required],
-      //           }
-      //         ),
-      //       });
-      //       this.asignaciones.push(asignacionFormGroup);
-      //     });
-      //   },
-      // });
     }
   }
 

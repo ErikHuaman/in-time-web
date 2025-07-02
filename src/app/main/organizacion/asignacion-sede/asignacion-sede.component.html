@@ -31,15 +31,22 @@
           tooltipPosition="top"
           tooltipStyleClass="text-sm"
         />
-        <p-iconfield>
-          <p-inputicon styleClass="pi pi-search" />
-          <input
-            type="text"
-            pInputText
-            placeholder="Buscar"
-            (input)="filterGlobal(dt1, $event.target)"
-          />
-        </p-iconfield>
+        <p-inputgroup>
+          <input pInputText [(ngModel)]="searchText" placeholder="Buscar" />
+          <p-inputgroup-addon>
+            <p-button
+              icon="pi pi-search"
+              severity="info"
+              variant="text"
+              size="small"
+              (click)="search()"
+              [disabled]="!searchText"
+              pTooltip="Buscar"
+              tooltipPosition="top"
+              tooltipStyleClass="!text-xs !font-normal !p-0"
+            />
+          </p-inputgroup-addon>
+        </p-inputgroup>
       </div>
       <div class="flex items-center gap-3">
         <!-- <p-button severity="info" size="small">
