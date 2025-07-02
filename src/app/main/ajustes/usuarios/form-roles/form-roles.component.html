@@ -44,6 +44,7 @@
     </div>
   </form>
 </div>
+
 <div *ngIf="tipo == 'table'" class="flex flex-col gap-4">
   <div class="flex justify-end">
     <p-button severity="info" size="small" (click)="addNew()">
@@ -120,7 +121,7 @@
               icon="material-symbols:grid-view-outline-rounded"
               (click)="permisos(item.id)"
             />
-            <button-edit (click)="editar(item.id)" />
+            <button-edit (click)="editar(item)" />
             <button-delete (click)="remove(item)" />
           </div>
         </td>

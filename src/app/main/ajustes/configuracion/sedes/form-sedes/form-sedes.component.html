@@ -103,7 +103,9 @@
               [dropdown]="true"
               (onSelect)="onSelect($event)"
               [ngModelOptions]="{ standalone: true }"
-            />
+            >
+              <ng-template pTemplate="empty"> </ng-template>
+            </p-autocomplete>
           </div>
         </div>
         <div class="w-full border border-slate-300 rounded-md overflow-hidden">

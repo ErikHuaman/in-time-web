@@ -37,7 +37,7 @@ import { TitleCardComponent } from '@components/title-card/title-card.component'
     TagModule,
     DatePickerModule,
     TooltipModule,
-    TitleCardComponent
+    TitleCardComponent,
   ],
   templateUrl: './correccion-marcacion.component.html',
   styles: ``,
@@ -77,18 +77,8 @@ export class CorreccionMarcacionComponent implements OnInit {
   }
 
   cargarAsistenciaObservada() {
-    forkJoin([/* this.sedeService.findAll(), this.cargoService.findAll() */])
-      .pipe(
-        mergeMap((arr) => {
-          /* this.listaSedes = arr[0];
-          this.selectedSedes = this.listaSedes.map((item) => item.id); */
-          // this.listaCargos = arr[1];
-          // this.selectedCargos = this.listaCargos.map((item) => item.id);
-          return this.asistenciaService.findAllObservadoByMonth(
-            this.fechaSelected
-          );
-        })
-      )
+    this.asistenciaService
+      .findAllObservadoByMonth(this.fechaSelected)
       .subscribe({
         next: (data) => {
           this.listaAsistenciaMensual = data;

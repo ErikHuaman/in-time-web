@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, effect, inject, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -30,6 +30,7 @@ import { ButtonEditComponent } from '@components/buttons/button-edit/button-edit
 import { ButtonDeleteComponent } from '@components/buttons/button-delete/button-delete.component';
 import { ButtonCustomComponent } from '@components/buttons/button-custom/button-custom.component';
 import { sanitizedForm } from '@functions/forms.function';
+import { SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-form-permrolesisos',
@@ -90,11 +91,58 @@ export class FormRolesComponent implements OnInit {
     }),
   });
 
+  id!: any;
+  previewUrl: SafeUrl = '';
+
   get isActive(): boolean {
     return this.formData.controls['isActive'].value;
   }
 
-  id?: string;
+  private resetOnSuccessEffect = effect(() => {
+    const { selectedItem, error, lastAction } = this.store;
+
+    const item = selectedItem();
+    const action = lastAction();
+    const currentError = error();
+
+    // Manejo de errores
+    if (currentError) {
+      console.log('error', error);
+      this.msg.error(
+        currentError ??
+          '¡Ups, ocurrió un error inesperado al guardar el rol!'
+      );
+      return; // Salimos si hay un error
+    }
+
+    // Si se ha creado o actualizado correctamente
+    if (action === 'created' || action === 'updated') {
+      this.msg.success(
+        action === 'created'
+          ? 'Rol creado exitosamente!'
+          : 'Rol actualizado exitosamente!'
+      );
+
+      this.store.clearSelected();
+      this.ref.close(true);
+      return;
+    }
+
+    // Si hay un item seleccionado, se carga en el formulario
+    if (item && item.id != this.id) {
+      console.log('Item seleccionado:', item);
+      this.id = item.id ?? null;
+      this.formData.patchValue({
+        nombre: item.nombre,
+        codigo: item.codigo,
+        isActive: item.isActive,
+      });
+    }
+  });
+
+    private getFileEffect = effect(() => {
+    this.previewUrl = this.store.previewUrl();
+  });
 
   ngOnInit(): void {
     this.cols = [
@@ -209,9 +257,12 @@ export class FormRolesComponent implements OnInit {
 
   remove(item: Rol) {
     this.msg.confirm(
-      `¿Está seguro de eliminar el edificio ${item.nombre}? Esta acción no se puede deshacer.`,
+      `¿Está seguro de eliminar el rol ${item.nombre}? Esta acción no se puede deshacer.`,
       () => {
         this.store.delete(item.id!);
+        this.msg.success('Rol eliminado correctamente');
+        this.cancelar();
+        this.cargarRoles();
       }
     );
   }
@@ -220,6 +271,8 @@ export class FormRolesComponent implements OnInit {
     const form: Rol = sanitizedForm(this.formData.getRawValue());
     if (this.id) {
       this.store.update(this.id, { ...form, id: this.id });
+      this.cargarRoles();
+      this.cancelar();
     } else {
       this.store.create(form);
     }

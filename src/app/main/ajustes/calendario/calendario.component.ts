@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
@@ -65,6 +65,7 @@ const colors: Record<string, EventColor> = {
   templateUrl: './calendario.component.html',
   styles: ``,
   providers: [DialogService],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class CalendarioComponent implements OnInit {
   title: string = 'Calendario';
