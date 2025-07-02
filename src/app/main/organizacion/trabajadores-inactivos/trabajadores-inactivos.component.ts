@@ -112,14 +112,14 @@ export class TrabajadoresInactivosComponent implements OnInit {
     if (!this.openModal && error) {
       console.log('error', error);
       this.msg.error(
-        error ?? '¡Ups, ocurrió un error inesperado al eliminar el equipo!'
+        error ?? '¡Ups, ocurrió un error inesperado al eliminar el trabajador inactivo!'
       );
       return; // Salimos si hay un error
     }
 
     // Si se ha creado o actualizado correctamente
     if (action === 'deleted') {
-      this.msg.success('¡equipo eliminado exitosamente!');
+      this.msg.success('Trabajador inactivo eliminado exitosamente!');
       this.store.clearSelected();
       this.loadData();
       return;

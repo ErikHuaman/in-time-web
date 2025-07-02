@@ -85,7 +85,7 @@ export class InasistenciaComponent implements OnInit {
   }
 
   get listaSedes(): Sede[] {
-    return this.sedeStore.items();
+    return this.sedeStore.items().slice().sort((a, b) => a.nombre.localeCompare(b.nombre));
   }
 
   private sedesEffect = effect(() => {

@@ -13,6 +13,7 @@
         placeholder="Seleccione..."
         appendTo="body"
         (onChange)="selectTrabajador($event.value)"
+        [filter]="true"
       />
     </div>
     <div class="flex flex-col gap-2">

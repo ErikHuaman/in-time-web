@@ -128,14 +128,14 @@ export class TrabajadoresActivosComponent implements OnInit {
     if (!this.openModal && error) {
       console.log('error', error);
       this.msg.error(
-        error ?? '¡Ups, ocurrió un error inesperado al eliminar el equipo!'
+        error ?? '¡Ups, ocurrió un error inesperado al eliminar el trabajador!'
       );
       return; // Salimos si hay un error
     }
 
     // Si se ha creado o actualizado correctamente
     if (action === 'deleted') {
-      this.msg.success('¡equipo eliminado exitosamente!');
+      this.msg.success('Trabajador eliminado exitosamente!');
       this.store.clearSelected();
       this.loadData();
       return;
@@ -173,6 +173,9 @@ export class TrabajadoresActivosComponent implements OnInit {
 
   filtrar(event?: number) {
     console.log('Filtrando trabajadores activos', this.listaTrabajadores);
+
+    this.listaSedes.sort((a, b) => a.nombre.localeCompare(b.nombre));
+
     this.dataTable = this.listaTrabajadores.filter(
       (t) =>
         (t.sedes?.length == 0 ||
@@ -181,7 +184,7 @@ export class TrabajadoresActivosComponent implements OnInit {
           this.selectedSedes.length == this.listaSedes.length ||
           this.selectedSedes.length == 0) &&
         (t.contratos ?? [])[0]?.idCargo &&
-        this.selectedCargos.includes((t.contratos ?? [])[0]?.idCargo!)
+        this.selectedCargos.includes((t.contratos ?? [])[0]?.idCargo!),
     );
   }
 

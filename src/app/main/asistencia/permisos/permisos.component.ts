@@ -81,7 +81,7 @@ export class PermisosComponent implements OnInit {
   }
 
   get listaSedes(): Sede[] {
-    return this.sedeStore.items();
+    return this.sedeStore.items().slice().sort((a, b) => a.nombre.localeCompare(b.nombre));
   }
 
   selectedSedes: string[] = [];
@@ -122,14 +122,14 @@ export class PermisosComponent implements OnInit {
     if (!this.openModal && error) {
       console.log('error', error);
       this.msg.error(
-        error ?? '¡Ups, ocurrió un error inesperado al eliminar el equipo!'
+        error ?? '¡Ups, ocurrió un error inesperado al eliminar el permiso!'
       );
       return; // Salimos si hay un error
     }
 
     // Si se ha creado o actualizado correctamente
     if (action === 'deleted') {
-      this.msg.success('¡equipo eliminado exitosamente!');
+      this.msg.success('Permiso eliminado exitosamente!');
       this.store.clearSelected();
       this.loadData();
       return;

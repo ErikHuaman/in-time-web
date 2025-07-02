@@ -157,6 +157,7 @@ export class FormPermisoComponent implements OnInit {
     this.sedeService.findAll().subscribe({
       next: (data) => {
         this.listaSedes = data;
+        this.listaSedes.sort((a, b) => a.nombre.localeCompare(b.nombre));
         this.filtrar();
       },
     });

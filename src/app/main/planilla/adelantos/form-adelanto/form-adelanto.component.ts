@@ -83,7 +83,7 @@ export class FormAdelantoComponent implements OnInit {
   listaTrabajadoresFiltrados: Trabajador[] = [];
 
   get listaSedes(): Sede[] {
-    return this.sedeStore.items();
+    return this.sedeStore.items().slice().sort((a, b) => a.nombre.localeCompare(b.nombre));
   }
 
   get listaCargos(): Cargo[] {
@@ -167,10 +167,10 @@ export class FormAdelantoComponent implements OnInit {
     ) {
       this.msg.success(
         action === 'created'
-          ? '¡Rol creado exitosamente!'
+          ? '¡Adelanto de sueldo creado exitosamente!'
           : action === 'updated'
-          ? '¡Rol actualizado exitosamente!'
-          : '¡Roles creados exitosamente!'
+          ? 'Adelanto de sueldo actualizado exitosamente!'
+          : 'Adelanto de sueldo creados exitosamente!'
       );
 
       // this.formData.reset({

@@ -357,9 +357,9 @@ export class FormTrabajadorComponent implements OnInit {
     ) {
       this.msg.success(
         action === 'created'
-          ? '¡Rol creado exitosamente!'
+          ? '¡Trabajador creado exitosamente!'
           : action === 'updated'
-          ? '¡Rol actualizado exitosamente!'
+          ? '¡Trabajador actualizado exitosamente!'
           : '¡Roles creados exitosamente!'
       );
 

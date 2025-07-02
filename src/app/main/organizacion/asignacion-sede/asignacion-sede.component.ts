@@ -105,7 +105,7 @@ export class AsignacionSedeComponent implements OnInit {
   }
 
   get listaSedes(): Sede[] {
-    return this.sedeStore.items();
+    return this.sedeStore.items().slice().sort((a, b) => a.nombre.localeCompare(b.nombre));
   }
 
   private sedesEffect = effect(() => {
@@ -137,14 +137,14 @@ export class AsignacionSedeComponent implements OnInit {
     if (!this.openModal && error) {
       console.log('error', error);
       this.msg.error(
-        error ?? '¡Ups, ocurrió un error inesperado al eliminar el equipo!'
+        error ?? '¡Ups, ocurrió un error inesperado al eliminar la asignación de sede!'
       );
       return; // Salimos si hay un error
     }
 
     // Si se ha creado o actualizado correctamente
     if (action === 'deleted') {
-      this.msg.success('¡equipo eliminado exitosamente!');
+      this.msg.success('Asignación eliminada exitosamente!');
       this.store.clearSelected();
       this.loadData();
       return;
