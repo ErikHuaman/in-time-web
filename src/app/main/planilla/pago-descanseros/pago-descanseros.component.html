@@ -67,11 +67,10 @@
           (click)="confirm($event)"
         >
           <div class="flex justify-center items-center font-medium gap-1">
-            <i
-              class="iconify icon text-lg"
-              data-icon="material-symbols:share-windows-rounded"
-              data-inline="false"
-            ></i>
+            <iconify-icon
+              [icon]="'material-symbols:share-windows-rounded'"
+              class="text-lg"
+            />
             <div>EMITIR COMPROBANTE</div>
           </div>
         </p-button>

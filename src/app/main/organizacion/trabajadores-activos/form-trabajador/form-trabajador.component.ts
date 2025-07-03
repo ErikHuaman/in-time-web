@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, inject, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, effect, inject, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -74,6 +74,7 @@ import { getDateExcel } from '@functions/fecha.function';
   ],
   templateUrl: './form-trabajador.component.html',
   styles: ``,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class FormTrabajadorComponent implements OnInit {
   public readonly ref: DynamicDialogRef = inject(DynamicDialogRef);

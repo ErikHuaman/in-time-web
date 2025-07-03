@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { FieldsetModule } from 'primeng/fieldset';
@@ -51,6 +51,7 @@ import { sanitizedForm } from '@functions/forms.function';
   ],
   templateUrl: './form-reemplazo.component.html',
   styles: ``,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class FormReemplazoComponent implements OnInit {
   public readonly ref: DynamicDialogRef = inject(DynamicDialogRef);

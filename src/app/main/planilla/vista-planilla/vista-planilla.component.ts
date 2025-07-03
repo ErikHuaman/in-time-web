@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, inject, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, effect, inject, OnInit } from '@angular/core';
 import { ConfirmDialog } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { FormsModule } from '@angular/forms';
@@ -54,6 +54,7 @@ import { ButtonCustomComponent } from '@components/buttons/button-custom/button-
   templateUrl: './vista-planilla.component.html',
   styles: ``,
   providers: [ConfirmationService, MessageService, DialogService],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class VistaPlanillaComponent implements OnInit {
   title: string = 'Vista Planilla';

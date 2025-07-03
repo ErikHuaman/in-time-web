@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, inject, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, effect, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -58,6 +58,7 @@ import { ButtonCustomComponent } from '@components/buttons/button-custom/button-
   templateUrl: './vistas-asistencia.component.html',
   styles: ``,
   providers: [DialogService],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class VistasAsistenciaComponent implements OnInit {
   title: string = 'Vistas de asistencia';

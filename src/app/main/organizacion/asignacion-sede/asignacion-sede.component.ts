@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, inject, OnInit, signal } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, effect, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { IconField } from 'primeng/iconfield';
@@ -61,6 +61,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
   templateUrl: './asignacion-sede.component.html',
   styles: ``,
   providers: [DialogService],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AsignacionSedeComponent implements OnInit {
   title: string = 'Asignación de edificio';

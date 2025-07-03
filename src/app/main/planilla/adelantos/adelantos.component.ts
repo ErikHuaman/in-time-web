@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, inject, OnInit, signal } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, effect, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -46,6 +46,7 @@ import { ButtonDeleteComponent } from '@components/buttons/button-delete/button-
   templateUrl: './adelantos.component.html',
   styles: ``,
   providers: [DialogService],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AdelantosComponent implements OnInit {
   title: string = 'Adelantos de sueldo';

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, inject, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, effect, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonCustomComponent } from '@components/buttons/button-custom/button-custom.component';
 import { TitleCardComponent } from '@components/title-card/title-card.component';
@@ -42,6 +42,7 @@ import { ToastModule } from 'primeng/toast';
   ],
   templateUrl: './pago-descanseros.component.html',
   styles: ``,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class PagoDescanserosComponent implements OnInit {
   title: string = 'Pago a descanseros';

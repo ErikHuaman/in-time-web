@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, inject, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, effect, inject, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DatePickerModule } from 'primeng/datepicker';
 import { DialogService } from 'primeng/dynamicdialog';
@@ -51,6 +51,7 @@ import { MessageGlobalService } from '@services/message-global.service';
   templateUrl: './vacaciones.component.html',
   styles: ``,
   providers: [DialogService],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class VacacionesComponent implements OnInit {
   title: string = 'Vacaciones programadas';
