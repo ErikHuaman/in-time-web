@@ -254,7 +254,7 @@ export class PermisosComponent implements OnInit {
   remove(item: PermisoTrabajador) {
     this.msg.confirm(
       `<div class='px-4 py-2'>
-          <p class='text-center'> ¿Está seguro de eliminar el permiso a <span class='uppercase font-bold'>${item?.trabajador?.nombre} ${item?.trabajador?.apellido}</span>? </p>
+          <p class='text-center'> ¿Está seguro de eliminar el permiso de <span class='uppercase font-bold'>${item?.trabajador?.nombre} ${item?.trabajador?.apellido}</span>? </p>
           <p class='text-center'> Esta acción no se puede deshacer. </p>
         </div>`,
       () => {

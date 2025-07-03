@@ -259,9 +259,13 @@ export class ReemplazosComponent implements OnInit {
     );
   }
 
-  eliminar(item: Sede) {
+  eliminar(item: any) {
+    console.log("ITEM", item);
     this.msg.confirm(
-      `¿Está seguro de eliminar el edificio ${item.nombre}? Esta acción no se puede deshacer.`,
+            `<div class='px-4 py-2'>
+            <p class='text-center'> ¿Está seguro de eliminar el remplazo de <span class='uppercase font-bold'>${item.trabajador.nombre + " " + item.trabajador.apellido}</span>? </p>
+            <p class='text-center'> Esta acción no se puede deshacer. </p>
+          </div>`,
       () => {
         this.sedeService.delete(item.id).subscribe({
           next: (data) => {

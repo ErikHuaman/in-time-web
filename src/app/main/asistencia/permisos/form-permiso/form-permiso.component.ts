@@ -216,7 +216,7 @@ export class FormPermisoComponent implements OnInit {
         .create({ ...form }, { file: this.archivo })
         .subscribe({
           next: (data) => {
-            this.msg.success('¡Registrado con éxito!');
+            this.msg.success('¡Permiso registrado con éxito!');
             this.ref.close(data);
           },
           error: (e) => {
@@ -226,7 +226,7 @@ export class FormPermisoComponent implements OnInit {
     } else {
       this.permisoService.update(this.id, form).subscribe({
         next: (data) => {
-          this.msg.success('¡Actualizado con éxito!');
+          this.msg.success('¡Permiso actualizado con éxito!');
           this.ref.close(data);
         },
         error: (e) => {

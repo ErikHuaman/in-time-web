@@ -185,7 +185,7 @@ export class FormReemplazoComponent implements OnInit {
     if (!this.id) {
       this.reemplaceroService.create(form, { file: this.archivo }).subscribe({
         next: (data) => {
-          this.msg.success('¡Registrado con éxito!');
+          this.msg.success('¡Reemplazo registrado con éxito!');
           this.ref.close(data);
         },
         error: (e) => {
@@ -197,7 +197,7 @@ export class FormReemplazoComponent implements OnInit {
         .update(this.id, form, { file: this.archivo })
         .subscribe({
           next: (data) => {
-            this.msg.success('¡Actualizado con éxito!');
+            this.msg.success('¡Reemplazo actualizado con éxito!');
             this.ref.close(data);
           },
           error: (e) => {

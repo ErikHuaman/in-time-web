@@ -189,6 +189,8 @@ export class FormInactivarTrabajadorComponent {
         .subscribe({
           next: (data) => {
             this.ref.close(data);
+            this.msg.success('¡Trabajador inactivado exitosamente!');
+            this.cargarTrabajadoresActivos();
           },
         });
     } else {
@@ -234,6 +236,8 @@ export class FormInactivarTrabajadorComponent {
         .subscribe({
           next: (data) => {
             this.ref.close(data);
+            this.msg.success('¡Trabajador inactivado exitosamente!');
+            this.cargarTrabajadoresActivos();
           },
         });
     }

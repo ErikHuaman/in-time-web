@@ -204,7 +204,7 @@ export class VacacionesComponent implements OnInit {
   remove(item: Vacacion) {
     this.msg.confirm(
       `<div class='px-4 py-2'>
-            <p class='text-center'> ¿Está seguro de eliminar el usuario <span class='uppercase font-bold'>${item.trabajador?.nombre}</span>? </p>
+            <p class='text-center'> ¿Está seguro de eliminar las vacaciones de <span class='uppercase font-bold'>${item.trabajador?.nombre}</span>? </p>
             <p class='text-center'> Esta acción no se puede deshacer. </p>
           </div>`,
       () => {

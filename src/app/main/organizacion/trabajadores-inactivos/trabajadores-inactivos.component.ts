@@ -119,7 +119,7 @@ export class TrabajadoresInactivosComponent implements OnInit {
 
     // Si se ha creado o actualizado correctamente
     if (action === 'deleted') {
-      this.msg.success('Trabajador inactivo eliminado exitosamente!');
+      this.msg.success('Trabajador activado exitosamente!');
       this.store.clearSelected();
       this.loadData();
       return;
