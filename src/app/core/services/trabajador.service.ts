@@ -60,7 +60,7 @@ export class TrabajadorService extends GenericCrudService<Trabajador> {
   }
 }
 //  {
-//   private readonly url = `${environment.apiUrl}/trabajador`;
+//   private readonly url = `${environment.urlBase}v1/trabajador`;
 
 //   private readonly http = inject(HttpClient);
 

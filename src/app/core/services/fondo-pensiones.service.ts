@@ -8,7 +8,7 @@ import { FondoPensiones } from '@models/fondo-pensiones.model';
   providedIn: 'root',
 })
 export class FondoPensionesService {
-  private readonly url = `${environment.apiUrl}/fondoPensiones`;
+  private readonly url = `${environment.urlBase}v1/fondoPensiones`;
 
   private readonly http = inject(HttpClient);
 

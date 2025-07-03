@@ -8,7 +8,7 @@ import { Vacacion } from '@models/vacacion.model';
   providedIn: 'root',
 })
 export class VacacionService {
-  private readonly url = `${environment.apiUrl}/vacaciones`;
+  private readonly url = `${environment.urlBase}v1/vacaciones`;
 
   private readonly http = inject(HttpClient);
 

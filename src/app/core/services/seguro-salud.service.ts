@@ -8,7 +8,7 @@ import { SeguroSalud } from '@models/seguro-salud.model';
   providedIn: 'root',
 })
 export class SeguroSaludService {
-  private readonly url = `${environment.apiUrl}/seguroSalud`;
+  private readonly url = `${environment.urlBase}v1/seguroSalud`;
 
   private readonly http = inject(HttpClient);
 

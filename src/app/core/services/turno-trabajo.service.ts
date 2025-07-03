@@ -8,7 +8,7 @@ import { map, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class TurnoTrabajoService {
-  private readonly url = `${environment.apiUrl}/turnosTrabajo`;
+  private readonly url = `${environment.urlBase}v1/turnosTrabajo`;
 
   private readonly http = inject(HttpClient);
 

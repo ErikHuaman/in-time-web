@@ -8,7 +8,7 @@ import { Asistencia } from '@models/asistencia.model';
   providedIn: 'root',
 })
 export class AsistenciaService {
-  private readonly url = `${environment.apiUrl}/asistencias`;
+  private readonly url = `${environment.urlBase}v1/asistencias`;
 
   private readonly http = inject(HttpClient);
 

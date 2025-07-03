@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AsistenciaUsuarioService {
-  private readonly url = `${environment.apiUrl}/asistenciaUsuario`;
+  private readonly url = `${environment.urlBase}v1/asistenciaUsuario`;
 
   private readonly http = inject(HttpClient);
 

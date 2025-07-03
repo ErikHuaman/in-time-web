@@ -8,7 +8,7 @@ import { map, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ModuloService {
-  private readonly url = `${environment.apiUrl}/modulos`;
+  private readonly url = `${environment.urlBase}v1/modulos`;
 
   private readonly http = inject(HttpClient);
 

@@ -44,30 +44,36 @@
         </div>
       </div>
       <div class="flex items-center gap-2">
-        <h4 class="text-2xl font-medium capitalize text-center">
+        <h4 class="text-2xl font-medium text-center uppercase">
           {{ viewDate | date : "MMMM yyyy" }}
         </h4>
       </div>
       <div class="flex items-center gap-3">
         <p-button severity="info" size="small" (click)="addEvent()">
           <div class="flex justify-center items-center font-medium gap-1">
-            <iconify-icon [icon]="'material-symbols:add-rounded'" class="text-lg" />
+            <iconify-icon
+              [icon]="'material-symbols:add-rounded'"
+              class="text-lg"
+            />
             <div>AGREGAR</div>
           </div>
         </p-button>
-        <p-selectbutton
-          [options]="viewOptions"
-          [(ngModel)]="viewSelected"
-          optionLabel="label"
-          optionValue="value"
-        >
-          <ng-template #item let-item>
-            <iconify-icon [icon]="item.icon" class="text-xl" />
-          </ng-template>
-        </p-selectbutton>
+        <div class="flex gap-2">
+          @for (item of viewOptions; track $index) {
+          <button-custom
+            [severity]="viewSelected === item.value ? 'contrast' : 'secondary'"
+            [icon]="item.icon"
+            (click)="viewSelected = item.value"
+            class="bg-slate-100 rounded-lg !hover:text-shadow-slate-900"
+          />
+          }
+        </div>
       </div>
     </div>
-    <div class="p-2 rounded-lg">
+    <div
+      style="height: calc(100vh - 200px)"
+      class="p-2 rounded-lg !overflow-y-auto"
+    >
       <div [ngSwitch]="viewSelected">
         <div *ngSwitchCase="'grid'">
           <div [ngSwitch]="view">
@@ -110,7 +116,7 @@
             stripedRows
             [scrollable]="true"
             [exportHeader]="'customExportHeader'"
-            scrollHeight="720px"
+            scrollHeight="calc(100vh - 200px)"
             styleClass="w-full"
             [globalFilterFields]="['nombre', 'apellido']"
             exportFilename="adelantos"

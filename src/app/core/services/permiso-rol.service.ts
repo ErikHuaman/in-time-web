@@ -8,7 +8,7 @@ import { map, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class PermisoRolService {
-private readonly url = `${environment.apiUrl}/permisoRoles`;
+private readonly url = `${environment.urlBase}v1/permisoRoles`;
 
   private readonly http = inject(HttpClient);
 

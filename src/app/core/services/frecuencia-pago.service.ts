@@ -8,7 +8,7 @@ import { map, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class FrecuenciaPagoService {
-  private readonly url = `${environment.apiUrl}/frecuenciaPago`;
+  private readonly url = `${environment.urlBase}v1/frecuenciaPago`;
 
   private readonly http = inject(HttpClient);
 

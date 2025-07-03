@@ -7,7 +7,7 @@ import { map, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AlertaService {
-  private readonly url = `${environment.apiUrl}/alerta`;
+  private readonly url = `${environment.urlBase}/alerta`;
 
   private readonly http = inject(HttpClient);
 

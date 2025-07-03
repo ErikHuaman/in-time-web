@@ -8,7 +8,7 @@ import { map, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class EstadoAsistenciaService {
-  private readonly url = `${environment.apiUrl}/estadoAsistencias`;
+  private readonly url = `${environment.urlBase}v1/estadoAsistencias`;
 
   private readonly http = inject(HttpClient);
 

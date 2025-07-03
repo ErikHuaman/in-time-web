@@ -14,7 +14,7 @@ export class SedeService extends GenericCrudService<Sede> {
   }
 
   findAll(): Observable<Sede[]> {
-    return this.http.get<any>(`${environment.apiUrl}/sedes`).pipe(
+    return this.http.get<any>(`${environment.urlBase}v1/sedes`).pipe(
       map((data: any) => data.data),
       map((data: Sede[]) => data)
     );

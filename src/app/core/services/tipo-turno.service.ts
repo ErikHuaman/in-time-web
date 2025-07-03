@@ -8,7 +8,7 @@ import { TipoTurno } from '@models/tipo-turno.model';
   providedIn: 'root',
 })
 export class TipoTurnoService {
-  private readonly url = `${environment.apiUrl}/tipoTurnos`;
+  private readonly url = `${environment.urlBase}v1/tipoTurnos`;
 
   private readonly http = inject(HttpClient);
 

@@ -8,7 +8,7 @@ import { HorarioTrabajadorItem } from '@models/horario-trabajador-item.model';
   providedIn: 'root',
 })
 export class HorarioTrabajadorItemService {
-  private readonly url = `${environment.apiUrl}/horarioTrabajadorItems`;
+  private readonly url = `${environment.urlBase}v1/horarioTrabajadorItems`;
 
   private readonly http = inject(HttpClient);
 

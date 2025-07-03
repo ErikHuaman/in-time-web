@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
-  apiUrl: '/v1',
-  wsUrl: '/',
+  // urlBase: '/',
+  urlBase: 'http://209.38.151.92:3000/',
 };

@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  private readonly url = `${environment.apiUrl}/auth`;
+  private readonly url = `${environment.urlBase}v1/auth`;
   private readonly http = inject(HttpClient);
 
   login(req: LoginRequest): Observable<LoginResponse> {

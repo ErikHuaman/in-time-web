@@ -8,7 +8,7 @@ import { PatronHorarioItem } from '@models/patron-horario-item.model';
   providedIn: 'root',
 })
 export class PatronHorarioItemService {
-  private readonly url = `${environment.apiUrl}/patronHorarioItems`;
+  private readonly url = `${environment.urlBase}v1/patronHorarioItems`;
 
   private readonly http = inject(HttpClient);
 

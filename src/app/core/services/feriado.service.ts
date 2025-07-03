@@ -8,7 +8,7 @@ import { Feriado } from '@models/feriado.model';
   providedIn: 'root',
 })
 export class FeriadoService {
-  private readonly url = `${environment.apiUrl}/feriados`;
+  private readonly url = `${environment.urlBase}v1/feriados`;
 
   private readonly http = inject(HttpClient);
 

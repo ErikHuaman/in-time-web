@@ -8,7 +8,7 @@ export class GenericCrudService<T> {
   protected readonly url!: string;
 
   constructor(protected http: HttpClient, endpoint: string) {
-    this.url = `${environment.apiUrl}/${endpoint}`;
+    this.url = `${environment.urlBase}v1/${endpoint}`;
   }
 
   getAll(

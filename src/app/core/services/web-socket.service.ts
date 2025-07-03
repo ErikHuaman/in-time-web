@@ -8,7 +8,7 @@ import { io, Socket } from 'socket.io-client';
 })
 export class WebSocketService {
   private socket!: Socket;
-  private readonly SERVER_URL = environment.wsUrl; // Cambia según tu entorno
+  private readonly SERVER_URL = environment.urlBase; // Cambia según tu entorno
 
   constructor() {
     this.socket = io(this.SERVER_URL, {

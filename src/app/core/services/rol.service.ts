@@ -16,7 +16,7 @@ export class RolService extends GenericCrudService<Rol> {
 
   findAllModulesByIdRol(idRol: string): Observable<GrupoModulo[]> {
     return this.http.get<GrupoModulo[]>(
-      `${environment.apiUrl}/roles/findAllModulesByIdRol/${idRol}`
+      `${environment.urlBase}v1/roles/findAllModulesByIdRol/${idRol}`
     );
   }
 }

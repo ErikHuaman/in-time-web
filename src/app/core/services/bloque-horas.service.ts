@@ -8,7 +8,7 @@ import { BloqueHoras } from '@models/bloque-horas.model';
   providedIn: 'root',
 })
 export class BloqueHorasService {
-  private readonly url = `${environment.apiUrl}/bloqueHoras`;
+  private readonly url = `${environment.urlBase}v1/bloqueHoras`;
 
   private readonly http = inject(HttpClient);
 

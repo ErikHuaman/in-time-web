@@ -8,7 +8,7 @@ import { map, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class TiempoContratoService {
-  private readonly url = `${environment.apiUrl}/tiempoContrato`;
+  private readonly url = `${environment.urlBase}v1/tiempoContrato`;
 
   private readonly http = inject(HttpClient);
 

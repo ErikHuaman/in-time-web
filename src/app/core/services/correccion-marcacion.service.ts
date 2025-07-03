@@ -9,7 +9,7 @@ import { map, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class CorreccionMarcacionService {
-  private readonly url = `${environment.apiUrl}/correccionMarcacion`;
+  private readonly url = `${environment.urlBase}v1/correccionMarcacion`;
 
   private readonly http = inject(HttpClient);
 

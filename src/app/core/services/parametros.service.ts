@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ParametrosService {
-  private readonly url = `${environment.apiUrl}/parametro`;
+  private readonly url = `${environment.urlBase}v1/parametro`;
 
   private readonly http = inject(HttpClient);
 

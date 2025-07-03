@@ -14,7 +14,7 @@ export class CargoService extends GenericCrudService<Cargo> {
   }
 
   findAll(): Observable<Cargo[]> {
-    return this.http.get<any>(`${environment.apiUrl}/cargos`).pipe(
+    return this.http.get<any>(`${environment.urlBase}v1/cargos`).pipe(
       map((data: any) => data.data),
       map((data: Cargo[]) => data)
     );

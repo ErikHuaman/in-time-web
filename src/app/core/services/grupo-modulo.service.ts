@@ -8,7 +8,7 @@ import { map, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class GrupoModuloService {
-  private readonly url = `${environment.apiUrl}/grupoModulos`;
+  private readonly url = `${environment.urlBase}v1/grupoModulos`;
 
   private readonly http = inject(HttpClient);
 

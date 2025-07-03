@@ -27,6 +27,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { FormEventoComponent } from './form-evento/form-evento.component';
 import { FeriadoService } from '@services/feriado.service';
 import { TitleCardComponent } from '@components/title-card/title-card.component';
+import { ButtonCustomComponent } from '@components/buttons/button-custom/button-custom.component';
 
 const colors: Record<string, EventColor> = {
   red: {
@@ -61,6 +62,7 @@ const colors: Record<string, EventColor> = {
     TableModule,
     SkeletonModule,
     TitleCardComponent,
+    ButtonCustomComponent
   ],
   templateUrl: './calendario.component.html',
   styles: ``,

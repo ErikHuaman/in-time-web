@@ -8,7 +8,7 @@ import { Dispositivo } from '@models/dispositivo.model';
   providedIn: 'root',
 })
 export class DispositivoService {
-  private readonly url = `${environment.apiUrl}/dispositivos`;
+  private readonly url = `${environment.urlBase}v1/dispositivos`;
 
   private readonly http = inject(HttpClient);
 

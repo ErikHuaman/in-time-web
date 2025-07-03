@@ -8,7 +8,7 @@ import { map, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ReemplazoHorarioService {
-  private readonly url = `${environment.apiUrl}/reemplazoHorario`;
+  private readonly url = `${environment.urlBase}v1/reemplazoHorario`;
 
   private readonly http = inject(HttpClient);
 
