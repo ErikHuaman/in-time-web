@@ -36,7 +36,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
     FormsModule,
     TitleCardComponent,
     ButtonEditComponent,
-    ButtonCustomComponent,
+    // ButtonCustomComponent,
   ],
   templateUrl: './trabajadores-inactivos.component.html',
   styles: ``,
@@ -44,7 +44,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class TrabajadoresInactivosComponent implements OnInit {
-  title: string = 'Trabajadores inactivos';
+  title: string = 'Trabajadores suspendidos';
 
   icon: string = 'material-symbols:person-pin-outline-rounded';
   ref!: DynamicDialogRef;
@@ -157,7 +157,7 @@ export class TrabajadoresInactivosComponent implements OnInit {
 
   addNew() {
     const ref = this.dialogService.open(FormInactivarTrabajadorComponent, {
-      header: 'Inactivar trabajador',
+      header: 'Nueva suspensión',
       styleClass: 'modal-md',
       position: 'center',
       modal: true,
@@ -175,7 +175,7 @@ export class TrabajadoresInactivosComponent implements OnInit {
 
   edit(id: string) {
     const ref = this.dialogService.open(FormInactivarTrabajadorComponent, {
-      header: 'Inactivar trabajador',
+      header: 'Modificar suspensión',
       styleClass: 'modal-md',
       position: 'center',
       data: { id },
@@ -192,16 +192,16 @@ export class TrabajadoresInactivosComponent implements OnInit {
     });
   }
 
-  reactivate(item: Trabajador) {
-    this.msg.confirm(
-      `<div class='px-4 py-2'>
-        <p class='text-center'> ¿Está seguro de reactivar al trabajador <span class='uppercase font-bold'>${item.nombre} ${item.apellido}</span>? </p>
-      </div>`,
-      () => {
-        this.store.changeStatus(item.id!, true);
-      }
-    );
-  }
+  // reactivate(item: Trabajador) {
+  //   this.msg.confirm(
+  //     `<div class='px-4 py-2'>
+  //       <p class='text-center'> ¿Está seguro de reactivar al trabajador <span class='uppercase font-bold'>${item.nombre} ${item.apellido}</span>? </p>
+  //     </div>`,
+  //     () => {
+  //       this.store.changeStatus(item.id!, true);
+  //     }
+  //   );
+  // }
 
   filterGlobal(dt: any, target: EventTarget | null) {
     dt.filterGlobal((target as HTMLInputElement).value, 'contains');

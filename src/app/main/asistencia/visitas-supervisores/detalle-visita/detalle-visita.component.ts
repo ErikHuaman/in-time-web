@@ -56,9 +56,6 @@ export class DetalleVisitaComponent implements AfterViewInit, OnInit {
       const latSalida = this.visita?.latitudSalida;
       const lonSalida = this.visita?.longitudSalida;
 
-      console.log('Latitud Entrada:', latEntrada);
-      console.log('Longitud Entrada:', lonEntrada);
-
       if (latEntrada && lonEntrada) {
         this.markerIn = new Feature({
           geometry: new Point(fromLonLat([lonEntrada, latEntrada])),

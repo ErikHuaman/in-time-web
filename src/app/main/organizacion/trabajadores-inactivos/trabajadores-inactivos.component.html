@@ -36,7 +36,7 @@
         <p-button severity="info" size="small" (click)="addNew()">
           <div class="flex justify-center items-center font-medium gap-1">
             <iconify-icon [icon]="'material-symbols:add-rounded'" class="text-lg" />
-            <div>INACTIVAR TRABAJADOR</div>
+            <div>SUSPENDER TRABAJADOR</div>
           </div>
         </p-button>
       </div>
@@ -66,13 +66,13 @@
             <div class="text-center text-xs uppercase">Nota</div>
           </th>
           <th>
-            <div class="text-center text-xs uppercase">Fecha de suspención</div>
+            <div class="text-center text-xs uppercase">Inicio de la suspención</div>
           </th>
           <th>
-            <div class="text-center text-xs uppercase">REACTIVAR</div>
+            <div class="text-center text-xs uppercase">Fin de la suspención</div>
           </th>
           <th>
-            <div class="text-center text-xs uppercase">ACCIÓN</div>
+            <div class="text-center text-xs uppercase">Acciones</div>
           </th>
         </tr>
       </ng-template>
@@ -100,13 +100,22 @@
           <td>
             <div class="text-center text-sm">
               {{
-                (item.inactivaciones ?? [])[0]?.fechaSuspension
+                (item.inactivaciones ?? [])[0]?.fechaInicio
                   | date : "dd MMM yyyy"
                   | uppercase
               }}
             </div>
           </td>
           <td>
+            <div class="text-center text-sm">
+              {{
+                (item.inactivaciones ?? [])[0]?.fechaFin
+                  | date : "dd MMM yyyy"
+                  | uppercase
+              }}
+            </div>
+          </td>
+          <!-- <td>
             <div class="flex justify-center items-center gap-2">
               <button-custom
                 icon="streamline-ultimate:single-neutral-actions-check-2"
@@ -114,7 +123,7 @@
                 (click)="reactivate(item)"
               />
             </div>
-          </td>
+          </td> -->
           <td>
             <div class="flex justify-center items-center gap-2">
               <button-edit (click)="edit(item.id)" />

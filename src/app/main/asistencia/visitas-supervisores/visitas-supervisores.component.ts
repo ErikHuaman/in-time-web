@@ -49,9 +49,13 @@ export class VisitasSupervisoresComponent implements OnInit {
   private readonly asistenciaUsuarioService = inject(AsistenciaUsuarioService);
 
   fechaSelected!: Date;
+  fechaSelectedPrev!: Date;
 
   get listaSedes(): Sede[] {
-    return this.sedeStore.items().slice().sort((a, b) => a.nombre.localeCompare(b.nombre));
+    return this.sedeStore
+      .items()
+      .slice()
+      .sort((a, b) => a.nombre.localeCompare(b.nombre));
   }
 
   selectedSedes: string[] = [];
@@ -74,10 +78,13 @@ export class VisitasSupervisoresComponent implements OnInit {
   }
 
   cambiarFecha(event: Date) {
-    this.cargarAsistencia();
+    if (this.fechaSelectedPrev?.getTime() !== this.fechaSelected?.getTime()) {
+      this.cargarAsistencia();
+    }
   }
 
   cargarAsistencia() {
+    this.fechaSelectedPrev = this.fechaSelected;
     this.asistenciaUsuarioService.findAllByMonth(this.fechaSelected).subscribe({
       next: (data) => {
         this.listaVisitasMensual = data.map((d) => {

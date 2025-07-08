@@ -28,15 +28,29 @@
       ></textarea>
     </div>
     <div class="flex flex-col gap-2">
-      <label class="text-sm font-medium" for="fechaSuspension"
-        >Fecha de suspensión</label
+      <label class="text-sm font-medium" for="fechaInicio"
+        >Inicio de la suspensión</label
       >
       <p-datepicker
-        id="fechaSuspension"
+        id="fechaInicio"
         styleClass="w-full uppercase"
         dateFormat="dd M yy"
         placeholder="DD MMM YYYY"
-        formControlName="fechaSuspension"
+        formControlName="fechaInicio"
+        [showIcon]="true"
+        appendTo="body"
+      />
+    </div>
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium" for="fechaFin"
+        >Fin de la suspensión</label
+      >
+      <p-datepicker
+        id="fechaFin"
+        styleClass="w-full uppercase"
+        dateFormat="dd M yy"
+        placeholder="DD MMM YYYY"
+        formControlName="fechaFin"
         [showIcon]="true"
         appendTo="body"
       />

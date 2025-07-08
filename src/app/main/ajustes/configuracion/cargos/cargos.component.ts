@@ -89,7 +89,6 @@ export class CargosComponent implements OnInit {
 
     // Manejo de errores
     if (!this.openModal && error) {
-      console.log('error', error);
       this.msg.error(
         error ?? '¡Ups, ocurrió un error inesperado al eliminar el edificio!'
       );

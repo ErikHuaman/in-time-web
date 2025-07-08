@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, effect, inject, OnInit } from '@angular/core';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  effect,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -76,6 +82,7 @@ export class VistasAsistenciaComponent implements OnInit {
   private readonly estadoAsistenciaService = inject(EstadoAsistenciaService);
 
   fechaSelected!: Date;
+  fechaSelectedPrev!: Date;
 
   daysMonth: any[] = [];
 
@@ -103,7 +110,10 @@ export class VistasAsistenciaComponent implements OnInit {
   }
 
   get listaSedes(): Sede[] {
-    return this.sedeStore.items().slice().sort((a, b) => a.nombre.localeCompare(b.nombre));
+    return this.sedeStore
+      .items()
+      .slice()
+      .sort((a, b) => a.nombre.localeCompare(b.nombre));
   }
 
   private sedesEffect = effect(() => {
@@ -146,7 +156,6 @@ export class VistasAsistenciaComponent implements OnInit {
   cargarLeyenda() {
     this.estadoAsistenciaService.findAll().subscribe((data) => {
       this.leyenda = data;
-      console.log('this.leyenda', this.leyenda);
     });
   }
 
@@ -163,6 +172,7 @@ export class VistasAsistenciaComponent implements OnInit {
   }
 
   cargarAsistencia() {
+    this.fechaSelectedPrev = this.fechaSelected;
     this.asistenciaService.findAllByMonth(this.fechaSelected).subscribe({
       next: (data) => {
         this.listaAsistenciaMensual = data.asistencia.map((item) => {
@@ -209,19 +219,18 @@ export class VistasAsistenciaComponent implements OnInit {
   }
 
   filtrar(event?: number) {
-    console.log('this.listaAsistenciaMensual', this.listaAsistenciaMensual);
     this.dataTable = this.listaAsistenciaMensual.filter(
       (t) =>
         t.sedes.some((s: Sede) => this.selectedSedes.includes(s.id)) &&
         this.selectedCargos.includes(t.cargo.id)
     );
-
-    console.log('this.dataTable', this.dataTable);
   }
 
   cambiarFecha(event: Date) {
-    this.cargarDias();
-    this.cargarAsistencia();
+    if (this.fechaSelectedPrev?.getTime() !== this.fechaSelected?.getTime()) {
+      this.cargarDias();
+      this.cargarAsistencia();
+    }
   }
 
   select(item: any) {
@@ -275,10 +284,10 @@ export class VistasAsistenciaComponent implements OnInit {
     return this.leyenda.find((leyenda) => leyenda.codigo === codigo)?.textColor;
   }
 
-  legendLabel(codigo: string, corregido: boolean, justificado: boolean) {
+  legendLabel(codigo: string, corregido: boolean, justificado: boolean, descanso: boolean) {
     return `${
       this.leyenda.find((leyenda) => leyenda.codigo === codigo)?.nombre
-    }${corregido ? ' | corregido' : justificado ? ' | justificado' : ''}`;
+    }${corregido ? ' | corregido' : justificado ? ' | justificado' : descanso ?' | descanso' :  ''}`;
   }
 
   getTotal(items: any[]) {
@@ -298,8 +307,6 @@ export class VistasAsistenciaComponent implements OnInit {
   }
 
   verDetalle(item: any, marcacion: any) {
-    console.log(item);
-
     this.dialogService.open(DetalleAsistenciaComponent, {
       header: 'Detalle de asistencia',
       styleClass: 'modal-4xl',

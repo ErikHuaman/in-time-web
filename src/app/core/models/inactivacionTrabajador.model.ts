@@ -4,7 +4,8 @@ export interface InactivacionTrabajador {
   id?: string;
   idTrabajador?: string;
   motivoSuspension?: string;
-  fechaSuspension?: Date;
+  fechaInicio?: Date;
+  fechaFin?: Date;
   nota?: string;
   isActive?: boolean;
   trabajador?: Trabajador;

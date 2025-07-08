@@ -139,7 +139,7 @@
               </tr>
             </ng-template>
             <ng-template #body let-item>
-              <tr class="hover:!bg-slate-200 cursor-pointer">
+              <tr>
                 <td>
                   <div class="text-start text-sm">
                     {{ item.title }}
@@ -153,6 +153,12 @@
                 <td>
                   <div class="text-center text-sm">
                     {{ item.end | date : "dd MMM yyyy" | uppercase }}
+                  </div>
+                </td>
+                <td class="w-28">
+                  <div class="flex justify-center items-center gap-1">
+                    <!-- <button-edit (click)="deleteEvent(item)" /> -->
+                    <button-delete (click)="deleteEvent(item)" />
                   </div>
                 </td>
               </tr>

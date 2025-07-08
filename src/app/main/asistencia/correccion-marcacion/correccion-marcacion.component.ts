@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, OnInit } from '@angular/core';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  effect,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DatePickerModule } from 'primeng/datepicker';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -13,13 +19,12 @@ import { TooltipModule } from 'primeng/tooltip';
 import { FormCorreccionMarcacionComponent } from './form-correccion-marcacion/form-correccion-marcacion.component';
 import { FormsModule } from '@angular/forms';
 import { MultiSelectModule } from 'primeng/multiselect';
-import { SedeService } from '@services/sede.service';
-import { CargoService } from '@services/cargo.service';
 import { AsistenciaService } from '@services/asistencia.service';
 import { Sede } from '@models/sede.model';
 import { Cargo } from '@models/cargo.model';
-import { forkJoin, mergeMap } from 'rxjs';
 import { TitleCardComponent } from '@components/title-card/title-card.component';
+import { SedeStore } from '@stores/sede.store';
+import { CargoStore } from '@stores/cargo.store';
 
 @Component({
   selector: 'app-correccion-marcacion',
@@ -52,21 +57,45 @@ export class CorreccionMarcacionComponent implements OnInit {
 
   private readonly dialogService = inject(DialogService);
 
-  private readonly sedeService = inject(SedeService);
+  private readonly sedeStore = inject(SedeStore);
 
-  private readonly cargoService = inject(CargoService);
+  private readonly cargoStore = inject(CargoStore);
 
   private readonly asistenciaService = inject(AsistenciaService);
 
   fechaSelected!: Date;
-
-  listaSedes: Sede[] = [];
+  fechaSelectedPrev!: Date;
 
   selectedSedes: string[] = [];
 
-  listaCargos: Cargo[] = [];
-
   selectedCargos: string[] = [];
+
+  get listaCargos(): Cargo[] {
+    return this.cargoStore.items();
+  }
+
+  get listaSedes(): Sede[] {
+    return this.sedeStore
+      .items()
+      .slice()
+      .sort((a, b) => a.nombre.localeCompare(b.nombre));
+  }
+
+  private sedesEffect = effect(() => {
+    const sedes = this.sedeStore.items();
+    if (sedes) {
+      this.selectedSedes = sedes.map((item) => item.id);
+      this.filtrar();
+    }
+  });
+
+  private cargosEffect = effect(() => {
+    const cargos = this.cargoStore.items();
+    if (cargos) {
+      this.selectedCargos = cargos.map((item) => item.id);
+      this.filtrar();
+    }
+  });
 
   dataTable: any[] = [];
 
@@ -74,33 +103,36 @@ export class CorreccionMarcacionComponent implements OnInit {
 
   ngOnInit(): void {
     this.fechaSelected = new Date();
+
+    this.sedeStore.loadAll();
+    this.cargoStore.loadAll();
     this.cargarAsistenciaObservada();
   }
 
   cargarAsistenciaObservada() {
+    this.fechaSelectedPrev = this.fechaSelected;
     this.asistenciaService
       .findAllObservadoByMonth(this.fechaSelected)
       .subscribe({
         next: (data) => {
           this.listaAsistenciaMensual = data;
-          console.log('Lista de asistencia mensual 1:', this.listaAsistenciaMensual);
           this.filtrar();
         },
       });
   }
 
   filtrar(event?: number) {
-    console.log('Lista de asistencia mensual 2:', this.listaAsistenciaMensual);
     this.dataTable = this.listaAsistenciaMensual.filter(
       (t) =>
         this.selectedSedes.includes(t.sede?.id) &&
         this.selectedCargos.includes(t.cargo?.id)
     );
-    console.log("this.dataTable", this.dataTable)
   }
 
   cambiarFecha(event: Date) {
-    this.cargarAsistenciaObservada();
+    if (this.fechaSelectedPrev?.getTime() !== this.fechaSelected?.getTime()) {
+      this.cargarAsistenciaObservada();
+    }
   }
 
   editar(item: any) {

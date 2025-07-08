@@ -128,7 +128,10 @@ export class FormUsuarioComponent implements OnInit {
   }
 
   get listaSedes(): Sede[] {
-    return this.sedeStore.items().slice().sort((a, b) => a.nombre.localeCompare(b.nombre));
+    return this.sedeStore
+      .items()
+      .slice()
+      .sort((a, b) => a.nombre.localeCompare(b.nombre));
   }
 
   get listaRoles(): Rol[] {
@@ -171,7 +174,6 @@ export class FormUsuarioComponent implements OnInit {
 
     // Si hay un item seleccionado, se carga en el formulario
     if (item && item.id != this.id) {
-      console.log('Item seleccionado:', item);
       this.id = item.id ?? null;
       this.formData.get('usuario.nombre')?.setValue(item.nombre);
       this.formData.get('usuario.apellido')?.setValue(item.apellido);
@@ -241,18 +243,21 @@ export class FormUsuarioComponent implements OnInit {
 
   guardar() {
     const formUsuario = this.formData.get('usuario')?.value;
-    const idSedes = this.formData.get('sedes.ids')?.value ?? [];
+    const sedes = this.formData.get('sedes.idSedes')?.value.map((item) => ({
+      id: item,
+    }));
     if (this.id) {
       this.store.update(
         this.id,
         {
-          ...formUsuario,
           id: this.id,
+          ...formUsuario,
+          sedes,
         } as Usuario,
         { file: this.archivo }
       );
     } else {
-      this.store.create({ ...formUsuario, archivo: this.archivo } as Usuario, {
+      this.store.create({ ...formUsuario, sedes } as Usuario, {
         file: this.archivo,
       });
     }

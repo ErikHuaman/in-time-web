@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, effect, inject, OnInit } from '@angular/core';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  effect,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { ConfirmDialog } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { FormsModule } from '@angular/forms';
@@ -75,6 +81,7 @@ export class VistaPlanillaComponent implements OnInit {
   private readonly trabajadorService = inject(TrabajadorService);
 
   fechaSelected!: Date;
+  fechaSelectedPrev!: Date;
 
   cols!: Column[][];
 
@@ -93,7 +100,10 @@ export class VistaPlanillaComponent implements OnInit {
   }
 
   get listaSedes(): Sede[] {
-    return this.sedeStore.items().slice().sort((a, b) => a.nombre.localeCompare(b.nombre));
+    return this.sedeStore
+      .items()
+      .slice()
+      .sort((a, b) => a.nombre.localeCompare(b.nombre));
   }
 
   private sedesEffect = effect(() => {
@@ -198,6 +208,7 @@ export class VistaPlanillaComponent implements OnInit {
   }
 
   cargarPagosMensuales() {
+    this.fechaSelectedPrev = this.fechaSelected;
     this.loadingTable = true;
     this.trabajadorService.findAllPagoByMonth(this.fechaSelected).subscribe({
       next: (data) => {
@@ -217,7 +228,9 @@ export class VistaPlanillaComponent implements OnInit {
   }
 
   cambiarFecha(event: Date) {
-    this.cargarPagosMensuales();
+    if (this.fechaSelectedPrev?.getTime() !== this.fechaSelected?.getTime()) {
+      this.cargarPagosMensuales();
+    }
   }
 
   getComprobante(item: any) {

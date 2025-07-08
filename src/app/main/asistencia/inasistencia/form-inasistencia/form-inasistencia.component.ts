@@ -103,7 +103,6 @@ export class FormInasistenciaComponent implements OnInit {
       this.trabajador = `${data?.trabajador?.identificacion} | ${data?.trabajador?.nombre}`;
       this.cargo = data?.cargo?.nombre;
       this.sede = data?.sede?.nombre;
-      console.log('data', data);
       this.formData.get('idTrabajador')?.setValue(data?.trabajador?.id);
       this.formData
         .get('idHorarioTrabajador')

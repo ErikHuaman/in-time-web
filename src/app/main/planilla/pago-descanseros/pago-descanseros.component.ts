@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, effect, inject, OnInit } from '@angular/core';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  effect,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonCustomComponent } from '@components/buttons/button-custom/button-custom.component';
 import { TitleCardComponent } from '@components/title-card/title-card.component';
@@ -18,9 +24,11 @@ import { IconField } from 'primeng/iconfield';
 import { InputIcon } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { PopoverModule } from 'primeng/popover';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
   selector: 'app-pago-descanseros',
@@ -37,8 +45,11 @@ import { ToastModule } from 'primeng/toast';
     IconField,
     InputTextModule,
     FormsModule,
+    PopoverModule,
+    TooltipModule,
     TitleCardComponent,
-    ButtonCustomComponent
+    ButtonCustomComponent,
+    ButtonCustomComponent,
   ],
   templateUrl: './pago-descanseros.component.html',
   styles: ``,
@@ -61,6 +72,7 @@ export class PagoDescanserosComponent implements OnInit {
   private readonly trabajadorService = inject(TrabajadorService);
 
   fechaSelected!: Date;
+  fechaSelectedPrev!: Date;
 
   cols!: Column[][];
 
@@ -75,7 +87,10 @@ export class PagoDescanserosComponent implements OnInit {
   }
 
   get listaSedes(): Sede[] {
-    return this.sedeStore.items().slice().sort((a, b) => a.nombre.localeCompare(b.nombre));
+    return this.sedeStore
+      .items()
+      .slice()
+      .sort((a, b) => a.nombre.localeCompare(b.nombre));
   }
 
   selectedSedes: string[] = [];
@@ -110,8 +125,8 @@ export class PagoDescanserosComponent implements OnInit {
         { field: 'ruc', header: 'RUC', align: 'center', rowSpan: '2' },
         { field: 'nombre', header: 'Nombre', rowSpan: '2' },
         { field: 'apellido', header: 'Apellido', rowSpan: '2' },
-        { field: 'sede', header: 'Edificio', align: 'center', rowSpan: '2' },
         { field: 'cargo', header: 'Cargo', align: 'center', rowSpan: '2' },
+        { field: 'sede', header: 'Edificios', align: 'center', rowSpan: '2' },
         {
           field: 'sueldoBasico',
           header: 'Pago diario',
@@ -173,6 +188,7 @@ export class PagoDescanserosComponent implements OnInit {
   }
 
   cargarPagosMensuales() {
+    this.fechaSelectedPrev = this.fechaSelected;
     this.loadingTable = true;
     this.trabajadorService
       .findAllPagoByMonthDescanseros(this.fechaSelected)
@@ -188,13 +204,15 @@ export class PagoDescanserosComponent implements OnInit {
   filtrar(event?: number) {
     this.dataTable = this.listaPagoMensual.filter(
       (t) =>
-        this.selectedSedes.includes(t.sede.id) &&
+        t.sedes.some((s: Sede) => this.selectedSedes.includes(s.id)) &&
         this.selectedCargos.includes(t.cargo.id)
     );
   }
 
   cambiarFecha(event: Date) {
-    this.cargarPagosMensuales();
+    if (this.fechaSelectedPrev?.getTime() !== this.fechaSelected?.getTime()) {
+      this.cargarPagosMensuales();
+    }
   }
 
   getComprobante(item: any) {

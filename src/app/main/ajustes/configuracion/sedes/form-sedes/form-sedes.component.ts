@@ -152,7 +152,6 @@ export class FormSedesComponent implements AfterViewInit, OnInit, OnDestroy {
   private paisEffect = effect(() => {
     const pais = this.nacStore.pais();
     if (pais) {
-      console.log('País cargado:', pais);
       this.paisDefault = pais;
       this.cargarRegiones();
     }
@@ -190,7 +189,6 @@ export class FormSedesComponent implements AfterViewInit, OnInit, OnDestroy {
 
     // Si hay un item seleccionado, se carga en el formulario
     if (item && item.id != this.id) {
-      console.log('Item seleccionado:', item);
       this.id = item.id ?? null;
       const idRegion = item.ciudad?.province?.idState;
       const idProvincia = item.ciudad?.idProvince;
@@ -283,7 +281,6 @@ export class FormSedesComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   cargarRegiones() {
-    console.log('Cargando regiones para el país:', this.paisDefault);
     this.nacStore.getRegiones(this.paisDefault?.id!);
   }
 

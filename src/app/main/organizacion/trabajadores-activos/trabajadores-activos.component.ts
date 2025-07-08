@@ -173,7 +173,6 @@ export class TrabajadoresActivosComponent implements OnInit {
   }
 
   filtrar(event?: number) {
-    console.log('Filtrando trabajadores activos', this.listaTrabajadores);
 
     this.listaSedes.sort((a, b) => a.nombre.localeCompare(b.nombre));
 

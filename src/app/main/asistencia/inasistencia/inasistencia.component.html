@@ -78,12 +78,18 @@
       [value]="dataTable"
       stripedRows
       [scrollable]="true"
-      scrollHeight="calc(100vh - 200px)"
+      scrollHeight="calc(100vh - 210px)"
       styleClass="w-full"
-      [globalFilterFields]="['nombre', 'apellido']"
+      [globalFilterFields]="['trabajador.nombre', 'trabajador.apellido']"
       [columns]="cols"
       [exportHeader]="'customExportHeader'"
       exportFilename="inasistencias"
+      sortField="trabajador.orden"
+      rowGroupMode="rowspan"
+      groupRowsBy="fecha"
+      sortMode="single"
+      rowGroupMode="subheader"
+      groupRowsBy="trabajador.id"
     >
       <ng-template #header let-columns>
         <tr>
@@ -102,17 +108,34 @@
           </th>
         </tr>
       </ng-template>
+      <ng-template #groupheader let-item>
+        <tr pRowGroupHeader>
+          <td colspan="100">
+            <div class="flex gap-2">
+              <div class="text-sm font-bold">
+                {{ item.trabajador.identificacion }} |
+                {{ item.trabajador.nombre }} {{ item.trabajador.apellido }}
+              </div>
+              <div class="text-sm">({{ geCount(item.trabajador.id) }})</div>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
       <ng-template #body let-item>
         <tr>
           <td>
             <div class="text-center text-sm">
-              {{ item.fecha | date : "dd MMM yyyy" | uppercase }}
+              {{ item.fecha | date : "EEEE, dd MMM yyyy" | uppercase }}
             </div>
           </td>
-          <td>{{ item.trabajador.nombre }}</td>
-          <td>{{ item.trabajador.apellido }}</td>
-          <td>{{ item.sede.nombre }}</td>
-          <td>{{ item.cargo.nombre }}</td>
+          <!-- <td>{{ item.trabajador.nombre }}</td> -->
+          <td><div class="text-center uppercase">{{ item?.cargo?.nombre }}</div></td>
+          <td>
+            <div class="text-center uppercase">{{ item.sede.nombre }}</div>
+          </td>
+          <td>
+            <div class="text-center">{{ item.turno?.nombre }}</div>
+          </td>
           <td>{{ item.justificacion?.nota }}</td>
           <td>
             <div class="flex justify-center text-sm">
@@ -125,7 +148,11 @@
           </td>
           <td>
             <div class="flex justify-center">
-              <button-custom icon="material-symbols:document-search-outline-rounded" tooltip="Justificar inasistencia" (click)="edit(item)" />
+              <button-custom
+                icon="material-symbols:document-search-outline-rounded"
+                tooltip="Justificar inasistencia"
+                (click)="edit(item)"
+              />
               <!-- <p-button
                 text
                 (click)="edit(item)"

@@ -61,7 +61,6 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   conectarWS() {
     if (this.userId) {
       this.sub = this.ws.listenToUserAlerts(this.userId).subscribe((data) => {
-        console.log('Alerta recibida:', data);
         this.cargarNotificaciones();
       });
     }

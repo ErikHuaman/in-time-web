@@ -213,7 +213,7 @@ export class FormVacacionesComponent implements OnInit {
     this.formData.get('diasUtilizados')!.setValue(diferenciaEnDias);
   }
 
-  onUpload(event: any) {
+  onFileSelected(event: any) {
     // Handle file upload logic here
     console.log(event.files);
   }

@@ -203,7 +203,6 @@ export class PermisosComponent implements OnInit {
   }
 
   filtrar(event?: number) {
-    console.log('this.listaPermisos', this.listaPermisos);
     this.dataTable = this.listaPermisos.filter(
       (t) =>
         this.selectedSedes.includes(t.idSede as string) &&

@@ -58,9 +58,6 @@ export class DetalleAsistenciaComponent implements AfterViewInit, OnInit {
       const latSalida = this.marcacion?.asistencia?.latitudSalida;
       const lonSalida = this.marcacion?.asistencia?.longitudSalida;
 
-      console.log('Latitud Entrada:', latEntrada);
-      console.log('Longitud Entrada:', lonEntrada);
-
       if (latEntrada && lonEntrada) {
         this.markerIn = new Feature({
           geometry: new Point(fromLonLat([lonEntrada, latEntrada])),

@@ -57,6 +57,16 @@ export class HeaderComponent implements OnInit {
     //   },
     // },
     {
+      label: 'inTimeAdmin apk',
+      icon: 'ri:admin-line',
+      routerLink: '/apks/inTimeAdmin.apk',
+    },
+    {
+      label: 'inTimeTick apk',
+      icon: 'ri:admin-line',
+      routerLink: '/apks/inTimeTick.apk',
+    },
+    {
       label: 'Cerrar sesión',
       icon: 'material-symbols:logout',
       command: () => {

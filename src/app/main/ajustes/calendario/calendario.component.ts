@@ -1,5 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, OnInit } from '@angular/core';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
@@ -28,6 +33,9 @@ import { FormEventoComponent } from './form-evento/form-evento.component';
 import { FeriadoService } from '@services/feriado.service';
 import { TitleCardComponent } from '@components/title-card/title-card.component';
 import { ButtonCustomComponent } from '@components/buttons/button-custom/button-custom.component';
+import { ButtonDeleteComponent } from '@components/buttons/button-delete/button-delete.component';
+import { ButtonEditComponent } from '@components/buttons/button-edit/button-edit.component';
+import { MessageGlobalService } from '@services/message-global.service';
 
 const colors: Record<string, EventColor> = {
   red: {
@@ -62,7 +70,9 @@ const colors: Record<string, EventColor> = {
     TableModule,
     SkeletonModule,
     TitleCardComponent,
-    ButtonCustomComponent
+    ButtonCustomComponent,
+    // ButtonEditComponent,
+    ButtonDeleteComponent,
   ],
   templateUrl: './calendario.component.html',
   styles: ``,
@@ -73,6 +83,8 @@ export class CalendarioComponent implements OnInit {
   title: string = 'Calendario';
 
   icon: string = 'material-symbols:calendar-month-outline-rounded';
+
+  private readonly msg = inject(MessageGlobalService);
 
   private readonly dialogService = inject(DialogService);
 
@@ -153,6 +165,7 @@ export class CalendarioComponent implements OnInit {
     this.feriadoService.findAllByMonth(this.viewDate).subscribe({
       next: (data) => {
         this.events = data.map((item) => ({
+          id: item.id,
           title: item.title,
           start: new Date(item.start),
           end: item.end ? new Date(item.end) : undefined,
@@ -217,8 +230,21 @@ export class CalendarioComponent implements OnInit {
     });
   }
 
-  deleteEvent(eventToDelete: CalendarEvent) {
-    this.events = this.events.filter((event) => event !== eventToDelete);
+  deleteEvent(item: CalendarEvent) {
+    console.log('eventToDelete', item);
+    this.msg.confirm(
+      `<div class='px-4 py-2'>
+        <p class='text-center'> ¿Está seguro de eliminar el evento <span class='uppercase font-bold'>${item?.title}</span>? </p>
+        <p class='text-center'> Esta acción no se puede deshacer. </p>
+      </div>`,
+      () => {
+        // this.events = this.events.filter((event) => event !== eventToDelete);
+        this.feriadoService.delete(item.id as string).subscribe((res) => {
+          this.cargarFeriados();
+        });
+        // this.store.delete(item.id);
+      }
+    );
   }
 
   setView(view: CalendarView) {

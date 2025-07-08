@@ -117,7 +117,6 @@ export class FormAsignacionSedeComponent {
     if (item) {
       this.formData.get('idSedes')?.setValue(item.sedes.map((item) => item.id));
       this.asignaciones.clear();
-      console.log('item.sedes', item.sedes);
       item.sedes.forEach((item) => {
         const asignacionFormGroup = new FormGroup({
           id: new FormControl<string | undefined>(item.id, {
@@ -223,7 +222,6 @@ export class FormAsignacionSedeComponent {
 
   onUpload(event: any) {
     // Handle file upload logic here
-    console.log(event.files);
   }
 
   guardar() {

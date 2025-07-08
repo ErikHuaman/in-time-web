@@ -68,7 +68,11 @@ export class FormInactivarTrabajadorComponent {
       nonNullable: true,
       validators: [Validators.required],
     }),
-    fechaSuspension: new FormControl<Date | undefined>(undefined, {
+    fechaInicio: new FormControl<Date | undefined>(undefined, {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    fechaFin: new FormControl<Date | undefined>(undefined, {
       nonNullable: true,
       validators: [Validators.required],
     }),
@@ -120,16 +124,17 @@ export class FormInactivarTrabajadorComponent {
     if (item!) {
       this.formData.get('idTrabajador')?.setValue(item.id);
 
-      console.log('item', item);
-
       if (item?.inactivaciones!) {
         this.id = item?.inactivaciones![0]?.id;
         this.formData
           .get('motivoSuspension')
           ?.setValue(item?.inactivaciones![0]?.motivoSuspension);
         this.formData
-          .get('fechaSuspension')
-          ?.setValue(new Date(item?.inactivaciones![0]?.fechaSuspension!));
+          .get('fechaInicio')
+          ?.setValue(new Date(item?.inactivaciones![0]?.fechaInicio!));
+          this.formData
+          .get('fechaFin')
+          ?.setValue(new Date(item?.inactivaciones![0]?.fechaFin!));
         this.formData.get('nota')?.setValue(item?.inactivaciones![0]?.nota!);
 
         this.formData.get('idTrabajador')?.disable();
@@ -156,8 +161,8 @@ export class FormInactivarTrabajadorComponent {
         this.formData.get('idTrabajador')?.setValue(data.idTrabajador);
         this.formData.get('motivoSuspension')?.setValue(data.motivoSuspension);
         this.formData
-          .get('fechaSuspension')
-          ?.setValue(new Date(data.fechaSuspension));
+          .get('fechaInicio')
+          ?.setValue(new Date(data.fechaInicio));
         this.formData.get('nota')?.setValue(data.nota);
       },
     }); */
@@ -177,12 +182,10 @@ export class FormInactivarTrabajadorComponent {
 
   onUpload(event: any) {
     // Handle file upload logic here
-    console.log(event.files);
   }
 
   guardar() {
     const form: InactivacionTrabajador = sanitizedForm(this.formData.getRawValue());
-    console.log("form", form);
     if (this.id) {
       this.inactivacionService
         .update(this.id, { ...form, id: this.id, idTrabajador: this.idTrabajador } as InactivacionTrabajador)
@@ -196,43 +199,43 @@ export class FormInactivarTrabajadorComponent {
     } else {
       this.inactivacionService
         .create(form )
-        .pipe(
-          map((data) => {
-            const trabajador = this.listaTrabajadores.find(
-              (t) => t.id === form.idTrabajador
-            );
-            if (trabajador && trabajador?.id) {
-              const {
-                id,
-                nombre,
-                apellido,
-                genero,
-                idPais,
-                idTipoDocID,
-                identificacion,
-                idEstadoCivil,
-              } = trabajador;
-              this.store.update(
-                id,
-                {
-                  id,
-                  nombre,
-                  apellido,
-                  genero,
-                  idPais,
-                  idTipoDocID,
-                  identificacion,
-                  idEstadoCivil,
-                  isActive: false,
-                } as Trabajador,
-                {}
-              );
-              return of([]);
-            } else {
-              return of([]);
-            }
-          })
-        )
+        // .pipe(
+        //   map((data) => {
+        //     const trabajador = this.listaTrabajadores.find(
+        //       (t) => t.id === form.idTrabajador
+        //     );
+        //     if (trabajador && trabajador?.id) {
+        //       const {
+        //         id,
+        //         nombre,
+        //         apellido,
+        //         genero,
+        //         idPais,
+        //         idTipoDocID,
+        //         identificacion,
+        //         idEstadoCivil,
+        //       } = trabajador;
+        //       this.store.update(
+        //         id,
+        //         {
+        //           id,
+        //           nombre,
+        //           apellido,
+        //           genero,
+        //           idPais,
+        //           idTipoDocID,
+        //           identificacion,
+        //           idEstadoCivil,
+        //           isActive: false,
+        //         } as Trabajador,
+        //         {}
+        //       );
+        //       return of([]);
+        //     } else {
+        //       return of([]);
+        //     }
+        //   })
+        // )
         .subscribe({
           next: (data) => {
             this.ref.close(data);

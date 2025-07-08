@@ -66,7 +66,6 @@ export class FormCargoComponent {
 
     // Manejo de errores
     if (currentError) {
-      console.log('error', error);
       this.msg.error(
         currentError ??
           '¡Ups, ocurrió un error inesperado al guardar el cargo!'
@@ -89,7 +88,6 @@ export class FormCargoComponent {
 
     // Si hay un item seleccionado, se carga en el formulario
     if (item && item.id != this.id) {
-      console.log('Item seleccionado:', item);
       this.id = item.id ?? null;
       this.formData.setValue({
         nombre: item.nombre,

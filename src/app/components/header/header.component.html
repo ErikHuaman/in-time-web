@@ -99,13 +99,27 @@
   </ng-template>
   <ng-template pTemplate="item" let-item>
     <div class="px-2 bg-slate-50 dark:bg-slate-900">
-      <a
+      <ng-container *ngIf="!item.routerLink; else elseTemplate">
+        <a
         pRipple
         class="flex items-center gap-2 p-menuitem-link py-1 cursor-pointer"
       >
         <iconify-icon [icon]="item.icon" />
         <span>{{ item.label }}</span>
       </a>
+      </ng-container>
+      <ng-template #elseTemplate>
+        <a
+        pRipple
+        class="flex items-center gap-2 p-menuitem-link py-1 cursor-pointer"
+        [href]="item.routerLink" download
+      >
+        <iconify-icon [icon]="item.icon" />
+        <span>{{ item.label }}</span>
+      </a>
+      </ng-template>
+      
+      
     </div>
   </ng-template>
 </p-menu>

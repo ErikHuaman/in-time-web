@@ -190,7 +190,6 @@ export class FormAdelantoComponent implements OnInit {
     // Si hay un item seleccionado, se carga en el formulario
     if (item && this.id !== item.id) {
       this.id = item.id!;
-      console.log('item', item);
       this.formData.patchValue({
         idSede: item.idSede,
         idCargo: item.idCargo,
@@ -253,7 +252,6 @@ export class FormAdelantoComponent implements OnInit {
   }
 
   changeFechaDescuento() {
-    console.log('changeFechaDescuento');
     if (this.selfMonth) {
       this.formData
         .get('fechaDescuento')!
@@ -263,7 +261,6 @@ export class FormAdelantoComponent implements OnInit {
 
   onUpload(event: any) {
     // Handle file upload logic here
-    console.log(event.files);
   }
 
   guardar() {

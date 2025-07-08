@@ -131,7 +131,6 @@ export class FormRolesComponent implements OnInit {
 
     // Si hay un item seleccionado, se carga en el formulario
     if (item && item.id != this.id) {
-      console.log('Item seleccionado:', item);
       this.id = item.id ?? null;
       this.formData.patchValue({
         nombre: item.nombre,
@@ -179,7 +178,6 @@ export class FormRolesComponent implements OnInit {
   cargarPermisoModulos() {
     this.grupoModuloService.findAllPermisos().subscribe({
       next: (data) => {
-        console.log('data', data);
       },
     });
   }

@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, effect, inject, OnInit } from '@angular/core';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  effect,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DatePickerModule } from 'primeng/datepicker';
 import { DialogService } from 'primeng/dynamicdialog';
@@ -70,7 +76,8 @@ export class VacacionesComponent implements OnInit {
 
   private readonly vacacionService = inject(VacacionService);
 
-  fechaSelected: Date | undefined = new Date('2025/03/01');
+  fechaSelected!: Date;
+  fechaSelectedPrev!: Date;
 
   selectedSedes: string[] = [];
 
@@ -93,7 +100,10 @@ export class VacacionesComponent implements OnInit {
   }
 
   get listaSedes(): Sede[] {
-    return this.sedeStore.items().slice().sort((a, b) => a.nombre.localeCompare(b.nombre));
+    return this.sedeStore
+      .items()
+      .slice()
+      .sort((a, b) => a.nombre.localeCompare(b.nombre));
   }
 
   private sedesEffect = effect(() => {
@@ -148,7 +158,14 @@ export class VacacionesComponent implements OnInit {
     this.cargarVacaciones();
   }
 
+  cambiarFecha(event: Date) {
+    if (this.fechaSelectedPrev?.getTime() !== this.fechaSelected?.getTime()) {
+      this.cargarVacaciones();
+    }
+  }
+
   cargarVacaciones() {
+    this.fechaSelectedPrev = this.fechaSelected;
     this.loadingTable = true;
     this.vacacionService.findAll().subscribe({
       next: (data) => {

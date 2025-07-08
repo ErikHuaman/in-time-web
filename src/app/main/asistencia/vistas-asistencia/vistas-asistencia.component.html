@@ -140,7 +140,7 @@
           [value]="dataTable"
           stripedRows
           [scrollable]="true"
-          scrollHeight="calc(100vh - 200px)"
+          scrollHeight="calc(100vh - 360px)"
           styleClass="w-full"
           [responsive]="true"
           responsiveLayout="scroll"
@@ -279,14 +279,21 @@
                 <div
                   class="text-center text-sm font-medium rounded-md"
                   [ngClass]="{
-                    'ring-2': !!num.corregido,
+                    'ring-2 ring-slate-600':
+                      !!num.corregido ||
+                      (num.codigo === 'F' && num.asistencia?.diaDescanso),
                     'cursor-pointer': num.codigo != '-'
                   }"
                   [style.color]="textColor(num.codigo)"
                   [style.background]="bgColor(num.codigo)"
                   [pTooltip]="
                     num.codigo != '-'
-                      ? legendLabel(num.codigo, num.corregido, num.justificado)
+                      ? legendLabel(
+                          num.codigo,
+                          num.corregido,
+                          num.justificado,
+                          num.asistencia?.diaDescanso
+                        )
                       : ''
                   "
                   tooltipPosition="top"
@@ -404,7 +411,7 @@
           [value]="dataTableWorker"
           stripedRows
           [scrollable]="true"
-          scrollHeight="calc(100vh - 200px)"
+          scrollHeight="calc(100vh - 410px)"
           styleClass="w-full"
           [globalFilterFields]="['fecha']"
         >

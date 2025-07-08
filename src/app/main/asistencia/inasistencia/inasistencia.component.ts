@@ -44,7 +44,7 @@ import { ButtonCustomComponent } from '@components/buttons/button-custom/button-
     TooltipModule,
     SkeletonModule,
     TitleCardComponent,
-    ButtonCustomComponent
+    ButtonCustomComponent,
   ],
   templateUrl: './inasistencia.component.html',
   styles: ``,
@@ -65,6 +65,7 @@ export class InasistenciaComponent implements OnInit {
   private readonly asistenciaService = inject(AsistenciaService);
 
   fechaSelected!: Date;
+  fechaSelectedPrev!: Date;
 
   selectedSedes: string[] = [];
 
@@ -85,7 +86,10 @@ export class InasistenciaComponent implements OnInit {
   }
 
   get listaSedes(): Sede[] {
-    return this.sedeStore.items().slice().sort((a, b) => a.nombre.localeCompare(b.nombre));
+    return this.sedeStore
+      .items()
+      .slice()
+      .sort((a, b) => a.nombre.localeCompare(b.nombre));
   }
 
   private sedesEffect = effect(() => {
@@ -108,17 +112,17 @@ export class InasistenciaComponent implements OnInit {
     this.fechaSelected = new Date();
 
     this.cols = [
-      { field: 'fecha', header: 'Fecha', align: 'center', widthClass: '!w-36' },
-      { field: 'nombre', header: 'nombre' },
-      { field: 'apellido', header: 'apellido' },
-      { field: 'sede', header: 'sede' },
-      { field: 'cargo', header: 'cargo' },
-      { field: 'nota', header: 'Nota' },
+      { field: 'fecha', header: 'Fecha', align: 'center', widthClass: '!w-48' },
+      // { field: 'nombre', header: 'nombre' },
+      { field: 'cargo', header: 'Cargo', align: 'center' },
+      { field: 'sede', header: 'sede', align: 'center' },
+      { field: 'turno', header: 'Turno', align: 'center' },
+      { field: 'nota', header: 'Nota', align: 'center' },
       {
         field: 'isActive',
         header: 'Estado',
         align: 'center',
-        widthClass: '!w-40',
+        widthClass: '!w-64',
       },
       {
         field: '',
@@ -148,11 +152,19 @@ export class InasistenciaComponent implements OnInit {
     );
   }
 
+  geCount(id: string) {
+    const count = this.dataTable.filter((item) => item.trabajador.id === id).length;
+    return `${count} inasistencias`;
+  }
+
   cambiarFecha(event: Date) {
-    this.cargarInasistencia();
+    if (this.fechaSelectedPrev?.getTime() !== this.fechaSelected?.getTime()) {
+      this.cargarInasistencia();
+    }
   }
 
   cargarInasistencia() {
+    this.fechaSelectedPrev = this.fechaSelected;
     this.loadingTable = true;
     this.asistenciaService
       .findAllInasistenciaByMonth(this.fechaSelected)
@@ -164,12 +176,11 @@ export class InasistenciaComponent implements OnInit {
         },
       });
 
-     this.asistenciaService
-      .findAllBySupervisorAndDate(this.fechaSelected)
-      .subscribe({
-        next: (data) => {
-        },
-      });
+    // this.asistenciaService
+    //   .findAllBySupervisorAndDate(this.fechaSelected)
+    //   .subscribe({
+    //     next: (data) => {},
+    //   });
   }
 
   edit(item: any) {

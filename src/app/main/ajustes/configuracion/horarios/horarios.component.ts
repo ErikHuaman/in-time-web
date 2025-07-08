@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, effect, inject, signal } from '@angular/core';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  effect,
+  inject,
+  signal,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -27,6 +33,9 @@ import { TitleCardComponent } from '@components/title-card/title-card.component'
 import { CargoStore } from '@stores/cargo.store';
 import { SedeStore } from '@stores/sede.store';
 import { Sede } from '@models/sede.model';
+import { HorarioTrabajadorStore } from '@stores/horario-trabajador.store';
+import { MessageGlobalService } from '@services/message-global.service';
+import { PaginatorComponent } from '@components/paginator/paginator.component';
 
 @Component({
   selector: 'app-horario',
@@ -47,6 +56,7 @@ import { Sede } from '@models/sede.model';
     SkeletonModule,
     TabsModule,
     TitleCardComponent,
+    PaginatorComponent
   ],
   templateUrl: './horarios.component.html',
   styles: ``,
@@ -60,11 +70,13 @@ export class HorariosComponent {
 
   private readonly dialogService = inject(DialogService);
 
+  private readonly msg = inject(MessageGlobalService);
+
   private readonly cargoStore = inject(CargoStore);
 
   private readonly sedeStore = inject(SedeStore);
 
-  private readonly horarioTrabajadorService = inject(HorarioTrabajadorService);
+  private readonly store = inject(HorarioTrabajadorStore);
 
   selectedSedes: string[] = [];
 
@@ -91,7 +103,10 @@ export class HorariosComponent {
   }
 
   get listaSedes(): Sede[] {
-    return this.sedeStore.items().slice().sort((a, b) => a.nombre.localeCompare(b.nombre));
+    return this.sedeStore
+      .items()
+      .slice()
+      .sort((a, b) => a.nombre.localeCompare(b.nombre));
   }
 
   private sedesEffect = effect(() => {
@@ -139,16 +154,50 @@ export class HorariosComponent {
 
   cols!: Column[];
 
-  loadingTable?: boolean = false;
+  get loadingTable(): boolean {
+    return this.store.loading();
+  }
+
+  get totalItems(): number {
+    return this.store.totalItems();
+  }
 
   exportColumns!: ExportColumn[];
 
   fechaSelected: Date = new Date('2025/03/01');
 
-  listaHorarioTrabajadores: HorarioTrabajador[] = [];
+  get listaHorarioTrabajadores(): HorarioTrabajador[] {
+    return this.store.items();
+  }
 
   dataTable: HorarioTrabajador[] = [];
   dataTableDescansero: HorarioTrabajador[] = [];
+
+  private resetOnSuccessEffect = effect(() => {
+    const error = this.store.error();
+    const action = this.store.lastAction();
+    const items = this.store.items();
+
+    if (items) {
+      this.filtrar();
+    }
+
+    // Manejo de errores
+    if (!this.openModal && error) {
+      this.msg.error(
+        error ?? '¡Ups, ocurrió un error inesperado al eliminar el edificio!'
+      );
+      return; // Salimos si hay un error
+    }
+
+    // Si se ha creado o actualizado correctamente
+    if (action === 'deleted') {
+      this.msg.success('¡Edificio eliminado exitosamente!');
+      this.store.clearAll();
+      this.loadData();
+      return;
+    }
+  });
 
   ngOnInit(): void {
     this.cols = [
@@ -208,19 +257,38 @@ export class HorariosComponent {
     this.sedeStore.loadAll();
     this.cargoStore.loadAll();
 
-    this.cargarHorarioTrabajadores();
+    this.loadData();
   }
 
-  cargarHorarioTrabajadores() {
-    this.loadingTable = true;
-    this.horarioTrabajadorService.findAll().subscribe({
-      next: (data) => {
-        this.listaHorarioTrabajadores = data;
-        this.loadingTable = false;
-        this.filtrar();
-      },
-    });
+  search() {
+    const q: Record<string, any> = {
+      filter: false,
+      isActive: true,
+      search: this.searchText(),
+    };
+    this.store.loadAll(this.limit(), this.offset(), q);
   }
+
+  loadData() {
+    this.store.loadAll(this.limit(), this.offset());
+  }
+
+  onPageChange(event: { limit: number; offset: number }) {
+    this.limit.set(event.limit);
+    this.offset.set(event.offset);
+    this.loadData();
+  }
+
+  // cargarHorarioTrabajadores() {
+  //   this.loadingTable = true;
+  //   this.horarioTrabajadorService.findAll().subscribe({
+  //     next: (data) => {
+  //       this.listaHorarioTrabajadores = data;
+  //       this.loadingTable = false;
+  //       this.filtrar();
+  //     },
+  //   });
+  // }
 
   filtrar(event?: number) {
     this.dataTable = this.listaHorarioTrabajadores
@@ -228,23 +296,23 @@ export class HorariosComponent {
       .filter(
         (t) =>
           this.selectedSedes.some((s) =>
-            t.trabajador?.sedes.filter((as) => as.id == s)
+            t.trabajador?.sedes?.filter((as) => as.id == s)
           ) &&
           this.selectedCargos.includes(
             t.trabajador?.contratos[0]?.idCargo as string
           )
       );
     this.dataTableDescansero = this.listaHorarioTrabajadores
-      .filter((item) => !item.trabajador?.contratos[0].cargo.isEditable)
+      .filter((item) => !item.trabajador?.contratos[0]?.cargo?.isEditable)
       .filter((t) =>
         this.selectedSedes.some((s) =>
-          t.trabajador?.sedes.filter((as) => as.id == s)
+          t.trabajador?.sedes?.filter((as) => as.id == s)
         )
       );
   }
 
   getDias(items: HorarioTrabajadorItem[]): number[] {
-    return [...new Set(items.map((item: HorarioTrabajadorItem) => item.numDia))]
+    return [...new Set(items?.map((item: HorarioTrabajadorItem) => item.numDia))]
       .filter((item): item is number => Number.isInteger(item))
       .sort((a, b) => a - b);
   }
@@ -273,7 +341,7 @@ export class HorariosComponent {
 
     ref.onClose.subscribe((res) => {
       if (res) {
-        this.cargarHorarioTrabajadores();
+        this.loadData();
       }
     });
   }
@@ -290,7 +358,7 @@ export class HorariosComponent {
 
     ref.onClose.subscribe((res) => {
       if (res) {
-        this.cargarHorarioTrabajadores();
+        this.loadData();
       }
     });
   }

@@ -444,14 +444,28 @@ export class FormHorarioComponent implements OnInit {
   }
 
   get invalidHorario(): boolean {
-    return (
-      this.listaHorarioTrabajadorItem.length === 0 ||
-      this.listaHorarioTrabajadorItem.every(
-        (items: any[]) =>
-          items.every((item: any) => !item.bloque) ||
-          items.every((item: any) => !item.idSede)
-      )
+    if (this.listaHorarioTrabajadorItem.length === 0) {
+      return true;
+    }
+
+    let tieneBloque = false;
+
+    const tieneItemInvalido = this.listaHorarioTrabajadorItem.some(
+      (items: any[]) =>
+        items.some((item: any) => {
+          if (item.bloque) {
+            tieneBloque = true;
+            return (
+              item.idSede === null ||
+              item.idSede === undefined ||
+              item.idSede === ''
+            );
+          }
+          return false;
+        })
     );
+
+    return !tieneBloque || tieneItemInvalido;
   }
 
   preGuardar() {

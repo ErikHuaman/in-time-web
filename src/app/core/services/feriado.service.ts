@@ -3,32 +3,21 @@ import { inject, Injectable } from '@angular/core';
 import { environment } from '@environments/environments';
 import { map, Observable } from 'rxjs';
 import { Feriado } from '@models/feriado.model';
+import { GenericCrudService } from './generic/generic-crud.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class FeriadoService {
-  private readonly url = `${environment.urlBase}v1/feriados`;
-
-  private readonly http = inject(HttpClient);
+export class FeriadoService extends GenericCrudService<Feriado> {
+  constructor(http: HttpClient) {
+    super(http, 'feriados');
+  }
 
   findAll(): Observable<Feriado[]> {
     return this.http.get<any>(this.url).pipe(
       map((data: any) => data.data),
       map((data: Feriado[]) => data)
     );
-  }
-
-  findOne(id: string): Observable<Feriado> {
-    return this.http.get<Feriado>(`${this.url}/${id}`);
-  }
-
-  create(dto: Feriado): Observable<Feriado> {
-    return this.http.post<Feriado>(`${this.url}`, dto);
-  }
-
-  update(id: string, dto: Feriado): Observable<Feriado> {
-    return this.http.patch<Feriado>(`${this.url}/${id}`, dto);
   }
 
   findAllByMonth(fecha: Date): Observable<Feriado[]> {

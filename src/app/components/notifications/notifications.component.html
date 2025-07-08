@@ -13,7 +13,10 @@
     (click)="op.toggle($event)"
   >
     <div class="w-8 h-8 flex justify-center items-center">
-      <iconify-icon [icon]="'material-symbols:notifications-rounded'" class="text-xl" />
+      <iconify-icon
+        [icon]="'material-symbols:notifications-rounded'"
+        class="text-xl"
+      />
     </div>
   </p-button>
 </div>
@@ -23,7 +26,7 @@
       <span class="font-medium text-surface-900 dark:text-surface-0 block p-2">
         Notificaciones
       </span>
-      <ul *ngIf="notificaciones.length" class="list-none flex flex-col gap-2">
+      <ul *ngIf="notificaciones.length" class="list-none flex flex-col gap-2 overflow-y-auto" style="height: calc(100vh - 200px);">
         @for(item of notificaciones; track item.id) {
         <li
           [ngClass]="[
@@ -58,13 +61,16 @@
             </div>
             <div class="w-6 flex items-center">
               <div
-                class="w-6 h-6 rounded-full flex justify-center items-center cursor-pointer hover:bg-slate-200"
+                class="w-6 h-6 rounded-full flex justify-center items-center text-red-500 cursor-pointer hover:bg-slate-200"
                 [pTooltip]="'borrar'"
                 tooltipPosition="top"
                 tooltipStyleClass="text-xs"
                 (click)="eliminar(item.id)"
               >
-                <iconify-icon [icon]="'material-symbols:delete-outline-rounded'" class="text-xl" />
+                <iconify-icon
+                  [icon]="'material-symbols:delete-outline-rounded'"
+                  class="text-md"
+                />
               </div>
             </div>
           </div>

@@ -82,23 +82,34 @@
         appendTo="body"
       />
     </div>
-    <div class="flex flex-col gap-2">
+    <!-- <div class="flex flex-col gap-2">
       <label class="text-sm font-medium" for="username"
         >Archivos adjuntos</label
       >
       <div class="flex">
-        <p-fileupload
-          #fu
-          mode="basic"
-          chooseLabel="Cargar"
-          chooseIcon="pi pi-upload"
-          name="demo[]"
-          accept="image/*"
-          maxFileSize="1000000"
-          (onUpload)="onUpload($event)"
+        <input
+          #fileImage
+          class="hidden"
+          type="file"
+          (change)="onFileSelected($event)"
+          accept="application/pdf"
         />
+        <div class="flex items-center gap-2">
+          <p-button
+            severity="contrast"
+            size="small"
+            (click)="fileImage.click()"
+          >
+            <div class="flex justify-center items-center">
+              <div>Cargar</div>
+            </div>
+          </p-button>
+          <p class="w-64 text-sm italic truncate" [pTooltip]="filename">
+            {{ !!filename ? filename : "Archivo no cargado." }}
+          </p>
+        </div>
       </div>
-    </div>
+    </div> -->
   </form>
 
   <div class="flex justify-end gap-2 mt-4">

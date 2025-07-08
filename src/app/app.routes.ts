@@ -48,8 +48,8 @@ export const routes: Routes = [
           ).then((c) => c.TrabajadoresActivosComponent),
       },
       {
-        path: 'organizacion/trabajadores-inactivos',
-        title: 'Trabajadores inactivos | In Time',
+        path: 'organizacion/trabajadores-suspendidos',
+        title: 'Trabajadores suspendidos | In Time',
         loadComponent: () =>
           import(
             './main/organizacion/trabajadores-inactivos/trabajadores-inactivos.component'

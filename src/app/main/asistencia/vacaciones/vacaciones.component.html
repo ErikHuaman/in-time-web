@@ -5,7 +5,7 @@
     </div>
     <div class="flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <p-datepicker
+        <!-- <p-datepicker
           id="fechaInicio"
           view="month"
           dateFormat="MM yy"
@@ -19,7 +19,8 @@
           pTooltip="Mes"
           tooltipPosition="top"
           tooltipStyleClass="text-sm"
-        />
+          (ngModelChange)="cambiarFecha($event)"
+        /> -->
         <p-multiselect
           [options]="listaSedes"
           [(ngModel)]="selectedSedes"

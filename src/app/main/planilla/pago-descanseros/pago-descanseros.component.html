@@ -132,10 +132,42 @@
             <div class="text-start text-sm">{{ item.apellido }}</div>
           </td>
           <td>
-            <div class="text-center text-sm">{{ item.sede.nombre }}</div>
-          </td>
-          <td>
             <div class="text-center text-sm">{{ item.cargo.nombre }}</div>
+          </td>
+          <td class="w-100">
+            <div
+              class="w-100 flex flex-wrap gap-2 items-center justify-center text-sm font-light capitalize italic"
+              [ngClass]="{ 'cursor-pointer': item.sedes.length > 4 }"
+              (click)="item.sedes.length > 4 ? op.toggle($event) : ''"
+              [pTooltip]="item.sedes.length > 4 ? 'Ver más' : ''"
+              tooltipPosition="top"
+              tooltipStyleClass="!text-xs !font-normal !p-0"
+            >
+              <!-- Mostrar los primeros 5 -->
+              @for (sede of item.sedes.slice(0, 4); track $index) {
+              <p-chip class="!py-1 !px-2 shadow !bg-amber-200">
+                <div class="text-xs font-medium">{{ sede.nombre }}</div>
+              </p-chip>
+              }
+
+              <!-- Mostrar "..." si hay más de 5 -->
+              @if (item.sedes.length > 4) {
+              <span class="text-xs font-semibold">...</span>
+              }
+            </div>
+            <p-popover #op styleClass="gap-2 p-2">
+              <div class="w-100 max-h-40 overflow-y-auto flex flex-col">
+                <div
+                  class="flex flex-wrap gap-2 items-center justify-center text-sm font-light capitalize italic"
+                >
+                  @for (sede of item.sedes; track $index) {
+                  <p-chip class="!py-1 !px-2 shadow !bg-amber-200">
+                    <div class="text-xs font-medium">{{ sede.nombre }}</div>
+                  </p-chip>
+                  }
+                </div>
+              </div>
+            </p-popover>
           </td>
           <td>
             <div class="text-center text-sm">
