@@ -83,7 +83,10 @@ export class FormAdelantoComponent implements OnInit {
   listaTrabajadoresFiltrados: Trabajador[] = [];
 
   get listaSedes(): Sede[] {
-    return this.sedeStore.items().slice().sort((a, b) => a.nombre.localeCompare(b.nombre));
+    return this.sedeStore
+      .items()
+      .slice()
+      .sort((a, b) => a.nombre.localeCompare(b.nombre));
   }
 
   get listaCargos(): Cargo[] {
@@ -217,12 +220,25 @@ export class FormAdelantoComponent implements OnInit {
     this.trabajadorStore.loadAll(undefined, undefined, q);
   }
 
+  // filtrar(event?: any) {
+  //   this.listaTrabajadoresFiltrados = this.listaTrabajadores.filter(
+  //     (item) =>
+  //       item.sedes[0]?.id === this.formData.get('idSede')?.value &&
+  //       item.contratos[0].idCargo === this.formData.get('idCargo')?.value
+  //   );
+  //   console.log('Lista de Trabajadores Filtrados :', this.listaTrabajadoresFiltrados)
+  // }
+
   filtrar(event?: any) {
+    const idSede = this.formData.get('idSede')?.value;
+    const idCargo = this.formData.get('idCargo')?.value;
+
     this.listaTrabajadoresFiltrados = this.listaTrabajadores.filter(
       (item) =>
-        item.sedes[0]?.id === this.formData.get('idSede')?.value &&
-        item.contratos[0].idCargo === this.formData.get('idCargo')?.value
+        item.sedes?.some((sede) => sede.id === idSede) &&
+        item.contratos[0]?.idCargo === idCargo
     );
+    console.log('Lista de Trabajadores Filtrados:', this.listaTrabajadoresFiltrados);
   }
 
   changeSelfMonth(event: any) {
