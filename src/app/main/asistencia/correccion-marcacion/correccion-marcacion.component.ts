@@ -83,17 +83,20 @@ export class CorreccionMarcacionComponent implements OnInit {
       .subscribe({
         next: (data) => {
           this.listaAsistenciaMensual = data;
+          console.log('Lista de asistencia mensual 1:', this.listaAsistenciaMensual);
           this.filtrar();
         },
       });
   }
 
   filtrar(event?: number) {
+    console.log('Lista de asistencia mensual 2:', this.listaAsistenciaMensual);
     this.dataTable = this.listaAsistenciaMensual.filter(
       (t) =>
-        this.selectedSedes.includes(t.sede.id) &&
-        this.selectedCargos.includes(t.cargo.id)
+        this.selectedSedes.includes(t.sede?.id) &&
+        this.selectedCargos.includes(t.cargo?.id)
     );
+    console.log("this.dataTable", this.dataTable)
   }
 
   cambiarFecha(event: Date) {

@@ -259,20 +259,20 @@ export class VistaPlanillaComponent implements OnInit {
         severity: 'info',
       },
 
-      accept: () => {
-        this.messageService.add({
-          severity: 'success',
-          summary: '¡Éxito!',
-          detail: 'Comprobantes enviados',
-        });
-      },
-      reject: () => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Rejected',
-          detail: 'You have rejected',
-        });
-      },
+      // accept: () => {
+      //   this.messageService.add({
+      //     severity: 'success',
+      //     summary: '¡Éxito!',
+      //     detail: 'Comprobantes enviados',
+      //   });
+      // },
+      // reject: () => {
+      //   this.messageService.add({
+      //     severity: 'error',
+      //     summary: 'Rejected',
+      //     detail: 'Comporbantes no enviados',
+      //   });
+      // },
     });
   }
 

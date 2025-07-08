@@ -143,8 +143,8 @@ export class InasistenciaComponent implements OnInit {
   filtrar(event?: number) {
     this.dataTable = this.listaAsistenciaMensual.filter(
       (t) =>
-        this.selectedSedes.includes(t.sede.id) &&
-        this.selectedCargos.includes(t.cargo.id)
+        this.selectedSedes.includes(t.sede?.id) &&
+        this.selectedCargos.includes(t.cargo?.id)
     );
   }
 
@@ -168,7 +168,6 @@ export class InasistenciaComponent implements OnInit {
       .findAllBySupervisorAndDate(this.fechaSelected)
       .subscribe({
         next: (data) => {
-          console.log("data", data);
         },
       });
   }
