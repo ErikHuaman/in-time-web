@@ -13,6 +13,6 @@ export interface Usuario {
   rol: Rol;
   sedes: Sede[];
   isActive: boolean;
-  archivo: File;
-  archivoNombre: string;
+  filename?: string;
+  mimetype?: string;
 }

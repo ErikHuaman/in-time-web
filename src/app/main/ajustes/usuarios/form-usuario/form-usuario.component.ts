@@ -189,7 +189,7 @@ export class FormUsuarioComponent implements OnInit {
         .get('sedes.idSedes')
         ?.setValue(item.sedes?.map((item) => item.id as string));
 
-      if (item.archivoNombre) {
+      if (item.filename) {
         this.getArchivoBiometrico(item.id);
       }
     }

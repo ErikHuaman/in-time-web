@@ -3,5 +3,6 @@ export interface RegistroBiometrico {
   archivo?: File;
   codigo?: string;
   idTrabajador: string;
-  archivoNombre?: string;
+  filename?: string;
+  mimetype?: string;
 }
