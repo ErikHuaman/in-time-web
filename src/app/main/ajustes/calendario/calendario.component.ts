@@ -151,6 +151,7 @@ export class CalendarioComponent implements OnInit {
       { field: 'title', header: 'Título' },
       { field: 'start', header: 'Fecha de inicio', align: 'center' },
       { field: 'end', header: 'Fecha de fin', align: 'center' },
+       { field: 'end', header: 'Acción', align: 'center' },
     ];
 
     this.exportColumns = this.cols.map((col) => ({
@@ -240,6 +241,7 @@ export class CalendarioComponent implements OnInit {
       () => {
         // this.events = this.events.filter((event) => event !== eventToDelete);
         this.feriadoService.delete(item.id as string).subscribe((res) => {
+          this.msg.success('Feriado eliminado correctamente');
           this.cargarFeriados();
         });
         // this.store.delete(item.id);
