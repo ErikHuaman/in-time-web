@@ -59,9 +59,35 @@
             <div>XLS</div>
           </div>
         </p-button> -->
+        <!-- <div class="flex justify-end">
+          <input
+            #fileImage
+            class="hidden"
+            type="file"
+            (change)="onExcelSelected($event)"
+            accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+          />
+          <p-button
+            severity="contrast"
+            size="small"
+            (click)="fileImage.click()"
+          >
+            <div class="flex justify-center items-center gap-2">
+              <div>Importar Excel</div>
+              <i
+                class="iconify icon text-lg"
+                data-icon="bx:upload"
+                data-inline="false"
+              ></i>
+            </div>
+          </p-button>
+        </div> -->
         <p-button severity="info" size="small" (click)="addNew()">
           <div class="flex justify-center items-center font-medium gap-1">
-            <iconify-icon [icon]="'material-symbols:add-rounded'" class="text-lg" />
+            <iconify-icon
+              [icon]="'material-symbols:add-rounded'"
+              class="text-lg"
+            />
             <div>AGREGAR</div>
           </div>
         </p-button>
@@ -80,7 +106,9 @@
     >
       <ng-template #header>
         <tr>
-          <th class="!w-20"><div class="text-center text-xs uppercase">Doc ID</div></th>
+          <th class="!w-20">
+            <div class="text-center text-xs uppercase">Doc ID</div>
+          </th>
           <th><div class="text-xs uppercase">Nombre</div></th>
           <th><div class="text-xs uppercase">Apellido</div></th>
           <th><div class="text-center text-xs uppercase">Edificios</div></th>

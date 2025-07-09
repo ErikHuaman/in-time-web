@@ -629,25 +629,6 @@
       [label]="'Descargar plantilla'"
       (onClick)="exportarPlantillaExcel()"
     /> -->
-      <div class="flex justify-end">
-        <input
-          #fileImage
-          class="hidden"
-          type="file"
-          (change)="onExcelSelected($event)"
-          accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-        />
-        <p-button severity="contrast" size="small" (click)="fileImage.click()">
-          <div class="flex justify-center items-center gap-2">
-            <div>Importar Excel</div>
-            <i
-              class="iconify icon text-lg"
-              data-icon="bx:upload"
-              data-inline="false"
-            ></i>
-          </div>
-        </p-button>
-      </div>
       <p-button
         severity="info"
         size="small"
