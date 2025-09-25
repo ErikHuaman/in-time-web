@@ -26,8 +26,6 @@ export class CalculoPagoComponent implements OnInit {
 
     const data = instance.data;
 
-    console.log("data", data);
-
     if (data) {
       this.id = data['id'];
       this.mesSelected = new Date(data['fecha']);

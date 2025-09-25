@@ -3,7 +3,7 @@ import { Ciudad } from './nacionalidad.model';
 
 export interface Sede {
   id: string;
-  orden: number;
+  serialNumber: number;
   nombre: string;
   ruc: string;
   razonSocial: string;
@@ -13,5 +13,6 @@ export interface Sede {
   idCiudad: string;
   ciudad?: Ciudad;
   AsignacionSede?: AsignacionSede;
+  diasTrab?: number;
   isActive: boolean;
 }

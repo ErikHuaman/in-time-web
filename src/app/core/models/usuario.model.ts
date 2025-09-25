@@ -13,6 +13,8 @@ export interface Usuario {
   rol: Rol;
   sedes: Sede[];
   isActive: boolean;
-  filename?: string;
-  mimetype?: string;
+  urlFile?: string;
+  codigo?: string;
+
+  labelName?: string;
 }

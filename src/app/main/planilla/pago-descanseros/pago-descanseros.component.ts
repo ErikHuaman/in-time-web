@@ -7,7 +7,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonCustomComponent } from '@components/buttons/button-custom/button-custom.component';
+import { ButtonCustomComponent } from '@components/buttons/button-custom.component';
 import { TitleCardComponent } from '@components/title-card/title-card.component';
 import { Cargo } from '@models/cargo.model';
 import { Column, ExportColumn } from '@models/column-table.model';
@@ -123,8 +123,12 @@ export class PagoDescanserosComponent implements OnInit {
     this.cols = [
       [
         { field: 'ruc', header: 'RUC', align: 'center', rowSpan: '2' },
-        { field: 'nombre', header: 'Nombre', rowSpan: '2' },
-        { field: 'apellido', header: 'Apellido', rowSpan: '2' },
+        {
+          field: 'labelName',
+          header: 'Nombre completo',
+          rowSpan: '2',
+          widthClass: '!min-w-80',
+        },
         { field: 'cargo', header: 'Cargo', align: 'center', rowSpan: '2' },
         { field: 'sede', header: 'Edificios', align: 'center', rowSpan: '2' },
         {
@@ -139,7 +143,7 @@ export class PagoDescanserosComponent implements OnInit {
           align: 'center',
           rowSpan: '2',
         },
-        { field: '', header: 'Horas extra', align: 'center', colSpan: '2' },
+        // { field: '', header: 'Horas extra', align: 'center', colSpan: '2' },
         // {
         //   field: 'sueldoBruto',
         //   header: 'Sueldo bruto',
@@ -157,13 +161,13 @@ export class PagoDescanserosComponent implements OnInit {
           header: 'Acciones',
           align: 'center',
           rowSpan: '2',
-          widthClass: '!w-36',
+          widthClass: '!min-w-32',
         },
       ],
-      [
-        { field: 'horasExtra25', header: '25%', align: 'center' },
-        { field: 'horasExtra35', header: '35%', align: 'center' },
-      ],
+      // [
+      //   { field: 'horasExtra25', header: '25%', align: 'center' },
+      //   { field: 'horasExtra35', header: '35%', align: 'center' },
+      // ],
     ];
 
     this.skeletons = Array(
@@ -194,7 +198,10 @@ export class PagoDescanserosComponent implements OnInit {
       .findAllPagoByMonthDescanseros(this.fechaSelected)
       .subscribe({
         next: (data) => {
-          this.listaPagoMensual = data;
+          this.listaPagoMensual = data.map((item) => {
+          item.labelName = `${item.nombre} ${item.apellido}`;
+          return item;
+        });
           this.loadingTable = false;
           this.filtrar();
         },

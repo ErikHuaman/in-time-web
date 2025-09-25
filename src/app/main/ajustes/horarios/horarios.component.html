@@ -1,0 +1,813 @@
+<div class="flex flex-col h-full">
+  <div class="flex flex-col justify-center gap-4 px-6 py-4">
+    <div class="flex justify-between items-center gap-4">
+      <title-card [title]="title" [icon]="icon" />
+      <!-- <p-button
+        severity="danger"
+        size="small"
+        [routerLink]="'/ajustes/configuracion'"
+      >
+        <div class="flex justify-center items-center font-medium gap-1">
+          <i
+            class="iconify icon text-lg"
+            data-icon="uil:left-arrow-from-left"
+            data-inline="false"
+          ></i>
+          <span>Configuración</span>
+        </div>
+      </p-button> -->
+    </div>
+  </div>
+  <div class="flex flex-col px-6">
+    <div class="flex flex-col gap-6">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <div class="w-42">
+            <p-multiselect
+              [options]="listaSedes"
+              [(ngModel)]="selectedSedes"
+              optionLabel="nombre"
+              optionValue="id"
+              placeholder="Edificios"
+              [maxSelectedLabels]="2"
+              styleClass="w-42"
+              pTooltip="Edificios"
+              tooltipPosition="top"
+              tooltipStyleClass="text-sm"
+            />
+          </div>
+          <!-- <div class="w-42">
+                  <p-multiselect
+                    [options]="listaCargos"
+                    [(ngModel)]="selectedCargos"
+                    optionLabel="nombre"
+                    optionValue="id"
+                    placeholder="Cargos"
+                    [maxSelectedLabels]="2"
+                    styleClass="w-42"
+                    class="w-42"
+                    pTooltip="Cargos"
+                    tooltipPosition="top"
+                    tooltipStyleClass="text-sm"
+                  />
+                </div> -->
+          <input pInputText [(ngModel)]="searchText" placeholder="Buscar" />
+          <p-button
+            severity="contrast"
+            variant="outlined"
+            size="small"
+            (click)="search()"
+          >
+            <div class="flex justify-center items-center gap-2">
+              <div>Filtrar</div>
+            </div>
+          </p-button>
+          <p-button
+            severity="danger"
+            variant="outlined"
+            size="small"
+            (click)="clear()"
+          >
+            <div class="flex justify-center items-center gap-2">
+              <div>Limpiar</div>
+            </div>
+          </p-button>
+        </div>
+        <div class="flex items-center gap-2">
+          <p-button severity="info" size="small" (click)="addNew()">
+            <div class="flex justify-center items-center font-medium gap-1">
+              <iconify-icon
+                [icon]="'material-symbols:add-rounded'"
+                class="text-lg"
+              />
+              <div>AGREGAR</div>
+            </div>
+          </p-button>
+        </div>
+      </div>
+      <p-tabs value="0">
+        <p-tablist>
+          <p-tab value="0">Horarios actuales</p-tab>
+          <p-tab value="1">Horarios posteriores</p-tab>
+          <p-tab value="2">Horarios históricos</p-tab>
+        </p-tablist>
+        <p-tabpanels>
+          <p-tabpanel value="0">
+            <div class="flex flex-col">
+              <p-table
+                dataKey="id"
+                [value]="dataTable"
+                [columns]="cols"
+                stripedRows
+                [scrollable]="true"
+                scrollHeight="calc(100vh - 280px)"
+                styleClass="w-full"
+              >
+                <ng-template #header let-columns>
+                  <tr>
+                    <th
+                      *ngFor="let col of columns"
+                      [ngClass]="[col.widthClass ? col.widthClass : '']"
+                    >
+                      <div
+                        [ngClass]="[
+                          'text-xs uppercase',
+                          col.align ? 'text-' + col.align : 'text-start'
+                        ]"
+                      >
+                        {{ col.header }}
+                      </div>
+                    </th>
+                  </tr>
+                </ng-template>
+                <ng-template #body let-item let-i="rowIndex">
+                  <tr>
+                    <td>
+                      <div class="text-center text-sm">
+                        {{ item.trabajador.identificacion }}
+                      </div>
+                    </td>
+                    <td>
+                      <div class="text-start text-sm">
+                        {{ item.trabajador.labelName }}
+                      </div>
+                    </td>
+                    <td>
+                      <div class="text-center text-sm uppercase">
+                        {{ item.trabajador.contratos[0]?.cargo?.nombre }}
+                      </div>
+                    </td>
+                    <td>
+                      <div class="text-center text-xs uppercase">
+                        {{ item.tipoPatron?.nombre }}
+                      </div>
+                    </td>
+                    <td>
+                      <div class="flex flex-col gap-1">
+                        <div
+                          class="flex items-center gap-1 text-xs cursor-pointer px-1 border border-slate-400 rounded-lg"
+                          pTooltip="Fecha de inicio"
+                        >
+                          <div class="flex items-center">
+                            <div class="w-4">FI</div>
+                            <div class="pb-0.5">:</div>
+                          </div>
+                          <div class="flex items-center">
+                            {{
+                              item.fechaInicio
+                                | date : "dd MMM yyyy"
+                                | uppercase
+                            }}
+                          </div>
+                        </div>
+                        <div
+                          class="flex items-center gap-1 text-xs cursor-pointer px-1 border border-slate-400 rounded-lg"
+                          pTooltip="Fecha de fin"
+                        >
+                          <div class="flex items-center">
+                            <div class="w-4">FF</div>
+                            <div class="pb-0.5">:</div>
+                          </div>
+                          <div class="flex items-center">
+                            {{
+                              item.fechaFin
+                                ? (item.fechaFin
+                                  | date : "dd MMM yyyy"
+                                  | uppercase)
+                                : "Indefinido"
+                            }}
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div
+                        class="flex flex-col justify-center items-center gap-4"
+                      >
+                        @for (turno of getTurnos(item.items); track $index) {
+                        <div class="h-12 flex justify-center items-center">
+                          <span
+                            class="w-6 h-6 flex justify-center items-center text-xs font-medium border rounded-full text-slate-700 border-slate-700"
+                          >
+                            {{ turno }}
+                          </span>
+                        </div>
+                        }
+                      </div>
+                    </td>
+                    @for (dia of getDias(item.items); track $index) {
+                    <td class="!text-center !text-xs">
+                      <div
+                        class="flex flex-col justify-center items-center gap-4"
+                      >
+                        @for (turno of getTurnos(item.items); track $index) {
+                        <div
+                          [ngClass]="[
+                            'w-24 h-12 rounded-xl border flex flex-col items-center justify-center py-1.5 relative',
+                            !item.items.bloque
+                              ? getHorario(item.items, dia, turno)?.diaLibre
+                                ? 'bg-slate-50 border-slate-500 text-slate-700'
+                                : getHorario(item.items, dia, turno)
+                                    ?.diaDescanso
+                                ? 'bg-orange-50 border-orange-500 text-orange-700'
+                                : 'bg-slate-300 border-slate-500 text-slate-700'
+                              : ''
+                          ]"
+                          [style.background]="
+                            getHorario(item.items, dia, turno)?.bloque?.bgColor
+                          "
+                          [style.borderColor]="
+                            getHorario(item.items, dia, turno)?.bloque
+                              ?.borderColor
+                          "
+                          [style.color]="
+                            getHorario(item.items, dia, turno)?.bloque
+                              ?.textColor
+                          "
+                        >
+                          <div
+                            *ngIf="
+                              item.tipoPatron?.codigo == 'month' &&
+                              !!getHorario(item.items, dia, turno)
+                            "
+                            [ngClass]="{
+                              'absolute w-4.5 h-4.5 right-1/2 translate-x-1/2 top-0 -translate-y-1/2 text-xs rounded-full': true,
+                              'flex justify-center items-center border font-medium bg-slate-100 text-slate-500 border-slate-500': true
+                            }"
+                          >
+                            <small>
+                              {{ getHorario(item.items, dia, turno)?.numDia }}
+                            </small>
+                          </div>
+                          <ng-container
+                            *ngIf="
+                              getHorario(item.items, dia, turno)?.bloque;
+                              else elseTemplate
+                            "
+                          >
+                            <div
+                              class="h-4 flex items-center justify-center gap-1"
+                            >
+                              <span>
+                                {{
+                                  getHorario(item.items, dia, turno)?.bloque
+                                    ?.horaEntrada | number : "2.0-0"
+                                }}:{{
+                                  getHorario(item.items, dia, turno)?.bloque
+                                    ?.minutoEntrada | number : "2.0-0"
+                                }}
+                              </span>
+                              <span
+                                class="w-[1px] h-full"
+                                [style.background]="
+                                  getHorario(item.items, dia, turno)?.bloque
+                                    ?.textColor
+                                "
+                              ></span>
+                              <span>
+                                {{
+                                  getHorario(item.items, dia, turno)?.bloque
+                                    ?.horaSalida | number : "2.0-0"
+                                }}:{{
+                                  getHorario(item.items, dia, turno)?.bloque
+                                    ?.minutoSalida | number : "2.0-0"
+                                }}
+                              </span>
+                            </div>
+                            <p
+                              *ngIf="getHorario(item.items, dia, turno)?.id"
+                              class="h-4 w-18 truncate text-xs"
+                            >
+                              {{
+                                getHorario(item.items, dia, turno)?.sede?.nombre
+                              }}
+                            </p>
+                          </ng-container>
+                          <ng-template #elseTemplate>
+                            {{
+                              getHorario(item.items, dia, turno)?.diaLibre
+                                ? "Libre"
+                                : getHorario(item.items, dia, turno)
+                                    ?.diaDescanso
+                                ? "Descanso"
+                                : "-"
+                            }}
+                          </ng-template>
+                        </div>
+                        }
+                      </div>
+                    </td>
+                    }
+                    <td>
+                      <div class="flex justify-center items-center gap-2">
+                        <btn-delete (onClick)="remove(item)" />
+                        <button-custom
+                          *ngIf="item.tipoPatron?.codigo === 'month'"
+                          severity="info"
+                          tooltip="Editar horario"
+                          icon="lucide:bolt"
+                          (click)="editarHorario(item)"
+                        />
+                      </div>
+                    </td>
+                  </tr>
+                </ng-template>
+                <ng-template #emptymessage>
+                  <ng-template
+                    [skeletonTable]="{
+                      loading: loadingTable,
+                      numCols: cols.length,
+                      numRows: 4
+                    }"
+                  ></ng-template>
+                </ng-template>
+                <ng-template #footer>
+                  <!-- <ng-template
+                    [appPaginator]="{
+                      totalItems: totalItems,
+                      limit: limit,
+                      offset: offset,
+                      pageChange: onPageChange
+                    }"
+                  ></ng-template> -->
+                </ng-template>
+              </p-table>
+            </div>
+          </p-tabpanel>
+          <p-tabpanel value="1">
+            <div class="flex flex-col">
+              <p-table
+                dataKey="id"
+                [value]="dataTablePosterior"
+                [columns]="cols"
+                stripedRows
+                [scrollable]="true"
+                scrollHeight="calc(100vh - 280px)"
+                styleClass="w-full"
+              >
+                <ng-template #header let-columns>
+                  <tr>
+                    <th
+                      *ngFor="let col of columns"
+                      [ngClass]="[col.widthClass ? col.widthClass : '']"
+                    >
+                      <div
+                        [ngClass]="[
+                          'text-xs uppercase',
+                          col.align ? 'text-' + col.align : 'text-start'
+                        ]"
+                      >
+                        {{ col.header }}
+                      </div>
+                    </th>
+                  </tr>
+                </ng-template>
+                <ng-template #body let-item let-i="rowIndex">
+                  <tr>
+                    <td>
+                      <div class="text-center text-sm">
+                        {{ item.trabajador.identificacion }}
+                      </div>
+                    </td>
+                    <td>
+                      <div class="text-start text-sm">
+                        {{ item.trabajador.labelName }}
+                      </div>
+                    </td>
+                    <td>
+                      <div class="text-center text-sm uppercase">
+                        {{ item.trabajador.contratos[0]?.cargo?.nombre }}
+                      </div>
+                    </td>
+                    <td>
+                      <div class="text-center text-sm uppercase">
+                        {{ item.tipoPatron?.nombre }}
+                      </div>
+                    </td>
+                    <td>
+                      <div class="flex flex-col gap-1">
+                        <div
+                          class="flex items-center gap-1 text-xs cursor-pointer px-1 border border-slate-400 rounded-lg"
+                          pTooltip="Fecha de inicio"
+                        >
+                          <div class="flex items-center">
+                            <div class="w-4">FI</div>
+                            <div class="pb-0.5">:</div>
+                          </div>
+                          <div class="flex items-center">
+                            {{
+                              item.fechaInicio
+                                | date : "dd MMM yyyy"
+                                | uppercase
+                            }}
+                          </div>
+                        </div>
+                        <div
+                          class="flex items-center gap-1 text-xs cursor-pointer px-1 border border-slate-400 rounded-lg"
+                          pTooltip="Fecha de fin"
+                        >
+                          <div class="flex items-center">
+                            <div class="w-4">FF</div>
+                            <div class="pb-0.5">:</div>
+                          </div>
+                          <div class="flex items-center">
+                            {{
+                              item.fechaFin
+                                ? (item.fechaFin
+                                  | date : "dd MMM yyyy"
+                                  | uppercase)
+                                : "Indefinido"
+                            }}
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div
+                        class="flex flex-col justify-center items-center gap-4"
+                      >
+                        @for (turno of getTurnos(item.items); track $index) {
+                        <div class="h-12 flex justify-center items-center">
+                          <span
+                            class="w-6 h-6 flex justify-center items-center text-xs font-medium border rounded-full text-slate-700 border-slate-700"
+                          >
+                            {{ turno }}
+                          </span>
+                        </div>
+                        }
+                      </div>
+                    </td>
+                    @for (dia of getDias(item.items); track $index) {
+                    <td class="!text-center !text-xs">
+                      <div
+                        class="flex flex-col justify-center items-center gap-4"
+                      >
+                        @for (turno of getTurnos(item.items); track $index) {
+                        <div
+                          [ngClass]="[
+                            'w-24 h-12 rounded-xl border flex flex-col items-center justify-center text-xs py-1.5 relative',
+                            !item.items.bloque
+                              ? getHorario(item.items, dia, turno)?.diaLibre
+                                ? 'bg-slate-50 border-slate-500 text-slate-700'
+                                : getHorario(item.items, dia, turno)
+                                    ?.diaDescanso
+                                ? 'bg-orange-50 border-orange-500 text-orange-700'
+                                : 'bg-slate-300 border-slate-500 text-slate-700'
+                              : ''
+                          ]"
+                          [style.background]="
+                            getHorario(item.items, dia, turno)?.bloque?.bgColor
+                          "
+                          [style.borderColor]="
+                            getHorario(item.items, dia, turno)?.bloque
+                              ?.borderColor
+                          "
+                          [style.color]="
+                            getHorario(item.items, dia, turno)?.bloque
+                              ?.textColor
+                          "
+                        >
+                          <div
+                            *ngIf="
+                              item.tipoPatron?.codigo == 'month' &&
+                              !!getHorario(item.items, dia, turno)
+                            "
+                            [ngClass]="{
+                              'absolute w-4.5 h-4.5 right-1/2 translate-x-1/2 top-0 -translate-y-1/2 text-xs rounded-full': true,
+                              'flex justify-center items-center border font-medium bg-slate-100 text-slate-500 border-slate-500': true
+                            }"
+                          >
+                            <small>
+                              {{ getHorario(item.items, dia, turno)?.numDia }}
+                            </small>
+                          </div>
+                          <ng-container
+                            *ngIf="
+                              getHorario(item.items, dia, turno)?.bloque;
+                              else elseTemplate
+                            "
+                          >
+                            <div
+                              class="h-4 flex items-center justify-center gap-1"
+                            >
+                              <span>
+                                {{
+                                  getHorario(item.items, dia, turno)?.bloque
+                                    ?.horaEntrada | number : "2.0-0"
+                                }}:{{
+                                  getHorario(item.items, dia, turno)?.bloque
+                                    ?.minutoEntrada | number : "2.0-0"
+                                }}
+                              </span>
+                              <span
+                                class="w-[1px] h-full"
+                                [style.background]="
+                                  getHorario(item.items, dia, turno)?.bloque
+                                    ?.textColor
+                                "
+                              ></span>
+                              <span>
+                                {{
+                                  getHorario(item.items, dia, turno)?.bloque
+                                    ?.horaSalida | number : "2.0-0"
+                                }}:{{
+                                  getHorario(item.items, dia, turno)?.bloque
+                                    ?.minutoSalida | number : "2.0-0"
+                                }}
+                              </span>
+                            </div>
+                            <p
+                              *ngIf="getHorario(item.items, dia, turno)?.id"
+                              class="h-4 w-18 truncate text-xs"
+                            >
+                              {{
+                                getHorario(item.items, dia, turno)?.sede?.nombre
+                              }}
+                            </p>
+                          </ng-container>
+                          <ng-template #elseTemplate>
+                            {{
+                              getHorario(item.items, dia, turno)?.diaLibre
+                                ? "Libre"
+                                : getHorario(item.items, dia, turno)
+                                    ?.diaDescanso
+                                ? "Descanso"
+                                : "-"
+                            }}
+                          </ng-template>
+                        </div>
+                        }
+                      </div>
+                    </td>
+                    }
+                    <td>
+                      <div class="flex justify-center items-center gap-2">
+                        <btn-delete (onClick)="remove(item)" />
+                        <button-custom
+                          *ngIf="item.tipoPatron?.codigo === 'month'"
+                          severity="info"
+                          tooltip="Editar horario"
+                          icon="lucide:bolt"
+                          (click)="editarHorario(item)"
+                        />
+                      </div>
+                    </td>
+                  </tr>
+                </ng-template>
+                <ng-template #emptymessage>
+                  <ng-template
+                    [skeletonTable]="{
+                      loading: loadingTable,
+                      numCols: cols.length,
+                      numRows: 4
+                    }"
+                  ></ng-template>
+                </ng-template>
+                <ng-template #footer>
+                  <!-- <ng-template
+                    [appPaginator]="{
+                      totalItems: totalItemsPost,
+                      limit: limitPost,
+                      offset: offsetPost,
+                      pageChange: onPageChangePost
+                    }"
+                  ></ng-template> -->
+                </ng-template>
+              </p-table>
+            </div>
+          </p-tabpanel>
+          <p-tabpanel value="2">
+            <div class="flex flex-col">
+              <p-table
+                dataKey="id"
+                [value]="dataTableHistorico"
+                [columns]="cols"
+                stripedRows
+                [scrollable]="true"
+                scrollHeight="calc(100vh - 280px)"
+                styleClass="w-full"
+              >
+                <ng-template #header let-columns>
+                  <tr>
+                    <th
+                      *ngFor="let col of columns"
+                      [ngClass]="[col.widthClass ? col.widthClass : '']"
+                    >
+                      <div
+                        [ngClass]="[
+                          'text-xs uppercase',
+                          col.align ? 'text-' + col.align : 'text-start'
+                        ]"
+                      >
+                        {{ col.header }}
+                      </div>
+                    </th>
+                  </tr>
+                </ng-template>
+                <ng-template #body let-item let-i="rowIndex">
+                  <tr>
+                    <td>
+                      <div class="text-center text-sm">
+                        {{ item.trabajador.identificacion }}
+                      </div>
+                    </td>
+                    <td>
+                      <div class="text-start text-sm">
+                        {{ item.trabajador.labelName }}
+                      </div>
+                    </td>
+                    <td>
+                      <div class="text-center text-sm uppercase">
+                        {{ item.trabajador.contratos[0]?.cargo?.nombre }}
+                      </div>
+                    </td>
+                    <td>
+                      <div class="text-center text-xs uppercase">
+                        {{ item.tipoPatron?.nombre }}
+                      </div>
+                    </td>
+                    <td>
+                      <div class="flex flex-col gap-1">
+                        <div
+                          class="flex items-center gap-1 text-xs cursor-pointer px-1 border border-slate-400 rounded-lg"
+                          pTooltip="Fecha de inicio"
+                        >
+                          <div class="flex items-center">
+                            <div class="w-4">FI</div>
+                            <div class="pb-0.5">:</div>
+                          </div>
+                          <div class="flex items-center">
+                            {{
+                              item.fechaInicio
+                                | date : "dd MMM yyyy"
+                                | uppercase
+                            }}
+                          </div>
+                        </div>
+                        <div
+                          class="flex items-center gap-1 text-xs cursor-pointer px-1 border border-slate-400 rounded-lg"
+                          pTooltip="Fecha de fin"
+                        >
+                          <div class="flex items-center">
+                            <div class="w-4">FF</div>
+                            <div class="pb-0.5">:</div>
+                          </div>
+                          <div class="flex items-center">
+                            {{
+                              item.fechaFin
+                                ? (item.fechaFin
+                                  | date : "dd MMM yyyy"
+                                  | uppercase)
+                                : "Indefinido"
+                            }}
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div
+                        class="flex flex-col justify-center items-center gap-4"
+                      >
+                        @for (turno of getTurnos(item.items); track $index) {
+                        <div class="h-12 flex justify-center items-center">
+                          <span
+                            class="w-6 h-6 flex justify-center items-center text-xs font-medium border rounded-full text-slate-700 border-slate-700"
+                          >
+                            {{ turno }}
+                          </span>
+                        </div>
+                        }
+                      </div>
+                    </td>
+                    @for (dia of getDias(item.items); track $index) {
+                    <td class="!text-center !text-xs">
+                      <div
+                        class="flex flex-col justify-center items-center gap-4"
+                      >
+                        @for (turno of getTurnos(item.items); track $index) {
+                        <div
+                          [ngClass]="[
+                            'w-24 h-12 rounded-xl border flex flex-col items-center justify-center text-xs py-1.5 relative',
+                            !item.items.bloque
+                              ? getHorario(item.items, dia, turno)?.diaLibre
+                                ? 'bg-slate-50 border-slate-500 text-slate-700'
+                                : getHorario(item.items, dia, turno)
+                                    ?.diaDescanso
+                                ? 'bg-orange-50 border-orange-500 text-orange-700'
+                                : 'bg-slate-300 border-slate-500 text-slate-700'
+                              : ''
+                          ]"
+                          [style.background]="
+                            getHorario(item.items, dia, turno)?.bloque?.bgColor
+                          "
+                          [style.borderColor]="
+                            getHorario(item.items, dia, turno)?.bloque
+                              ?.borderColor
+                          "
+                          [style.color]="
+                            getHorario(item.items, dia, turno)?.bloque
+                              ?.textColor
+                          "
+                        >
+                          <div
+                            *ngIf="
+                              item.tipoPatron?.codigo == 'month' &&
+                              !!getHorario(item.items, dia, turno)
+                            "
+                            [ngClass]="{
+                              'absolute w-4.5 h-4.5 right-1/2 translate-x-1/2 top-0 -translate-y-1/2 text-xs rounded-full': true,
+                              'flex justify-center items-center border font-medium bg-slate-100 text-slate-500 border-slate-500': true
+                            }"
+                          >
+                            <small>
+                              {{ getHorario(item.items, dia, turno)?.numDia }}
+                            </small>
+                          </div>
+                          <ng-container
+                            *ngIf="
+                              getHorario(item.items, dia, turno)?.bloque;
+                              else elseTemplate
+                            "
+                          >
+                            <div
+                              class="h-4 flex items-center justify-center gap-1"
+                            >
+                              <span>
+                                {{
+                                  getHorario(item.items, dia, turno)?.bloque
+                                    ?.horaEntrada | number : "2.0-0"
+                                }}:{{
+                                  getHorario(item.items, dia, turno)?.bloque
+                                    ?.minutoEntrada | number : "2.0-0"
+                                }}
+                              </span>
+                              <span
+                                class="w-[1px] h-full"
+                                [style.background]="
+                                  getHorario(item.items, dia, turno)?.bloque
+                                    ?.textColor
+                                "
+                              ></span>
+                              <span>
+                                {{
+                                  getHorario(item.items, dia, turno)?.bloque
+                                    ?.horaSalida | number : "2.0-0"
+                                }}:{{
+                                  getHorario(item.items, dia, turno)?.bloque
+                                    ?.minutoSalida | number : "2.0-0"
+                                }}
+                              </span>
+                            </div>
+                            <p
+                              *ngIf="getHorario(item.items, dia, turno)?.id"
+                              class="h-4 w-18 truncate text-xs"
+                            >
+                              {{
+                                getHorario(item.items, dia, turno)?.sede?.nombre
+                              }}
+                            </p>
+                          </ng-container>
+                          <ng-template #elseTemplate>
+                            {{
+                              getHorario(item.items, dia, turno)?.diaLibre
+                                ? "Libre"
+                                : getHorario(item.items, dia, turno)
+                                    ?.diaDescanso
+                                ? "Descanso"
+                                : "-"
+                            }}
+                          </ng-template>
+                        </div>
+                        }
+                      </div>
+                    </td>
+                    }
+                  </tr>
+                </ng-template>
+                <ng-template #emptymessage>
+                  <ng-template
+                    [skeletonTable]="{
+                      loading: loadingTable,
+                      numCols: cols.length,
+                      numRows: 4
+                    }"
+                  ></ng-template>
+                </ng-template>
+                <ng-template #footer>
+                  <!-- <ng-template
+                    [appPaginator]="{
+                      totalItems: totalItemsHist,
+                      limit: limitHist,
+                      offset: offsetHist,
+                      pageChange: onPageChangeHist
+                    }"
+                  ></ng-template> -->
+                </ng-template>
+              </p-table>
+            </div>
+          </p-tabpanel>
+        </p-tabpanels>
+      </p-tabs>
+    </div>
+  </div>
+</div>

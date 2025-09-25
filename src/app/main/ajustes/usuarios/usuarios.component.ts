@@ -1,32 +1,24 @@
 import { CommonModule } from '@angular/common';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, effect, inject, OnInit, signal } from '@angular/core';
+import { Component, effect, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { Column, ExportColumn } from '@models/column-table.model';
 import { Usuario } from '@models/usuario.model';
 import { MessageGlobalService } from '@services/message-global.service';
-import { UsuarioService } from '@services/usuario.service';
 import { ButtonModule } from 'primeng/button';
 import { DialogService } from 'primeng/dynamicdialog';
-import { IconField } from 'primeng/iconfield';
-import { InputIcon } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
-import { SkeletonModule } from 'primeng/skeleton';
 import { TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
-import { TooltipModule } from 'primeng/tooltip';
 import { FormUsuarioComponent } from './form-usuario/form-usuario.component';
-import { FormRolesComponent } from './form-roles/form-roles.component';
 import { TitleCardComponent } from '@components/title-card/title-card.component';
 import { UsuarioStore } from '@stores/usuario.store';
-import { BadgeModule } from 'primeng/badge';
-import { ChipModule } from 'primeng/chip';
-import { PopoverModule } from 'primeng/popover';
-import { ButtonEditComponent } from '@components/buttons/button-edit/button-edit.component';
-import { ButtonDeleteComponent } from '@components/buttons/button-delete/button-delete.component';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { InputGroup } from 'primeng/inputgroup';
-import { PaginatorComponent } from '@components/paginator/paginator.component';
+import { TagStatusComponent } from '@components/tag-status/tag-status.component';
+import { TagsSedesComponent } from '@components/tags-sedes/tags-sedes.component';
+import { BtnEditComponent } from '@components/buttons/btn-edit.component';
+import { BtnDeleteComponent } from '@components/buttons/btn-delete.component';
+import { BtnAddComponent } from '@components/buttons/btn-add.component';
+import { SkeletonTableDirective } from '@components/skeleton-table/skeleton-table.directive';
+import { PaginatorDirective } from '@components/paginator/paginator.directive';
 
 @Component({
   selector: 'app-usuarios',
@@ -36,25 +28,18 @@ import { PaginatorComponent } from '@components/paginator/paginator.component';
     FormsModule,
     ButtonModule,
     TableModule,
-    // InputIcon,
-    // IconField,
+    SkeletonTableDirective,
     InputTextModule,
-    TagModule,
-    SkeletonModule,
-    TooltipModule,
-    ChipModule,
-    PopoverModule,
+    TagsSedesComponent,
+    TagStatusComponent,
     TitleCardComponent,
-    ButtonEditComponent,
-    ButtonDeleteComponent,
-    InputGroup,
-    InputGroupAddonModule,
-    PaginatorComponent,
+    BtnAddComponent,
+    BtnEditComponent,
+    BtnDeleteComponent,
+    PaginatorDirective,
   ],
   templateUrl: './usuarios.component.html',
   styles: ``,
-  providers: [DialogService],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class UsuariosComponent implements OnInit {
   title: string = 'Usuarios';
@@ -75,27 +60,26 @@ export class UsuariosComponent implements OnInit {
 
   limit = signal(12);
   offset = signal(0);
+  totalItems = signal(0);
+  loadingTable = signal(false);
   searchText = signal('');
 
-  get loadingTable(): boolean {
-    return this.store.loading();
-  }
-
-  get totalItems(): number {
-    return this.store.totalItems();
-  }
-
   get dataTable(): Usuario[] {
-    return this.store.items();
+    return this.store.items().map((item) => {
+      item.labelName = `${item.nombre} ${item.apellido}`;
+      return item;
+    });
   }
 
   private resetOnSuccessEffect = effect(() => {
+    this.loadingTable.set(this.store.loading());
+    this.totalItems.set(this.store.totalItems());
     const error = this.store.error();
     const action = this.store.lastAction();
 
     // Manejo de errores
     if (!this.openModal && error) {
-      console.log('error', error);
+      console.error('error', error);
       this.msg.error(
         error ?? '¡Ups, ocurrió un error inesperado al eliminar el usuario!'
       );
@@ -113,30 +97,36 @@ export class UsuariosComponent implements OnInit {
 
   ngOnInit(): void {
     this.cols = [
-      // {
-      //   field: 'id',
-      //   header: 'ID',
-      //   customExportHeader: 'Cargo ID',
-      //   align: 'center',
-      //   widthClass: '!w-32',
-      // },
-      { field: 'identificacion', header: 'Doc ID' },
-      { field: 'nombre', header: 'Nombre' },
-      { field: 'apellido', header: 'Apellido' },
+      {
+        field: 'identificacion',
+        header: 'Doc ID',
+        align: 'center',
+        widthClass: '!min-w-32',
+      },
+      {
+        field: 'labelName',
+        header: 'Nombre completo',
+        widthClass: '!min-w-72',
+      },
       { field: 'usuario', header: 'Usuario', align: 'center' },
       { field: 'rol', header: 'Rol', align: 'center' },
-      { field: 'sedes', header: 'Edificios', align: 'center' },
+      {
+        field: 'sedes',
+        header: 'Edificios',
+        align: 'center',
+        widthClass: '!max-w-100',
+      },
       {
         field: 'isActive',
         header: 'Estado',
         align: 'center',
-        widthClass: '!w-28',
+        widthClass: '!w-32',
       },
       {
         field: '',
         header: 'Acciones',
         align: 'center',
-        widthClass: '!w-36',
+        widthClass: '!min-w-32',
       },
     ];
 
@@ -163,11 +153,18 @@ export class UsuariosComponent implements OnInit {
     this.store.loadAll(this.limit(), this.offset(), q);
   }
 
-  onPageChange(event: { limit: number; offset: number }) {
-    this.limit.set(event.limit);
-    this.offset.set(event.offset);
+  clear() {
+    this.searchText.set('');
+    this.limit.set(12);
+    this.offset.set(0);
     this.loadData();
   }
+
+  onPageChange = ({ limit, offset }: { limit: number; offset: number }) => {
+    this.limit.set(limit);
+    this.offset.set(offset);
+    this.search();
+  };
 
   addNew() {
     this.store.clearSelected();
@@ -181,7 +178,7 @@ export class UsuariosComponent implements OnInit {
     ref.onClose.subscribe((res) => {
       this.openModal = false;
       if (res) {
-        this.loadData();
+        this.clear();
       }
     });
   }
@@ -198,37 +195,10 @@ export class UsuariosComponent implements OnInit {
     ref.onClose.subscribe((res) => {
       this.openModal = false;
       if (res) {
-        this.loadData();
+        this.clear();
       }
     });
   }
-
-  permisos() {
-    const ref = this.dialogService.open(FormRolesComponent, {
-      header: 'Roles de usuario',
-      styleClass: 'modal-2xl',
-      modal: true,
-      dismissableMask: false,
-      closable: true,
-    });
-    ref.onClose.subscribe((res) => {
-      this.openModal = false;
-      if (res) {
-        this.loadData();
-      }
-    });
-  }
-
-  // changeStatus(item: Usuario) {
-  //   this.msg.confirm(
-  //     `¿Está seguro de ${item.isActive ? 'desactivar' : 'activar'} el usuario ${
-  //       item.nombre
-  //     }?`,
-  //     () => {
-  //       this.store.changeStatus(item.id, !item.isActive);
-  //     }
-  //   );
-  // }
 
   remove(item: Usuario) {
     this.msg.confirm(
@@ -240,9 +210,5 @@ export class UsuariosComponent implements OnInit {
         this.store.delete(item.id);
       }
     );
-  }
-
-  filterGlobal(dt: any, target: EventTarget | null) {
-    dt.filterGlobal((target as HTMLInputElement).value, 'contains');
   }
 }

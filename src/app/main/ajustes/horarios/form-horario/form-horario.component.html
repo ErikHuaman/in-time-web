@@ -1,0 +1,378 @@
+<p-contextmenu #cm [model]="itemsMenuContext" appendTo="body" />
+<form [formGroup]="formData" class="flex flex-col gap-3">
+  <p-fieldset legend="Información general">
+    <div class="grid grid-cols-4 gap-4">
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-medium" for="idTrabajador">
+          Edificio <span class="text-xs">*</span>
+        </label>
+        <p-select
+          [options]="listaSedesAll"
+          optionLabel="nombre"
+          optionValue="id"
+          [(ngModel)]="sedeSelected"
+          [ngModelOptions]="{ standalone: true }"
+          (onChange)="selectSede($event)"
+          placeholder="Seleccione..."
+          [filter]="true"
+          appendTo="body"
+          [disabled]="!!this.id"
+        />
+      </div>
+      <div class="col-span-2">
+        <div class="flex flex-col gap-2">
+          <label class="text-sm font-medium" for="idTrabajador">
+            Trabajador <span class="text-xs">*</span>
+          </label>
+          <p-select
+            [options]="listaTrabajadores"
+            optionLabel="labelName"
+            optionValue="id"
+            (onChange)="selectTrabajador($event)"
+            formControlName="idTrabajador"
+            placeholder="Seleccione..."
+            [filter]="true"
+            appendTo="body"
+          />
+        </div>
+      </div>
+      <!-- <div class="flex flex-col gap-2">
+        <label class="text-sm font-medium" for="idTurnoTrabajo">
+          Turno de trabajo
+        </label>
+        <p-select
+          id="idTurnoTrabajo"
+          [options]="listaTurnos"
+          optionLabel="nombre"
+          optionValue="id"
+          [(ngModel)]="idTurnoTrabajo"
+          [ngModelOptions]="{ standalone: true }"
+          placeholder="Seleccione..."
+          [disabled]="true"
+        />
+      </div> -->
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-medium" for="horasDiarias">
+          Horas diarias
+        </label>
+        <p-inputnumber id="horasDiarias" formControlName="horasDiarias" />
+      </div>
+    </div>
+  </p-fieldset>
+  <p-fieldset legend="Horario">
+    <div class="flex flex-col gap-4">
+      <div class="grid grid-cols-4 gap-4">
+        <div class="flex flex-col gap-2">
+          <label class="text-sm font-medium" for="idTipoTurno">
+            Tipo de patron horario <span class="text-xs">*</span>
+          </label>
+          <p-select
+            id="idTipoPatron"
+            [options]="listaTipoPatrones"
+            optionLabel="nombre"
+            optionValue="id"
+            (onChange)="selectTipoPatron($event.value)"
+            formControlName="idTipoPatron"
+            placeholder="Seleccione..."
+            appendTo="body"
+          />
+        </div>
+
+        <div>
+          <div *ngIf="!isMonth" class="flex flex-col gap-2">
+            <label class="text-sm font-medium" for="idTipoTurno">
+              Inicio del horario <span class="text-xs">*</span>
+            </label>
+            <p-datepicker
+              id="fechaInicio"
+              view="date"
+              dateFormat="dd MM yy"
+              placeholder="Seleccionar fecha"
+              [(ngModel)]="monthSelected"
+              [ngModelOptions]="{ standalone: true }"
+              [readonlyInput]="true"
+              [disabled]="disableDate"
+              showIcon
+              iconDisplay="input"
+              appendTo="body"
+              pTooltip="Fecha de inicio de aplicación"
+              tooltipPosition="top"
+              tooltipStyleClass="text-sm text-center"
+            />
+          </div>
+          <div *ngIf="isMonth" class="flex flex-col gap-2">
+            <label class="text-sm font-medium" for="idTipoTurno">
+              Mes a asignar <span class="text-xs">*</span>
+            </label>
+            <p-datepicker
+              id="fechaInicio"
+              view="month"
+              dateFormat="MM yy"
+              placeholder="Seleccionar mes"
+              [(ngModel)]="monthSelected"
+              [ngModelOptions]="{ standalone: true }"
+              [readonlyInput]="true"
+              showIcon
+              iconDisplay="input"
+              appendTo="body"
+              pTooltip="Mes"
+              tooltipPosition="top"
+              tooltipStyleClass="text-sm"
+              (ngModelChange)="cambiarFecha($event)"
+              [disabled]="!!id"
+            />
+          </div>
+        </div>
+        <div class="flex flex-col gap-2">
+          <label class="text-sm font-medium" for="idbloquerio">
+            Bloque horario
+          </label>
+          <p-select
+            id="idbloquerio"
+            [options]="listaBloqueHoras"
+            placeholder="Seleccione..."
+            [(ngModel)]="selectedBloque"
+            [ngModelOptions]="{ standalone: true }"
+            [disabled]="disabledBloque"
+            emptyMessage="No se encontraron registros"
+            emptyFilterMessage="No se encontraron registros"
+            appendTo="body"
+          >
+            <ng-template #selectedItem let-selected>
+              <div
+                *ngIf="selected"
+                class="w-full h-6 rounded-lg flex items-center justify-center text-sm border gap-1 py-0.75"
+                [style.background]="selected.bgColor"
+                [style.borderColor]="selected.borderColor"
+                [style.color]="selected.textColor"
+              >
+                <div>
+                  <span>{{ selected.horaEntrada | number : "2.0-0" }}</span>
+                  <span>:</span>
+                  <span>{{ selected.minutoEntrada | number : "2.0-0" }}</span>
+                </div>
+                <span
+                  class="w-[1px] h-full"
+                  [style.background]="selected.borderColor"
+                ></span>
+                <div>
+                  <span>{{ selected.horaSalida | number : "2.0-0" }}</span>
+                  <span>:</span>
+                  <span>{{ selected.minutoSalida | number : "2.0-0" }}</span>
+                </div>
+              </div>
+            </ng-template>
+            <ng-template #item let-option>
+              <div
+                class="w-full h-6 rounded-lg border flex items-center justify-center text-sm gap-1 py-0.75"
+                [style.background]="option.bgColor"
+                [style.borderColor]="option.borderColor"
+                [style.color]="option.textColor"
+              >
+                <div>
+                  <span>{{ option.horaEntrada | number : "2.0-0" }}</span>
+                  <span>:</span>
+                  <span>{{ option.minutoEntrada | number : "2.0-0" }}</span>
+                </div>
+                <span
+                  class="w-[1px] h-full"
+                  [style.background]="option.borderColor"
+                ></span>
+                <div>
+                  <span>{{ option.horaSalida | number : "2.0-0" }}</span>
+                  <span>:</span>
+                  <span>{{ option.minutoSalida | number : "2.0-0" }}</span>
+                </div>
+              </div>
+            </ng-template>
+            <ng-template #footer>
+              <div class="p-0">
+                <p-button
+                  label="Añadir nuevo"
+                  fluid
+                  severity="info"
+                  size="small"
+                  icon="pi pi-plus"
+                  styleClass="!rounded-tl-none !rounded-tr-none"
+                  (click)="crearBloqueHoras(item)"
+                />
+              </div>
+            </ng-template>
+          </p-select>
+        </div>
+        <div class="flex flex-col gap-2">
+          <label class="text-sm font-medium" for="idTrabajador">
+            Patrones preguardados
+          </label>
+          <p-select
+            [options]="listaPatrones"
+            optionLabel="nombre"
+            optionValue="id"
+            (onChange)="selectPatronPreguardado($event.value)"
+            [(ngModel)]="idPatronSelected"
+            [ngModelOptions]="{ standalone: true }"
+            placeholder="Seleccione..."
+            [disabled]="disabledBloque"
+            emptyMessage="No se encontraron registros"
+            emptyFilterMessage="No se encontraron registros"
+            appendTo="body"
+          />
+        </div>
+      </div>
+      <div>
+        <div
+          *ngIf="selectedBloque"
+          class="flex justify-center text-stone-700 text-sm font-light italic"
+        >
+          Selecciona el turno del dia para asignar el bloque horario y click
+          derecho para asignar el edificio
+        </div>
+      </div>
+      <table class="w-full">
+        <thead>
+          <tr>
+            <th
+              class="col-auto border bg-slate-700 text-slate-50 text-xs py-1.5"
+            >
+              DOMINGO
+            </th>
+            <th
+              class="col-auto border bg-slate-700 text-slate-50 text-xs py-1.5"
+            >
+              LUNES
+            </th>
+            <th
+              class="col-auto border bg-slate-700 text-slate-50 text-xs py-1.5"
+            >
+              MARTES
+            </th>
+            <th
+              class="col-auto border bg-slate-700 text-slate-50 text-xs py-1.5"
+            >
+              MIERCOLES
+            </th>
+            <th
+              class="col-auto border bg-slate-700 text-slate-50 text-xs py-1.5"
+            >
+              JUEVES
+            </th>
+            <th
+              class="col-auto border bg-slate-700 text-slate-50 text-xs py-1.5"
+            >
+              VIERNES
+            </th>
+            <th
+              class="col-auto border bg-slate-700 text-slate-50 text-xs py-1.5"
+            >
+              SABADO
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let items of listaHorarioTrabajadorItem; let index = index"
+          >
+            <td
+              *ngFor="let item of items; let i = index"
+              class="text-center !py-3 px-2"
+            >
+              <div class="flex flex-col justify-center items-center">
+                <div
+                  #itemBloque
+                  [ngClass]="[
+                    'w-24 h-12 rounded-xl border flex flex-col items-center justify-center text-sm py-1.5 relative',
+                    isMonth && item.disabled
+                      ? 'bg-slate-300 border-slate-500 text-slate-700'
+                      : !item.bloque
+                      ? item.diaLibre
+                        ? 'bg-slate-50 border-slate-500 text-slate-700'
+                        : 'bg-orange-50 border-orange-500 text-orange-700'
+                      : '',
+                    !item.disabled ? 'cursor-pointer' : 'cursor-not-allowed'
+                  ]"
+                  [style.background]="item?.bloque?.bgColor"
+                  [style.borderColor]="item?.bloque?.borderColor"
+                  [style.color]="item?.bloque?.textColor"
+                  (click)="!item.disabled ? asignarBloque(item) : undefined"
+                  (contextmenu)="
+                    !item.disabled || !item.marcado
+                      ? onContextMenu($event, [index, i])
+                      : undefined
+                  "
+                >
+                  <div
+                    *ngIf="isMonth"
+                    [ngClass]="{
+                      'absolute w-4.5 h-4.5 right-1/2 translate-x-1/2 top-0 -translate-y-1/2 text-xs rounded-full': true,
+                      'flex justify-center items-center': true,
+                      'border font-medium border-slate-700 bg-slate-50 text-slate-700':
+                        !item.disabled || item.marcado
+                    }"
+                  >
+                    <small>
+                      {{ item.numDia }}
+                    </small>
+                  </div>
+                  <ng-container *ngIf="item.bloque; else elseTemplate">
+                    <div class="h-4 flex items-center justify-center gap-1">
+                      <span>
+                        {{ item?.bloque?.horaEntrada | number : "2.0-0" }}:{{
+                          item?.bloque?.minutoEntrada | number : "2.0-0"
+                        }}
+                      </span>
+                      <span
+                        class="w-[1px] h-full"
+                        [style.background]="item?.bloque?.textColor"
+                      ></span>
+                      <span>
+                        {{ item?.bloque?.horaSalida | number : "2.0-0" }}:{{
+                          item?.bloque?.minutoSalida | number : "2.0-0"
+                        }}
+                      </span>
+                    </div>
+                    <p
+                      *ngIf="item.idSede"
+                      class="h-4 w-18 truncate text-xs"
+                      [pTooltip]="getEdificio(item.idSede)"
+                      tooltipPosition="top"
+                      tooltipStyleClass="text-xs"
+                    >
+                      {{ getEdificio(item.idSede) }}
+                    </p>
+                  </ng-container>
+                  <ng-template #elseTemplate>
+                    {{
+                      isMonth && item.disabled
+                        ? "-"
+                        : item.diaLibre
+                        ? "Libre"
+                        : item.diaDescanso
+                        ? "Descanso"
+                        : "Indefinido"
+                    }}
+                  </ng-template>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="listaHorarioTrabajadorItem.length === 0">
+            <td colspan="7">
+              <div class="flex justify-center text-sm py-1">
+                Selecciona un tipo de turno
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </p-fieldset>
+  <div class="flex justify-end gap-3">
+    <p-button
+      severity="info"
+      size="small"
+      [label]="id ? 'Actualizar horario' : 'Guardar horario'"
+      [disabled]="formData.invalid || invalidHorario || !monthSelected"
+      (onClick)="preGuardar()"
+    />
+  </div>
+</form>

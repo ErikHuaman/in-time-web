@@ -61,22 +61,45 @@
           #fileImage
           class="hidden"
           type="file"
+          multiple
           (change)="onFileSelected($event)"
-          accept="application/pdf"
+          accept="application/pdf,image/*"
         />
-        <div class="flex items-center gap-2">
-          <p-button
-            severity="contrast"
-            size="small"
-            (click)="fileImage.click()"
-          >
-            <div class="flex justify-center items-center">
-              <div>Cargar</div>
+        <div class="w-full grid grid-cols-1 gap-2">
+          <div>
+            <p-button
+              severity="contrast"
+              size="small"
+              (click)="fileImage.click()"
+            >
+              <div class="flex justify-center items-center">
+                <div>Cargar</div>
+              </div>
+            </p-button>
+          </div>
+          <div class="w-full grid grid-cols-1 gap-1" *ngIf="filenames">
+            @for (filename of filenames; track $index) {
+            <div class="w-full flex justify-between gap-2">
+              <div class="w-full flex items-center">
+                <p
+                  class="text-sm italic truncate"
+                  tooltipStyleClass="text-xs p-0"
+                  [pTooltip]="filename"
+                >
+                  {{ !!filename ? filename : "Archivo no cargado." }}
+                </p>
+              </div>
+              <div
+                *ngIf="!!filename"
+                class="w-6 h-6 flex justify-center items-center text-red-500 rounded-full hover:bg-red-100"
+                (click)="clearFile($index)"
+              >
+                <iconify-icon [icon]="'lucide:x'" class="text-md" />
+              </div>
             </div>
-          </p-button>
-          <p class="w-64 text-sm italic truncate" [pTooltip]="filename">
-            {{ !!filename ? filename : "Archivo no cargado." }}
-          </p>
+
+            }
+          </div>
         </div>
       </div>
     </div>
@@ -102,7 +125,7 @@
       severity="info"
       size="small"
       [label]="id ? 'Actualizar' : 'Guardar'"
-      [disabled]="formData.invalid || !archivo"
+      [disabled]="formData.invalid"
       (onClick)="guardar()"
     />
   </div>

@@ -3,7 +3,8 @@ import { Sede } from './sede.model';
 
 export interface HorarioTrabajadorItem {
   id?: string;
-  numDia?: number;
+  numDia?:number;
+  diaSemEntrada?: number;
   numTurno?: number;
   diaLibre?: boolean;
   diaDescanso?: boolean;
@@ -12,4 +13,6 @@ export interface HorarioTrabajadorItem {
   idSede?: string;
   bloque?: BloqueHoras;
   sede?: Sede;
+  marcado?: boolean;
+  disabled?: boolean;
 }

@@ -48,7 +48,7 @@ export class DetalleAsistenciaComponent implements AfterViewInit, OnInit {
     if (this.trabajador) {
       const sede = this.trabajador.sede;
 
-      if (sede.latitud && sede.longitud) {
+      if (sede && sede.latitud && sede.longitud) {
         this.moverMapa(sede.latitud, sede.longitud);
       }
     }

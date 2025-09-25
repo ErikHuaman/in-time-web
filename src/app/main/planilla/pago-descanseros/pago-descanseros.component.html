@@ -126,15 +126,12 @@
             <div class="text-center text-sm">{{ item.identificacion }}</div>
           </td>
           <td>
-            <div class="text-start text-sm">{{ item.nombre }}</div>
-          </td>
-          <td>
-            <div class="text-start text-sm">{{ item.apellido }}</div>
+            <div class="text-start text-sm uppercase">{{ item.labelName }}</div>
           </td>
           <td>
             <div class="text-center text-sm">{{ item.cargo.nombre }}</div>
           </td>
-          <td class="w-100">
+          <td>
             <div
               class="w-100 flex flex-wrap gap-2 items-center justify-center text-sm font-light capitalize italic"
               [ngClass]="{ 'cursor-pointer': item.sedes.length > 4 }"
@@ -179,7 +176,7 @@
               {{ item.diasLaborados }}
             </div>
           </td>
-          <td>
+          <!-- <td>
             <div class="text-center text-sm">
               {{ item.salarioMesExtra25 | currency }}
             </div>
@@ -188,8 +185,8 @@
             <div class="text-center text-sm">
               {{ item.salarioMesExtra35 | currency }}
             </div>
-          </td>
-          <!-- <td>
+          </td> 
+          <td>
             <div class="text-center text-sm">
               {{ item.sueldoBruto | currency }}
             </div>

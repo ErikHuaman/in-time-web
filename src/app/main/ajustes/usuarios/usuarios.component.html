@@ -18,46 +18,40 @@
       </p-button> -->
     </div>
     <div class="flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <!-- <p-iconfield>
-          <p-inputicon styleClass="pi pi-search" />
-          <input
-            type="text"
-            pInputText
-            placeholder="Buscar"
-            (input)="filterGlobal(dt, $event.target)"
-          />
-        </p-iconfield> -->
-        <p-inputgroup>
-          <input pInputText [(ngModel)]="searchText" placeholder="Buscar" />
-          <p-inputgroup-addon>
-            <p-button
-              icon="pi pi-search"
-              severity="info"
-              variant="text"
-              size="small"
-              (click)="search()"
-              [disabled]="!searchText"
-              pTooltip="Buscar"
-              tooltipPosition="top"
-              tooltipStyleClass="!text-xs !font-normal !p-0"
-            />
-          </p-inputgroup-addon>
-        </p-inputgroup>
+      <div class="flex items-center gap-2">
+        <input pInputText [(ngModel)]="searchText" placeholder="Buscar" />
+        <p-button
+          severity="contrast"
+          variant="outlined"
+          size="small"
+          (click)="search()"
+        >
+          <div class="flex justify-center items-center gap-2">
+            <div>Filtrar</div>
+          </div>
+        </p-button>
+        <p-button
+          severity="danger"
+          variant="outlined"
+          size="small"
+          (click)="clear()"
+        >
+          <div class="flex justify-center items-center gap-2">
+            <div>Limpiar</div>
+          </div>
+        </p-button>
       </div>
-      <div class="flex items-center gap-3">
-        <p-button severity="info" size="small" (click)="permisos()">
+      <div class="flex items-center gap-2">
+        <!-- <p-button severity="info" size="small" (click)="permisos()">
           <div class="flex justify-center items-center font-medium gap-1">
-            <iconify-icon [icon]="'material-symbols:how-to-reg-outline'" class="text-lg" />
+            <iconify-icon
+              [icon]="'material-symbols:how-to-reg-outline'"
+              class="text-lg"
+            />
             <span>Roles</span>
           </div>
-        </p-button>
-        <p-button severity="info" size="small" (click)="addNew()">
-          <div class="flex justify-center items-center font-medium gap-1">
-            <iconify-icon [icon]="'uil:plus'" class="text-lg" />
-            <span>Agregar</span>
-          </div>
-        </p-button>
+        </p-button> -->
+        <btn-add (onClick)="addNew()" />
       </div>
     </div>
   </div>
@@ -67,18 +61,17 @@
       dataKey="id"
       [value]="dataTable"
       [columns]="cols"
-      [exportHeader]="'customExportHeader'"
       stripedRows
       [scrollable]="true"
-      scrollHeight="calc(100vh - 200px)"
-      styleClass="w-full"
-      exportFilename="cargos"
+      scrollHeight="calc(100vh - 220px)"
+      class="table-fixed w-full"
+      styleClass="table-fixed w-full"
     >
       <ng-template #header let-columns>
         <tr>
           <th
-            *ngFor="let col of columns"
-            [ngClass]="[col.widthClass ? col.widthClass : '']"
+            *ngFor="let col of cols"
+            [ngClass]="[col.widthClass! ? col.widthClass! : '']"
           >
             <div
               [ngClass]="[
@@ -94,13 +87,12 @@
       <ng-template #body let-item>
         <tr>
           <td>
-            <div class="text-start text-sm">{{ item.identificacion }}</div>
+            <div class="text-center text-sm">{{ item.identificacion }}</div>
           </td>
           <td>
-            <div class="text-start text-sm capitalize">{{ item.nombre }}</div>
-          </td>
-          <td>
-            <div class="text-start text-sm capitalize">{{ item.apellido }}</div>
+            <div class="text-start text-sm uppercase">
+              {{ item.labelName }}
+            </div>
           </td>
           <td>
             <div class="text-center text-sm lowercase">{{ item.username }}</div>
@@ -110,92 +102,40 @@
               {{ item.rol.nombre }}
             </div>
           </td>
-          <td class="w-100">
-            <div
-              class="w-100 flex flex-wrap gap-2 items-center justify-center text-sm font-light capitalize italic"
-              [ngClass]="{ 'cursor-pointer': item.sedes.length > 4 }"
-              (click)="op.toggle($event)"
-              [pTooltip]="item.sedes.length > 4 ? 'Ver más' : ''"
-              tooltipPosition="top"
-              tooltipStyleClass="!text-xs !font-normal !p-0"
-            >
-              <!-- Mostrar los primeros 5 -->
-              @for (sede of item.sedes.slice(0, 4); track $index) {
-              <p-chip class="!py-1 !px-2 shadow !bg-amber-200">
-                <div class="text-xs font-medium">{{ sede.nombre }}</div>
-              </p-chip>
-              }
-
-              <!-- Mostrar "..." si hay más de 5 -->
-              @if (item.sedes.length > 4) {
-              <span class="text-xs font-semibold">...</span>
-              }
-            </div>
-            <p-popover #op styleClass="gap-2 p-2">
-              <div class="w-100 max-h-40 overflow-y-auto flex flex-col">
-                <div
-                  class="flex flex-wrap gap-2 items-center justify-center text-sm font-light capitalize italic"
-                >
-                  @for (sede of item.sedes; track $index) {
-                  <p-chip class="!py-1 !px-2 shadow !bg-amber-200">
-                    <div class="text-xs font-medium">{{ sede.nombre }}</div>
-                  </p-chip>
-                  }
-                </div>
-              </div>
-            </p-popover>
+          <td>
+            <tags-sedes [sedes]="item.sedes" class="mx-auto" />
           </td>
           <td>
-            <div class="flex justify-center items-center text-sm capitalize">
-              <p-tag
-                [value]="item.isActive ? 'Activo' : 'Inactivo'"
-                [severity]="item.isActive ? 'success' : 'warn'"
-                styleClass="uppercase !font-bold !text-xs"
-                rounded
-              />
+            <div class="flex justify-center items-center">
+              <tag-status [status]="item.isActive" />
             </div>
           </td>
           <td>
             <div class="flex justify-center items-center gap-1">
-              <button-edit (click)="edit(item)" />
-              <button-delete (click)="remove(item)" />
+              <btn-edit (onClick)="edit(item)" />
+              <btn-delete (onClick)="remove(item)" />
             </div>
           </td>
         </tr>
       </ng-template>
       <ng-template #emptymessage>
-        <ng-container *ngIf="loadingTable; else elseTemplate">
-          @for (item of [].constructor(4); track $index) {
-          <tr class="h-12">
-            <td *ngFor="let col of cols; let even = even">
-              <p-skeleton />
-            </td>
-          </tr>
-          }
-        </ng-container>
-        <ng-template #elseTemplate>
-          <tr>
-            <td colspan="100">
-              <div class="text-center text-sm font-extralight">
-                No se encontraron registros.
-              </div>
-            </td>
-          </tr>
-        </ng-template>
-        <ng-template #footer>
-          <tr>
-            <td colspan="100">
-              <div class="flex justify-center items-center">
-                <app-paginator
-                  [totalItems]="totalItems"
-                  [limit]="limit()"
-                  [offset]="offset()"
-                  (pageChange)="onPageChange($event)"
-                />
-              </div>
-            </td>
-          </tr>
-        </ng-template>
+        <ng-template
+          [skeletonTable]="{
+            loading: loadingTable,
+            numCols: cols.length,
+            numRows: 4
+          }"
+        ></ng-template>
+      </ng-template>
+      <ng-template #footer>
+        <ng-template
+          [appPaginator]="{
+            totalItems: totalItems,
+            limit: limit,
+            offset: offset,
+            pageChange: onPageChange
+          }"
+        ></ng-template>
       </ng-template>
     </p-table>
   </div>

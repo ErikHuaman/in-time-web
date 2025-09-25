@@ -1,5 +1,5 @@
 export interface TipoDocIdent {
   id: string;
-  orden: number;
+  serialNumber: number;
   nombre: string;
 }

@@ -1,0 +1,36 @@
+<div  class="grid grid-cols-1 gap-6">
+  <div class="flex flex-col gap-2">
+    <label class="text-sm font-medium" for="diasTrab">
+      Días trabajados <span class="text-xs">*</span>
+    </label>
+    <div class="flex justify-center">
+      <p-inputnumber
+        [(ngModel)]="this.diasTrab"
+        [showButtons]="true"
+        buttonLayout="horizontal"
+        inputId="diasTrab"
+        spinnerMode="horizontal"
+        [max]="30"
+        [min]="24"
+        [step]="1"
+        inputStyleClass="!w-20 text-center"
+      >
+        <ng-template #incrementbuttonicon>
+          <span class="pi pi-plus"></span>
+        </ng-template>
+        <ng-template #decrementbuttonicon>
+          <span class="pi pi-minus"></span>
+        </ng-template>
+      </p-inputnumber>
+    </div>
+  </div>
+  <div class="flex justify-end gap-4">
+    <p-button
+      severity="info"
+      size="small"
+      label="Establecer días laborados"
+      [disabled]="!this.diasTrab"
+      (onClick)="guardar()"
+    />
+  </div>
+</div>

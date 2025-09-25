@@ -116,7 +116,7 @@
       <ng-template #body let-item>
         <tr>
           <td>
-            <div class="text-center text-sm">{{ item.orden }}</div>
+            <div class="text-center text-sm">{{ item.serialNumber }}</div>
           </td>
           <td>
             <div class="text-start text-sm">{{ item.trabajador?.nombre }}</div>
@@ -152,31 +152,20 @@
           </td>
           <td class="w-28">
             <div class="flex justify-center items-center gap-1">
-              <button-edit (click)="edit(item)" />
-              <button-delete (click)="remove(item)" />
+              <btn-edit (onClick)="edit(item)" />
+              <btn-delete (onClick)="remove(item)" />
             </div>
           </td>
         </tr>
       </ng-template>
       <ng-template #emptymessage>
-        <ng-container *ngIf="loadingTable; else elseTemplate">
-          @for (item of [].constructor(4); track $index) {
-          <tr class="h-12">
-            <td *ngFor="let col of cols; let even = even">
-              <p-skeleton />
-            </td>
-          </tr>
-          }
-        </ng-container>
-        <ng-template #elseTemplate>
-          <tr>
-            <td colspan="100">
-              <div class="text-center text-sm font-extralight">
-                No se encontraron registros.
-              </div>
-            </td>
-          </tr>
-        </ng-template>
+        <ng-template
+          [skeletonTable]="{
+            loading: loadingTable,
+            numCols: cols.length,
+            numRows: 4
+          }"
+        ></ng-template>
       </ng-template>
     </p-table>
   </div>

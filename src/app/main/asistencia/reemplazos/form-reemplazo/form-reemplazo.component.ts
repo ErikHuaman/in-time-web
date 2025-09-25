@@ -1,5 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, OnInit } from '@angular/core';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { FieldsetModule } from 'primeng/fieldset';
@@ -30,6 +35,7 @@ import { generarCodigoNumerico } from '@functions/number.function';
 import { ReemplaceroService } from '@services/reemplacero.service';
 import { Reemplacero } from '@models/reemplacero.model';
 import { sanitizedForm } from '@functions/forms.function';
+import { environment } from '@environments/environments';
 
 @Component({
   selector: 'app-form-reemplazo',
@@ -54,6 +60,8 @@ import { sanitizedForm } from '@functions/forms.function';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class FormReemplazoComponent implements OnInit {
+  readonly baseUrl: string = environment.urlBase;
+
   public readonly ref: DynamicDialogRef = inject(DynamicDialogRef);
 
   private readonly dialogService: DialogService = inject(DialogService);
@@ -113,27 +121,21 @@ export class FormReemplazoComponent implements OnInit {
 
     if (data) {
       this.id = data['id'];
-      this.formData.get('nombres')?.setValue(data['nombres']);
-      this.formData.get('dni')?.setValue(data['dni']);
-      this.formData.get('codigo')?.setValue(data['codigo']);
+      this.formData.get('nombres')?.setValue(data.nombres);
+      this.formData.get('dni')?.setValue(data.dni);
+      this.formData.get('codigo')?.setValue(data.codigo);
 
-      if (!data['codigo']) {
-        this.tipoVerificacion = 'foto';
-        this.getArchivoBiometrico(data['id']);
-      } else {
+      if (data.codigo) {
         this.tipoVerificacion = 'codigo';
+        this.formData.get('codigo')?.setValue(data.codigo);
+      } else {
+        this.tipoVerificacion = 'foto';
+        this.previewUrl = `${this.baseUrl}${data.urlFile}`.replace(
+          '//uploads',
+          '/uploads'
+        );
       }
     }
-  }
-
-  getArchivoBiometrico(id: string) {
-    this.reemplaceroService.getFile(id).subscribe({
-      next: (blob) => {
-        this.previewUrl = this.sanitizer.bypassSecurityTrustUrl(
-          window.URL.createObjectURL(blob)
-        );
-      },
-    });
   }
 
   cargarReemplazo() {

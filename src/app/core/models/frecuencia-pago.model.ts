@@ -1,5 +1,5 @@
 export interface FrecuenciaPago {
   id: string;
-  orden: number;
+  serialNumber: number;
   nombre: string;
 }

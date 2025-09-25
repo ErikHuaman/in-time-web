@@ -1,16 +1,10 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  CUSTOM_ELEMENTS_SCHEMA,
-  effect,
-  inject,
-  OnInit,
-  signal,
-} from '@angular/core';
+import { Component, effect, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
+import { ImageModule } from 'primeng/image';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { SelectModule } from 'primeng/select';
 import { MultiSelectModule } from 'primeng/multiselect';
@@ -28,23 +22,12 @@ import { Sede } from '@models/sede.model';
 import { MessageGlobalService } from '@services/message-global.service';
 import { TrabajadorStore } from '@stores/trabajador.store';
 import { TitleCardComponent } from '@components/title-card/title-card.component';
-import { ButtonEditComponent } from '@components/buttons/button-edit/button-edit.component';
-import { ButtonDeleteComponent } from '@components/buttons/button-delete/button-delete.component';
 import { SedeStore } from '@stores/sede.store';
 import { CargoStore } from '@stores/cargo.store';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { InputGroup } from 'primeng/inputgroup';
-import { TooltipModule } from 'primeng/tooltip';
-import { PaginatorComponent } from '@components/paginator/paginator.component';
-import { ChipModule } from 'primeng/chip';
-import { PopoverModule } from 'primeng/popover';
 import { generarCodigoNumerico } from '@functions/number.function';
 import { RegistroBiometrico } from '@models/registro-biometrico.model';
-import * as XLSX from 'xlsx';
-import { saveAs } from 'file-saver';
 import { getDateExcel } from '@functions/fecha.function';
 import { NacionalidadService } from '@services/nacionalidad.service';
-import { mergeMap } from 'rxjs';
 import { Pais } from '@models/nacionalidad.model';
 import { NacionalidadStore } from '@stores/nacionalidad.store';
 import { TurnoTrabajoService } from '@services/turno-trabajo.service';
@@ -61,6 +44,17 @@ import { EstadoCivil } from '@models/estado-civil.model';
 import { FrecuenciaPago } from '@models/frecuencia-pago.model';
 import { TiempoContrato } from '@models/tiempo-contrato.model';
 import { TurnoTrabajo } from '@models/turno-trabajo.model';
+import { AuthStore } from '@stores/auth.store';
+import { Usuario } from '@models/usuario.model';
+import { environment } from '@environments/environments';
+import { Workbook } from 'exceljs';
+import { BtnAddComponent } from '@components/buttons/btn-add.component';
+import { TagsSedesComponent } from '@components/tags-sedes/tags-sedes.component';
+import { BtnEditComponent } from '@components/buttons/btn-edit.component';
+import { BtnDeleteComponent } from '@components/buttons/btn-delete.component';
+import { SkeletonTableDirective } from '@components/skeleton-table/skeleton-table.directive';
+import { PaginatorDirective } from '@components/paginator/paginator.directive';
+import { Column, ExportColumn } from '@models/column-table.model';
 
 @Component({
   selector: 'app-trabajadores-activos',
@@ -70,25 +64,24 @@ import { TurnoTrabajo } from '@models/turno-trabajo.model';
     MultiSelectModule,
     ButtonModule,
     TableModule,
+    SkeletonTableDirective,
     InputTextModule,
+    ImageModule,
     SelectModule,
     FormsModule,
-    InputGroup,
-    InputGroupAddonModule,
-    TooltipModule,
-    ChipModule,
-    PopoverModule,
+    TagsSedesComponent,
     TitleCardComponent,
-    ButtonEditComponent,
-    ButtonDeleteComponent,
-    PaginatorComponent,
+    BtnAddComponent,
+    BtnEditComponent,
+    BtnDeleteComponent,
+    PaginatorDirective,
   ],
   templateUrl: './trabajadores-activos.component.html',
   styles: ``,
-  providers: [DialogService],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class TrabajadoresActivosComponent implements OnInit {
+  readonly baseUrl: string = environment.urlBase;
+
   title: string = 'Trabajadores activos';
 
   icon: string = 'material-symbols:person-pin-outline-rounded';
@@ -97,6 +90,8 @@ export class TrabajadoresActivosComponent implements OnInit {
   private readonly dialogService = inject(DialogService);
 
   private readonly msg = inject(MessageGlobalService);
+
+  readonly authStore = inject(AuthStore);
 
   private readonly store = inject(TrabajadorStore);
 
@@ -122,12 +117,19 @@ export class TrabajadoresActivosComponent implements OnInit {
 
   private readonly fondoPensionesService = inject(FondoPensionesService);
 
+  get user(): Usuario {
+    return this.authStore.user()!;
+  }
+
+  get isSuper(): boolean {
+    return this.user.rol.codigo === 'super' && !environment.production;
+  }
+
   get paisDefault(): Pais {
     return this.nacStore.pais()!;
   }
   listaPaises!: Pais[];
 
-  listaGeneros = ['FEMENINO', 'MASCULINO'];
   listaSeguroSalud: SeguroSalud[] = [];
   listaFondosPensiones: FondoPensiones[] = [];
   listaTurnos: TurnoTrabajo[] = [];
@@ -140,67 +142,50 @@ export class TrabajadoresActivosComponent implements OnInit {
 
   listaTiempos: TiempoContrato[] = [];
 
-  get listaTrabajadores(): Trabajador[] {
-    return this.store.items();
+  cols!: Column[];
+
+  exportColumns!: ExportColumn[];
+
+  get dataTable(): Trabajador[] {
+    return this.store.items().map((item) => {
+      item.labelName = `${item.nombre} ${item.apellido}`;
+      return item;
+    });
   }
 
   openModal: boolean = false;
 
   limit = signal(12);
   offset = signal(0);
+  totalItems = signal(0);
+  loadingTable = signal(false);
   searchText = signal('');
 
-  get loadingTable(): boolean {
-    return this.store.loading();
-  }
-
-  get totalItems(): number {
-    return this.store.totalItems();
-  }
-
-  dataTable: Trabajador[] = [];
-
   get listaCargos(): Cargo[] {
-    return this.cargoStore.items();
+    return this.cargoStore
+      .items()
+      .sort((a, b) => a.nombre.localeCompare(b.nombre));
   }
 
   get listaSedes(): Sede[] {
-    return this.sedeStore.items();
+    return this.sedeStore
+      .items()
+      .sort((a, b) => a.nombre.localeCompare(b.nombre));
   }
 
   selectedSedes: string[] = [];
 
   selectedCargos: string[] = [];
 
-  private sedesEffect = effect(() => {
-    const sedes = this.sedeStore.items();
-    if (sedes) {
-      this.selectedSedes = sedes.map((item) => item.id);
-      this.filtrar();
-    }
-  });
-
-  private cargosEffect = effect(() => {
-    const cargos = this.cargoStore.items();
-    if (cargos) {
-      this.selectedCargos = cargos.map((item) => item.id);
-
-      this.filtrar();
-    }
-  });
-
   private resetOnSuccessEffect = effect(() => {
+    this.loadingTable.set(this.store.loading());
+    this.totalItems.set(this.store.totalItems());
     const error = this.store.error();
     const action = this.store.lastAction();
-    const items = this.store.items();
-
-    if (items) {
-      this.filtrar();
-    }
 
     // Manejo de errores
     if (!this.openModal && error) {
-      console.log('error', error);
+      console.error('error', error);
       this.msg.error(
         error ?? '¡Ups, ocurrió un error inesperado al eliminar el trabajador!'
       );
@@ -214,21 +199,65 @@ export class TrabajadoresActivosComponent implements OnInit {
       this.loadData();
       return;
     }
+
+    // Si se ha creado o actualizado correctamente
+    if (action === 'createMany') {
+      this.msg.success('Datos importados correctamente.');
+      this.store.clearSelected();
+      this.loadData();
+      return;
+    }
   });
 
   ngOnInit(): void {
+    this.cols = [
+      {
+        field: 'identificacion',
+        header: 'Doc ID',
+        align: 'center',
+        widthClass: '!w-42',
+      },
+      {
+        field: 'labelName',
+        header: 'Nombre completo',
+        widthClass: '!min-w-72',
+      },
+      { field: 'cargo', header: 'Cargo', align: 'center' },
+      { field: 'sedes', header: 'Edificios', align: 'center' },
+      {
+        field: 'biometrico',
+        header: 'Registro biométrico',
+        align: 'center',
+        widthClass: '!w-42',
+      },
+      {
+        field: 'fechaInicio',
+        header: 'Fecha de inicio',
+        align: 'center',
+        widthClass: '!w-42',
+      },
+      {
+        field: '',
+        header: 'Acciones',
+        align: 'center',
+        widthClass: '!min-w-32',
+      },
+    ];
+
+    this.exportColumns = this.cols
+      .filter((col) => col.field != '')
+      .map((col) => ({
+        title: col.header,
+        dataKey: col.field,
+      }));
+
     this.sedeStore.loadAll();
     this.cargoStore.loadAll();
     this.loadData();
+  }
 
-    this.cargarPaises();
-    this.cargarTipoDocIdent();
-    this.cargarTiempoContrato();
-    this.cargarFrecuenciaPago();
-    this.cargarSeguroSalud();
-    this.cargarFondosPensiones();
-    this.cargarTurnos();
-    this.cargarEstadoCivil();
+  getImageUrl(url: string): string {
+    return `${this.baseUrl}${url}`.replace('//uploads', '/uploads');
   }
 
   loadData() {
@@ -244,30 +273,26 @@ export class TrabajadoresActivosComponent implements OnInit {
       filter: false,
       isActive: true,
       search: this.searchText(),
+      sedes: this.selectedSedes,
+      cargos: this.selectedCargos,
     };
     this.store.loadAll(this.limit(), this.offset(), q);
   }
 
-  onPageChange(event: { limit: number; offset: number }) {
-    this.limit.set(event.limit);
-    this.offset.set(event.offset);
+  clear() {
+    this.selectedCargos = [];
+    this.selectedSedes = [];
+    this.searchText.set('');
+    this.limit.set(12);
+    this.offset.set(0);
     this.loadData();
   }
 
-  filtrar(event?: number) {
-    this.listaSedes.sort((a, b) => a.nombre.localeCompare(b.nombre));
-
-    this.dataTable = this.listaTrabajadores.filter(
-      (t) =>
-        (t.sedes?.length == 0 ||
-          t.sedes?.filter((a) => this.selectedSedes.includes(a.id)).length !=
-            0 ||
-          this.selectedSedes.length == this.listaSedes.length ||
-          this.selectedSedes.length == 0) &&
-        (t.contratos ?? [])[0]?.idCargo &&
-        this.selectedCargos.includes((t.contratos ?? [])[0]?.idCargo!)
-    );
-  }
+  onPageChange = ({ limit, offset }: { limit: number; offset: number }) => {
+    this.limit.set(limit);
+    this.offset.set(offset);
+    this.search();
+  };
 
   private cargarPaises() {
     this.nacionalidadService.getPaises().subscribe({
@@ -383,21 +408,55 @@ export class TrabajadoresActivosComponent implements OnInit {
     dt.filterGlobal((target as HTMLInputElement).value, 'contains');
   }
 
+  precargarCargaMasiva(fileImage: HTMLInputElement) {
+    this.cargarPaises();
+    this.cargarTipoDocIdent();
+    this.cargarTiempoContrato();
+    this.cargarFrecuenciaPago();
+    this.cargarSeguroSalud();
+    this.cargarFondosPensiones();
+    this.cargarTurnos();
+    this.cargarEstadoCivil();
+    fileImage.click();
+  }
+
   onExcelSelected(event: any): void {
     const file: File = event.target.files[0];
     if (file) {
-      const reader: FileReader = new FileReader();
-      reader.onload = (e: any) => {
-        const data: string = e.target.result;
-        const workbook: XLSX.WorkBook = XLSX.read(data, {
-          type: 'binary',
+      const reader = new FileReader();
+
+      reader.onload = async (e: any) => {
+        const arrayBuffer = e.target.result;
+        const workbook = new Workbook();
+        await workbook.xlsx.load(arrayBuffer);
+
+        const worksheet = workbook.worksheets[0]; // Primera hoja
+        const jsonData: any[] = [];
+
+        // Obtener encabezados desde la primera fila
+        const headerRow = worksheet.getRow(1);
+        const headers = Array.isArray(headerRow.values)
+          ? headerRow.values.slice(1) // Omite el primer elemento vacío
+          : [];
+
+        // Recorrer filas desde la segunda en adelante
+        worksheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
+          if (rowNumber === 1) return; // Saltar encabezado
+
+          const rowData: any = {};
+          row.eachCell((cell, colNumber) => {
+            const header = headers[colNumber - 1];
+            const key = String(header); // Asegura que sea una clave válida
+            rowData[key] = cell.value;
+          });
+
+          jsonData.push(rowData);
         });
-        const firstSheetName: string = workbook.SheetNames[0];
-        const worksheet: XLSX.WorkSheet = workbook.Sheets[firstSheetName];
-        const jsonData: any[] = XLSX.utils.sheet_to_json(worksheet);
-        this.importarDatos(jsonData);
+
+        this.importarDatos(jsonData); // Tu función que maneja los datos importados
       };
-      reader.readAsBinaryString(file);
+
+      reader.readAsArrayBuffer(file); // Necesario para exceljs
     }
   }
 
@@ -408,9 +467,20 @@ export class TrabajadoresActivosComponent implements OnInit {
     }
 
     const trabajadorData: Trabajador[] = data
-      .filter((item) => item['trabajador.TipoDocID'])
+      .filter(
+        (item) =>
+          item['trabajador.TipoDocID'] &&
+          [
+            'UGARTE & MOSCOSO',
+            // 'RESIDENCIAL BRASIL',
+            // 'OCEAN HOUSE',
+            // 'TERRAZAS',
+          ].includes(item['EDIFICIO'])
+      )
       .map((item) => {
-        const utc_value_ini = getDateExcel(item['contrato.fechaInicio']); // seconds in a day
+        const fecha = item['contrato.fechaInicio'];
+        const isNaN = Number.isNaN(fecha);
+        const utc_value_ini = !isNaN ? fecha : getDateExcel(fecha); // seconds in a day
 
         const idPais = this.listaPaises.find(
           (pais) =>
@@ -492,8 +562,8 @@ export class TrabajadoresActivosComponent implements OnInit {
             {
               idCargo: idCargo,
               numNomina: item['contrato.numNomina'] || undefined,
-              fechaContrato: new Date(utc_value_ini * 1000),
-              fechaInicio: new Date(utc_value_ini * 1000),
+              fechaContrato: new Date(!isNaN ? fecha : utc_value_ini * 1000),
+              fechaInicio: new Date(!isNaN ? fecha : utc_value_ini * 1000),
               idTiempoContrato: idTiempoContrato,
               idFrecuenciaPago: idFrecuenciaPago,
               horasContrato:
@@ -536,7 +606,9 @@ export class TrabajadoresActivosComponent implements OnInit {
             {
               id: idSede,
               AsignacionSede: {
-                fechaAsignacion: new Date(utc_value_ini * 1000),
+                fechaAsignacion: new Date(
+                  !isNaN ? fecha : utc_value_ini * 1000
+                ),
               },
             },
           ],
@@ -544,10 +616,5 @@ export class TrabajadoresActivosComponent implements OnInit {
       });
 
     this.store.createMany(trabajadorData);
-
-    // Aquí puedes agregar lógica para manejar otros campos del formulario
-    // como biometrico, contrato, info, contacto, beneficio, etc.
-
-    this.msg.success('Datos importados correctamente.');
   }
 }

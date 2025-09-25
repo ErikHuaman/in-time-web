@@ -1,6 +1,6 @@
 export interface TiempoContrato {
   id: string;
-  orden: number;
+  serialNumber: number;
   nombre: string;
   meses: number;
 }

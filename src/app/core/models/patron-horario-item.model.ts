@@ -3,6 +3,7 @@ import { BloqueHoras } from './bloque-horas.model';
 export interface PatronHorarioItem {
   id?: string;
   numDia?: number;
+  diaSemEntrada?: number;
   numTurno?: number;
   diaLibre?: boolean;
   diaDescanso?: boolean;

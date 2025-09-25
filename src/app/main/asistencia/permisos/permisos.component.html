@@ -76,7 +76,10 @@
         </p-button> -->
         <p-button severity="info" size="small" (click)="addNew()">
           <div class="flex justify-center items-center font-medium gap-1">
-            <iconify-icon [icon]="'material-symbols:add-rounded'" class="text-lg" />
+            <iconify-icon
+              [icon]="'material-symbols:add-rounded'"
+              class="text-lg"
+            />
             <div>AGREGAR</div>
           </div>
         </p-button>
@@ -115,11 +118,6 @@
       </ng-template>
       <ng-template #body let-item>
         <tr>
-          <td>
-            <div class="text-center text-sm">
-              {{ item.orden }}
-            </div>
-          </td>
           <td>
             <div class="text-center text-sm">
               {{ item.sede.nombre }}

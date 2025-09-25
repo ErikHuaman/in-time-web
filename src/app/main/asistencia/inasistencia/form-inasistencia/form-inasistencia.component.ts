@@ -1,5 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import {
   DialogService,
@@ -42,6 +47,7 @@ import { sanitizedForm } from '@functions/forms.function';
   ],
   templateUrl: './form-inasistencia.component.html',
   styles: ``,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class FormInasistenciaComponent implements OnInit {
   public readonly ref: DynamicDialogRef = inject(DynamicDialogRef);
@@ -76,23 +82,20 @@ export class FormInasistenciaComponent implements OnInit {
       nonNullable: true,
       validators: [Validators.required],
     }),
-    conGoce: new FormControl<boolean>(false, {
+    conGoce: new FormControl<boolean>(true, {
       nonNullable: true,
       validators: [],
     }),
-    incluirExtra: new FormControl<boolean>(
-      { value: false, disabled: true },
-      {
-        nonNullable: true,
-        validators: [],
-      }
-    ),
+    incluirExtra: new FormControl<boolean>(false, {
+      nonNullable: true,
+      validators: [],
+    }),
   });
 
   id: string | undefined;
 
-  archivo?: File;
-  filename!: string;
+  archivos: File[] = [];
+  filenames: string[] = [];
 
   ngOnInit(): void {
     const instance = this.dialogService.getInstance(this.ref);
@@ -103,19 +106,15 @@ export class FormInasistenciaComponent implements OnInit {
       this.trabajador = `${data?.trabajador?.identificacion} | ${data?.trabajador?.nombre}`;
       this.cargo = data?.cargo?.nombre;
       this.sede = data?.sede?.nombre;
-      this.formData.get('idTrabajador')?.setValue(data?.trabajador?.id);
-      this.formData
-        .get('idHorarioTrabajador')
-        ?.setValue(data?.idHorarioTrabajador);
-      this.formData
-        .get('idHorarioTrabajadorItem')
-        ?.setValue(data?.idHorarioTrabajadorItem);
       this.fecha = new Date(data?.fecha);
-      this.formData.get('nota')?.setValue(data?.justificacion?.nota);
-      this.formData.get('conGoce')?.setValue(data?.justificacion?.conGoce);
-      this.formData
-        .get('incluirExtra')
-        ?.setValue(data?.justificacion?.incluirExtra);
+      this.formData.patchValue({
+        idTrabajador: data?.trabajador?.id,
+        idHorarioTrabajador: data?.idHorarioTrabajador,
+        idHorarioTrabajadorItem: data?.idHorarioTrabajadorItem,
+        nota: data?.justificacion?.nota,
+        conGoce: !this.id ? true : data?.justificacion?.conGoce,
+        incluirExtra: !this.id ? false : data?.justificacion?.incluirExtra,
+      });
     }
   }
 
@@ -123,18 +122,38 @@ export class FormInasistenciaComponent implements OnInit {
     return !!this.formData.get('conGoce')?.value;
   }
 
-  onFileSelected(event: any): void {
-    const file: File = event.target.files[0];
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (!input.files) return;
 
-    if (file && file.type === 'application/pdf') {
-      this.msg.info('Archivo cargado');
-      this.archivo = file;
-      this.filename = this.archivo.name;
+    const files = Array.from(input.files);
+
+    // Si quieres reemplazar todo, descomenta estas dos líneas:
+    this.archivos = [];
+    this.filenames = [];
+
+    files.forEach((file) => {
+      if (file.type === 'application/pdf' || file.type.startsWith('image/')) {
+        this.msg.info(`Archivo cargado: ${file.name}`);
+        this.archivos.push(file);
+        this.filenames.push(file.name);
+      } else {
+        this.msg.error(`Archivo inválido: ${file.name}. Solo PDF o imágenes.`);
+      }
+    });
+
+    // Reset del input para permitir volver a elegir el mismo archivo
+    input.value = '';
+  }
+
+  clearFile(index?: number) {
+    if (!index) {
+      this.archivos = [];
+      this.filenames = [];
     } else {
-      this.msg.error('Archivo inválido. Solo se permiten archivos PDF.');
-      event.target.value = '';
-      this.archivo = undefined;
-      this.filename = '';
+      // Eliminar solo el archivo en la posición indicada
+      this.archivos?.splice(index, 1);
+      this.filenames?.splice(index, 1);
     }
   }
 
@@ -144,7 +163,7 @@ export class FormInasistenciaComponent implements OnInit {
     );
     if (!this.id) {
       this.justificacionInasistenciaService
-        .create({ ...form, fecha: this.fecha }, { file: this.archivo })
+        .create({ ...form, fecha: this.fecha }, { file: this.archivos })
         .subscribe({
           next: (data) => {
             this.msg.success('¡Registrado con éxito!');
@@ -156,7 +175,11 @@ export class FormInasistenciaComponent implements OnInit {
         });
     } else {
       this.justificacionInasistenciaService
-        .update(this.id, { ...form, fecha: this.fecha }, { file: this.archivo })
+        .update(
+          this.id,
+          { ...form, fecha: this.fecha },
+          { file: this.archivos }
+        )
         .subscribe({
           next: (data) => {
             this.msg.success('¡Actualizado con éxito!');

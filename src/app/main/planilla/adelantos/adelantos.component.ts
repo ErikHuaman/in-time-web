@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, effect, inject, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  effect,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -21,8 +28,9 @@ import { AdelantoStore } from '@stores/adelanto.store';
 import { MessageGlobalService } from '@services/message-global.service';
 import { InputGroup } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { ButtonEditComponent } from '@components/buttons/button-edit/button-edit.component';
-import { ButtonDeleteComponent } from '@components/buttons/button-delete/button-delete.component';
+import { SkeletonTableDirective } from '@components/skeleton-table/skeleton-table.directive';
+import { BtnDeleteComponent } from '@components/buttons/btn-delete.component';
+import { BtnEditComponent } from '@components/buttons/btn-edit.component';
 
 @Component({
   selector: 'app-adelantos',
@@ -38,14 +46,13 @@ import { ButtonDeleteComponent } from '@components/buttons/button-delete/button-
     SelectModule,
     FormsModule,
     DatePickerModule,
-    SkeletonModule,
+    SkeletonTableDirective,
     TitleCardComponent,
-    ButtonEditComponent,
-    ButtonDeleteComponent,
+    BtnEditComponent,
+    BtnDeleteComponent,
   ],
   templateUrl: './adelantos.component.html',
   styles: ``,
-  providers: [DialogService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AdelantosComponent implements OnInit {
@@ -72,7 +79,10 @@ export class AdelantosComponent implements OnInit {
   }
 
   get listaSedes(): Sede[] {
-    return this.sedeStore.items().slice().sort((a, b) => a.nombre.localeCompare(b.nombre));
+    return this.sedeStore
+      .items()
+      .slice()
+      .sort((a, b) => a.nombre.localeCompare(b.nombre));
   }
 
   selectedSedes: string[] = [];
@@ -101,6 +111,8 @@ export class AdelantosComponent implements OnInit {
   }
 
   private resetOnSuccessEffect = effect(() => {
+    this.loadingTable.set(this.store.loading());
+    this.totalItems.set(this.store.totalItems());
     const error = this.store.error();
     const action = this.store.lastAction();
     const items = this.store.items();
@@ -111,9 +123,10 @@ export class AdelantosComponent implements OnInit {
 
     // Manejo de errores
     if (!this.openModal && error) {
-      console.log('error', error);
+      console.error('error', error);
       this.msg.error(
-        error ?? '¡Ups, ocurrió un error inesperado al eliminar el adelanto de sueldo!'
+        error ??
+          '¡Ups, ocurrió un error inesperado al eliminar el adelanto de sueldo!'
       );
       return; // Salimos si hay un error
     }
@@ -135,15 +148,9 @@ export class AdelantosComponent implements OnInit {
 
   limit = signal(12);
   offset = signal(0);
+  totalItems = signal(0);
+  loadingTable = signal(false);
   searchText = signal('');
-
-  get loadingTable(): boolean {
-    return this.store.loading();
-  }
-
-  get totalItems(): number {
-    return this.store.totalItems();
-  }
 
   ngOnInit(): void {
     this.cols = [
@@ -174,7 +181,7 @@ export class AdelantosComponent implements OnInit {
         field: '',
         header: 'Acciones',
         align: 'center',
-        widthClass: '!w-36',
+        widthClass: '!min-w-32',
       },
     ];
 

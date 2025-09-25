@@ -91,7 +91,7 @@ export const AuthStore = signalStore(
 
       logout() {
         authService.logout();
-        patchState(store, { user: null });
+        patchState(store, { user: null, loading: false, error: null });
         router.navigate(['/auth/login']);
       },
     };

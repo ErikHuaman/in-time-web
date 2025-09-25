@@ -16,7 +16,7 @@ import { TableModule } from 'primeng/table';
 import { forkJoin, mergeMap } from 'rxjs';
 import { DetalleVisitaComponent } from './detalle-visita/detalle-visita.component';
 import { TitleCardComponent } from '@components/title-card/title-card.component';
-import { ButtonCustomComponent } from '@components/buttons/button-custom/button-custom.component';
+import { ButtonCustomComponent } from '@components/buttons/button-custom.component';
 import { SedeStore } from '@stores/sede.store';
 
 @Component({
@@ -111,8 +111,6 @@ export class VisitasSupervisoresComponent implements OnInit {
   }
 
   verDetalle(item: any) {
-    console.log(item);
-
     this.dialogService.open(DetalleVisitaComponent, {
       header: 'Detalle de visita',
       styleClass: 'modal-4xl',

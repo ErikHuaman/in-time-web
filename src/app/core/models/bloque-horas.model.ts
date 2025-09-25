@@ -7,4 +7,5 @@ export interface BloqueHoras {
   bgColor?: string;
   textColor?: string;
   borderColor?: string;
+  idTurnoTrabajo?: string;
 }

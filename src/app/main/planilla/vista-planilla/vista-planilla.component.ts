@@ -22,19 +22,17 @@ import { TrabajadorService } from '@services/trabajador.service';
 import { Column, ExportColumn } from '@models/column-table.model';
 import { DatePickerModule } from 'primeng/datepicker';
 import { MultiSelectModule } from 'primeng/multiselect';
-import { SedeService } from '@services/sede.service';
-import { CargoService } from '@services/cargo.service';
 import { Sede } from '@models/sede.model';
 import { Cargo } from '@models/cargo.model';
 import { SkeletonModule } from 'primeng/skeleton';
-import { forkJoin, mergeMap } from 'rxjs';
 import { TitleCardComponent } from '@components/title-card/title-card.component';
 import { SedeStore } from '@stores/sede.store';
 import { CargoStore } from '@stores/cargo.store';
 import { ChipModule } from 'primeng/chip';
 import { PopoverModule } from 'primeng/popover';
 import { TooltipModule } from 'primeng/tooltip';
-import { ButtonCustomComponent } from '@components/buttons/button-custom/button-custom.component';
+import { EnviarComprobanteComponent } from './enviar-comprobante/enviar-comprobante.component';
+import { BtnCustomComponent } from '@components/buttons/btn-custom.component';
 
 @Component({
   selector: 'app-vista-planilla',
@@ -55,7 +53,7 @@ import { ButtonCustomComponent } from '@components/buttons/button-custom/button-
     PopoverModule,
     TooltipModule,
     TitleCardComponent,
-    ButtonCustomComponent,
+    BtnCustomComponent,
   ],
   templateUrl: './vista-planilla.component.html',
   styles: ``,
@@ -132,13 +130,17 @@ export class VistaPlanillaComponent implements OnInit {
     this.cols = [
       [
         { field: 'id', header: 'Doc ID', align: 'center', rowSpan: '2' },
-        { field: 'nombre', header: 'Nombre', rowSpan: '2' },
-        { field: 'apellido', header: 'Apellido', rowSpan: '2' },
+        {
+          field: 'labelName',
+          header: 'Nombre completo',
+          rowSpan: '2',
+          widthClass: '!min-w-80',
+        },
         { field: 'cargo', header: 'Cargo', align: 'center', rowSpan: '2' },
         { field: 'sede', header: 'Edificios', align: 'center', rowSpan: '2' },
         {
-          field: 'sueldoBasico',
-          header: 'Sueldo básico',
+          field: 'sueldoMensual',
+          header: 'Sueldo mensual',
           align: 'center',
           rowSpan: '2',
         },
@@ -162,6 +164,7 @@ export class VistaPlanillaComponent implements OnInit {
           align: 'center',
           rowSpan: '2',
         },
+        { field: 'adelantos', header: 'Adelantos', align: 'center', rowSpan: '2' },
         { field: 'onp', header: 'ONP', align: 'center', rowSpan: '2' },
         { field: 'afp', header: 'AFP', align: 'center', rowSpan: '2' },
         { field: 'sis', header: 'SIS', align: 'center', rowSpan: '2' },
@@ -174,11 +177,22 @@ export class VistaPlanillaComponent implements OnInit {
           rowSpan: '2',
         },
         {
-          field: '',
-          header: 'Acciones',
+          field: 'enviado',
+          header: 'Enviado',
           align: 'center',
           rowSpan: '2',
-          widthClass: '!w-36',
+        },
+        {
+          field: 'pdf',
+          header: 'PDF',
+          align: 'center',
+          rowSpan: '2',
+        },
+        {
+          field: '',
+          header: 'Cálculo',
+          align: 'center',
+          rowSpan: '2',
         },
       ],
       [
@@ -212,7 +226,10 @@ export class VistaPlanillaComponent implements OnInit {
     this.loadingTable = true;
     this.trabajadorService.findAllPagoByMonth(this.fechaSelected).subscribe({
       next: (data) => {
-        this.listaPagoMensual = data;
+        this.listaPagoMensual = data.map((item) => {
+          item.labelName = `${item.nombre} ${item.apellido}`;
+          return item;
+        });
         this.loadingTable = false;
         this.filtrar();
       },
@@ -246,9 +263,20 @@ export class VistaPlanillaComponent implements OnInit {
 
   getCalculoPago(item: any) {
     this.dialogService.open(CalculoPagoComponent, {
-      header: 'Cálculo de pago',
+      header: `Cálculo | ${item.labelName}`,
       styleClass: 'modal-4xl',
       data: { id: item.id, fecha: this.fechaSelected },
+      modal: true,
+      dismissableMask: false,
+      closable: true,
+    });
+  }
+
+  enviarComprobante(item: any) {
+    this.dialogService.open(EnviarComprobanteComponent, {
+      header: `Envío de comprobante`,
+      styleClass: 'modal-xl',
+      data: item,
       modal: true,
       dismissableMask: false,
       closable: true,

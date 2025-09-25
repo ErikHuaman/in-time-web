@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, effect, inject, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  effect,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DatePickerModule } from 'primeng/datepicker';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -24,8 +31,8 @@ import { Sede } from '@models/sede.model';
 import { PermisoTrabajador } from '@models/permiso-trabajador.model';
 import { PermisoTrabajadorService } from '@services/permiso-trabajador.service';
 import { TitleCardComponent } from '@components/title-card/title-card.component';
-import { ButtonEditComponent } from '@components/buttons/button-edit/button-edit.component';
-import { ButtonDeleteComponent } from '@components/buttons/button-delete/button-delete.component';
+import { ButtonEditComponent } from '@components/buttons/button-edit.component';
+import { ButtonDeleteComponent } from '@components/buttons/button-delete.component';
 import { MessageGlobalService } from '@services/message-global.service';
 import { CargoStore } from '@stores/cargo.store';
 import { SedeStore } from '@stores/sede.store';
@@ -55,7 +62,6 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
   ],
   templateUrl: './permisos.component.html',
   styles: ``,
-  providers: [DialogService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class PermisosComponent implements OnInit {
@@ -82,7 +88,10 @@ export class PermisosComponent implements OnInit {
   }
 
   get listaSedes(): Sede[] {
-    return this.sedeStore.items().slice().sort((a, b) => a.nombre.localeCompare(b.nombre));
+    return this.sedeStore
+      .items()
+      .slice()
+      .sort((a, b) => a.nombre.localeCompare(b.nombre));
   }
 
   selectedSedes: string[] = [];
@@ -121,7 +130,7 @@ export class PermisosComponent implements OnInit {
 
     // Manejo de errores
     if (!this.openModal && error) {
-      console.log('error', error);
+      console.error('error', error);
       this.msg.error(
         error ?? '¡Ups, ocurrió un error inesperado al eliminar el permiso!'
       );
@@ -151,13 +160,6 @@ export class PermisosComponent implements OnInit {
 
   ngOnInit(): void {
     this.cols = [
-      {
-        field: 'id',
-        header: 'ID',
-        customExportHeader: 'Permiso ID',
-        align: 'center',
-        widthClass: '!w-20',
-      },
       { field: 'sede', header: 'Sede', align: 'center' },
       { field: 'nombre', header: 'Nombre' },
       { field: 'apellido', header: 'Apellido' },
@@ -169,7 +171,7 @@ export class PermisosComponent implements OnInit {
         field: '',
         header: 'Acciones',
         align: 'center',
-        widthClass: '!w-36',
+        widthClass: '!min-w-32',
       },
     ];
 

@@ -1,12 +1,81 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
-import { ButtonCustomComponent } from '@components/buttons/button-custom/button-custom.component';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
+import { ButtonCustomComponent } from '@components/buttons/button-custom.component';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-paginator',
   imports: [CommonModule, ButtonModule, ButtonCustomComponent],
-  templateUrl: './paginator.component.html',
+  template: `
+    <ng-template #template>
+      <tr>
+        <td colspan="100">
+          <div class="flex justify-center items-center">
+            <div class="flex justify-center items-center">
+              <nav *ngIf="totalPages > 1" class="flex gap-2 items-center">
+                <button-custom
+                  severity="contrast"
+                  icon="lucide:chevrons-left"
+                  tooltip="Primera página"
+                  [disabled]="currentPage === 1"
+                  (click)="changePage(1)"
+                />
+                <button-custom
+                  severity="contrast"
+                  icon="lucide:chevron-left"
+                  tooltip="Página anterior"
+                  [disabled]="currentPage === 1"
+                  (click)="previous()"
+                />
+
+                @for (page of pages(); track $index) {
+                <ng-container *ngIf="page === '...'; else numberButton">
+                  <span class="px-2 text-sm text-gray-500">...</span>
+                </ng-container>
+                <ng-template #numberButton>
+                  <p-button
+                    [variant]="page === currentPage ? undefined : 'text'"
+                    severity="contrast"
+                    size="small"
+                    rounded
+                    styleClass="!w-7 !h-7"
+                    (click)="onPageClick(page)"
+                  >
+                    <div class="flex justify-center text-sm items-center">
+                      {{ page }}
+                    </div>
+                  </p-button>
+                </ng-template>
+                }
+
+                <button-custom
+                  severity="contrast"
+                  icon="lucide:chevron-right"
+                  tooltip="Página siguiente"
+                  [disabled]="currentPage === totalPages"
+                  (click)="next()"
+                />
+                <button-custom
+                  severity="contrast"
+                  icon="lucide:chevrons-right"
+                  tooltip="Última página"
+                  [disabled]="currentPage === totalPages"
+                  (click)="changePage(totalPages)"
+                />
+              </nav>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  `,
   styles: ``,
 })
 export class PaginatorComponent {
@@ -15,6 +84,8 @@ export class PaginatorComponent {
   @Input() offset = 0;
 
   @Output() pageChange = new EventEmitter<{ limit: number; offset: number }>();
+
+  @ViewChild('template', { static: true }) templateRef!: TemplateRef<any>;
 
   get currentPage(): number {
     return Math.floor(this.offset / this.limit) + 1;

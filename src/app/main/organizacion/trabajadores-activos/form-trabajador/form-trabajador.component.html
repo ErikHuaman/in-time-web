@@ -73,6 +73,20 @@
             />
           </div>
           <div class="flex flex-col gap-2">
+            <label class="text-sm font-medium" for="fechaNacimiento">
+              Fecha de nacimiento
+            </label>
+            <p-datepicker
+              id="fechaNacimiento"
+              styleClass="w-full uppercase"
+              dateFormat="dd M yy"
+              placeholder="DD MMM YYYY"
+              [showIcon]="true"
+              appendTo="body"
+              formControlName="fechaNacimiento"
+            />
+          </div>
+          <div class="flex flex-col gap-2">
             <label class="text-sm font-medium" for="estadoCivilTrabajador">
               Estado civil <span class="text-xs">*</span>
             </label>
@@ -200,7 +214,7 @@
         </div>
       </p-fieldset>
       <div class="flex flex-col gap-y-2 gap-x-4">
-        <p-fieldset legend="Controles">
+        <!-- <p-fieldset legend="Controles">
           <div class="grid grid-cols-1 gap-2" formGroupName="control">
             <div class="flex flex-col gap-2">
               <label class="text-sm font-medium" for="turnoTrabajoId">
@@ -216,7 +230,7 @@
                 appendTo="body"
               />
             </div>
-            <!-- <div class="flex flex-col gap-2">
+            <div class="flex flex-col gap-2">
               <label
                 class="text-sm font-medium"
                 for="marcacionAutomaticaControl"
@@ -232,9 +246,9 @@
                 placeholder="Seleccione..."
                 appendTo="body"
               />
-            </div> -->
+            </div>
           </div>
-        </p-fieldset>
+        </p-fieldset> -->
 
         <p-fieldset legend="Registro biométrico">
           <div class="grid grid-cols-1 gap-2" formGroupName="biometrico">
@@ -249,7 +263,6 @@
                     inputId="tipoVerificacion2"
                     [(ngModel)]="tipoVerificacion"
                     [ngModelOptions]="{ standalone: true }"
-                    (ngModelChange)="changeTipo($event)"
                     [disabled]="this.fotoCargada"
                   />
                   <label for="tipoVerificacion2">Foto</label>
@@ -261,7 +274,6 @@
                     inputId="tipoVerificacion1"
                     [(ngModel)]="tipoVerificacion"
                     [ngModelOptions]="{ standalone: true }"
-                    (ngModelChange)="changeTipo($event)"
                     [disabled]="this.fotoCargada"
                   />
                   <label for="tipoVerificacion1">Código</label>
@@ -327,63 +339,24 @@
                 />
                 <div class="w-full">
                   <p-button
-                  severity="contrast"
-                  size="small"
-                  (click)="fileImage.click()"
-                  styleClass="w-full"
-                >
-                  <div class="flex justify-center items-center gap-2">
-                    <div>Cargar foto</div>
-                    <iconify-icon [icon]="'bx:upload'" class="text-lg" />
-                  </div>
-                </p-button>
+                    severity="contrast"
+                    size="small"
+                    (click)="fileImage.click()"
+                    styleClass="w-full"
+                  >
+                    <div class="flex justify-center items-center gap-2">
+                      <div>Cargar foto</div>
+                      <iconify-icon [icon]="'bx:upload'" class="text-lg" />
+                    </div>
+                  </p-button>
                 </div>
               </div>
             </div>
-            <!-- <div class="flex flex-col gap-2">
-              <label class="text-sm font-medium">
-                Foto registrada <span class="text-xs">*</span>
-              </label>
-              <div
-                class="border border-slate-300 rounded-lg h-80 w-full flex justify-center items-center"
-              >
-                <img
-                  *ngIf="previewUrl"
-                  [src]="previewUrl"
-                  alt="Imagen seleccionada"
-                  class="w-full h-full object-cover rounded-lg overflow-hidden"
-                />
-                <p *ngIf="!previewUrl" class="text-sm italic">Sin foto</p>
-              </div>
-              <div class="flex justify-end">
-                <input
-                  #fileImage
-                  class="hidden"
-                  type="file"
-                  (change)="onFileSelected($event)"
-                  accept="image/*"
-                />
-                <p-button
-                  severity="contrast"
-                  size="small"
-                  (click)="fileImage.click()"
-                >
-                  <div class="flex justify-center items-center gap-2">
-                    <div>Cargar foto</div>
-                    <i
-                      class="iconify icon text-lg"
-                      data-icon="bx:upload"
-                      data-inline="false"
-                    ></i>
-                  </div>
-                </p-button>
-              </div>
-            </div> -->
           </div>
         </p-fieldset>
       </div>
     </div>
-    <div class="flex justify-center">
+    <!-- <div class="flex justify-center">
       <p-button
         *ngIf="!avanzado"
         severity="warn"
@@ -392,8 +365,8 @@
         [label]="'Opciones avanzadas'"
         (onClick)="avanzado = true"
       />
-    </div>
-    <p-fieldset *ngIf="avanzado" legend="Información complementaria">
+    </div> -->
+    <p-fieldset legend="Información complementaria">
       <div class="grid grid-cols-3 gap-y-2 gap-x-4">
         <p-fieldset legend="Dirección">
           <div class="grid grid-cols-1 gap-2" formGroupName="info">
@@ -470,11 +443,13 @@
               <label class="text-sm font-medium" for="direccionInfo">
                 Dirección
               </label>
-              <input
-                pInputText
+              <textarea
                 id="direccionInfo"
+                rows="3"
+                cols="30"
+                pTextarea
                 formControlName="direccion"
-              />
+              ></textarea>
             </div>
             <div class="flex flex-col gap-2">
               <label class="text-sm font-medium" for="celular">Celular</label>
@@ -565,20 +540,16 @@
               />
             </div>
             <div class="flex flex-col gap-2">
-              <label class="text-sm font-medium" for="fondoPensionesId">
-                Fondo de pensiones
+              <label class="text-sm font-medium" for="bonoAdicional">
+                Bono adicional
               </label>
-              <p-select
-                inputId="fondoPensionesId"
-                [options]="listaFondosPensiones"
-                formControlName="idFondoPensiones"
-                optionLabel="nombre"
-                optionValue="id"
-                placeholder="Seleccione..."
-                emptyFilterMessage="No se encontró ningún resultado"
-                emptyMessage="No se encontró ningún resultado"
-                [filter]="true"
-                appendTo="body"
+              <p-inputnumber
+                inputId="bonoAdicional"
+                formControlName="bonoAdicional"
+                mode="currency"
+                currency="PEN"
+                locale="es-PE"
+                [min]="0"
               />
             </div>
             <div class="flex flex-col gap-2">
@@ -597,11 +568,36 @@
                 [filter]="true"
                 appendTo="body"
               />
+              <div class="flex flex-col gap-2">
+                <label class="text-sm font-medium" for="fondoPensionesId">
+                  Fondo de pensiones
+                </label>
+                <p-select
+                  inputId="fondoPensionesId"
+                  [options]="listaFondosPensiones"
+                  formControlName="idFondoPensiones"
+                  optionLabel="nombre"
+                  optionValue="id"
+                  placeholder="Seleccione..."
+                  emptyFilterMessage="No se encontró ningún resultado"
+                  emptyMessage="No se encontró ningún resultado"
+                  [filter]="true"
+                  appendTo="body"
+                />
+              </div>
+              <div *ngIf="showComision" class="flex flex-col gap-2">
+                <div class="flex items-center gap-2">
+                  <p-checkbox formControlName="aplicaComision" binary="true" />
+                  <label class="text-sm pt-1" for="aplicaComision">
+                    Aplica comisión
+                  </label>
+                </div>
+              </div>
             </div>
           </div>
         </p-fieldset>
       </div>
-      <div class="flex justify-center">
+      <!-- <div class="flex justify-center">
         <p-button
           severity="warn"
           variant="outlined"
@@ -609,26 +605,11 @@
           [label]="'Ver menos'"
           (onClick)="avanzado = false"
         />
-      </div>
+      </div> -->
     </p-fieldset>
   </div>
   <div class="flex justify-end gap-4">
-    <!-- <div
-      class="col-span-3 flex items-center gap-2 py-1"
-      formGroupName="trabajador"
-    >
-      <p-toggleswitch formControlName="isActive" />
-      <label class="text-sm font-medium pb-1.5" for="isActive">{{
-        isActive ? "Activo" : "Inactivo"
-      }}</label>
-    </div> -->
     <div class="flex gap-2">
-      <!-- <p-button
-      severity="info"
-      size="small"
-      [label]="'Descargar plantilla'"
-      (onClick)="exportarPlantillaExcel()"
-    /> -->
       <p-button
         severity="info"
         size="small"

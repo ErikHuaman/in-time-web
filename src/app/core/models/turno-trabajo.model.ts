@@ -1,6 +1,6 @@
 export interface TurnoTrabajo {
   id: string;
-  orden: number;
+  serialNumber: number;
   nombre: string;
   codigo: string;
 }

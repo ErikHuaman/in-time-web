@@ -89,7 +89,7 @@ export class FormDispositivoComponent implements OnInit {
       next: (data) => {
         this.formData.get('nombre')?.setValue(data.nombre);
         this.formData.get('codigo')?.setValue(data.codigo);
-        this.formData.get('idSede')?.setValue(data.id);
+        this.formData.get('idSede')?.setValue(data.idSede);
         this.formData.get('isActive')?.setValue(data.isActive!);
       },
     });

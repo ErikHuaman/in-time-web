@@ -1,0 +1,74 @@
+<div class="grid grid-cols-1 gap-4">
+  <div class="flex justify-center gap-4">
+    <div class="flex items-center">
+      <p-radiobutton
+        value="email"
+        inputId="tipoVerificacion2"
+        [(ngModel)]="canal"
+        [ngModelOptions]="{ standalone: true }"
+      />
+      <label for="tipoVerificacion2" class="ps-2">Correo</label>
+    </div>
+
+    <div class="flex items-center">
+      <p-radiobutton
+        value="wsp"
+        inputId="tipoVerificacion1"
+        [(ngModel)]="canal"
+        [ngModelOptions]="{ standalone: true }"
+      />
+      <label for="tipoVerificacion1" class="ps-2">Whatsapp</label>
+    </div>
+  </div>
+  <div class="grid grid-cols-4 gap-2">
+    <div class="flex items-center">
+      <label class="text-sm font-medium" for="nombreTrabajador">
+        Trabajador
+      </label>
+    </div>
+    <div class="col-span-3">
+      <input
+        pInputText
+        id="nombreTrabajador"
+        [(ngModel)]="nombre"
+        class="w-full"
+      />
+    </div>
+  </div>
+  <div class="grid grid-cols-1 gap-2" *ngIf="canal == 'email'">
+    <label class="text-sm font-medium" for="emailTrabajador">
+      Correos electrónicos:
+    </label>
+    <input
+      pInputText
+      id="emailTrabajador"
+      [(ngModel)]="correos"
+      class="w-full"
+    />
+  </div>
+  <div class="grid grid-cols-4 gap-2" *ngIf="canal == 'wsp'">
+    <div class="flex items-center">
+      <label class="text-sm font-medium" for="celularTrabajador">
+        Número de celular
+      </label>
+    </div>
+    <div class="col-span-3">
+      <p-inputgroup>
+        <p-inputgroup-addon>
+          <iconify-icon [icon]="'openmoji:flag-peru'" class="text-2xl" />
+        </p-inputgroup-addon>
+        <input
+          pInputText
+          id="celularTrabajador"
+          [(ngModel)]="celular"
+          class="w-full"
+        />
+      </p-inputgroup>
+    </div>
+  </div>
+  <div class="flex justify-end gap-4">
+    <div class="flex gap-2">
+      <p-button severity="info" size="small" label="Enviar" />
+    </div>
+  </div>
+</div>

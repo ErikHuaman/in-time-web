@@ -32,9 +32,8 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { FormEventoComponent } from './form-evento/form-evento.component';
 import { FeriadoService } from '@services/feriado.service';
 import { TitleCardComponent } from '@components/title-card/title-card.component';
-import { ButtonCustomComponent } from '@components/buttons/button-custom/button-custom.component';
-import { ButtonDeleteComponent } from '@components/buttons/button-delete/button-delete.component';
-import { ButtonEditComponent } from '@components/buttons/button-edit/button-edit.component';
+import { ButtonCustomComponent } from '@components/buttons/button-custom.component';
+import { ButtonDeleteComponent } from '@components/buttons/button-delete.component';
 import { MessageGlobalService } from '@services/message-global.service';
 
 const colors: Record<string, EventColor> = {
@@ -76,7 +75,6 @@ const colors: Record<string, EventColor> = {
   ],
   templateUrl: './calendario.component.html',
   styles: ``,
-  providers: [DialogService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class CalendarioComponent implements OnInit {
@@ -151,7 +149,7 @@ export class CalendarioComponent implements OnInit {
       { field: 'title', header: 'Título' },
       { field: 'start', header: 'Fecha de inicio', align: 'center' },
       { field: 'end', header: 'Fecha de fin', align: 'center' },
-       { field: 'end', header: 'Acción', align: 'center' },
+      { field: 'end', header: 'Acción', align: 'center' },
     ];
 
     this.exportColumns = this.cols.map((col) => ({
@@ -232,7 +230,6 @@ export class CalendarioComponent implements OnInit {
   }
 
   deleteEvent(item: CalendarEvent) {
-    console.log('eventToDelete', item);
     this.msg.confirm(
       `<div class='px-4 py-2'>
         <p class='text-center'> ¿Está seguro de eliminar el evento <span class='uppercase font-bold'>${item?.title}</span>? </p>

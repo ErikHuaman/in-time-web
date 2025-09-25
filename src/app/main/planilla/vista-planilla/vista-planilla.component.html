@@ -67,7 +67,10 @@
           (click)="confirm($event)"
         >
           <div class="flex justify-center items-center font-medium gap-1">
-            <iconify-icon [icon]="'material-symbols:share-windows-rounded'" class="text-lg" />
+            <iconify-icon
+              [icon]="'material-symbols:share-windows-rounded'"
+              class="text-lg"
+            />
             <div>EMITIR COMPROBANTE</div>
           </div>
         </p-button>
@@ -123,15 +126,14 @@
             <div class="text-center text-sm">{{ item.identificacion }}</div>
           </td>
           <td>
-            <div class="text-start text-sm uppercase">{{ item.nombre }}</div>
+            <div class="text-start text-sm uppercase">{{ item.labelName }}</div>
           </td>
           <td>
-            <div class="text-start text-sm uppercase">{{ item.apellido }}</div>
+            <div class="text-center text-sm uppercase">
+              {{ item.cargo.nombre }}
+            </div>
           </td>
           <td>
-            <div class="text-center text-sm uppercase">{{ item.cargo.nombre }}</div>
-          </td>
-          <td class="w-100">
             <div
               class="w-100 flex flex-wrap gap-2 items-center justify-center text-sm font-light capitalize italic"
               [ngClass]="{ 'cursor-pointer': item.sedes.length > 4 }"
@@ -166,7 +168,6 @@
               </div>
             </p-popover>
           </td>
-
           <td>
             <div class="text-center text-sm">
               {{ item.salarioMensual | currency }}
@@ -174,78 +175,110 @@
           </td>
           <td>
             <div class="text-center text-sm">
-              {{ item.salarioMesExtra25 | currency }}
+              {{
+                item.salarioMesExtra25
+                  ? (item.salarioMesExtra25 | currency)
+                  : "-"
+              }}
             </div>
           </td>
           <td>
             <div class="text-center text-sm">
-              {{ item.salarioMesExtra35 | currency }}
+              {{
+                item.salarioMesExtra35
+                  ? (item.salarioMesExtra35 | currency)
+                  : "-"
+              }}
             </div>
           </td>
           <td>
             <div class="text-center text-sm">
-              {{ item.salarioFeriado | currency }}
+              {{ item.salarioFeriado ? (item.salarioFeriado | currency) : "-" }}
             </div>
           </td>
           <td>
             <div class="text-center text-sm">
-              {{ item.salarioVacaciones | currency }}
+              {{
+                item.salarioVacaciones
+                  ? (item.salarioVacaciones | currency)
+                  : "-"
+              }}
             </div>
           </td>
           <td>
             <div class="text-center text-sm text-red-500 min-w-20">
-              {{ -item.descuentoFaltas | currency }}
+              {{
+                -item.descuentoFaltas ? (-item.descuentoFaltas | currency) : "-"
+              }}
             </div>
           </td>
           <td>
             <div class="text-center text-sm">
-              {{ item.sueldoBruto | currency }}
-            </div>
-          </td>
-          <td>
-            <div class="text-center text-sm">
-              {{ item.montoONP | currency }}
-            </div>
-          </td>
-          <td>
-            <div class="text-center text-sm">
-              {{ item.montoAFP | currency }}
-            </div>
-          </td>
-          <td>
-            <div class="text-center text-sm">
-              {{ item.sis | currency }}
-            </div>
-          </td>
-          <td>
-            <div class="text-center text-sm">
-              {{ item.sctr | currency }}
-            </div>
-          </td>
-          <td>
-            <div class="text-center text-sm">
-              {{ item.essalud | currency }}
+              {{ item.sueldoBruto ? (item.sueldoBruto | currency) : "-" }}
             </div>
           </td>
           <td>
             <div class="text-center text-sm min-w-20">
-              {{ item.pagoNeto | currency }}
+              {{ item.montoAdelanto ? (-item.montoAdelanto | currency) : "-" }}
+            </div>
+          </td>
+          <td>
+            <div class="text-center text-sm">
+              {{ item.montoONP ? (item.montoONP | currency) : "-" }}
+            </div>
+          </td>
+          <td>
+            <div class="text-center text-sm">
+              {{ item.montoAFP ? (item.montoAFP | currency) : "-" }}
+            </div>
+          </td>
+          <td>
+            <div class="text-center text-sm">
+              {{ item.sis ? (item.sis | currency) : "-" }}
+            </div>
+          </td>
+          <td>
+            <div class="text-center text-sm">
+              {{ item.sctr ? (item.sctr | currency) : "-" }}
+            </div>
+          </td>
+          <td>
+            <div class="text-center text-sm">
+              {{ item.essalud ? (item.essalud | currency) : "-" }}
+            </div>
+          </td>
+          <td>
+            <div class="text-center text-sm min-w-20">
+              {{ item.pagoNeto ? (item.pagoNeto | currency) : "-" }}
             </div>
           </td>
           <td>
             <div class="flex justify-center items-center gap-2">
-              <button-custom
+              <btn-custom
                 severity="warn"
+                tooltip="Enviar comprobante"
+                icon="fluent:mail-28-filled"
+                (click)="enviarComprobante(item)"
+              />
+            </div>
+          </td>
+          <td>
+            <div class="flex justify-center items-center gap-2">
+              <btn-custom
+                severity="info"
+                tooltip="Ver comprobante"
+                icon="ant-design:file-pdf-filled"
+                (click)="getComprobante(item)"
+              />
+            </div>
+          </td>
+          <td>
+            <div class="flex justify-center items-center gap-2">
+              <btn-custom
+                severity="danger"
                 tooltip="Cálculo de pago"
                 icon="solar:calculator-broken"
                 (click)="getCalculoPago(item)"
-              />
-
-              <button-custom
-                severity="info"
-                tooltip="Detalle mensual"
-                icon="material-symbols:docs-outline-rounded"
-                (click)="getComprobante(item)"
               />
             </div>
           </td>

@@ -12,10 +12,15 @@ export class AsistenciaService {
 
   private readonly http = inject(HttpClient);
 
-  findAllByMonth(fecha: Date): Observable<{ asistencia: any[]; cards: any }> {
+  findAllByMonth(
+    fecha: Date,
+    idCargos: string[],
+    idSedes: string[],
+    search: string
+  ): Observable<{ asistencia: any[]; cards: any }> {
     return this.http.post<{ asistencia: any[]; cards: any }>(
       `${this.url}/ByMonth`,
-      { fecha }
+      { fecha, idCargos, idSedes, search }
     );
   }
 

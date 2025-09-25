@@ -99,37 +99,102 @@
           />
         </div>
       </div>
-      <div class="flex flex-col gap-2">
-        <label class="text-sm font-medium">
-          Foto <span class="text-xs">*</span>
-        </label>
-        <div class="flex justify-center">
-          <div
-            class="border border-slate-300 rounded-lg h-72 w-full flex justify-center items-center"
-          >
-            <img
-              *ngIf="previewUrl"
-              [src]="previewUrl"
-              alt="Imagen seleccionada"
-              class="w-full h-full object-cover rounded-lg overflow-hidden"
-            />
-            <p *ngIf="!previewUrl" class="text-sm italic">Sin foto</p>
+      <div class="grid grid-cols-1 gap-2">
+        <div class="flex flex-col gap-2">
+          <label class="text-sm font-medium" for="tipoVerificacion">
+            Tipo de verificación <span class="text-xs">*</span>
+          </label>
+          <div class="flex justify-center gap-4">
+            <div class="flex items-center gap-1">
+              <p-radiobutton
+                value="foto"
+                inputId="tipoVerificacion2"
+                [(ngModel)]="tipoVerificacion"
+                [ngModelOptions]="{ standalone: true }"
+                (ngModelChange)="changeTipo($event)"
+                [disabled]="!!this.previewUrl"
+              />
+              <label for="tipoVerificacion2">Foto</label>
+            </div>
+
+            <div class="flex items-center gap-1">
+              <p-radiobutton
+                value="codigo"
+                inputId="tipoVerificacion1"
+                [(ngModel)]="tipoVerificacion"
+                [ngModelOptions]="{ standalone: true }"
+                (ngModelChange)="changeTipo($event)"
+                [disabled]="!!this.previewUrl"
+              />
+              <label for="tipoVerificacion1">Código</label>
+            </div>
           </div>
         </div>
-        <div class="relative w-full">
-          <div class="absolute bottom-2.5 left-0 right-0 flex justify-end p-1">
-            <input
-              #fileImage
-              class="hidden"
-              type="file"
-              (change)="onFileSelected($event)"
-              accept="image/*"
+        <div
+          *ngIf="tipoVerificacion === 'codigo'"
+          class="flex flex-col gap-2"
+          formGroupName="usuario"
+        >
+          <label class="text-sm font-medium" for="dniReemplazo">
+            Código <span class="text-xs">*</span>
+          </label>
+          <div class="flex flex-col justify-center items-center gap-3">
+            <p-inputotp
+              [readonly]="true"
+              [length]="6"
+              size="small"
+              formControlName="codigo"
+              styleClass="!text-base font-medium"
             />
-            <button-custom
-              severity="secondary"
-              icon="material-symbols:android-camera"
-              (click)="fileImage.click()"
-            />
+            <div class="w-full">
+              <p-button
+                severity="contrast"
+                size="small"
+                (click)="generarCodigo()"
+                styleClass="w-full"
+              >
+                <div class="flex justify-center items-center gap-2">
+                  <div>Generar</div>
+                </div>
+              </p-button>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="tipoVerificacion === 'foto'" class="flex flex-col gap-2">
+          <label class="text-sm font-medium">
+            Foto <span class="text-xs">*</span>
+          </label>
+          <div class="flex justify-center">
+            <div
+              class="border border-slate-300 rounded-lg h-72 w-full flex justify-center items-center"
+            >
+              <img
+                *ngIf="previewUrl"
+                [src]="previewUrl"
+                alt="Imagen seleccionada"
+                class="w-full h-full object-cover rounded-lg overflow-hidden"
+              />
+              <p *ngIf="!previewUrl" class="text-sm italic">Sin foto</p>
+            </div>
+          </div>
+          <div class="relative w-full">
+            <div
+              class="absolute bottom-2.5 left-0 right-0 flex justify-end p-1"
+            >
+              <input
+                #fileImage
+                class="hidden"
+                type="file"
+                (change)="onFileSelected($event)"
+                accept="image/*"
+              />
+              <btn-custom
+                severity="secondary"
+                [text]="false"
+                icon="material-symbols:android-camera"
+                (click)="fileImage.click()"
+              />
+            </div>
           </div>
         </div>
       </div>

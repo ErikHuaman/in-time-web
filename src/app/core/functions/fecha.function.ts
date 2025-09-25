@@ -1,20 +1,28 @@
 export const getDiasDelMes = (
   fecha: Date
-): { dia: number; nombre: string }[] => {
+): { dia: number; nombre: string; numDia: number; fecha: Date }[] => {
   const anio = fecha.getFullYear();
   const mes = fecha.getMonth();
-  const diasDelMes: { dia: number; nombre: string }[] = [];
+  const diasDelMes: {
+    dia: number;
+    nombre: string;
+    numDia: number;
+    fecha: Date;
+  }[] = [];
 
   const nombresDias = ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'];
   const ultimoDia = new Date(anio, mes + 1, 0).getDate();
 
   for (let i = 1; i <= ultimoDia; i++) {
     const fechaActual = new Date(anio, mes, i);
-    const nombreDia = nombresDias[fechaActual.getDay()];
+    const numDia = fechaActual.getDay();
+    const nombreDia = nombresDias[numDia];
 
     diasDelMes.push({
       dia: i,
       nombre: nombreDia,
+      numDia: numDia,
+      fecha: fechaActual,
     });
   }
   return diasDelMes;

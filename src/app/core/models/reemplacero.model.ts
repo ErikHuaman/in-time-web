@@ -3,7 +3,6 @@ export interface Reemplacero {
   nombres?: string;
   dni?: string;
   codigo?: string;
-  filename?: string;
-  mimetype?: string;
+  urlFile?: string;
   isActive?: boolean;
 }

@@ -14,6 +14,7 @@ export interface Trabajador {
   idPais?: string;
   idTipoDocID?: string;
   identificacion?: string;
+  fechaNacimiento?: Date;
   idEstadoCivil?: string;
 
   contratos: ContratoTrabajador[];
@@ -65,11 +66,13 @@ export interface ContactoTrabajador {
 }
 
 export interface BeneficioTrabajador {
+  bonoAdicional: number | null | undefined;
   id?: string;
-  idFondoPensiones?: string;
-  idSeguroSalud?: string;
   idTrabajador?: string;
-  pagoFeriado?: number
+  pagoFeriado?: number;
+  idSeguroSalud?: string;
+  idFondoPensiones?: string;
+  aplicaComision: boolean;
 }
 
 export interface ControlTrabajador {

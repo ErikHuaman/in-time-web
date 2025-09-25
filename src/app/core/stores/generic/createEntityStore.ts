@@ -18,7 +18,6 @@ export interface EntityState<T> {
   items: T[];
   selectedItem: T | null;
   loading: boolean;
-  previewUrl: SafeUrl;
   error: string | null;
   lastAction: 'created' | 'updated' | 'deleted' | 'createMany' | null;
 }
@@ -33,7 +32,6 @@ export function createEntityStore<T>(options: {
     offset: 0,
     items: [],
     selectedItem: null,
-    previewUrl: '',
     loading: false,
     error: null,
     lastAction: null,
@@ -196,28 +194,6 @@ export function createEntityStore<T>(options: {
                     selectedItem: null,
                     loading: false,
                     lastAction: 'deleted',
-                  }),
-                error: (err) =>
-                  patchState(store, {
-                    error: `[${entity}] ${err?.error?.message}`,
-                    loading: false,
-                  }),
-              })
-            )
-            .subscribe();
-        },
-
-        getFile(id: string | string) {
-          patchState(store, { previewUrl: '' });
-          service
-            .getFile(id)
-            .pipe(
-              tap({
-                next: (blob) =>
-                  patchState(store, {
-                    previewUrl: sanitizer.bypassSecurityTrustUrl(
-                      window.URL.createObjectURL(blob)
-                    ),
                   }),
                 error: (err) =>
                   patchState(store, {

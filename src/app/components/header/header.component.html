@@ -1,8 +1,24 @@
 <p-toolbar styleClass="!px-6">
   <ng-template #start>
     <div class="h-full flex items-center gap-8">
-      <a class="text-3xl font-bold text-orange-400" routerLink="/">inTime</a>
-      <div class="flex items-center gap-4">
+      <div class="flex justify-center items-center gap-2">
+        <p-button
+          severity="secondary"
+          rounded
+          size="small"
+          styleClass="!p-0"
+          class="md:hidden"
+          (click)="showDrawer()"
+        >
+          <div class="w-8 h-8 flex justify-center items-center">
+            <iconify-icon [icon]="'lucide:align-justify'" class="text-xl" />
+          </div>
+        </p-button>
+        <a class="text-2xl md:text-3xl font-bold text-orange-400" routerLink="/"
+          >inTime</a
+        >
+      </div>
+      <div class="hidden md:flex items-center gap-4">
         <p-button
           *ngFor="let item of listaMenu; let i = index"
           text
@@ -17,11 +33,44 @@
           </div>
         </p-button>
       </div>
+      <p-drawer
+        [(visible)]="mobileMenuVisible"
+        header="Menú"
+      >
+        <p-accordion [(value)]="accordionIndex">
+          <p-accordion-panel
+            *ngFor="
+              let tab of listaMenu;
+              trackBy: trackByLabel;
+              let idx = index
+            "
+            [value]="idx"
+          >
+            <p-accordion-header>
+              {{ tab.label }}
+            </p-accordion-header>
+
+            <p-accordion-content >
+              <div *ngIf="accordionIndex == idx" class="flex flex-col gap-1">
+                <a
+                  *ngFor="let item of tab.menu; trackBy: trackByLabel"
+                  pRipple
+                  class="flex items-center gap-3 rounded px-2 py-1 text-sm hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer"
+                  (click)="routerMobile(item.routerLink)"
+                >
+                  <iconify-icon [icon]="item.icon" />
+                  <span>{{ item.label }}</span>
+                </a>
+              </div>
+            </p-accordion-content>
+          </p-accordion-panel>
+        </p-accordion>
+      </p-drawer>
     </div>
   </ng-template>
 
   <ng-template #end>
-    <div class="flex justify-center items-center gap-4">
+    <div class="flex justify-center items-center gap-2 md:gap-4">
       <app-notifications />
       <p-button
         severity="secondary"
@@ -101,25 +150,47 @@
     <div class="px-2 bg-slate-50 dark:bg-slate-900">
       <ng-container *ngIf="!item.routerLink; else elseTemplate">
         <a
-        pRipple
-        class="flex items-center gap-2 p-menuitem-link py-1 cursor-pointer"
-      >
-        <iconify-icon [icon]="item.icon" />
-        <span>{{ item.label }}</span>
-      </a>
+          pRipple
+          class="flex items-center gap-2 p-menuitem-link py-1 cursor-pointer"
+        >
+          <iconify-icon [icon]="item.icon" />
+          <span>{{ item.label }}</span>
+        </a>
       </ng-container>
       <ng-template #elseTemplate>
         <a
-        pRipple
-        class="flex items-center gap-2 p-menuitem-link py-1 cursor-pointer"
-        [href]="item.routerLink" download
-      >
-        <iconify-icon [icon]="item.icon" />
-        <span>{{ item.label }}</span>
-      </a>
+          pRipple
+          class="flex items-center gap-2 p-menuitem-link py-1 cursor-pointer"
+          [href]="item.routerLink"
+          download
+        >
+          <iconify-icon [icon]="item.icon" />
+          <span>{{ item.label }}</span>
+        </a>
       </ng-template>
-      
-      
     </div>
   </ng-template>
 </p-menu>
+
+<p-dialog
+  header="Descargar Aplicaciones"
+  [modal]="true"
+  [closable]="true"
+  [dismissableMask]="true"
+  [(visible)]="showDownload"
+  styleClass="modal-sm"
+>
+  <div class="flex flex-col gap-2 px-2">
+    @for (item of listApks; track $index) {
+    <a
+      pRipple
+      class="flex items-center justify-between gap-1 cursor-pointer border px-4 py-1 rounded-2xl hover:bg-slate-500 hover:text-slate-50"
+      [href]="item.routerLink"
+      download
+    >
+      <span>{{ item.label }}</span>
+      <iconify-icon [icon]="item.icon" />
+    </a>
+    }
+  </div>
+</p-dialog>

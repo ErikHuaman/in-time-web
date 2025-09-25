@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, inject, OnInit } from '@angular/core';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  effect,
+  inject,
+  OnInit,
+} from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -8,32 +14,29 @@ import {
   Validators,
 } from '@angular/forms';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { ButtonCustomComponent } from '@components/buttons/button-custom/button-custom.component';
-import { AsignacionSedeUsuario } from '@models/asignacion-sede-usuario.model';
+import { BtnCustomComponent } from '@components/buttons/btn-custom.component';
+import { environment } from '@environments/environments';
+import { generarCodigoNumerico } from '@functions/number.function';
 import { Rol } from '@models/rol.model';
 import { Sede } from '@models/sede.model';
 import { TipoDocIdent } from '@models/tipo-doc-ident.model';
 import { Usuario } from '@models/usuario.model';
-import { AsignacionSedeUsuarioService } from '@services/asignacion-sede-usuario.service';
 import { MessageGlobalService } from '@services/message-global.service';
-import { RolService } from '@services/rol.service';
-import { SedeService } from '@services/sede.service';
-import { TipoDocIdentService } from '@services/tipo-doc-ident.service';
-import { UsuarioService } from '@services/usuario.service';
 import { RolStore } from '@stores/rol.store';
 import { SedeStore } from '@stores/sede.store';
 import { TipoDocIdentStore } from '@stores/tipo-doc-ident.store';
 import { UsuarioStore } from '@stores/usuario.store';
 import { ButtonModule } from 'primeng/button';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputOtpModule } from 'primeng/inputotp';
 import { InputTextModule } from 'primeng/inputtext';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { PasswordModule } from 'primeng/password';
+import { RadioButtonModule } from 'primeng/radiobutton';
 import { SelectModule } from 'primeng/select';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
-import { mergeMap } from 'rxjs';
 
 @Component({
   selector: 'app-form-usuario',
@@ -49,12 +52,17 @@ import { mergeMap } from 'rxjs';
     ToggleSwitchModule,
     SelectModule,
     MultiSelectModule,
-    ButtonCustomComponent,
+    RadioButtonModule,
+    InputOtpModule,
+    BtnCustomComponent,
   ],
   templateUrl: './form-usuario.component.html',
   styles: ``,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class FormUsuarioComponent implements OnInit {
+  readonly baseUrl: string = environment.urlBase;
+
   public readonly ref: DynamicDialogRef = inject(DynamicDialogRef);
 
   private readonly msg = inject(MessageGlobalService);
@@ -66,10 +74,6 @@ export class FormUsuarioComponent implements OnInit {
   private readonly rolStore = inject(RolStore);
 
   readonly store = inject(UsuarioStore);
-
-  private readonly asignacionSedeUsuarioService = inject(
-    AsignacionSedeUsuarioService
-  );
 
   private readonly sedeStore = inject(SedeStore);
 
@@ -109,6 +113,10 @@ export class FormUsuarioComponent implements OnInit {
       isActive: new FormControl<boolean>(true, {
         nonNullable: true,
         validators: [Validators.required],
+      }),
+      codigo: new FormControl<string | undefined>(undefined, {
+        nonNullable: true,
+        validators: [],
       }),
     }),
     sedes: new FormGroup({
@@ -151,7 +159,7 @@ export class FormUsuarioComponent implements OnInit {
 
     // Manejo de errores
     if (currentError) {
-      console.log('error', error);
+      console.error('error', error);
       this.msg.error(
         currentError ??
           '¡Ups, ocurrió un error inesperado al guardar el usuario!'
@@ -189,15 +197,20 @@ export class FormUsuarioComponent implements OnInit {
         .get('sedes.idSedes')
         ?.setValue(item.sedes?.map((item) => item.id as string));
 
-      if (item.filename) {
-        this.getArchivoBiometrico(item.id);
+      if (item.codigo) {
+        this.tipoVerificacion = 'codigo';
+        this.formData.get('usuario.codigo')?.setValue(item.codigo);
+      } else {
+        this.tipoVerificacion = 'foto';
+        this.previewUrl = `${this.baseUrl}${item.urlFile}`.replace(
+          '//uploads',
+          '/uploads'
+        );
       }
     }
   });
 
-  private getFileEffect = effect(() => {
-    this.previewUrl = this.store.previewUrl();
-  });
+  tipoVerificacion: 'codigo' | 'foto' = 'foto';
 
   ngOnInit(): void {
     this.rolStore.loadAll();
@@ -217,12 +230,17 @@ export class FormUsuarioComponent implements OnInit {
     }
   }
 
-  get isActive(): boolean {
-    return this.formData.get('usuario.isActive')?.value ?? false;
+  changeTipo(event: any) {
+    this.formData.get('usuario.codigo')?.setValue(undefined);
   }
 
-  getArchivoBiometrico(id: string) {
-    this.store.getFile(id);
+  generarCodigo() {
+    const codigo = generarCodigoNumerico();
+    this.formData.get('usuario.codigo')?.setValue(codigo);
+  }
+
+  get isActive(): boolean {
+    return this.formData.get('usuario.isActive')?.value ?? false;
   }
 
   onFileSelected(event: any): void {

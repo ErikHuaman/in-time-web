@@ -30,143 +30,154 @@
   <div class="h-full flex flex-col gap-4">
     <ng-container *ngIf="tabSelected == 'general'">
       <div class="flex items-center justify-between px-6">
-        <div class="flex items-center gap-3">
-          <p-datepicker
-            id="fechaInicio"
-            view="month"
-            dateFormat="MM yy"
-            placeholder="Seleccionar mes"
-            [(ngModel)]="fechaSelected"
-            [readonlyInput]="true"
-            showIcon
-            iconDisplay="input"
-            styleClass="w-44"
-            appendTo="body"
-            pTooltip="Mes"
-            tooltipPosition="top"
-            tooltipStyleClass="text-sm"
-            (ngModelChange)="cambiarFecha($event)"
-          />
-          <p-multiselect
-            [options]="listaSedes"
-            [(ngModel)]="selectedSedes"
-            optionLabel="nombre"
-            optionValue="id"
-            placeholder="Edificios"
-            [maxSelectedLabels]="2"
-            (onChange)="filtrar($event.value)"
-            styleClass="w-42"
-            pTooltip="Edificios"
-            tooltipPosition="top"
-            tooltipStyleClass="text-sm"
-          />
-          <p-multiselect
-            [options]="listaCargos"
-            [(ngModel)]="selectedCargos"
-            optionLabel="nombre"
-            optionValue="id"
-            placeholder="Cargos"
-            [maxSelectedLabels]="2"
-            (onChange)="filtrar($event.value)"
-            styleClass="w-42"
-            pTooltip="Cargos"
-            tooltipPosition="top"
-            tooltipStyleClass="text-sm"
-          />
-          <p-iconfield>
-            <p-inputicon styleClass="pi pi-search" />
-            <input
-              type="text"
-              pInputText
-              placeholder="Buscar"
-              (input)="filterGlobal(dt1, $event.target)"
+        <div class="w-full flex items-center justify-between gap-2">
+          <div class="flex items-center gap-2">
+            <div class="w-32">
+              <p-datepicker
+                id="fechaInicio"
+                view="month"
+                dateFormat="MM yy"
+                placeholder="Seleccionar mes"
+                [(ngModel)]="fechaSelected"
+                [readonlyInput]="true"
+                showIcon
+                iconDisplay="input"
+                styleClass="w-32"
+                appendTo="body"
+                pTooltip="Mes"
+                tooltipPosition="top"
+                tooltipStyleClass="text-sm"
+                (ngModelChange)="cambiarFecha($event)"
+              />
+            </div>
+            <div class="w-42">
+              <p-multiselect
+                [options]="listaSedes"
+                [(ngModel)]="selectedSedes"
+                optionLabel="nombre"
+                optionValue="id"
+                placeholder="Edificios"
+                [maxSelectedLabels]="2"
+                styleClass="w-42"
+                pTooltip="Edificios"
+                tooltipPosition="top"
+                tooltipStyleClass="text-sm"
+              />
+            </div>
+            <div class="w-42">
+              <p-multiselect
+                [options]="listaCargos"
+                [(ngModel)]="selectedCargos"
+                optionLabel="nombre"
+                optionValue="id"
+                placeholder="Cargos"
+                [maxSelectedLabels]="2"
+                styleClass="w-42"
+                class="w-42"
+                pTooltip="Cargos"
+                tooltipPosition="top"
+                tooltipStyleClass="text-sm"
+              />
+            </div>
+            <input pInputText [(ngModel)]="searchText" placeholder="Buscar" />
+            <p-button
+              severity="contrast"
+              variant="outlined"
+              size="small"
+              (click)="search()"
+            >
+              <div class="flex justify-center items-center gap-2">
+                <div>Filtrar</div>
+              </div>
+            </p-button>
+            <p-button
+              severity="danger"
+              variant="outlined"
+              size="small"
+              (click)="clear()"
+            >
+              <div class="flex justify-center items-center gap-2">
+                <div>Limpiar</div>
+              </div>
+            </p-button>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <p-button
+              (click)="legend.toggle($event)"
+              severity="contrast"
+              icon="pi pi-book"
+              label="Leyenda"
+              size="small"
             />
-          </p-iconfield>
-          <p-button
-            (click)="legend.toggle($event)"
-            severity="contrast"
-            icon="pi pi-book"
-            label="Leyenda"
-            size="small"
-          />
-          <p-popover #legend>
-            <div class="flex flex-col gap-4 w-56">
-              <table>
-                <thead>
-                  <tr>
-                    <th class="text-sm font-semibold">Leyenda</th>
-                    <th class="w-16 h-2 rounded-full"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @for (item of leyenda; track $index) {
-                  <tr>
-                    <td class="px-2 py-0.5">
-                      <div class="text-sm">{{ item.nombre }}</div>
-                    </td>
-                    <td class="px-2 py-0.5">
-                      <div
-                        class="text-sm w-10 flex justify-center"
-                        [style.color]="item.textColor"
-                        [style.background]="item.bgColor"
-                      >
-                        {{ item.codigo }}
-                      </div>
-                    </td>
-                  </tr>
-                  }
-                </tbody>
-              </table>
-            </div>
-          </p-popover>
-        </div>
-        <div class="flex items-center gap-3">
-          <!-- <p-button severity="info" size="small">
-            <div class="flex justify-center items-center font-medium gap-1">
-              <i
-                class="iconify icon text-lg"
-                data-icon="material-symbols:download-rounded"
-                data-inline="false"
-              ></i>
-              <div>XLS</div>
-            </div>
-          </p-button> -->
+            <p-popover #legend>
+              <div class="flex flex-col gap-4 w-56">
+                <table>
+                  <thead>
+                    <tr>
+                      <th class="text-sm font-semibold">Leyenda</th>
+                      <th class="w-16 h-2 rounded-full"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @for (item of leyenda; track $index) {
+                    <tr>
+                      <td class="px-2 py-0.5">
+                        <div class="text-sm">{{ item.nombre }}</div>
+                      </td>
+                      <td class="px-2 py-0.5">
+                        <div
+                          class="text-sm w-10 flex justify-center"
+                          [style.color]="item.textColor"
+                          [style.background]="item.bgColor"
+                        >
+                          {{ item.codigo }}
+                        </div>
+                      </td>
+                    </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+            </p-popover>
+          </div>
         </div>
       </div>
       <div class="flex flex-col px-6">
         <p-table
-          #dt1
           dataKey="id"
           [value]="dataTable"
+          [columns]="cols"
           stripedRows
           [scrollable]="true"
           scrollHeight="calc(100vh - 360px)"
           styleClass="w-full"
           [responsive]="true"
           responsiveLayout="scroll"
-          [globalFilterFields]="['nombre', 'apellido']"
         >
-          <ng-template #header>
+          <ng-template #header let-columns>
             <tr>
-              <th>
-                <div class="w-8 text-xs text-center uppercase"></div>
-              </th>
-              <!-- <th>
-                <div class="w-12 text-xs text-center uppercase">N°</div>
-              </th> -->
-              <th>
-                <div class="w-42 text-xs uppercase">Apellidos y Nombre</div>
-              </th>
-              <th>
-                <div class="text-xs text-center uppercase">Cargo</div>
-              </th>
-              <th class="w-100">
-                <div class="text-xs text-center uppercase">Edificio</div>
+              <th
+                *ngFor="let col of firstCols"
+                [ngClass]="[col.widthClass ? col.widthClass : '']"
+              >
+                <div
+                  [ngClass]="[
+                    'text-xs uppercase',
+                    col.align ? 'text-' + col.align : 'text-start'
+                  ]"
+                >
+                  {{ col.header }}
+                </div>
               </th>
               <ng-container *ngIf="dataTable.length">
-                <th *ngFor="let item of daysMonth">
+                <th *ngFor="let item of daysMonth" [ngClass]="{
+                      '!bg-[#00aff8] !text-slate-100': !!item.feriado
+                    }">
                   <div
                     class="w-8 h-8 flex flex-col items-center justify-center gap-0.5"
+                    [pTooltip]="item.feriado"
+                    
                   >
                     <div class="text-center text-xs uppercase">
                       {{ item.nombre }}
@@ -178,43 +189,23 @@
                 </th>
               </ng-container>
               <ng-container *ngIf="!dataTable.length">
-                <th>
+                <th class="!w-16">
                   <div class="text-center text-xs uppercase">...</div>
                 </th>
               </ng-container>
 
-              <th>
-                <div class="text-center text-xs uppercase">Días lab.</div>
-              </th>
-              <th>
-                <div class="text-center text-xs uppercase">Feriados</div>
-              </th>
-              <th>
-                <div class="text-center text-xs uppercase">F</div>
-              </th>
-              <th>
-                <div class="text-center text-xs uppercase">P</div>
-              </th>
-              <th>
-                <div class="text-center text-xs uppercase">X</div>
-              </th>
-              <th>
-                <div class="text-center text-xs uppercase">Total</div>
-              </th>
-              <th>
-                <div class="text-center text-xs uppercase">Horas diarias</div>
-              </th>
-              <th>
-                <div class="text-center text-xs uppercase">Horas sem.</div>
-              </th>
-              <th>
-                <div class="text-center text-xs uppercase">Horas mes</div>
-              </th>
-              <th>
-                <div class="text-center text-xs uppercase">Horas ord.</div>
-              </th>
-              <th>
-                <div class="text-center text-xs uppercase">Horas extras</div>
+              <th
+                *ngFor="let col of lastCols"
+                [ngClass]="[col.widthClass ? col.widthClass : '']"
+              >
+                <div
+                  [ngClass]="[
+                    'text-xs uppercase',
+                    col.align ? 'text-' + col.align : 'text-start'
+                  ]"
+                >
+                  {{ col.header }}
+                </div>
               </th>
             </tr>
           </ng-template>
@@ -231,6 +222,11 @@
                 </div>
               </td>
               <td>
+                <div class="text-center text-sm uppercase">
+                  {{ item.identificacion }}
+                </div>
+              </td>
+              <td>
                 <div class="text-sm uppercase">
                   {{ item.labelName }}
                 </div>
@@ -240,40 +236,8 @@
                   {{ item.cargo?.nombre }}
                 </div>
               </td>
-              <td class="w-100">
-                <div
-                  class="w-100 flex flex-wrap gap-2 items-center justify-center text-sm font-light capitalize italic"
-                  [ngClass]="{ 'cursor-pointer': item.sedes.length > 4 }"
-                  (click)="item.sedes.length > 4 ? op.toggle($event) : ''"
-                  [pTooltip]="item.sedes.length > 4 ? 'Ver más' : ''"
-                  tooltipPosition="top"
-                  tooltipStyleClass="!text-xs !font-normal !p-0"
-                >
-                  <!-- Mostrar los primeros 5 -->
-                  @for (sede of item.sedes.slice(0, 4); track $index) {
-                  <p-chip class="!py-1 !px-2 shadow !bg-amber-200">
-                    <div class="text-xs font-medium">{{ sede.nombre }}</div>
-                  </p-chip>
-                  }
-
-                  <!-- Mostrar "..." si hay más de 5 -->
-                  @if (item.sedes.length > 4) {
-                  <span class="text-xs font-semibold">...</span>
-                  }
-                </div>
-                <p-popover #op styleClass="gap-2 p-2">
-                  <div class="w-100 max-h-40 overflow-y-auto flex flex-col">
-                    <div
-                      class="flex flex-wrap gap-2 items-center justify-center text-sm font-light capitalize italic"
-                    >
-                      @for (sede of item.sedes; track $index) {
-                      <p-chip class="!py-1 !px-2 shadow !bg-amber-200">
-                        <div class="text-xs font-medium">{{ sede.nombre }}</div>
-                      </p-chip>
-                      }
-                    </div>
-                  </div>
-                </p-popover>
+              <td>
+                <tags-sedes [sedes]="item.sedes" />
               </td>
               <td *ngFor="let num of item.marcaciones">
                 <div
@@ -281,6 +245,7 @@
                   [ngClass]="{
                     'ring-2 ring-slate-600':
                       !!num.corregido ||
+                      num.justificado ||
                       (num.codigo === 'F' && num.asistencia?.diaDescanso),
                     'cursor-pointer': num.codigo != '-'
                   }"
@@ -361,13 +326,23 @@
             </tr>
           </ng-template>
           <ng-template #emptymessage>
-            <tr>
-              <td colspan="100">
-                <div class="text-center text-sm font-extralight">
-                  No se encontraron registros.
-                </div>
-              </td>
-            </tr>
+            <ng-template
+              [skeletonTable]="{
+                loading: loadingTable,
+                numCols: cols.length,
+                numRows: 4
+              }"
+            ></ng-template>
+          </ng-template>
+          <ng-template #footer>
+            <ng-template
+              [appPaginator]="{
+                totalItems: totalItems,
+                limit: limit,
+                offset: offset,
+                pageChange: onPageChange
+              }"
+            ></ng-template>
           </ng-template>
         </p-table>
       </div>

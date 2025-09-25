@@ -84,7 +84,7 @@
       [columns]="cols"
       [exportHeader]="'customExportHeader'"
       exportFilename="inasistencias"
-      sortField="trabajador.orden"
+      sortField="trabajador.serialNumber"
       rowGroupMode="rowspan"
       groupRowsBy="fecha"
       sortMode="single"
@@ -134,7 +134,7 @@
             <div class="text-center uppercase">{{ item.sede.nombre }}</div>
           </td>
           <td>
-            <div class="text-center">{{ item.turno?.nombre }}</div>
+            <div class="text-center">{{ item.turno?.codigo }}</div>
           </td>
           <td>{{ item.justificacion?.nota }}</td>
           <td>

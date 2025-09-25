@@ -1,6 +1,6 @@
 export interface SeguroSalud {
   id: string;
-  orden: number;
+  serialNumber: number;
   nombre: string;
   esFijo: boolean;
   valor: number;

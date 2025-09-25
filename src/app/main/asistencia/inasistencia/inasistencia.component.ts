@@ -24,8 +24,8 @@ import { forkJoin, mergeMap } from 'rxjs';
 import { TitleCardComponent } from '@components/title-card/title-card.component';
 import { SedeStore } from '@stores/sede.store';
 import { CargoStore } from '@stores/cargo.store';
-import { ButtonEditComponent } from '@components/buttons/button-edit/button-edit.component';
-import { ButtonCustomComponent } from '@components/buttons/button-custom/button-custom.component';
+import { ButtonEditComponent } from '@components/buttons/button-edit.component';
+import { ButtonCustomComponent } from '@components/buttons/button-custom.component';
 
 @Component({
   selector: 'app-inasistencia',
@@ -48,7 +48,6 @@ import { ButtonCustomComponent } from '@components/buttons/button-custom/button-
   ],
   templateUrl: './inasistencia.component.html',
   styles: ``,
-  providers: [DialogService],
 })
 export class InasistenciaComponent implements OnInit {
   title: string = 'Inasistencia';

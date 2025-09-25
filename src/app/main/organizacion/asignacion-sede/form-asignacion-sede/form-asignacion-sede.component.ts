@@ -30,6 +30,7 @@ import { Sede } from '@models/sede.model';
 import { TrabajadorStore } from '@stores/trabajador.store';
 import { Trabajador } from '@models/trabajador.model';
 import { MessageGlobalService } from '@services/message-global.service';
+import { AsignacionSedeStore } from '@stores/asignacionSede.store';
 
 @Component({
   selector: 'app-form-asignacion-sede',
@@ -58,9 +59,7 @@ export class FormAsignacionSedeComponent {
 
   private readonly sedeStore = inject(SedeStore);
 
-  // private readonly asignacionSedeService = inject(AsignacionSedeService);
-
-  private readonly store = inject(TrabajadorStore);
+  private readonly store = inject(AsignacionSedeStore);
 
   get listaTrabajadores(): Trabajador[] {
     return this.store.items().map((item) => {
@@ -97,7 +96,7 @@ export class FormAsignacionSedeComponent {
 
     // Manejo de errores
     if (error) {
-      console.log('error', error);
+      console.error('error', error);
       this.msg.error(
         error ?? '¡Ups, ocurrió un error inesperado al asignar edificios!'
       );

@@ -1,5 +1,5 @@
 export const environment = {
-  production: false,
+  production: true,
   // urlBase: '/',
-  urlBase: 'http://209.38.151.92:3000/',
+  urlBase: '/',
 };

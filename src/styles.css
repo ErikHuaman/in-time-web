@@ -5,6 +5,11 @@
 
 @custom-variant dark (&:where(.app-dark, .app-dark *));
 
+:root {
+  --p-button-gap: 0.25rem !important;
+  --p-button-icon-only-width: 2rem !important;
+}
+
 .p-dialog-header {
   @apply !px-6 !py-3;
 }
@@ -106,7 +111,7 @@
 }
 
 .p-datatable-thead > tr > th {
-  @apply !bg-slate-100 !border !border-slate-50 !py-2;
+  @apply !bg-slate-100 !text-xs !uppercase !border !border-slate-50 !py-2;
 }
 
 .p-datatable-tfoot > tr > td {
@@ -131,4 +136,24 @@
 
 .p-tab-active {
   @apply !bg-sky-700 !text-slate-50 !rounded-t-md;
+}
+
+.p-drawer-header{
+  @apply !px-4 !py-4 !text-sm;
+}
+
+.p-drawer-title{
+   @apply !text-xl !uppercase;
+}
+
+.p-accordionheader{
+  @apply !px-2 !py-1.5 !text-sm;
+}
+
+.p-accordionheader .p-icon{
+  @apply !w-3 !h-3;
+}
+
+.p-accordioncontent-content{
+  @apply !px-2 !py-1 !border-0;
 }

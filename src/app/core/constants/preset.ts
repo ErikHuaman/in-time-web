@@ -1,6 +1,7 @@
 import Aura from '@primeng/themes/aura';
 import { definePreset } from '@primeng/themes';
 
+
 export const colors: any = {
   emerald: {
     50: '#ecfdf5',
@@ -325,7 +326,7 @@ export const MyPreset = definePreset(Aura, {
       700: '{sky.700}',
       800: '{sky.800}',
       900: '{sky.900}',
-      950: '{orange.950}',
+      950: '{sky.950}',
     },
     formField: {
       paddingX: '0.75rem',

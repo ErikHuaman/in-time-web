@@ -1,0 +1,133 @@
+<div class="flex flex-col gap-4">
+  <div class="flex flex-col gap-2">
+    <label class="text-sm font-medium" for="idTurnoTrabajo">
+      Turno de trabajo
+    </label>
+    <p-select
+      id="idTurnoTrabajo"
+      [options]="listaTurnos"
+      optionLabel="nombre"
+      optionValue="id"
+      [(ngModel)]="bloqueHora.idTurnoTrabajo"
+      [ngModelOptions]="{ standalone: true }"
+      placeholder="Seleccione..."
+    />
+  </div>
+  <div class="grid grid-cols-2 gap-2">
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium" for="asignacionHoraInicio">
+        Hora de entrada <span class="text-xs">*</span>
+      </label>
+      <p-datepicker
+        #horaInicio
+        id="asignacionHoraInicio"
+        [timeOnly]="true"
+        [(ngModel)]="entrada"
+        (ngModelChange)="selectEntrada($event)"
+        showIcon
+        iconDisplay="input"
+        styleClass="w-full"
+        inputStyleClass="text-center"
+        appendTo="body"
+      >
+        <ng-template #inputicon let-clickCallBack="clickCallBack">
+          <i class="pi pi-clock" (click)="clickCallBack($event)"></i>
+        </ng-template>
+      </p-datepicker>
+    </div>
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium" for="asignacionHoraFin">
+        Hora de salida <span class="text-xs">*</span>
+      </label>
+      <p-datepicker
+        id="asignacionHoraFin"
+        [timeOnly]="true"
+        [(ngModel)]="salida"
+        (onClickOutside)="selectSalida($event)"
+        showIcon
+        iconDisplay="input"
+        styleClass="w-full"
+        inputStyleClass="text-center"
+        appendTo="body"
+      >
+        <ng-template #inputicon let-clickCallBack="clickCallBack">
+          <i class="pi pi-clock" (click)="clickCallBack($event)"></i>
+        </ng-template>
+      </p-datepicker>
+    </div>
+  </div>
+  <div class="flex justify-center gap-2">
+    <div class="flex flex-col justify-center items-center">
+      <div
+        [ngClass]="[
+          'w-24 h-8 flex items-center justify-center rounded-xl border text-sm gap-1 py-1.5'
+        ]"
+        [style.background]="bloqueHora.bgColor"
+        [style.borderColor]="bloqueHora.borderColor"
+        [style.color]="bloqueHora.textColor"
+      >
+        <span>
+          {{
+            bloqueHora.horaEntrada || bloqueHora.horaEntrada == 0
+              ? (bloqueHora.horaEntrada | number : "2.0-0")
+              : "--"
+          }}:{{
+            bloqueHora.minutoEntrada || bloqueHora.minutoEntrada == 0
+              ? (bloqueHora.minutoEntrada | number : "2.0-0")
+              : "--"
+          }}
+        </span>
+        <span
+          class="w-[1px] h-full"
+          [style.background]="bloqueHora.textColor"
+        ></span>
+        <span>
+          {{
+            bloqueHora.horaSalida || bloqueHora.horaSalida == 0
+              ? (bloqueHora.horaSalida | number : "2.0-0")
+              : "--"
+          }}:{{
+            bloqueHora.minutoSalida || bloqueHora.minutoSalida == 0
+              ? (bloqueHora.minutoSalida | number : "2.0-0")
+              : "--"
+          }}
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-col gap-2">
+    <label class="text-sm font-medium"> Selecciona el color </label>
+    <div class="w-full h-72 flex justify-center overflow-y-auto py-2">
+      <div class="flex flex-wrap justify-center gap-2">
+        @for (item of listaColores; track $index) {
+        <div
+          [ngClass]="[
+            'rounded-md border h-6 w-10 flex justify-center items-center cursor-pointer hover:ring-1 hover:ring-slate-950',
+            $index == selectedColor ? 'ring-1 ring-slate-950' : ''
+          ]"
+          [style.background]="item.bgColor"
+          [style.borderColor]="item.borderColor"
+          [style.color]="item.textColor"
+          (click)="selectColor($index)"
+        >
+          {{ item.key }}
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="flex justify-end gap-2">
+    <p-button
+      severity="info"
+      size="small"
+      label="Aplicar"
+      [disabled]="
+        !bloqueHora.idTurnoTrabajo ||
+        !bloqueHora.horaEntrada ||
+        !bloqueHora.horaSalida
+      "
+      (click)="guardar()"
+    />
+  </div>
+</div>

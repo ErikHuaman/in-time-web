@@ -1,6 +1,6 @@
 export interface FondoPensiones {
   id: string;
-  orden: number;
+  serialNumber: number;
   nombre: string;
   esFijo: boolean;
   seguro: number;

@@ -1,11 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, effect, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
-import {
-  DialogService,
-  DynamicDialogComponent,
-  DynamicDialogRef,
-} from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { FieldsetModule } from 'primeng/fieldset';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
@@ -19,10 +15,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { TrabajadorService } from '@services/trabajador.service';
 import { InactivacionService } from '@services/inactivacion.service';
 import { InactivacionTrabajador } from '@models/inactivacionTrabajador.model';
-import { map, mergeMap, of } from 'rxjs';
 import { Trabajador } from '@models/trabajador.model';
 import { TrabajadorStore } from '@stores/trabajador.store';
 import { TrabajadorInactivoStore } from '@stores/trabajador-inactivo.store';
@@ -104,7 +98,7 @@ export class FormInactivarTrabajadorComponent {
 
     // Manejo de errores
     if (error) {
-      console.log('error', error);
+      console.error('error', error);
       this.msg.error(
         error ?? '¡Ups, ocurrió un error inesperado al asignar edificios!'
       );
@@ -132,7 +126,7 @@ export class FormInactivarTrabajadorComponent {
         this.formData
           .get('fechaInicio')
           ?.setValue(new Date(item?.inactivaciones![0]?.fechaInicio!));
-          this.formData
+        this.formData
           .get('fechaFin')
           ?.setValue(new Date(item?.inactivaciones![0]?.fechaFin!));
         this.formData.get('nota')?.setValue(item?.inactivaciones![0]?.nota!);
@@ -185,64 +179,31 @@ export class FormInactivarTrabajadorComponent {
   }
 
   guardar() {
-    const form: InactivacionTrabajador = sanitizedForm(this.formData.getRawValue());
+    const form: InactivacionTrabajador = sanitizedForm(
+      this.formData.getRawValue()
+    );
     if (this.id) {
       this.inactivacionService
-        .update(this.id, { ...form, id: this.id, idTrabajador: this.idTrabajador } as InactivacionTrabajador)
+        .update(this.id, {
+          ...form,
+          id: this.id,
+          idTrabajador: this.idTrabajador,
+        } as InactivacionTrabajador)
         .subscribe({
           next: (data) => {
             this.ref.close(data);
             this.msg.success('¡Trabajador inactivado exitosamente!');
-            this.cargarTrabajadoresActivos();
+            // this.cargarTrabajadoresActivos();
           },
         });
     } else {
-      this.inactivacionService
-        .create(form )
-        // .pipe(
-        //   map((data) => {
-        //     const trabajador = this.listaTrabajadores.find(
-        //       (t) => t.id === form.idTrabajador
-        //     );
-        //     if (trabajador && trabajador?.id) {
-        //       const {
-        //         id,
-        //         nombre,
-        //         apellido,
-        //         genero,
-        //         idPais,
-        //         idTipoDocID,
-        //         identificacion,
-        //         idEstadoCivil,
-        //       } = trabajador;
-        //       this.store.update(
-        //         id,
-        //         {
-        //           id,
-        //           nombre,
-        //           apellido,
-        //           genero,
-        //           idPais,
-        //           idTipoDocID,
-        //           identificacion,
-        //           idEstadoCivil,
-        //           isActive: false,
-        //         } as Trabajador,
-        //         {}
-        //       );
-        //       return of([]);
-        //     } else {
-        //       return of([]);
-        //     }
-        //   })
-        // )
-        .subscribe({
-          next: (data) => {
-            this.ref.close(data);
-            this.msg.success('¡Trabajador inactivado exitosamente!');
-            this.cargarTrabajadoresActivos();
-          },
-        });
+      this.inactivacionService.create(form).subscribe({
+        next: (data) => {
+          this.ref.close(data);
+          this.msg.success('¡Trabajador inactivado exitosamente!');
+          // this.cargarTrabajadoresActivos();
+        },
+      });
     }
   }
 }

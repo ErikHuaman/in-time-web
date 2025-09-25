@@ -1,6 +1,6 @@
 export interface EstadoAsistencia {
   id: string;
-  orden: number;
+  serialNumber: number;
   nombre: string;
   codigo: string;
   bgColor: string;

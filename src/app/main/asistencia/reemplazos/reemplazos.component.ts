@@ -1,5 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, OnInit } from '@angular/core';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DatePickerModule } from 'primeng/datepicker';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -28,8 +33,8 @@ import { FormAsignarReemplazoComponent } from './form-asignar-reemplazo/form-asi
 import { ReemplaceroService } from '@services/reemplacero.service';
 import { Reemplacero } from '@models/reemplacero.model';
 import { TitleCardComponent } from '@components/title-card/title-card.component';
-import { ButtonEditComponent } from '@components/buttons/button-edit/button-edit.component';
-import { ButtonDeleteComponent } from '@components/buttons/button-delete/button-delete.component';
+import { ButtonEditComponent } from '@components/buttons/button-edit.component';
+import { ButtonDeleteComponent } from '@components/buttons/button-delete.component';
 
 @Component({
   selector: 'app-reemplazos',
@@ -54,7 +59,6 @@ import { ButtonDeleteComponent } from '@components/buttons/button-delete/button-
   ],
   templateUrl: './reemplazos.component.html',
   styles: ``,
-  providers: [DialogService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ReemplazosComponent implements OnInit {
@@ -122,7 +126,7 @@ export class ReemplazosComponent implements OnInit {
         field: '',
         header: 'Acciones',
         align: 'center',
-        widthClass: '!w-36',
+        widthClass: '!min-w-32',
       },
     ];
 
@@ -151,7 +155,7 @@ export class ReemplazosComponent implements OnInit {
         field: '',
         header: 'Acciones',
         align: 'center',
-        widthClass: '!w-36',
+        widthClass: '!min-w-32',
       },
     ];
 
@@ -199,6 +203,7 @@ export class ReemplazosComponent implements OnInit {
     this.loadingTable = true;
     this.reemplaceroService.findAll().subscribe({
       next: (data) => {
+        this.loadingTable = false;
         this.listaReemplaceros = data;
       },
     });
@@ -260,10 +265,11 @@ export class ReemplazosComponent implements OnInit {
   }
 
   eliminar(item: any) {
-    console.log("ITEM", item);
     this.msg.confirm(
-            `<div class='px-4 py-2'>
-            <p class='text-center'> ¿Está seguro de eliminar el remplazo de <span class='uppercase font-bold'>${item.trabajador.nombre + " " + item.trabajador.apellido}</span>? </p>
+      `<div class='px-4 py-2'>
+            <p class='text-center'> ¿Está seguro de eliminar el remplazo de <span class='uppercase font-bold'>${
+              item.trabajador.nombre + ' ' + item.trabajador.apellido
+            }</span>? </p>
             <p class='text-center'> Esta acción no se puede deshacer. </p>
           </div>`,
       () => {

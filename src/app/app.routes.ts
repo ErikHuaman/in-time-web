@@ -159,9 +159,9 @@ export const routes: Routes = [
         path: 'ajustes/parametros',
         title: 'Parametros | In Time',
         loadComponent: () =>
-          import(
-            './main/ajustes/configuracion/parametros/parametros.component'
-          ).then((c) => c.ParametrosComponent),
+          import('./main/ajustes/parametros/parametros.component').then(
+            (c) => c.ParametrosComponent
+          ),
       },
       {
         path: 'ajustes/usuarios',
@@ -172,10 +172,18 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'ajustes/roles',
+        title: 'Roles | In Time',
+        loadComponent: () =>
+          import('./main/ajustes/roles/roles.component').then(
+            (c) => c.RolesComponent
+          ),
+      },
+      {
         path: 'ajustes/edificios',
         title: 'Edificios | In Time',
         loadComponent: () =>
-          import('./main/ajustes/configuracion/sedes/sedes.component').then(
+          import('./main/ajustes/sedes/sedes.component').then(
             (c) => c.SedesComponent
           ),
       },
@@ -183,7 +191,7 @@ export const routes: Routes = [
         path: 'ajustes/cargos',
         title: 'Cargos | In Time',
         loadComponent: () =>
-          import('./main/ajustes/configuracion/cargos/cargos.component').then(
+          import('./main/ajustes/cargos/cargos.component').then(
             (c) => c.CargosComponent
           ),
       },
@@ -191,9 +199,9 @@ export const routes: Routes = [
         path: 'ajustes/horarios',
         title: 'Horarios | In Time',
         loadComponent: () =>
-          import(
-            './main/ajustes/configuracion/horarios/horarios.component'
-          ).then((c) => c.HorariosComponent),
+          import('./main/ajustes/horarios/horarios.component').then(
+            (c) => c.HorariosComponent
+          ),
       },
       {
         path: 'ajustes/dispositivos',

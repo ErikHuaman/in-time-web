@@ -1,4 +1,10 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  inject,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';
 import { IconFieldModule } from 'primeng/iconfield';
@@ -8,11 +14,14 @@ import { Menu, MenuModule } from 'primeng/menu';
 import { MenuItem } from 'primeng/api';
 import { AvatarModule } from 'primeng/avatar';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthStore } from '@stores/auth.store';
 import { RolService } from '@services/rol.service';
-import { NotificationsComponent } from "../notifications/notifications.component";
+import { NotificationsComponent } from '../notifications/notifications.component';
 import { GrupoMenuItem } from '@models/grupo-modulo.model';
+import { Dialog } from 'primeng/dialog';
+import { DrawerModule } from 'primeng/drawer';
+import { AccordionModule } from 'primeng/accordion';
 
 @Component({
   selector: 'app-header',
@@ -26,8 +35,11 @@ import { GrupoMenuItem } from '@models/grupo-modulo.model';
     SplitButtonModule,
     AvatarModule,
     MenuModule,
-    NotificationsComponent
-],
+    Dialog,
+    DrawerModule,
+    AccordionModule,
+    NotificationsComponent,
+  ],
   templateUrl: './header.component.html',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   styles: ``,
@@ -38,6 +50,10 @@ export class HeaderComponent implements OnInit {
   readonly store = inject(AuthStore);
 
   readonly rolService = inject(RolService);
+
+  readonly router = inject(Router);
+
+  mobileMenuVisible: boolean = false;
 
   listaMenu: GrupoMenuItem[] = [];
   menuItems: MenuItem[] = [];
@@ -57,14 +73,11 @@ export class HeaderComponent implements OnInit {
     //   },
     // },
     {
-      label: 'inTimeAdmin apk',
-      icon: 'ri:admin-line',
-      routerLink: '/apks/inTimeAdmin.apk',
-    },
-    {
-      label: 'inTimeTick apk',
-      icon: 'ri:admin-line',
-      routerLink: '/apks/inTimeTick.apk',
+      label: 'Descargar Apps',
+      icon: 'icomoon-free:mobile',
+      command: () => {
+        this.showDownload = true;
+      },
     },
     {
       label: 'Cerrar sesión',
@@ -74,6 +87,21 @@ export class HeaderComponent implements OnInit {
       },
     },
   ];
+
+  listApks = [
+    {
+      label: 'App administración',
+      icon: 'eos-icons:admin-outlined',
+      routerLink: '/apks/inTimeAdmin.apk',
+    },
+    {
+      label: 'App marcación de asistencia',
+      icon: 'hugeicons:face-id',
+      routerLink: '/apks/inTimeTick.apk',
+    },
+  ];
+
+  showDownload: boolean = false;
 
   get profileImage() {
     return null;
@@ -127,5 +155,20 @@ export class HeaderComponent implements OnInit {
         },
       });
     }
+  }
+  accordionIndex: number = 0; // ningún panel abierto
+
+  showDrawer() {
+    this.mobileMenuVisible = true;
+    this.accordionIndex = 0;
+  }
+
+  trackByLabel(index: number, item: any): string {
+    return item.label;
+  }
+
+  routerMobile(url: string) {
+    this.router.navigate([url]);
+    this.mobileMenuVisible = false;
   }
 }

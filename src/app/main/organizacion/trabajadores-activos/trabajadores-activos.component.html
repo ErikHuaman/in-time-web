@@ -4,62 +4,60 @@
       <title-card [title]="title" [icon]="icon" />
     </div>
     <div class="flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <p-multiselect
-          [options]="listaSedes"
-          [(ngModel)]="selectedSedes"
-          optionLabel="nombre"
-          optionValue="id"
-          placeholder="Edificios"
-          [maxSelectedLabels]="2"
-          (onChange)="filtrar($event.value)"
-          styleClass="w-42"
-          pTooltip="Edificios"
-          tooltipPosition="top"
-          tooltipStyleClass="text-sm"
-        />
-        <p-multiselect
-          [options]="listaCargos"
-          [(ngModel)]="selectedCargos"
-          optionLabel="nombre"
-          optionValue="id"
-          placeholder="Cargos"
-          [maxSelectedLabels]="2"
-          (onChange)="filtrar($event.value)"
-          styleClass="w-42"
-          pTooltip="Cargos"
-          tooltipPosition="top"
-          tooltipStyleClass="text-sm"
-        />
-        <p-inputgroup>
-          <input pInputText [(ngModel)]="searchText" placeholder="Buscar" />
-          <p-inputgroup-addon>
-            <p-button
-              icon="pi pi-search"
-              severity="info"
-              variant="text"
-              size="small"
-              (click)="search()"
-              [disabled]="!searchText"
-              pTooltip="Buscar"
-              tooltipPosition="top"
-              tooltipStyleClass="!text-xs !font-normal !p-0"
-            />
-          </p-inputgroup-addon>
-        </p-inputgroup>
-      </div>
-      <div class="flex items-center gap-3">
-        <!-- <p-button severity="info" size="small">
-          <div class="flex justify-center items-center font-medium gap-1">
-            <i
-              class="iconify icon text-lg"
-              data-icon="material-symbols:download-rounded"
-              data-inline="false"
-            ></i>
-            <div>XLS</div>
+      <div class="flex items-center gap-2">
+        <div class="w-42">
+          <p-multiselect
+            [options]="listaSedes"
+            [(ngModel)]="selectedSedes"
+            optionLabel="nombre"
+            optionValue="id"
+            placeholder="Edificios"
+            [maxSelectedLabels]="2"
+            styleClass="w-42"
+            pTooltip="Edificios"
+            tooltipPosition="top"
+            tooltipStyleClass="text-sm"
+          />
+        </div>
+        <div class="w-42">
+          <p-multiselect
+            [options]="listaCargos"
+            [(ngModel)]="selectedCargos"
+            optionLabel="nombre"
+            optionValue="id"
+            placeholder="Cargos"
+            [maxSelectedLabels]="2"
+            styleClass="w-42"
+            class="w-42"
+            pTooltip="Cargos"
+            tooltipPosition="top"
+            tooltipStyleClass="text-sm"
+          />
+        </div>
+        <input pInputText [(ngModel)]="searchText" placeholder="Buscar" />
+        <p-button
+          severity="contrast"
+          variant="outlined"
+          size="small"
+          (click)="search()"
+        >
+          <div class="flex justify-center items-center gap-2">
+            <div>Filtrar</div>
           </div>
-        </p-button> -->
-        <!-- <div class="flex justify-end">
+        </p-button>
+        <p-button
+          severity="danger"
+          variant="outlined"
+          size="small"
+          (click)="clear()"
+        >
+          <div class="flex justify-center items-center gap-2">
+            <div>Limpiar</div>
+          </div>
+        </p-button>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="flex justify-end" *ngIf="isSuper">
           <input
             #fileImage
             class="hidden"
@@ -67,60 +65,36 @@
             (change)="onExcelSelected($event)"
             accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
           />
-          <p-button
+          <btn-add
             severity="contrast"
-            size="small"
-            (click)="fileImage.click()"
-          >
-            <div class="flex justify-center items-center gap-2">
-              <div>Importar Excel</div>
-              <i
-                class="iconify icon text-lg"
-                data-icon="bx:upload"
-                data-inline="false"
-              ></i>
-            </div>
-          </p-button>
-        </div> -->
-        <p-button severity="info" size="small" (click)="addNew()">
-          <div class="flex justify-center items-center font-medium gap-1">
-            <iconify-icon
-              [icon]="'material-symbols:add-rounded'"
-              class="text-lg"
-            />
-            <div>AGREGAR</div>
-          </div>
-        </p-button>
+            label="Carga masiva"
+            icon="bx:upload"
+            (onClick)="precargarCargaMasiva(fileImage)"
+          />
+        </div>
+        <btn-add (onClick)="addNew()" />
       </div>
     </div>
   </div>
   <div class="flex flex-col px-6">
     <p-table
-      #dt1
       dataKey="id"
       [value]="dataTable"
+      [columns]="cols"
       stripedRows
       [scrollable]="true"
-      scrollHeight="calc(100vh - 200px)"
+      scrollHeight="calc(100vh - 220px)"
       styleClass="w-full"
     >
-      <ng-template #header>
+      <ng-template #header let-columns>
         <tr>
-          <th class="!w-20">
-            <div class="text-center text-xs uppercase">Doc ID</div>
-          </th>
-          <th><div class="text-xs uppercase">Nombre</div></th>
-          <th><div class="text-xs uppercase">Apellido</div></th>
-          <th><div class="text-center text-xs uppercase">Edificios</div></th>
-          <th><div class="text-center text-xs uppercase">Cargo</div></th>
-          <th>
-            <div class="text-center text-xs uppercase">Tiempo de contrato</div>
-          </th>
-          <th>
-            <div class="text-center text-xs uppercase">Fecha de inicio</div>
-          </th>
-          <th>
-            <div class="text-center text-xs uppercase">Acciones</div>
+          <th
+            *ngFor="let col of columns"
+            [ngClass]="[col.widthClass ? col.widthClass : '']"
+          >
+            <div [ngClass]="[col.align ? 'text-' + col.align : 'text-start']">
+              {{ col.header }}
+            </div>
           </th>
         </tr>
       </ng-template>
@@ -130,54 +104,42 @@
             <div class="text-center text-sm">{{ item.identificacion }}</div>
           </td>
           <td>
-            <div class="text-sm">{{ item.nombre }}</div>
+            <div class="text-sm uppercase">{{ item.labelName }}</div>
           </td>
           <td>
-            <div class="text-sm">{{ item.apellido }}</div>
-          </td>
-          <td class="w-100">
-            <div
-              class="w-100 flex flex-wrap gap-2 items-center justify-center text-sm font-light capitalize italic"
-              [ngClass]="{ 'cursor-pointer': item.sedes.length > 4 }"
-              (click)="item.sedes.length > 4 ? op.toggle($event) : ''"
-              [pTooltip]="item.sedes.length > 4 ? 'Ver más' : ''"
-              tooltipPosition="top"
-              tooltipStyleClass="!text-xs !font-normal !p-0"
-            >
-              <!-- Mostrar los primeros 5 -->
-              @for (sede of item.sedes.slice(0, 4); track $index) {
-              <p-chip class="!py-1 !px-2 shadow !bg-amber-200">
-                <div class="text-xs font-medium">{{ sede.nombre }}</div>
-              </p-chip>
-              }
-
-              <!-- Mostrar "..." si hay más de 5 -->
-              @if (item.sedes.length > 4) {
-              <span class="text-xs font-semibold">...</span>
-              }
-            </div>
-            <p-popover #op styleClass="gap-2 p-2">
-              <div class="w-100 max-h-40 overflow-y-auto flex flex-col">
-                <div
-                  class="flex flex-wrap gap-2 items-center justify-center text-sm font-light capitalize italic"
-                >
-                  @for (sede of item.sedes; track $index) {
-                  <p-chip class="!py-1 !px-2 shadow !bg-amber-200">
-                    <div class="text-xs font-medium">{{ sede.nombre }}</div>
-                  </p-chip>
-                  }
-                </div>
-              </div>
-            </p-popover>
-          </td>
-          <td>
-            <div class="text-center text-sm">
+            <div class="text-center text-sm uppercase">
               {{ item.contratos[0]?.cargo?.nombre }}
             </div>
           </td>
           <td>
-            <div class="text-center text-sm">
+            <tags-sedes [sedes]="item.sedes" />
+          </td>
+          <td>
+            <!-- <div class="text-center text-sm">
               {{ item.contratos[0]?.tiempoContrato?.nombre }}
+            </div> -->
+            <div class="flex justify-center items-center">
+              <div
+                *ngIf="item.biometricos[0].urlFile"
+                class="border border-slate-300 rounded-lg w-20 h-20"
+              >
+                <p-image
+                  loading="lazy"
+                  [src]="getImageUrl(item.biometricos[0].urlFile)"
+                  [alt]="item.labelName"
+                  class="w-20 h-20 object-cover rounded-lg overflow-hidden"
+                  [preview]="true"
+                />
+              </div>
+              <div
+                *ngIf="!item.biometricos[0].urlFile"
+                class="flex flex-col justify-center"
+              >
+                <p class="text-xs text-center">Código de registro</p>
+                <p class="text-xl font-medium text-center">
+                  {{ item.biometricos[0].codigo }}
+                </p>
+              </div>
             </div>
           </td>
           <td>
@@ -191,34 +153,30 @@
           </td>
           <td class="w-28">
             <div class="flex justify-center items-center gap-1">
-              <button-edit (click)="edit(item)" />
-              <button-delete (click)="remove(item)" />
+              <btn-edit (onClick)="edit(item)" />
+              <btn-delete (onClick)="remove(item)" />
             </div>
           </td>
         </tr>
       </ng-template>
       <ng-template #emptymessage>
-        <tr>
-          <td colspan="100">
-            <div class="text-center text-sm font-extralight">
-              No se encontraron registros.
-            </div>
-          </td>
-        </tr>
+        <ng-template
+          [skeletonTable]="{
+            loading: loadingTable,
+            numCols: cols.length,
+            numRows: 4
+          }"
+        ></ng-template>
       </ng-template>
       <ng-template #footer>
-        <tr>
-          <td colspan="100">
-            <div class="flex justify-center items-center">
-              <app-paginator
-                [totalItems]="totalItems"
-                [limit]="limit()"
-                [offset]="offset()"
-                (pageChange)="onPageChange($event)"
-              />
-            </div>
-          </td>
-        </tr>
+        <ng-template
+          [appPaginator]="{
+            totalItems: totalItems,
+            limit: limit,
+            offset: offset,
+            pageChange: onPageChange
+          }"
+        ></ng-template>
       </ng-template>
     </p-table>
   </div>

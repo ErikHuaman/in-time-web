@@ -1,5 +1,5 @@
 export interface EstadoCivil {
   id: string;
-  orden: number;
+  serialNumber: number;
   nombre: string;
 }

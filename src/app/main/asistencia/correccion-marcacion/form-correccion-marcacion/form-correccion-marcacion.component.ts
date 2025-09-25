@@ -1,11 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
-import {
-  DialogService,
-  DynamicDialogComponent,
-  DynamicDialogRef,
-} from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { FieldsetModule } from 'primeng/fieldset';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
@@ -19,11 +15,6 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { AsistenciaService } from '@services/asistencia.service';
-import { Asistencia } from '@models/asistencia.model';
-import { TrabajadorService } from '@services/trabajador.service';
-import { Trabajador } from '@models/trabajador.model';
-import { mergeMap } from 'rxjs';
 import { CorreccionMarcacionService } from '@services/correccion-marcacion.service';
 import { sanitizedForm } from '@functions/forms.function';
 import { CorreccionMarcacion } from '@models/correccion-marcacion.model';
@@ -106,15 +97,15 @@ export class FormCorreccionMarcacionComponent implements OnInit {
       this.fecha = new Date(data.fecha);
       this.formData.get('idAsistencia')?.setValue(data.asistencia.id);
       this.formData.get('fecha')?.setValue(new Date(data.fecha));
-      if (data.asistencia?.correccion?.marcacionEntrada) {
+      if (data.asistencia?.marcacionEntrada) {
         this.marcacionEntrada = new Date(
-          data.asistencia?.correccion?.marcacionEntrada
+          data.asistencia?.marcacionEntrada
         );
         this.formData.get('marcacionEntrada')?.setValue(this.marcacionEntrada);
       }
-      if (data.asistencia?.correccion?.marcacionSalida) {
+      if (data.asistencia?.marcacionSalida) {
         this.marcacionSalida = new Date(
-          data.asistencia?.correccion?.marcacionSalida
+          data.asistencia?.marcacionSalida
         );
         this.formData.get('marcacionSalida')?.setValue(this.marcacionSalida);
       }
@@ -129,11 +120,11 @@ export class FormCorreccionMarcacionComponent implements OnInit {
   }
 
   selectEntrada(event: any) {
-    if (this.entrada) {
+    if (this.entrada && this.marcacionEntrada) {
       const fechaEntrada = new Date(this.entrada);
       fechaEntrada.setHours(
-        this.entrada.getHours(),
-        this.entrada.getMinutes(),
+        this.marcacionEntrada.getHours(),
+        this.marcacionEntrada.getMinutes(),
         0,
         0
       );
@@ -142,11 +133,11 @@ export class FormCorreccionMarcacionComponent implements OnInit {
   }
 
   selectSalida(event: any) {
-    if (this.salida) {
+    if (this.salida && this.marcacionSalida) {
       const fechaSalida = new Date(this.salida);
       fechaSalida.setHours(
-        this.salida.getHours(),
-        this.salida.getMinutes(),
+        this.marcacionSalida.getHours(),
+        this.marcacionSalida.getMinutes(),
         0,
         0
       );
@@ -158,6 +149,7 @@ export class FormCorreccionMarcacionComponent implements OnInit {
     const form: CorreccionMarcacion = sanitizedForm(
       this.formData.getRawValue()
     );
+    
     if (!this.id) {
       this.correccionMarcacionService
         .create({

@@ -46,7 +46,6 @@ import { CargoStore } from '@stores/cargo.store';
   ],
   templateUrl: './correccion-marcacion.component.html',
   styles: ``,
-  providers: [DialogService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class CorreccionMarcacionComponent implements OnInit {

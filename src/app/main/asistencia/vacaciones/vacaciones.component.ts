@@ -30,8 +30,8 @@ import { Sede } from '@models/sede.model';
 import { TitleCardComponent } from '@components/title-card/title-card.component';
 import { CargoStore } from '@stores/cargo.store';
 import { SedeStore } from '@stores/sede.store';
-import { ButtonEditComponent } from '@components/buttons/button-edit/button-edit.component';
-import { ButtonDeleteComponent } from '@components/buttons/button-delete/button-delete.component';
+import { ButtonEditComponent } from '@components/buttons/button-edit.component';
+import { ButtonDeleteComponent } from '@components/buttons/button-delete.component';
 import { MessageGlobalService } from '@services/message-global.service';
 
 @Component({
@@ -56,7 +56,6 @@ import { MessageGlobalService } from '@services/message-global.service';
   ],
   templateUrl: './vacaciones.component.html',
   styles: ``,
-  providers: [DialogService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class VacacionesComponent implements OnInit {
@@ -144,7 +143,7 @@ export class VacacionesComponent implements OnInit {
         field: '',
         header: 'Acciones',
         align: 'center',
-        widthClass: '!w-36',
+        widthClass: '!min-w-32',
       },
     ];
 

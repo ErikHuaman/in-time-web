@@ -29,28 +29,42 @@ export class GenericCrudService<T> {
     return this.http.get<T>(`${this.url}/${id}`);
   }
 
-  create(dto: Partial<T>, ext?: { file?: File }): Observable<T> {
+  create(dto: Partial<T>, ext?: { file?: File | File[] }): Observable<T> {
     if (ext) {
       const formData = new FormData();
       formData.append('dto', JSON.stringify(dto));
+
       if (ext.file) {
-        formData.append('archivo', ext.file);
+        if (Array.isArray(ext.file)) {
+          ext.file.forEach((file) => formData.append('archivo', file));
+        } else {
+          formData.append('archivo', ext.file);
+        }
       }
+
       return this.http.post<T>(this.url, formData);
     }
-    return this.http.post<T>(`${this.url}`, dto);
+    return this.http.post<T>(this.url, dto);
   }
 
   createMany(dto: Partial<T>[]): Observable<Partial<T>[]> {
     return this.http.post<T[]>(`${this.url}/multiple`, dto);
   }
 
-  update(id: string, dto: Partial<T>, ext?: { file?: File }): Observable<T> {
+  update(
+    id: string,
+    dto: Partial<T>,
+    ext?: { file?: File | File[] }
+  ): Observable<T> {
     if (ext) {
       const formData = new FormData();
       formData.append('dto', JSON.stringify(dto));
-      if (ext.file) {
-        formData.append('archivo', ext.file);
+      if (ext.file ) {
+        if (Array.isArray(ext.file)) {
+          ext.file.forEach((file) => formData.append('archivo', file));
+        } else {
+          formData.append('archivo', ext.file);
+        }
       }
       return this.http.patch<T>(`${this.url}/${id}`, formData);
     }

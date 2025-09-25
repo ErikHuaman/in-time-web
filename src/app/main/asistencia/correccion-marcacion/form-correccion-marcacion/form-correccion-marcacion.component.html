@@ -62,7 +62,6 @@
           [(ngModel)]="marcacionEntrada"
           (ngModelChange)="selectEntrada($event)"
           [ngModelOptions]="{ standalone: true }"
-          [readonlyInput]="true"
           [showIcon]="true"
         />
       </div>
@@ -79,7 +78,6 @@
           [(ngModel)]="marcacionSalida"
           (onClickOutside)="selectSalida($event)"
           [ngModelOptions]="{ standalone: true }"
-          [readonlyInput]="true"
           [showIcon]="true"
         />
       </div>

@@ -4,5 +4,6 @@ export interface PatronHorario {
   id?: string;
   nombre?: string;
   idTipoTurno: string;
+  idTipoPatron: string;
   items?: PatronHorarioItem[];
 }

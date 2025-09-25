@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, effect, inject, OnInit } from '@angular/core';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  effect,
+  inject,
+  OnInit,
+} from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -47,14 +53,16 @@ import { InputOtpModule } from 'primeng/inputotp';
 import { generarCodigoNumerico } from '@functions/number.function';
 import { RadioButtonModule } from 'primeng/radiobutton';
 
-import * as XLSX from 'xlsx';
-import { saveAs } from 'file-saver';
+import * as fs from 'file-saver-es';
 import { TrabajadorStore } from '@stores/trabajador.store';
 import { SedeStore } from '@stores/sede.store';
 import { CargoStore } from '@stores/cargo.store';
 import { Sede } from '@models/sede.model';
 import { TipoDocIdentStore } from '@stores/tipo-doc-ident.store';
-import { getDateExcel } from '@functions/fecha.function';
+import { Workbook } from 'exceljs';
+import { CheckboxModule } from 'primeng/checkbox';
+import { environment } from '@environments/environments';
+import { TextareaModule } from 'primeng/textarea';
 
 @Component({
   selector: 'app-form-trabajador',
@@ -65,18 +73,22 @@ import { getDateExcel } from '@functions/fecha.function';
     FieldsetModule,
     InputTextModule,
     InputNumberModule,
+    TextareaModule,
     ButtonModule,
     SelectModule,
     DatePickerModule,
     ToggleSwitchModule,
     RadioButtonModule,
     InputOtpModule,
+    CheckboxModule,
   ],
   templateUrl: './form-trabajador.component.html',
   styles: ``,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class FormTrabajadorComponent implements OnInit {
+  readonly baseUrl: string = environment.urlBase;
+
   public readonly ref: DynamicDialogRef = inject(DynamicDialogRef);
 
   private readonly dialogService: DialogService = inject(DialogService);
@@ -144,6 +156,10 @@ export class FormTrabajadorComponent implements OnInit {
           validators: [Validators.required],
         }
       ),
+      fechaNacimiento: new FormControl<Date | undefined>(undefined, {
+        nonNullable: true,
+        validators: [],
+      }),
       idEstadoCivil: new FormControl<string | undefined>(undefined, {
         nonNullable: true,
         validators: [Validators.required],
@@ -170,7 +186,7 @@ export class FormTrabajadorComponent implements OnInit {
       }),
       idTurnoTrabajo: new FormControl<string | undefined>(undefined, {
         nonNullable: true,
-        validators: [Validators.required],
+        validators: [],
       }),
       marcacionAutomatica: new FormControl<boolean | undefined>(false),
     }),
@@ -274,9 +290,11 @@ export class FormTrabajadorComponent implements OnInit {
         nonNullable: true,
         validators: [],
       }),
-      idFondoPensiones: new FormControl<string | undefined>(undefined),
+      pagoFeriado: new FormControl<number | undefined>(0),
+      bonoAdicional: new FormControl<number | undefined>(0),
       idSeguroSalud: new FormControl<string | undefined>(undefined),
-      pagoFeriado: new FormControl<number | undefined>(undefined),
+      idFondoPensiones: new FormControl<string | undefined>(undefined),
+      aplicaComision: new FormControl<boolean>(false),
     }),
   });
 
@@ -307,7 +325,22 @@ export class FormTrabajadorComponent implements OnInit {
   }
   listaEstadoCivil: EstadoCivil[] = [];
   listaFrecuenciaPagoAll: FrecuenciaPago[] = [];
-  listaFrecuenciaPago: FrecuenciaPago[] = [];
+
+  get listaFrecuenciaPago(): FrecuenciaPago[] {
+    if (
+      this.listaCargos.find(
+        (item) => item.id === this.formData.get('contrato.idCargo')?.value
+      )?.isDescansero
+    ) {
+      this.isDiario = true;
+      return this.listaFrecuenciaPagoAll.filter(
+        (item) => item.serialNumber == 1
+      );
+    } else {
+      this.isDiario = false;
+      return this.listaFrecuenciaPagoAll;
+    }
+  }
 
   listaTiempos: TiempoContrato[] = [];
 
@@ -331,10 +364,6 @@ export class FormTrabajadorComponent implements OnInit {
     return this.store.loading();
   }
 
-  private getFileEffect = effect(() => {
-    this.previewUrl = this.store.previewUrl();
-  });
-
   private resetOnSuccessEffect = effect(() => {
     const item = this.store.selectedItem();
     const error = this.store.error();
@@ -342,7 +371,7 @@ export class FormTrabajadorComponent implements OnInit {
 
     // Manejo de errores
     if (error) {
-      console.log('error', error);
+      console.error('error', error);
       this.msg.error(
         error ?? '¡Ups, ocurrió un error inesperado al guardar el rol!'
       );
@@ -380,6 +409,7 @@ export class FormTrabajadorComponent implements OnInit {
         idPais: item.idPais,
         idTipoDocID: item.idTipoDocID,
         identificacion: item.identificacion,
+        fechaNacimiento: item.fechaNacimiento,
         idEstadoCivil: item.idEstadoCivil,
         isActive: item.isActive,
       });
@@ -414,7 +444,13 @@ export class FormTrabajadorComponent implements OnInit {
           codigo: item.biometricos[0]?.codigo,
         });
         if (!item.biometricos[0]?.codigo) {
-          this.getArchivoBiometrico(item.biometricos[0]?.id!);
+          this.tipoVerificacion = 'foto';
+          this.fotoCargada = true;
+          this.previewUrl =
+            `${this.baseUrl}${item.biometricos[0]?.urlFile}`.replace(
+              '//uploads',
+              '/uploads'
+            );
         } else {
           this.tipoVerificacion = 'codigo';
         }
@@ -448,7 +484,9 @@ export class FormTrabajadorComponent implements OnInit {
           id: item.beneficios[0]?.id,
           idFondoPensiones: item.beneficios[0]?.idFondoPensiones,
           idSeguroSalud: item.beneficios[0]?.idSeguroSalud,
-          pagoFeriado: item.beneficios[0]?.pagoFeriado,
+          pagoFeriado: item.beneficios[0]?.pagoFeriado ?? 0,
+          bonoAdicional: item.beneficios[0]?.bonoAdicional ?? 0,
+          aplicaComision: item.beneficios[0]?.aplicaComision,
         });
       }
 
@@ -539,10 +577,6 @@ export class FormTrabajadorComponent implements OnInit {
     }
   }
 
-  getArchivoBiometrico(id: string) {
-    this.store.getFile(id);
-  }
-
   private cargarPais() {
     this.nacionalidadService
       .getPaises()
@@ -583,27 +617,21 @@ export class FormTrabajadorComponent implements OnInit {
     this.formData.get('trabajador.identificacion')?.enable();
   }
 
+  get fondo() {
+    return this.listaFondosPensiones.find(
+      (item) =>
+        item.id === this.formData.get('beneficio.idFondoPensiones')?.value
+    );
+  }
+
+  get showComision(): boolean {
+    return this.fondo ? this.fondo?.serialNumber != 6 : false;
+  }
+
   changeCargo(event: any) {
-    if (
-      this.listaCargos.find(
-        (item) => item.id === this.formData.get('contrato.idCargo')?.value
-      )?.isDescansero
-    ) {
-      this.listaFrecuenciaPago = this.listaFrecuenciaPagoAll.filter(
-        (item) => item.orden == 1
-      );
-      this.isDiario = true;
-    } else {
-      this.listaFrecuenciaPago = this.listaFrecuenciaPagoAll;
-      this.isDiario = false;
-    }
     this.formData.get('contrato.idFrecuenciaPago')?.enable();
     this.formData.get('contrato.horasContrato')?.enable();
     this.formData.get('contrato.salarioMensual')?.enable();
-  }
-
-  changeTipo(event: any) {
-    this.formData.get('biometrico.codigo')?.setValue(undefined);
   }
 
   generarCodigo() {
@@ -666,7 +694,15 @@ export class FormTrabajadorComponent implements OnInit {
           biometricos: [formBiometrico as RegistroBiometrico],
           infos: [formInfo as InfoTrabajador],
           contactos: [formContacto as ContactoTrabajador],
-          beneficios: [formBeneficio as BeneficioTrabajador],
+          beneficios: [
+            {
+              ...formBeneficio,
+              bonoAdicional: formBeneficio?.bonoAdicional ?? 0,
+              aplicaComision: this.showComision
+                ? formBeneficio?.aplicaComision
+                : false,
+            } as BeneficioTrabajador,
+          ],
         },
         { file: this.archivo }
       );
@@ -686,7 +722,14 @@ export class FormTrabajadorComponent implements OnInit {
           infos: [{ ...formInfo, id: undefined } as InfoTrabajador],
           contactos: [{ ...formContacto, id: undefined } as ContactoTrabajador],
           beneficios: [
-            { ...formBeneficio, id: undefined } as BeneficioTrabajador,
+            {
+              ...formBeneficio,
+              id: undefined,
+              bonoAdicional: formBeneficio?.bonoAdicional ?? 0,
+              aplicaComision: this.showComision
+                ? formBeneficio?.aplicaComision
+                : false,
+            } as BeneficioTrabajador,
           ],
         } as Trabajador,
         { file: this.archivo }
@@ -694,7 +737,7 @@ export class FormTrabajadorComponent implements OnInit {
     }
   }
 
-  exportarPlantillaExcel(): void {
+  async exportarPlantillaExcel(): Promise<void> {
     const generarPlantillaDesdeFormGroup: any = (
       fg: FormGroup,
       parentKey: string = ''
@@ -747,22 +790,25 @@ export class FormTrabajadorComponent implements OnInit {
     };
 
     const plantilla = generarPlantillaDesdeFormGroup(this.formData);
-    const hoja: XLSX.WorkSheet = XLSX.utils.json_to_sheet([plantilla]);
+    const workbook = new Workbook();
+    const worksheet = workbook.addWorksheet('Plantilla');
 
-    const libro: XLSX.WorkBook = {
-      Sheets: { Plantilla: hoja },
-      SheetNames: ['Plantilla'],
-    };
+    // Agregar encabezados (keys del objeto)
+    const headers = Object.keys(plantilla);
+    worksheet.addRow(headers);
 
-    const excelBuffer: any = XLSX.write(libro, {
-      bookType: 'xlsx',
-      type: 'array',
+    // Agregar los datos (valores del objeto)
+    const dataRow = headers.map((key) => plantilla[key]);
+    worksheet.addRow(dataRow);
+
+    // Generar el buffer
+    const buffer = await workbook.xlsx.writeBuffer();
+
+    // Crear el Blob
+    const blob = new Blob([buffer], {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
     });
-    const blob: Blob = new Blob([excelBuffer], {
-      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8',
-    });
 
-    saveAs(blob, 'plantilla_trabajador.xlsx');
+    fs.saveAs(blob, 'plantilla_trabajador.xlsx');
   }
-
 }

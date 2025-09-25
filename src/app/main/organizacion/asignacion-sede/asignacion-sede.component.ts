@@ -1,9 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, effect, inject, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  effect,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
-import { IconField } from 'primeng/iconfield';
-import { InputIcon } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -11,29 +16,19 @@ import { SelectModule } from 'primeng/select';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { DatePickerModule } from 'primeng/datepicker';
 import { FormAsignacionSedeComponent } from './form-asignacion-sede/form-asignacion-sede.component';
-import { CargoService } from '@services/cargo.service';
-import { SedeService } from '@services/sede.service';
-import { TrabajadorService } from '@services/trabajador.service';
 import { Cargo } from '@models/cargo.model';
-import { forkJoin, mergeMap } from 'rxjs';
 import { Sede } from '@models/sede.model';
 import { Trabajador } from '@models/trabajador.model';
-import { SkeletonModule } from 'primeng/skeleton';
 import { Column, ExportColumn } from '@models/column-table.model';
-import { TagModule } from 'primeng/tag';
 import { MessageGlobalService } from '@services/message-global.service';
-import { AsignacionSedeService } from '@services/asignacion-sede.service';
 import { TitleCardComponent } from '@components/title-card/title-card.component';
 import { CargoStore } from '@stores/cargo.store';
 import { SedeStore } from '@stores/sede.store';
 import { TrabajadorStore } from '@stores/trabajador.store';
-import { ButtonEditComponent } from '@components/buttons/button-edit/button-edit.component';
-import { PaginatorComponent } from '@components/paginator/paginator.component';
-import { TooltipModule } from 'primeng/tooltip';
-import { ChipModule } from 'primeng/chip';
-import { PopoverModule } from 'primeng/popover';
-import { InputGroup } from 'primeng/inputgroup';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { ButtonEditComponent } from '@components/buttons/button-edit.component';
+import { PaginatorDirective } from '@components/paginator/paginator.directive';
+import { SkeletonTableDirective } from '@components/skeleton-table/skeleton-table.directive';
+import { TagsSedesComponent } from '@components/tags-sedes/tags-sedes.component';
 
 @Component({
   selector: 'app-asignacion-sede',
@@ -43,24 +38,18 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
     MultiSelectModule,
     ButtonModule,
     TableModule,
-    InputGroup,
-    InputGroupAddonModule,
     InputTextModule,
     SelectModule,
     FormsModule,
     DatePickerModule,
-    SkeletonModule,
-    TagModule,
-    TooltipModule,
-    ChipModule,
-    PopoverModule,
+    TagsSedesComponent,
+    SkeletonTableDirective,
     TitleCardComponent,
     ButtonEditComponent,
-    PaginatorComponent,
+    PaginatorDirective,
   ],
   templateUrl: './asignacion-sede.component.html',
   styles: ``,
-  providers: [DialogService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AsignacionSedeComponent implements OnInit {
@@ -79,68 +68,51 @@ export class AsignacionSedeComponent implements OnInit {
 
   private readonly store = inject(TrabajadorStore);
 
-  selectedSedes: string[] = [];
-
-  selectedCargos: string[] = [];
-
-  get listaTrabajadores(): Trabajador[] {
-    return this.store.items();
+  get dataTable(): Trabajador[] {
+    return this.store.items().map((item) => {
+      item.labelName = `${item.nombre} ${item.apellido}`;
+      return item;
+    });
   }
 
   openModal: boolean = false;
 
   limit = signal(12);
   offset = signal(0);
+  totalItems = signal(0);
+  loadingTable = signal(false);
   searchText = signal('');
 
-  get loadingTable(): boolean {
-    return this.store.loading();
-  }
-
-  get totalItems(): number {
-    return this.store.totalItems();
-  }
-
-  dataTable: Trabajador[] = [];
-
   get listaCargos(): Cargo[] {
-    return this.cargoStore.items();
+    return this.cargoStore
+      .items()
+      .slice()
+      .sort((a, b) => a.nombre.localeCompare(b.nombre));
   }
 
   get listaSedes(): Sede[] {
-    return this.sedeStore.items().slice().sort((a, b) => a.nombre.localeCompare(b.nombre));
+    return this.sedeStore
+      .items()
+      .slice()
+      .sort((a, b) => a.nombre.localeCompare(b.nombre));
   }
 
-  private sedesEffect = effect(() => {
-    const sedes = this.sedeStore.items();
-    if (sedes) {
-      this.selectedSedes = sedes.map((item) => item.id);
-      this.filtrar();
-    }
-  });
+  selectedSedes: string[] = [];
 
-  private cargosEffect = effect(() => {
-    const cargos = this.cargoStore.items();
-    if (cargos) {
-      this.selectedCargos = cargos.map((item) => item.id);
-      this.filtrar();
-    }
-  });
+  selectedCargos: string[] = [];
 
   private resetOnSuccessEffect = effect(() => {
+    this.loadingTable.set(this.store.loading());
+    this.totalItems.set(this.store.totalItems());
     const error = this.store.error();
     const action = this.store.lastAction();
-    const items = this.store.items();
-
-    if (items) {
-      this.filtrar();
-    }
 
     // Manejo de errores
     if (!this.openModal && error) {
-      console.log('error', error);
+      console.error('error', error);
       this.msg.error(
-        error ?? '¡Ups, ocurrió un error inesperado al eliminar la asignación de sede!'
+        error ??
+          '¡Ups, ocurrió un error inesperado al eliminar la asignación de sede!'
       );
       return; // Salimos si hay un error
     }
@@ -167,15 +139,18 @@ export class AsignacionSedeComponent implements OnInit {
         align: 'center',
         widthClass: '!w-20',
       },
-      { field: 'nombre', header: 'Nombre' },
-      { field: 'apellido', header: 'Apellido' },
+      {
+        field: 'labelName',
+        header: 'Nombre completo',
+        widthClass: '!min-w-72',
+      },
       { field: 'cargo', header: 'Cargo', align: 'center' },
       { field: 'sede', header: 'Edificio', align: 'center' },
       {
         field: '',
         header: 'Acciones',
         align: 'center',
-        widthClass: '!w-36',
+        widthClass: '!min-w-32',
       },
     ];
 
@@ -206,23 +181,26 @@ export class AsignacionSedeComponent implements OnInit {
       isActive: true,
       isAsigned: true,
       search: this.searchText(),
+      sedes: this.selectedSedes,
+      cargos: this.selectedCargos,
     };
     this.store.loadAll(this.limit(), this.offset(), q);
   }
 
-  onPageChange(event: { limit: number; offset: number }) {
-    this.limit.set(event.limit);
-    this.offset.set(event.offset);
+  clear() {
+    this.selectedCargos = [];
+    this.selectedSedes = [];
+    this.searchText.set('');
+    this.limit.set(12);
+    this.offset.set(0);
     this.loadData();
   }
 
-  filtrar(event?: any) {
-    this.dataTable = this.listaTrabajadores.filter(
-      (t) =>
-        this.selectedSedes.includes(t.sedes[0]?.id!) &&
-        this.selectedCargos.includes(t.contratos[0]?.idCargo!)
-    );
-  }
+  onPageChange = ({ limit, offset }: { limit: number; offset: number }) => {
+    this.limit.set(limit);
+    this.offset.set(offset);
+    this.search();
+  };
 
   addNew() {
     this.store.clearSelected();
@@ -238,7 +216,7 @@ export class AsignacionSedeComponent implements OnInit {
     ref.onClose.subscribe((res) => {
       this.openModal = false;
       if (res) {
-        this.loadData();
+        this.clear();
       }
     });
   }
@@ -257,26 +235,8 @@ export class AsignacionSedeComponent implements OnInit {
     ref.onClose.subscribe((res) => {
       this.openModal = false;
       if (res) {
-        this.loadData();
+        this.clear();
       }
     });
   }
-
-  filterGlobal(dt: any, target: EventTarget | null) {
-    dt.filterGlobal((target as HTMLInputElement).value, 'contains');
-  }
-
-  // calculateitemTotal(idSede: string) {
-  //   let total = 0;
-
-  //   if (this.dataTable) {
-  //     for (let trabajador of this.dataTable) {
-  //       if (trabajador.sede?.id === idSede) {
-  //         total++;
-  //       }
-  //     }
-  //   }
-
-  //   return total;
-  // }
 }

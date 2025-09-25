@@ -19,4 +19,8 @@ export class SedeService extends GenericCrudService<Sede> {
       map((data: Sede[]) => data)
     );
   }
+
+  daysWorked(id: string, dto: Sede): Observable<Sede> {
+      return this.http.patch<Sede>(`${this.url}/daysWorked/${id}`, dto);
+    }
 }

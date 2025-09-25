@@ -19,231 +19,236 @@
       </tr>
     </tbody>
   </table>
-  <table class="w-full">
-    <tbody>
-      <tr>
-        <td
-          colspan="2"
-          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+
+  <div class="w-full grid grid-cols-1">
+    <div class="grid grid-cols-8">
+      <div
+        class="col-span-2 border-t border-l bg-sky-600/25 text-slate-700 py-0.5"
+      >
+        <div
+          class="h-full flex items-center justify-center font-medium text-sm"
         >
           Documento de Identidad
-        </td>
-        <td
-          colspan="4"
-          rowspan="2"
-          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+        </div>
+      </div>
+      <div
+        class="col-span-4 row-span-2 border-t border-l bg-sky-600/25 text-slate-700 py-0.5"
+      >
+        <div
+          class="h-full flex items-center justify-center font-medium text-sm"
         >
           Nombres y Apellidos
-        </td>
-        <td
-          colspan="2"
-          rowspan="2"
-          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+        </div>
+      </div>
+      <div
+        class="col-span-2 row-span-2 border-t border-x bg-sky-600/25 text-slate-700 py-0.5"
+      >
+        <div
+          class="h-full flex items-center justify-center font-medium text-sm"
         >
           Situación
-        </td>
-      </tr>
-      <tr>
-        <td
-          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+        </div>
+      </div>
+      <div class="border-t border-l bg-sky-600/25 text-slate-700 py-0.5">
+        <div
+          class="h-full flex items-center justify-center font-medium text-sm"
         >
           Tipo
-        </td>
-        <td
-          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+        </div>
+      </div>
+      <div class="border-t border-l bg-sky-600/25 text-slate-700 py-0.5">
+        <div
+          class="h-full flex items-center justify-center font-medium text-sm"
         >
           Número
-        </td>
-      </tr>
-      <tr>
-        <td class="border py-0.5 text-center text-sm uppercase">
-          {{ formData?.datos?.tipoDoc }}
-        </td>
-        <td class="border py-0.5 text-center text-sm">
-          {{ formData?.datos?.identificacion }}
-        </td>
-        <td colspan="4" class="border py-0.5 text-center text-sm uppercase">
-          {{ formData?.datos?.nombre }} {{ formData?.datos?.apellido }}
-        </td>
-        <td colspan="2" class="border py-0.5 text-center text-sm uppercase">
-          {{ formData?.datos?.situacion }}
-        </td>
-      </tr>
-      <tr>
-        <td
-          colspan="2"
-          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
-        >
-          Fecha de Ingreso
-        </td>
-        <td
-          colspan="2"
-          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
-        >
-          Tipo de Trabajador
-        </td>
-        <td
-          colspan="2"
-          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
-        >
-          Régimen Pensionario
-        </td>
-        <td
-          colspan="2"
-          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
-        >
-          CUSPP
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2" class="border py-0.5 text-center text-sm">
-          {{ fechaContrato | date : "dd/MM/yyyy" }}
-        </td>
-        <td colspan="2" class="border py-0.5 text-center text-sm uppercase">
-          {{ formData?.datos?.tipoTrabajador }}
-        </td>
-        <td colspan="2" class="border py-0.5 text-center text-sm uppercase">
-          {{ formData?.datos?.regimenPensionario }}
-        </td>
-        <td colspan="2" class="border py-0.5 text-center text-sm">
-          {{ formData?.datos?.cuspp }}
-        </td>
-      </tr>
-      <tr>
-        <td
-          rowspan="2"
-          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+        </div>
+      </div>
+      <div class="border-t border-l py-0.5 text-center text-sm uppercase">
+        {{ formData?.datos?.tipoDoc }}
+      </div>
+      <div class="border-t border-l py-0.5 text-center text-sm">
+        {{ formData?.datos?.identificacion }}
+      </div>
+      <div
+        class="col-span-4 border-t border-l py-0.5 text-center text-sm uppercase"
+      >
+        {{ formData?.datos?.nombre }} {{ formData?.datos?.apellido }}
+      </div>
+      <div
+        class="col-span-2 border-t border-x py-0.5 text-center text-sm uppercase"
+      >
+        {{ formData?.datos?.situacion }}
+      </div>
+      <div
+        class="col-span-2 border-t border-l bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+      >
+        Fecha de Ingreso
+      </div>
+      <div
+        class="col-span-2 border-t border-l bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+      >
+        Tipo de Trabajador
+      </div>
+      <div
+        class="col-span-2 border-t border-l bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+      >
+        Régimen Pensionario
+      </div>
+      <div
+        class="col-span-2 border-t border-x bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+      >
+        CUSPP
+      </div>
+      <div class="col-span-2 border-t border-l py-0.5 text-center text-sm">
+        {{ fechaContrato | date : "dd/MM/yyyy" }}
+      </div>
+      <div
+        class="col-span-2 border-t border-l py-0.5 text-center text-sm uppercase"
+      >
+        {{ formData?.datos?.tipoTrabajador }}
+      </div>
+      <div
+        class="col-span-2 border-t border-l py-0.5 text-center text-sm uppercase"
+      >
+        {{ formData?.datos?.regimenPensionario }}
+      </div>
+      <div class="col-span-2 border-t border-x py-0.5 text-center text-sm">
+        {{ formData?.datos?.cuspp }}
+      </div>
+      <div
+        class="row-span-2 border-t border-l bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+      >
+        <div
+          class="h-full flex items-center justify-center font-medium text-sm"
         >
           Días Laborados
-        </td>
-        <td
-          rowspan="2"
-          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+        </div>
+      </div>
+      <div
+        class="row-span-2 border-t border-l bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+      >
+        <div
+          class="h-full flex items-center justify-center font-medium text-sm"
         >
           Días No Laborados
-        </td>
-        <td
-          rowspan="2"
-          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+        </div>
+      </div>
+      <div
+        class="row-span-2 border-t border-l bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+      >
+        <div
+          class="h-full flex items-center justify-center font-medium text-sm"
         >
           Días Subsidiados
-        </td>
-        <td
-          rowspan="2"
-          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+        </div>
+      </div>
+      <div
+        class="row-span-2 border-t border-l bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+      >
+        <div
+          class="h-full flex items-center justify-center font-medium text-sm"
         >
           Condición
-        </td>
-        <td
-          colspan="2"
-          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
-        >
-          Jornada Ordinaria
-        </td>
-        <td
-          colspan="2"
-          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
-        >
-          Sobretiempo
-        </td>
-      </tr>
-      <tr>
-        <td
-          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
-        >
-          Total Horas
-        </td>
-        <td
-          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
-        >
-          Minutos
-        </td>
-        <td
-          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
-        >
-          Total Horas
-        </td>
-        <td
-          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
-        >
-          Minutos
-        </td>
-      </tr>
-      <tr>
-        <td class="border py-0.5 text-center text-sm">
-          {{ formData?.datos?.diasLaborados }}
-        </td>
-        <td class="border py-0.5 text-center text-sm">
-          {{ formData?.datos?.diasNoLaborados }}
-        </td>
-        <td class="border py-0.5 text-center text-sm">
-          {{ formData?.datos?.diasSubcidiados }}
-        </td>
-        <td class="border py-0.5 text-center text-sm">
-          {{ formData?.datos?.condicion }}
-        </td>
-        <td class="border py-0.5 text-center text-sm">
-          {{ formData?.datos?.totalHoras }}
-        </td>
-        <td class="border py-0.5 text-center text-sm">
-          {{ formData?.datos?.minutos }}
-        </td>
-        <td class="border py-0.5 text-center text-sm">
-          {{ formData?.datos?.totalHorasExtra }}
-        </td>
-        <td class="border py-0.5 text-center text-sm">
-          {{ formData?.datos?.minutosExtra }}
-        </td>
-      </tr>
-      <tr>
-        <td
-          colspan="6"
-          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
-        >
-          Motivo de Suspención de Labores
-        </td>
-        <td
-          colspan="2"
-          rowspan="2"
-          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+        </div>
+      </div>
+      <div
+        class="col-span-2 border-t border-l bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+      >
+        Jornada Ordinaria
+      </div>
+      <div
+        class="col-span-2 border-t border-x bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+      >
+        Sobretiempo
+      </div>
+      <div
+        class="border-t border-l bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+      >
+        Total Horas
+      </div>
+      <div
+        class="border-t border-l bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+      >
+        Minutos
+      </div>
+      <div
+        class="border-t border-l bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+      >
+        Total Horas
+      </div>
+      <div
+        class="border-t border-x bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+      >
+        Minutos
+      </div>
+      <div class="border-t border-l py-0.5 text-center text-sm">
+        {{ formData?.datos?.diasLaborados }}
+      </div>
+      <div class="border-t border-l py-0.5 text-center text-sm">
+        {{ formData?.datos?.diasNoLaborados }}
+      </div>
+      <div class="border-t border-l py-0.5 text-center text-sm">
+        {{ formData?.datos?.diasSubcidiados }}
+      </div>
+      <div class="border-t border-l py-0.5 text-center text-sm">
+        {{ formData?.datos?.condicion }}
+      </div>
+      <div class="border-t border-l py-0.5 text-center text-sm">
+        {{ formData?.datos?.totalHoras }}
+      </div>
+      <div class="border-t border-l py-0.5 text-center text-sm">
+        {{ formData?.datos?.minutos }}
+      </div>
+      <div class="border-t border-l py-0.5 text-center text-sm">
+        {{ formData?.datos?.totalHorasExtra }}
+      </div>
+      <div class="border-t border-x py-0.5 text-center text-sm">
+        {{ formData?.datos?.minutosExtra }}
+      </div>
+      <div
+        class="col-span-6 border-t border-l bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+      >
+        Motivo de Suspención de Labores
+      </div>
+      <div
+        class="col-span-2 row-span-2 border-t border-x bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+      >
+        <div
+          class="h-full flex items-center justify-center font-medium text-sm"
         >
           Otros empleados por Renta de 5ta categoría
-        </td>
-      </tr>
-      <tr>
-        <td
-          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
-        >
-          Tipo
-        </td>
-        <td
-          colspan="4"
-          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
-        >
-          Motivo
-        </td>
-        <td
-          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
-        >
-          N° Días
-        </td>
-      </tr>
-      <tr>
-        <td class="border py-0.5 text-center text-sm">
-          {{ formData?.datos?.suspencionTipo }}
-        </td>
-        <td colspan="4" class="border py-0.5 text-center text-sm">
-          {{ formData?.datos?.suspencionMotivo }}
-        </td>
-        <td class="border py-0.5 text-center text-sm">
-          {{ formData?.datos?.suspencionDias }}
-        </td>
-        <td colspan="2" class="border py-0.5 text-center text-sm">
-          {{ formData?.datos?.quintaCategoria }}
-        </td>
-      </tr>
-    </tbody>
-  </table>
+        </div>
+      </div>
+      <div
+        class="border-t border-l bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+      >
+        Tipo
+      </div>
+      <div
+        class="col-span-4 border-t border-l bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+      >
+        Motivo
+      </div>
+      <div
+        class="border-t border-l bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+      >
+        N° Días
+      </div>
+      <div class="border-y border-l py-0.5 text-center text-sm">
+        {{ formData?.datos?.suspencionTipo }}
+      </div>
+      <div class="col-span-4 border-y border-l py-0.5 text-center text-sm">
+        {{ formData?.datos?.suspencionMotivo }}
+      </div>
+      <div class="border-y border-l py-0.5 text-center text-sm">
+        {{ formData?.datos?.suspencionDias }}
+      </div>
+      <div class="col-span-2 border-y border-x py-0.5 text-center text-sm">
+        {{ formData?.datos?.quintaCategoria }}
+      </div>
+    </div>
+  </div>
+
   <table class="w-full">
     <tbody>
       <tr>
@@ -259,17 +264,17 @@
           Conceptos
         </td>
         <td
-          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+          class="border w-32 bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
         >
           Ingresos S/
         </td>
         <td
-          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+          class="border w-32 bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
         >
           Descuentos S/
         </td>
         <td
-          class="border bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
+          class="border w-32 bg-sky-600/25 text-slate-700 py-0.5 font-medium text-center text-sm"
         >
           Neto S/
         </td>
@@ -290,20 +295,21 @@
             {{ item.nombre }}
           </td>
           <td class="py-0.5 px-2 text-end text-sm">
-            {{ item.ingreso }}
+            {{ item.ingreso | number : "1.2-2" }}
           </td>
           <td class="py-0.5 px-2 text-end text-sm">
-            {{ item.descuento }}
+            {{ item.descuento | number : "1.2-2" }}
           </td>
           <td class="border-e py-0.5 px-2 text-end text-sm">
-            {{ item.neto }}
+            {{ item.neto | number : "1.2-2" }}
           </td>
         </tr>
       </ng-container>
       <tr>
         <td colspan="8" class="border-x border-b py-0.5 text-sm">
           <div class="bg-sky-600/25 text-slate-700 px-2 flex justify-between">
-            <span>Neto a Pagar</span> <span>{{ formData?.pagoNeto }}</span>
+            <span>Neto a Pagar</span>
+            <span>{{ formData?.pagoNeto | number : "1.2-2" }}</span>
           </div>
         </td>
       </tr>
@@ -343,7 +349,7 @@
             formData?.aportes.length == i + 1 ? 'border-b' : ''
           ]"
         >
-          {{ item.ingreso }}
+          {{ item.ingreso | number : "1.2-2" }}
         </td>
         <td
           [ngClass]="[
@@ -351,7 +357,7 @@
             formData?.aportes.length == i + 1 ? 'border-b' : ''
           ]"
         >
-          {{ item.descuento }}
+          {{ item.descuento | number : "1.2-2" }}
         </td>
         <td
           [ngClass]="[
@@ -359,7 +365,7 @@
             formData?.aportes.length == i + 1 ? 'border-b' : ''
           ]"
         >
-          {{ item.neto }}
+          {{ item.neto | number : "1.2-2" }}
         </td>
       </tr>
     </tbody>

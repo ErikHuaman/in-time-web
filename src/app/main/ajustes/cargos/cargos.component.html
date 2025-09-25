@@ -1,0 +1,101 @@
+<div class="flex flex-col h-full">
+  <div class="flex flex-col justify-center gap-4 px-6 py-4">
+    <div class="flex justify-between items-center gap-4">
+      <title-card [title]="title" [icon]="icon" />
+    </div>
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <input pInputText [(ngModel)]="searchText" placeholder="Buscar" />
+        <p-button
+          severity="contrast"
+          variant="outlined"
+          size="small"
+          (click)="search()"
+        >
+          <div class="flex justify-center items-center gap-2">
+            <div>Filtrar</div>
+          </div>
+        </p-button>
+        <p-button
+          severity="danger"
+          variant="outlined"
+          size="small"
+          (click)="clear()"
+        >
+          <div class="flex justify-center items-center gap-2">
+            <div>Limpiar</div>
+          </div>
+        </p-button>
+      </div>
+      <div class="flex items-center gap-2">
+        <btn-add (onClick)="addNew()" />
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-col h-[calc(100% - 8.5rem)] px-6">
+    <p-table
+      dataKey="id"
+      [value]="dataTable"
+      [columns]="cols"
+      stripedRows
+      [scrollable]="true"
+      scrollHeight="calc(100vh - 220px)"
+      styleClass="w-full"
+    >
+      <ng-template #header let-columns>
+        <tr>
+          <th
+            *ngFor="let col of columns"
+            [ngClass]="[col.widthClass ? col.widthClass : '']"
+          >
+            <div
+              [ngClass]="[
+                'text-sm uppercase',
+                col.align ? 'text-' + col.align : 'text-start'
+              ]"
+            >
+              {{ col.header }}
+            </div>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-item>
+        <tr>
+          <td>
+            <div class="text-start text-sm capitalize">{{ item.nombre }}</div>
+          </td>
+          <td>
+            <div class="flex justify-center items-center">
+              <tag-status [status]="item.isActive" />
+            </div>
+          </td>
+          <td class="w-28">
+            <div class="flex justify-center items-center gap-1">
+              <btn-edit *ngIf="item.isEditable" (onClick)="edit(item)" />
+              <btn-delete *ngIf="item.isEditable" (onClick)="remove(item)" />
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template #emptymessage>
+        <ng-template
+          [skeletonTable]="{
+            loading: loadingTable,
+            numCols: cols.length,
+            numRows: 4
+          }"
+        ></ng-template>
+      </ng-template>
+      <ng-template #footer>
+        <ng-template
+          [appPaginator]="{
+            totalItems: totalItems,
+            limit: limit,
+            offset: offset,
+            pageChange: onPageChange
+          }"
+        ></ng-template>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

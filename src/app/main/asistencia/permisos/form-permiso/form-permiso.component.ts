@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, inject, OnInit } from '@angular/core';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  effect,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { FieldsetModule } from 'primeng/fieldset';
@@ -48,6 +54,7 @@ import { sanitizedForm } from '@functions/forms.function';
   ],
   templateUrl: './form-permiso.component.html',
   styles: ``,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class FormPermisoComponent implements OnInit {
   public readonly ref: DynamicDialogRef = inject(DynamicDialogRef);
@@ -100,23 +107,20 @@ export class FormPermisoComponent implements OnInit {
       nonNullable: true,
       validators: [],
     }),
-    conGoce: new FormControl<boolean>(false, {
+    conGoce: new FormControl<boolean>(true, {
       nonNullable: true,
       validators: [],
     }),
-    incluirExtra: new FormControl<boolean>(
-      { value: false, disabled: true },
-      {
-        nonNullable: true,
-        validators: [],
-      }
-    ),
+    incluirExtra: new FormControl<boolean>(false, {
+      nonNullable: true,
+      validators: [],
+    }),
   });
 
   id: string | undefined;
 
-  archivo?: File;
-  filename!: string;
+  archivos: File[] = [];
+  filenames: string[] = [];
 
   private resetOnSuccessEffect = effect(() => {
     const items = this.trabajadorStore.items();
@@ -132,19 +136,20 @@ export class FormPermisoComponent implements OnInit {
     const instance = this.dialogService.getInstance(this.ref);
     const data = instance.data;
     if (data) {
-      this.id = data['id'];
-      this.formData.controls['idSede'].setValue(data['idSede']);
-      this.formData.controls['idCargo'].setValue(data['idCargo']);
-      this.formData.controls['idTrabajador'].setValue(data['idTrabajador']);
-      this.formData.controls['fechaInicio'].setValue(
-        new Date(data['fechaInicio'])
-      );
-      this.formData.controls['fechaFin'].setValue(new Date(data['fechaFin']));
-      this.formData.controls['nota'].setValue(data['nota']);
-      this.formData.controls['conGoce'].setValue(data['conGoce']);
-      this.formData.controls['incluirExtra'].setValue(data['incluirExtra']);
+      this.id = data.id;
 
-      if (data['conGoce']) {
+      this.formData.patchValue({
+        idSede: data?.idSede,
+        idCargo: data?.idCargo,
+        idTrabajador: data?.trabajador?.id,
+        fechaInicio: new Date(data.fechaInicio),
+        fechaFin: new Date(data.fechaFin),
+        nota: data?.nota,
+        conGoce: data?.conGoce,
+        incluirExtra: data?.incluirExtra,
+      });
+
+      if (data.conGoce) {
         this.formData.controls['incluirExtra'].enable();
       }
     }
@@ -194,18 +199,38 @@ export class FormPermisoComponent implements OnInit {
     return !!this.formData.get('conGoce')?.value;
   }
 
-  onFileSelected(event: any): void {
-    const file: File = event.target.files[0];
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (!input.files) return;
 
-    if (file && file.type === 'application/pdf') {
-      this.msg.info('Archivo cargado');
-      this.archivo = file;
-      this.filename = this.archivo.name;
+    const files = Array.from(input.files);
+
+    // Si quieres reemplazar todo, descomenta estas dos líneas:
+    this.archivos = [];
+    this.filenames = [];
+
+    files.forEach((file) => {
+      if (file.type === 'application/pdf' || file.type.startsWith('image/')) {
+        this.msg.info(`Archivo cargado: ${file.name}`);
+        this.archivos.push(file);
+        this.filenames.push(file.name);
+      } else {
+        this.msg.error(`Archivo inválido: ${file.name}. Solo PDF o imágenes.`);
+      }
+    });
+
+    // Reset del input para permitir volver a elegir el mismo archivo
+    input.value = '';
+  }
+
+  clearFile(index?: number) {
+    if (!index) {
+      this.archivos = [];
+      this.filenames = [];
     } else {
-      this.msg.error('Archivo inválido. Solo se permiten archivos PDF.');
-      event.target.value = '';
-      this.archivo = undefined;
-      this.filename = '';
+      // Eliminar solo el archivo en la posición indicada
+      this.archivos?.splice(index, 1);
+      this.filenames?.splice(index, 1);
     }
   }
 
@@ -213,7 +238,7 @@ export class FormPermisoComponent implements OnInit {
     const form = sanitizedForm(this.formData.getRawValue());
     if (!this.id) {
       this.permisoService
-        .create({ ...form }, { file: this.archivo })
+        .create({ ...form }, { file: this.archivos })
         .subscribe({
           next: (data) => {
             this.msg.success('¡Permiso registrado con éxito!');
@@ -224,15 +249,17 @@ export class FormPermisoComponent implements OnInit {
           },
         });
     } else {
-      this.permisoService.update(this.id, form).subscribe({
-        next: (data) => {
-          this.msg.success('¡Permiso actualizado con éxito!');
-          this.ref.close(data);
-        },
-        error: (e) => {
-          this.msg.error(e.error.message);
-        },
-      });
+      this.permisoService
+        .update(this.id, form, { file: this.archivos })
+        .subscribe({
+          next: (data) => {
+            this.msg.success('¡Permiso actualizado con éxito!');
+            this.ref.close(data);
+          },
+          error: (e) => {
+            this.msg.error(e.error.message);
+          },
+        });
     }
   }
 }
